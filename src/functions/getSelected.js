@@ -10,6 +10,8 @@ function getSelected(option, selected = pipe.selected) {
         return 0;
       case optionTypes.SELECT:
         return [];
+      case optionTypes.TEXT:
+        return '';
       case optionTypes.INSTANCER:
         return { nextId: 0 };
     }

@@ -4,6 +4,7 @@ import GroupControls from './GroupControls';
 import InstancerControls from './InstancerControls';
 import IntegerControls from './IntegerControls';
 import SelectControls from './SelectControls';
+import TextControls from './TextControls';
 
 function Option(props) {
   let controls;
@@ -19,6 +20,9 @@ function Option(props) {
       break;
     case optionTypes.GROUP:
       controls = <GroupControls option={props.option} />;
+      break;
+    case optionTypes.TEXT:
+      controls = <TextControls option={props.option} />;
       break;
     default:
       controls = null;

@@ -31,6 +31,9 @@ function rootReducer(state = initialState, action = '') {
                 }
               }
               break;
+            case optionTypes.TEXT:
+              if (value === undefined) value = '';
+              break;
             case optionTypes.INSTANCER:
               if (value === undefined) value = { nextId: 0 };
               if (action.add !== undefined) {

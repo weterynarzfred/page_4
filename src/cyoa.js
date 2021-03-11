@@ -3,6 +3,12 @@ import { optionTypes } from './include/enum';
 const settings = {};
 
 const options = {
+  function: (state, options) => {
+    return {
+      title: 'Function',
+      type: optionTypes.TEXT,
+    };
+  },
   main: {
     title: 'Main',
     type: optionTypes.GROUP,
