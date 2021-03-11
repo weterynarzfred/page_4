@@ -1,11 +1,12 @@
+import getSelected from './functions/getSelected';
 import { optionTypes } from './include/enum';
 
 const settings = {};
 
 const options = {
-  function: (state, options) => {
+  function: () => {
     return {
-      title: 'Function',
+      title: `Function ${getSelected('main/yourName') || ''}`,
       type: optionTypes.TEXT,
     };
   },
@@ -23,20 +24,19 @@ const options = {
       },
     },
   },
-  firendlyRaces: {
-    title: 'Friendly Races',
-    type: optionTypes.SELECT,
-    choices: {
-      elves: {
-        title: 'Elves',
-      },
-      dwarves: {
-        title: 'Dwarves',
-      },
-      dryads: {
-        title: 'Dryads',
-      },
-    },
+  firendlyRaces: selected => {
+    const choices = {};
+    for (const slug in selected.races) {
+      if (isNaN(slug)) continue;
+      choices[slug] = {
+        title: getSelected(selected.races[slug].options.name),
+      };
+    }
+    return {
+      title: 'Friendly Races',
+      type: optionTypes.SELECT,
+      choices,
+    };
   },
   races: {
     title: 'Races',
@@ -45,6 +45,7 @@ const options = {
       name: {
         title: 'Name',
         type: optionTypes.TEXT,
+        default: 'Race',
       },
       magic: {
         title: 'Magic',

@@ -3,14 +3,18 @@ import { options } from './../cyoa';
 
 function parseOptions(options, path = []) {
   for (const slug in options) {
-    const option = options[slug];
+    if (typeof options[slug] === 'function') {
+      options[slug] = {
+        function: options[slug],
+      };
+    }
     const currentPath = _.clone(path);
     currentPath.push(slug);
-    option.slug = slug;
-    option.path = currentPath;
+    options[slug].slug = slug;
+    options[slug].path = currentPath;
 
-    if (option.options !== undefined) {
-      parseOptions(option.options, currentPath);
+    if (options[slug].options !== undefined) {
+      parseOptions(options[slug].options, currentPath);
     }
   }
 

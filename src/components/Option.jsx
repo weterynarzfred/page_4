@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { optionTypes } from '../include/enum';
+import parsedOptions from '../include/parsedOptions';
 import GroupControls from './GroupControls';
 import InstancerControls from './InstancerControls';
 import IntegerControls from './IntegerControls';
@@ -7,22 +9,27 @@ import SelectControls from './SelectControls';
 import TextControls from './TextControls';
 
 function Option(props) {
+  let option = props.option;
+  if (option.function !== undefined) {
+    Object.assign(option, option.function(props.selected, parsedOptions));
+  }
+
   let controls;
-  switch (props.option.type) {
+  switch (option.type) {
     case optionTypes.INTEGER:
-      controls = <IntegerControls option={props.option} />;
+      controls = <IntegerControls option={option} />;
       break;
     case optionTypes.SELECT:
-      controls = <SelectControls option={props.option} />;
+      controls = <SelectControls option={option} />;
       break;
     case optionTypes.INSTANCER:
-      controls = <InstancerControls option={props.option} />;
+      controls = <InstancerControls option={option} />;
       break;
     case optionTypes.GROUP:
-      controls = <GroupControls option={props.option} />;
+      controls = <GroupControls option={option} />;
       break;
     case optionTypes.TEXT:
-      controls = <TextControls option={props.option} />;
+      controls = <TextControls option={option} />;
       break;
     default:
       controls = null;
@@ -30,10 +37,10 @@ function Option(props) {
 
   return (
     <div className="Option">
-      <div className="option-title">{props.option.title}</div>
+      <div className="option-title">{option.title}</div>
       {controls}
     </div>
   );
 }
 
-export default Option;
+export default connect(state => ({ selected: state.selected }))(Option);

@@ -11,7 +11,6 @@ function handleAdd(value) {
     type: actions.SELECT_OPTION,
     option: this.option,
     add: {
-      title: `test ${value.nextId}`,
       options: parseOptions(
         _.cloneDeep(this.option.instanceOptions),
         [...this.option.path, value.nextId]
