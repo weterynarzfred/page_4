@@ -3,9 +3,19 @@ import { optionTypes } from './include/enum';
 const settings = {};
 
 const options = {
-  beAGirl: {
-    title: 'Be a Girl',
-    type: optionTypes.INTEGER,
+  main: {
+    title: 'Main',
+    type: optionTypes.GROUP,
+    options: {
+      yourName: {
+        title: 'Your Name',
+        type: optionTypes.TEXT,
+      },
+      beAGirl: {
+        title: 'Be a Girl',
+        type: optionTypes.INTEGER,
+      },
+    },
   },
   firendlyRaces: {
     title: 'Friendly Races',

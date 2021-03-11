@@ -8,6 +8,10 @@ function parseOptions(options, path = []) {
     currentPath.push(slug);
     option.slug = slug;
     option.path = currentPath;
+
+    if (option.options !== undefined) {
+      parseOptions(option.options, currentPath);
+    }
   }
 
   return options;
@@ -16,3 +20,4 @@ function parseOptions(options, path = []) {
 const parsedOptions = parseOptions(options);
 
 export default parsedOptions;
+export { parseOptions };

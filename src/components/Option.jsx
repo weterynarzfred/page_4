@@ -1,5 +1,7 @@
 import React from 'react';
 import { optionTypes } from '../include/enum';
+import GroupControls from './GroupControls';
+import InstancerControls from './InstancerControls';
 import IntegerControls from './IntegerControls';
 import SelectControls from './SelectControls';
 
@@ -12,13 +14,19 @@ function Option(props) {
     case optionTypes.SELECT:
       controls = <SelectControls option={props.option} />;
       break;
+    case optionTypes.INSTANCER:
+      controls = <InstancerControls option={props.option} />;
+      break;
+    case optionTypes.GROUP:
+      controls = <GroupControls option={props.option} />;
+      break;
     default:
       controls = null;
   }
 
   return (
     <div className="Option">
-      {props.option.title}
+      <div className="option-title">{props.option.title}</div>
       {controls}
     </div>
   );

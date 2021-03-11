@@ -7,7 +7,7 @@ function handleDecrement() {
   this.dispatch({
     type: actions.SELECT_OPTION,
     option: this.option,
-    add: 1,
+    subtract: 1,
   });
 }
 
@@ -15,15 +15,15 @@ function handleIncrement() {
   this.dispatch({
     type: actions.SELECT_OPTION,
     option: this.option,
-    subtract: 1,
+    add: 1,
   });
 }
 
 function IntegerControls(props) {
   return (
     <div className="IntegerControls">
-      <button onClick={handleIncrement.bind(props)}>decrement</button>
-      <button onClick={handleDecrement.bind(props)}>increment</button>
+      <button onClick={handleDecrement.bind(props)}>decrement</button>
+      <button onClick={handleIncrement.bind(props)}>increment</button>
       <div className="integer-value">{getSelected(props.option, props.selected)}</div>
     </div>
   );

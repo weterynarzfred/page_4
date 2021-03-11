@@ -3,6 +3,7 @@ const optionTypes = {
   TEXT: 'text',
   SELECT: 'select',
   INSTANCER: 'instancer',
+  GROUP: 'group',
 };
 
 const actions = {
