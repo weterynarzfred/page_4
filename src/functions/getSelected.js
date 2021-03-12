@@ -1,21 +1,24 @@
 import _ from 'lodash';
 import { optionTypes } from '../include/enum';
 import { pipe } from './../include/pipe';
+import getOption from './getOption';
 
-function getSelected(option, selected = pipe.selected) {
-  let value;
+function getSelected(option, options = pipe.options) {
+  let currentOption;
   if (typeof option === 'string') {
-    value = _.get(selected, option);
+    currentOption = getOption(option.split('.'), options);
   } else if (_.isArray(option)) {
-    value = _.get(selected, option.join('/'));
+    currentOption = getOption(option, options);
   } else {
-    value = _.get(selected, option.path.join('/'));
+    currentOption = option;
   }
+
+  let value = currentOption.selected;
   if (value === undefined) {
-    if (option.default !== undefined) {
-      return option.default;
+    if (currentOption.default !== undefined) {
+      return currentOption.default;
     }
-    switch (option.type) {
+    switch (currentOption.type) {
       case optionTypes.INTEGER:
         return 0;
       case optionTypes.SELECT:

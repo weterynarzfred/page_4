@@ -1,12 +1,11 @@
 import _ from 'lodash';
 import { options } from './../cyoa';
+import { addUserFunction } from './userFunctions';
 
 function parseOptions(options, path = []) {
   for (const slug in options) {
     if (typeof options[slug] === 'function') {
-      options[slug] = {
-        function: options[slug],
-      };
+      options[slug] = addUserFunction(options[slug]);
     }
     const currentPath = _.clone(path);
     currentPath.push(slug);

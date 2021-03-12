@@ -1,11 +1,11 @@
 import React from 'react';
-import parsedOptions from './../include/parsedOptions';
+import { connect } from 'react-redux';
 import Option from './Option';
 
 function OptionsList(props) {
   const optionElements = [];
-  for (const slug in parsedOptions) {
-    const option = parsedOptions[slug];
+  for (const slug in props.options) {
+    const option = props.options[slug];
     optionElements.push(<Option key={slug} option={option} />);
   }
 
@@ -16,4 +16,4 @@ function OptionsList(props) {
   );
 }
 
-export default OptionsList;
+export default connect(state => ({ options: state.options }))(OptionsList);

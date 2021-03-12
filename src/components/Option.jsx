@@ -10,9 +10,6 @@ import TextControls from './TextControls';
 
 function Option(props) {
   let option = props.option;
-  if (option.function !== undefined) {
-    Object.assign(option, option.function(props.selected, parsedOptions));
-  }
 
   let controls;
   switch (option.type) {

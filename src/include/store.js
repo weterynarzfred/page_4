@@ -3,16 +3,49 @@ import produce from 'immer';
 import _ from 'lodash';
 import { setPipe } from './pipe';
 import { actions, optionTypes } from './enum';
+import parsedOptions from './parsedOptions';
+import { callUserFunction } from './userFunctions';
+import getOption from '../functions/getOption';
+import getSelected from '../functions/getSelected';
+
+function recalculateUserFunctions(options, state) {
+  for (const slug in options) {
+    if (options[slug].isUserFunction) {
+      callUserFunction(options[slug], state);
+    }
+
+    if (options[slug].options !== undefined) {
+      recalculateUserFunctions(options[slug].options, state);
+    }
+  }
+}
+
+function cleanupState(options, state) {
+  for (const slug in options) {
+    if (options[slug].type === optionTypes.SELECT) {
+      const selected = _.clone(getSelected(options[slug]));
+      for (let index = 0; index < selected.length; index++) {
+        if (options[slug].choices[selected[index]] === undefined) {
+          options[slug].selected.splice(index, 1);
+        }
+      }
+    }
+
+    if (options[slug].options !== undefined) {
+      cleanupState(options[slug].options, state);
+    }
+  }
+}
 
 const initialState = {
-  selected: {},
+  options: parsedOptions,
 };
 
 function rootReducer(state = initialState, action = '') {
   return produce(state, newState => {
     switch (action.type) {
       case actions.SELECT_OPTION:
-        let value = _.get(newState.selected, action.option.path.join('/'));
+        let value = getOption(action.option.path, newState.options).selected;
         if (action.value === undefined) {
           switch (action.option.type) {
             case optionTypes.INTEGER:
@@ -45,15 +78,6 @@ function rootReducer(state = initialState, action = '') {
                 value.nextId++;
               }
               if (action.subtract !== undefined) {
-                for (const pathstring in state.selected) {
-                  if (
-                    pathstring.match(
-                      new RegExp(`^${action.subtract.path.join('/')}`)
-                    )
-                  ) {
-                    delete newState.selected[pathstring];
-                  }
-                }
                 delete value[action.subtract.slug];
               }
               break;
@@ -61,10 +85,13 @@ function rootReducer(state = initialState, action = '') {
         } else {
           value = action.value;
         }
-        _.set(newState.selected, action.option.path.join('/'), value);
+        getOption(action.option.path, newState.options).selected = value;
         break;
       default:
     }
+
+    recalculateUserFunctions(newState.options, newState);
+    cleanupState(newState.options, newState);
 
     setPipe(_.cloneDeep(newState));
     return newState;

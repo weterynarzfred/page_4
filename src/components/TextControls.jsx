@@ -12,7 +12,7 @@ function handleChange(event) {
 }
 
 function TextControls(props) {
-  const value = getSelected(props.option, props.selected);
+  const value = getSelected(props.option);
   return (
     <div className="TextControls">
       <input type="text" value={value} onChange={handleChange.bind(props)} />
@@ -20,4 +20,4 @@ function TextControls(props) {
   );
 }
 
-export default connect(state => ({ selected: state.selected }))(TextControls);
+export default connect(state => ({ options: state.options }))(TextControls);

@@ -1,15 +1,10 @@
+import _ from 'lodash';
 import getSelected from './functions/getSelected';
 import { optionTypes } from './include/enum';
 
 const settings = {};
 
 const options = {
-  function: () => {
-    return {
-      title: `Function ${getSelected('main/yourName') || ''}`,
-      type: optionTypes.TEXT,
-    };
-  },
   main: {
     title: 'Main',
     type: optionTypes.GROUP,
@@ -24,12 +19,23 @@ const options = {
       },
     },
   },
-  firendlyRaces: selected => {
-    const choices = {};
-    for (const slug in selected.races) {
-      if (isNaN(slug)) continue;
-      choices[slug] = {
-        title: getSelected(selected.races[slug].options.name),
+  function: state => {
+    return {
+      title: `Function ${getSelected('main.yourName', state.options)}`,
+      type: optionTypes.TEXT,
+    };
+  },
+  friendlyRaces: state => {
+    const choices = {
+      test: {
+        title: 'Test',
+      },
+    };
+    const races = getSelected('races', state.options);
+    for (const raceSlug in races) {
+      if (isNaN(raceSlug)) continue;
+      choices[raceSlug] = {
+        title: getSelected(`races.${raceSlug}.name`, state.options),
       };
     }
     return {
