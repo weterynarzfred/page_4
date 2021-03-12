@@ -4,6 +4,20 @@ body {
   font-family: sans-serif;
 }
 
+.Stats {
+  .currency {
+    display: flex;
+
+    .currency-name {
+      padding-right: 0.5em;
+
+      &:after {
+        content: ':';
+      }
+    }
+  }
+}
+
 .Option {
   padding: 0.5em;
 

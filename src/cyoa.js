@@ -6,10 +6,10 @@ const settings = {
   currencies: {
     gold: {
       title: 'Gold',
+      start: 100,
     },
     magic: {
       title: 'Magic',
-      start: 10,
     },
   },
 };
@@ -51,6 +51,7 @@ const options = {
         return {
           title: `Be a Girl ${getSelected('main.yourName', state.options)}`,
           type: optionTypes.INTEGER,
+          cost: { gold: 2 },
         };
       },
     },
