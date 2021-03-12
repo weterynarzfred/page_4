@@ -17,6 +17,10 @@ function recalculateUserFunctions(options, state) {
     if (options[slug].options !== undefined) {
       recalculateUserFunctions(options[slug].options, state);
     }
+
+    if (options[slug].type === optionTypes.INSTANCER) {
+      recalculateUserFunctions(options[slug].selected, state);
+    }
   }
 }
 
@@ -33,6 +37,10 @@ function cleanupState(options, state) {
 
     if (options[slug].options !== undefined) {
       cleanupState(options[slug].options, state);
+    }
+
+    if (options[slug].type === optionTypes.INSTANCER) {
+      cleanupState(options[slug].selected, state);
     }
   }
 }

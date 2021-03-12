@@ -15,6 +15,10 @@ function parseOptions(options, path = []) {
     if (options[slug].options !== undefined) {
       parseOptions(options[slug].options, currentPath);
     }
+
+    if (options[slug].instanceOptions !== undefined) {
+      parseOptions(options[slug].instanceOptions, currentPath);
+    }
   }
 
   return options;

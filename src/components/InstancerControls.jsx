@@ -7,14 +7,17 @@ import { parseOptions } from '../include/parsedOptions';
 import Option from './Option';
 
 function handleAdd(value) {
+  const instanceOptions = _.cloneDeep(this.option.instanceOptions);
+  for (const slug in instanceOptions) {
+    const option = instanceOptions[slug];
+    option.path.splice(-1, 0, value.nextId);
+  }
+
   this.dispatch({
     type: actions.SELECT_OPTION,
     option: this.option,
     add: {
-      options: parseOptions(
-        _.cloneDeep(this.option.instanceOptions),
-        [...this.option.path, value.nextId]
-      ),
+      options: instanceOptions,
     },
   });
 }
