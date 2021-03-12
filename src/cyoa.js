@@ -2,9 +2,43 @@ import _ from 'lodash';
 import getSelected from './functions/getSelected';
 import { optionTypes } from './include/enum';
 
-const settings = {};
+const settings = {
+  currencies: {
+    gold: {
+      title: 'Gold',
+    },
+    magic: {
+      title: 'Magic',
+      start: 10,
+    },
+  },
+};
+
+/**
+ * Each options can be an object or a function returning one. Function will receive the state as its argument. Each option object can have properties:
+ * title - display name of the option
+ * type - one of optionTypes
+ * selected - initial value of the option
+ *
+ * if type !== optionTypes.GROUP
+ * cost - object with costs of each option instance
+ *
+ * if type === optionTypes.GROUP
+ * options - suboptions of the group, same rules apply as for any other option
+ *
+ * if type === optionTypes.INSTANCER
+ * instanceOptions - suboptions of each of the created instances, same rules apply as for any other option
+ */
 
 const options = {
+  test: {
+    title: 'Test',
+    type: optionTypes.INTEGER,
+    selected: 5,
+    cost: {
+      gold: 1,
+    },
+  },
   main: {
     title: 'Main',
     type: optionTypes.GROUP,
@@ -49,7 +83,7 @@ const options = {
       name: {
         title: 'Name',
         type: optionTypes.TEXT,
-        default: 'Race',
+        selected: 'Race',
       },
       magic: state => {
         return {
@@ -81,7 +115,7 @@ const options = {
           };
         }
         return {
-          title: 'Friendly Races',
+          title: 'Races',
           type: optionTypes.SELECT,
           choices,
         };

@@ -15,9 +15,6 @@ function getSelected(option, options = pipe.options) {
 
   let value = currentOption.selected;
   if (value === undefined) {
-    if (currentOption.default !== undefined) {
-      return currentOption.default;
-    }
     switch (currentOption.type) {
       case optionTypes.INTEGER:
         return 0;
