@@ -2,6 +2,7 @@ import { optionTypes } from '../include/enum';
 import getSelected from './getSelected';
 
 function applyCost(cost, costs, count) {
+  if (cost === undefined) return;
   for (const costSlug in cost) {
     costs[costSlug].value -= cost[costSlug] * count;
   }
@@ -17,10 +18,17 @@ function calculateCosts(options, costs, reset) {
 
   for (const slug in options) {
     const option = options[slug];
-    if (option.cost !== undefined) {
-      if (option.type === optionTypes.INTEGER) {
-        applyCost(option.cost, costs, getSelected(option, options));
-      }
+    if (option.type === optionTypes.INTEGER) {
+      applyCost(option.cost, costs, getSelected(option, options));
+    } else if (option.type === optionTypes.SELECT) {
+      getSelected(option, options).forEach(choice => {
+        applyCost(option.choices[choice].cost, costs, 1);
+      });
+    } else if (option.type === optionTypes.INSTANCER) {
+      const keys = Object.keys(getSelected(option, options)).filter(
+        key => !isNaN(key)
+      );
+      applyCost(option.cost, costs, keys.length);
     }
 
     if (option.options !== undefined) {

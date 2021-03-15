@@ -21,10 +21,15 @@ const settings = {
  * selected - initial value of the option
  *
  * if type !== optionTypes.GROUP
- * cost - object with costs of each option instance
+ * cost - object with costs of each time the option is bought
  *
  * if type === optionTypes.GROUP
  * options - suboptions of the group, same rules apply as for any other option
+ *
+ * if type === optionTypes.SELECT
+ * choices - choices to select from, ech choice can have:
+ *  title - display name of the choice
+ *  cost - object with costs of the choice
  *
  * if type === optionTypes.INSTANCER
  * instanceOptions - suboptions of each of the created instances, same rules apply as for any other option
@@ -34,7 +39,6 @@ const options = {
   test: {
     title: 'Test',
     type: optionTypes.INTEGER,
-    selected: 5,
     cost: {
       gold: 1,
     },
@@ -67,8 +71,11 @@ const options = {
     const races = getSelected('races', state.options);
     for (const raceSlug in races) {
       if (isNaN(raceSlug)) continue;
+      const magic = getSelected(`races.${raceSlug}.magic`, state.options);
+      const name = getSelected(`races.${raceSlug}.name`, state.options);
       choices[raceSlug] = {
-        title: getSelected(`races.${raceSlug}.name`, state.options),
+        title: name,
+        cost: { gold: name.length, magic: -magic },
       };
     }
     return {
@@ -97,6 +104,9 @@ const options = {
   worlds: {
     title: 'Worlds',
     type: optionTypes.INSTANCER,
+    cost: {
+      gold: 1,
+    },
     instanceOptions: {
       a: {
         title: 'A',
