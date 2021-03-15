@@ -8,10 +8,10 @@ import Stats from './Stats';
 function App(props) {
   return (
     <div className="App">
-      <Stats />
+      <Stats currencies={props.currencies} />
       <OptionList />
     </div>
   );
 }
 
-export default connect()(App);
+export default connect(state => ({ currencies: state.currencies }))(App);

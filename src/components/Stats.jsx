@@ -1,8 +1,8 @@
-
 import React from 'react';
-import { connect } from 'react-redux';
 
 function Stats(props) {
+  if (props.currencies === undefined) return null;
+
   const currencyElements = [];
   for (const costSlug in props.currencies) {
     const cost = props.currencies[costSlug];
@@ -19,4 +19,4 @@ function Stats(props) {
   );
 }
 
-export default connect(state => ({ currencies: state.currencies }))(Stats);
+export default Stats;

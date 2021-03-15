@@ -18,11 +18,54 @@ body {
   }
 }
 
+.OptionsList {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .Option {
   padding: 0.5em;
+  margin: 0.5em 0.1em;
+  min-width: 20em;
+
+  &.option-integer,
+  &.option-text,
+  &.option-select {
+    background-color: #444;
+  }
+
+  &.option-group {
+    border: 1px solid #000;
+  }
+
+  &.option-instancer {
+    background-color: #222;
+  }
+
+  .instance {
+    border: 1px solid #666;
+    padding: 0.5em;
+    margin: 0.5em 0.1em;
+
+    > .option-group {
+      border: none;
+    }
+  }
 
   .option-title {
     font-size: 1.25em;
     font-weight: 700;
+  }
+
+  .GroupControls {
+    display: flex;
+  }
+
+  .SelectControls {
+    display: flex;
+
+    .SelectChoice {
+      margin: 0.5em;
+    }
   }
 }

@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import getOption from './functions/getOption';
 import getSelected from './functions/getSelected';
 import { optionTypes } from './include/enum';
 
@@ -46,6 +47,11 @@ const options = {
   main: {
     title: 'Main',
     type: optionTypes.GROUP,
+    currencies: {
+      manliness: {
+        title: 'Manliness',
+      },
+    },
     options: {
       yourName: {
         title: 'Your Name',
@@ -55,14 +61,15 @@ const options = {
         return {
           title: `Be a Girl ${getSelected('main.yourName', state.options)}`,
           type: optionTypes.INTEGER,
-          cost: { gold: 2 },
+          cost: { gold: 2, manliness: -5 },
         };
       },
     },
   },
   function: state => {
+    const main = getOption('main', state.options);
     return {
-      title: `Function ${getSelected('main.yourName', state.options)}`,
+      title: `Function ${main.currencies.manliness.value}`,
       type: optionTypes.TEXT,
     };
   },

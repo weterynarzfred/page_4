@@ -3,7 +3,12 @@ import { optionTypes } from '../include/enum';
 import { pipe } from '../include/pipe';
 
 function getOption(path, options = pipe.options) {
-  const currentPath = _.clone(path);
+  let currentPath;
+  if (typeof path === 'string') {
+    currentPath = path.split('.');
+  } else {
+    currentPath = _.clone(path);
+  }
   if (currentPath.length === 1) {
     return options[currentPath[0]];
   } else {

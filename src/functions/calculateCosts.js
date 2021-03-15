@@ -4,7 +4,9 @@ import getSelected from './getSelected';
 function applyCost(cost, costs, count) {
   if (cost === undefined) return;
   for (const costSlug in cost) {
-    costs[costSlug].value -= cost[costSlug] * count;
+    if (costs[costSlug] !== undefined) {
+      costs[costSlug].value -= cost[costSlug] * count;
+    }
   }
 }
 
@@ -37,6 +39,10 @@ function calculateCosts(options, costs, reset) {
 
     if (option.type === optionTypes.INSTANCER) {
       calculateCosts(option.selected, costs);
+    }
+
+    if (option.currencies !== undefined) {
+      calculateCosts(option.options, option.currencies, true);
     }
   }
 }

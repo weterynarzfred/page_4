@@ -1,11 +1,12 @@
+import classNames from 'classnames';
 import React from 'react';
 import { connect } from 'react-redux';
 import { optionTypes } from '../include/enum';
-import parsedOptions from '../include/parsedOptions';
 import GroupControls from './GroupControls';
 import InstancerControls from './InstancerControls';
 import IntegerControls from './IntegerControls';
 import SelectControls from './SelectControls';
+import Stats from './Stats';
 import TextControls from './TextControls';
 
 function Option(props) {
@@ -33,8 +34,9 @@ function Option(props) {
   }
 
   return (
-    <div className="Option">
+    <div className={classNames('Option', `option-${option.type}`)}>
       <div className="option-title">{option.title}</div>
+      <Stats currencies={option.currencies} />
       {controls}
     </div>
   );
