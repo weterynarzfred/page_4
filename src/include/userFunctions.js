@@ -30,4 +30,4 @@ function recalculateUserFunctions(options, state) {
   }
 }
 
-export { addUserFunction, recalculateUserFunctions };
+export { addUserFunction, callUserFunction, recalculateUserFunctions };

@@ -27,7 +27,6 @@ function rootReducer(state = initialState, action = '') {
     recalculateUserFunctions(newState.options, newState);
     cleanupState(newState.options, newState);
     calculateCosts(newState.options, newState.currencies, true);
-    // TODO: recalculate user functions when requesting their value in other user functions
 
     setPipe(_.cloneDeep(newState));
     return newState;

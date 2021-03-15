@@ -1,7 +1,9 @@
 import _ from 'lodash';
+import calculateCosts from './functions/calculateCosts';
 import getOption from './functions/getOption';
 import getSelected from './functions/getSelected';
 import { optionTypes } from './include/enum';
+import { callUserFunction } from './include/userFunctions';
 
 const settings = {
   currencies: {
@@ -37,12 +39,23 @@ const settings = {
  */
 
 const options = {
-  test: {
-    title: 'Test',
-    type: optionTypes.INTEGER,
-    cost: {
-      gold: 1,
-    },
+  testA: state => {
+    callUserFunction(getOption('testB', state.options), state);
+    return {
+      title: `Test A - ${getSelected('testB', state.options)}`,
+      type: optionTypes.INTEGER,
+    };
+  },
+  testB: state => {
+    const racesOption = getOption('friendlyRaces', state.options);
+    callUserFunction(racesOption, state);
+    const races = getSelected('friendlyRaces', state.options).map(
+      selected => racesOption.choices[selected].title
+    );
+    return {
+      title: `Test B - ${races.join(', ')}`,
+      type: optionTypes.INTEGER,
+    };
   },
   main: {
     title: 'Main',
@@ -68,6 +81,7 @@ const options = {
   },
   function: state => {
     const main = getOption('main', state.options);
+    calculateCosts(state.options, main.currencies, true);
     return {
       title: `Function ${main.currencies.manliness.value}`,
       type: optionTypes.TEXT,

@@ -24,7 +24,9 @@ function calculateCosts(options, costs, reset) {
       applyCost(option.cost, costs, getSelected(option, options));
     } else if (option.type === optionTypes.SELECT) {
       getSelected(option, options).forEach(choice => {
-        applyCost(option.choices[choice].cost, costs, 1);
+        if (option.choices[choice] !== undefined) {
+          applyCost(option.choices[choice].cost, costs, 1);
+        }
       });
     } else if (option.type === optionTypes.INSTANCER) {
       const keys = Object.keys(getSelected(option, options)).filter(
