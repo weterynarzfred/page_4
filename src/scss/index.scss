@@ -2,10 +2,15 @@ body {
   background-color: #222;
   color: #eee;
   font-family: 'Lato', sans-serif;
+  margin: 0;
 }
 
 * {
   box-sizing: border-box;
+}
+
+.App {
+  padding-top: 3em;
 }
 
 .Stats {
@@ -66,6 +71,13 @@ body {
       font-size: 1.25em;
     }
 
+    .option-image-content {
+      background-position: center;
+      background-size: cover;
+      border: solid rgb(255, 222, 160);
+      border-width: 1px 1px 6px 1px;
+    }
+
     .SelectControls {
       display: flex;
 
@@ -81,6 +93,7 @@ p {
   margin-right: auto;
   margin-left: auto;
   text-align: justify;
+  line-height: 1.45;
 }
 
 @import 'option-integer';

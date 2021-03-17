@@ -7,6 +7,15 @@
       font-size: 4em;
     }
 
+    > .option-image {
+      max-width: 80em;
+      margin: 1em auto;
+
+      .option-image-content {
+        padding-bottom: 33%;
+      }
+    }
+
     > .option-text {
       font-size: 1.25em;
     }
