@@ -1,0 +1,30 @@
+.Option.option-group {
+  width: 100%;
+
+  > .option-content {
+    > .option-title {
+      text-align: center;
+      font-size: 4em;
+    }
+
+    > .option-text {
+      font-size: 1.25em;
+    }
+  }
+
+  .Option.option-group {
+    > .option-content > .option-title {
+      font-size: 2.5em;
+    }
+  }
+
+  .GroupControls {
+    display: flex;
+    justify-content: center;
+    margin: 3em 0;
+
+    > .Option:not(.option-group) {
+      width: 25%;
+    }
+  }
+}

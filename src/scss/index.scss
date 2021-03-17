@@ -1,10 +1,22 @@
 body {
-  background-color: #333;
+  background-color: #222;
   color: #eee;
-  font-family: sans-serif;
+  font-family: 'Lato', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 .Stats {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: #000;
+  padding: 0.5em 3em;
+  z-index: 20;
+
   .currency {
     display: flex;
 
@@ -21,51 +33,55 @@ body {
 .OptionsList {
   display: flex;
   flex-wrap: wrap;
-}
 
-.Option {
-  padding: 0.5em;
-  margin: 0.5em 0.1em;
-  min-width: 20em;
+  .Option {
+    position: relative;
+    min-width: 20em;
 
-  &.option-integer,
-  &.option-text,
-  &.option-select {
-    background-color: #444;
-  }
+    &.option-integer,
+    &.option-text,
+    &.option-select {
+      margin: 0.5em 0;
+      padding: 0 0.5em;
 
-  &.option-group {
-    border: 1px solid #000;
-  }
-
-  &.option-instancer {
-    background-color: #222;
-  }
-
-  .instance {
-    border: 1px solid #666;
-    padding: 0.5em;
-    margin: 0.5em 0.1em;
-
-    > .option-group {
-      border: none;
+      .option-content {
+        padding: 1em 2em;
+      }
     }
-  }
 
-  .option-title {
-    font-size: 1.25em;
-    font-weight: 700;
-  }
+    &.option-instancer {
+      background-color: #333;
+      padding: 0.5em;
+      margin: 0.5em 0.1em;
 
-  .GroupControls {
-    display: flex;
-  }
+      .instance {
+        border: 1px solid #666;
+        padding: 0.5em;
+        margin: 0.5em 0.1em;
+      }
+    }
 
-  .SelectControls {
-    display: flex;
+    .option-title {
+      font-family: 'Piazzolla', serif;
+      font-size: 1.25em;
+    }
 
-    .SelectChoice {
-      margin: 0.5em;
+    .SelectControls {
+      display: flex;
+
+      .SelectChoice {
+        margin: 0.5em;
+      }
     }
   }
 }
+
+p {
+  max-width: 35em;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: justify;
+}
+
+@import 'option-integer';
+@import 'option-group';

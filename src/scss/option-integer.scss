@@ -1,0 +1,125 @@
+.Option.option-integer {
+  .option-content {
+    background-color: #333;
+    color: #ccc;
+    border: solid #999;
+    border-width: 1px 1px 6px 1px;
+    transition: 0.3s;
+  }
+
+  &.selected {
+    .option-content {
+      background-color: #222;
+      color: #fff;
+      border-color: rgb(151, 217, 255);
+    }
+  }
+
+  .integer-checkbox {
+    position: absolute;
+    top: -1em;
+    left: 50%;
+    margin-left: -1em;
+    width: 2em;
+    height: 2em;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #999;
+    transition: 0.2s;
+    cursor: pointer;
+    border-radius: 1em;
+
+    &:after {
+      content: '✔';
+      opacity: 0;
+      transition: 0.3s;
+      font-size: 1.5em;
+    }
+
+    &.checked {
+      border-color: rgb(151, 217, 255);
+
+      &:after {
+        opacity: 1;
+      }
+    }
+
+    &:hover {
+      background-color: #555;
+      border-color: rgb(151, 217, 255);
+    }
+  }
+
+  .integer-spinbox {
+    position: absolute;
+    top: -1em;
+    left: 0;
+    right: 0;
+    height: 2em;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+
+    .integer-spinbox-content {
+      position: relative;
+      height: 100%;
+      background-color: #000;
+      border: 1px solid #999;
+      border-radius: 1em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .integer-value {
+        padding: 0 1.75em;
+        font-size: 1.5em;
+        font-weight: 700;
+      }
+
+      button {
+        position: absolute;
+        top: 50%;
+        margin-top: -0.5em;
+        width: 1em;
+        height: 1em;
+        background-color: #000;
+        border: 1px solid #999;
+        color: inherit;
+        font-size: 2em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 1em;
+        cursor: pointer;
+        transition: 0.2s;
+
+        &:first-child {
+          left: -0.1em;
+        }
+
+        &:last-child {
+          right: -0.1em;
+        }
+
+        &:hover {
+          background-color: #555;
+          border-color: rgb(151, 217, 255);
+        }
+
+        &:focus {
+          outline: none;
+        }
+
+        &.disabled {
+          background-color: #555;
+          border-color: #999;
+          color: #ccc;
+          cursor: auto;
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import { connect } from 'react-redux';
+import getSelected from '../functions/getSelected';
 import { optionTypes } from '../include/enum';
 import GroupControls from './GroupControls';
 import InstancerControls from './InstancerControls';
@@ -13,9 +14,11 @@ function Option(props) {
   let option = props.option;
 
   let controls;
+  let selected = false;
   switch (option.type) {
     case optionTypes.INTEGER:
       controls = <IntegerControls option={option} />;
+      selected = getSelected(option, props.selected) > 0;
       break;
     case optionTypes.SELECT:
       controls = <SelectControls option={option} />;
@@ -34,10 +37,13 @@ function Option(props) {
   }
 
   return (
-    <div className={classNames('Option', `option-${option.type}`)}>
-      <div className="option-title">{option.title}</div>
-      <Stats currencies={option.currencies} />
-      {controls}
+    <div className={classNames('Option', `option-${option.type}`, { selected })}>
+      <div className="option-content">
+        <div className="option-title">{option.title}</div>
+        <Stats currencies={option.currencies} />
+        <div className="option-text">{option.text}</div>
+        {controls}
+      </div>
     </div>
   );
 }
