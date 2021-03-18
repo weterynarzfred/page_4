@@ -27,6 +27,12 @@ function parseOptions(options, path = []) {
       if (options[slug].max < options[slug].min)
         options[slug].max = options[slug].min;
     }
+
+    if (options[slug].requirements !== undefined) {
+      for (const test of options[slug].requirements) {
+        test.callback = addUserFunction(test.callback);
+      }
+    }
   }
 
   return options;

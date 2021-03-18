@@ -10,8 +10,13 @@ function addUserFunction(func) {
   };
 }
 
-function callUserFunction(option, state) {
-  Object.assign(option, userFunctions[option.functionId](state));
+function callUserFunction(target, state, userFunction = target) {
+  const value = userFunctions[userFunction.functionId](state);
+  if (typeof value === 'object') {
+    Object.assign(target, value);
+  } else {
+    target.value = value;
+  }
 }
 
 function recalculateUserFunctions(options, state) {
@@ -26,6 +31,12 @@ function recalculateUserFunctions(options, state) {
 
     if (options[slug].type === optionTypes.INSTANCER) {
       recalculateUserFunctions(options[slug].selected, state);
+    }
+
+    if (options[slug].requirements !== undefined) {
+      for (const test of options[slug].requirements) {
+        callUserFunction(test, state, test.callback);
+      }
     }
   }
 }

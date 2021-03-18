@@ -44,6 +44,17 @@ function Option(props) {
     ></div>
   </div> : null;
 
+  const requirements = [];
+  if (option.requirements !== undefined) {
+    let index = 0;
+    for (const test of option.requirements) {
+      requirements.push(<div className={classNames('requirement', { met: test.value })} key={index}>
+        {test.text}
+      </div>);
+      index++;
+    }
+  }
+
   return (
     <div className={classNames('Option', `option-${option.type}`, { selected })}>
       <div className="option-content">
@@ -53,6 +64,7 @@ function Option(props) {
         <Stats currencies={option.currencies} />
         <div className="option-text">{option.text}</div>
         {controls}
+        {requirements.length > 0 ? <div className="option-requirements">{requirements}</div> : null}
       </div>
     </div>
   );

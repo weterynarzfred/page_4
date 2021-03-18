@@ -99,6 +99,16 @@ body {
         margin: 0.5em;
       }
     }
+
+    .option-requirements {
+      .requirement {
+        color: $negative;
+
+        &.met {
+          color: $positive;
+        }
+      }
+    }
   }
 }
 

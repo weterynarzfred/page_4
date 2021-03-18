@@ -282,6 +282,58 @@ const options = {
           <p>You are able to perfectly remember anything you've experienced. Memories stored with this ability are separate from your mind and require a conscius thought to recall, but are easily searchable.</p>
         </>,
       },
+      eternalWanderer: {
+        type: optionTypes.INTEGER,
+        cost: {
+          delta_s: -100,
+        },
+        title: 'Etarnal Wanderer',
+        image: 'eternal_wanderer.jpg',
+        text: <>
+          <p>Once you leave a plane for any reason you are permanently banned from entering it ever again. Works the same way the "Earth Ban" does.</p>
+        </>,
+      },
+      grantPlanesWalk: {
+        type: optionTypes.INTEGER,
+        cost: {
+          delta_s: 10,
+        },
+        requirements: [
+          {
+            text: <>Cannot be taken in "Simple Mode".</>,
+            callback: state => {
+              return !getSelected('soul.simpleMode', state.options);
+            }
+          }
+        ],
+        title: 'Grant Planeswalk',
+        image: 'grant_planeswalk.jpg',
+        text: <>
+          <p>For a cost of 10 000 karma per soul you are able to grant anyone you wish the possiblity to become a planeswalker like you and fill this CYOA. You can restrict their choices in any way you want but this will not change the Δ_s cost of this option or the karma cost of granting planeswalk.</p>
+        </>,
+      },
+      omnilingualism: {
+        type: optionTypes.INTEGER,
+        cost: {
+          delta_s: 10,
+        },
+        title: 'Omnilingualism',
+        image: 'omnilingualism.jpg',
+        text: <>
+          <p>You are able to instantly learn, speak, read, write and understand any language fluently. This does not include communication with animals, machines, computer code or any similar.</p>
+        </>,
+      },
+      testMode: {
+        type: optionTypes.INTEGER,
+        cost: {
+          delta_s: 20,
+        },
+        title: 'Test Mode',
+        image: 'test_mode.jpg',
+        text: <>
+          <p>As long as test mode is chosen, you can switch your soul options at any time. Once deactivated, you cannot activate it again. Planes you get banned from in the "Test Mode" stay this way after changing the options. If at any point when the "Test Mode" was on, "Slow Exploration" was not enabled "Slow Exploration" cannot be enabled anymore.</p>
+        </>,
+      },
       saveSlot: {
         type: optionTypes.INTEGER,
         cost: {
@@ -292,6 +344,17 @@ const options = {
         image: 'save_slot.jpg',
         text: <>
           <p>You get one save slot. You can save and load at any time. Saves rewind everything except your karma. First save can be made only after you finalize this CYOA.</p>
+        </>,
+      },
+      rejectTheOffer: {
+        type: optionTypes.INTEGER,
+        cost: {
+          delta_s: -20,
+        },
+        title: 'Reject the Offer',
+        image: 'reject_the_offer.jpg',
+        text: <>
+          <p>You loose the gift of planeswalking. You can create a new body, complete with a race and magic system. You will reappear in your old world. This can be used to continue living your old life with new boons, or to begin as a completely new person. Same as for all people in your old world there is no way to know what will happen to you after death.</p>
         </>,
       },
     },

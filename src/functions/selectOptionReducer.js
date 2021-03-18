@@ -13,6 +13,7 @@ function getSelectValue(action, value) {
   if (value === undefined) value = [];
   if (action.add !== undefined) {
     if (!value.includes(action.add)) value.push(action.add);
+    // TODO: remove old choices if number higher than max
   } else if (action.subtract !== undefined) {
     if (value.includes(action.subtract)) {
       const index = value.indexOf(action.subtract);
