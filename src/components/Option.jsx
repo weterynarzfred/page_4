@@ -6,6 +6,7 @@ import { optionTypes } from '../include/enum';
 import GroupControls from './GroupControls';
 import InstancerControls from './InstancerControls';
 import IntegerControls from './IntegerControls';
+import OptionCost from './OptionCost';
 import SelectControls from './SelectControls';
 import Stats from './Stats';
 import TextControls from './TextControls';
@@ -47,6 +48,7 @@ function Option(props) {
     <div className={classNames('Option', `option-${option.type}`, { selected })}>
       <div className="option-content">
         <div className="option-title">{option.title}</div>
+        <OptionCost option={option} />
         {image}
         <Stats currencies={option.currencies} />
         <div className="option-text">{option.text}</div>
@@ -56,4 +58,6 @@ function Option(props) {
   );
 }
 
-export default connect(state => ({ selected: state.selected }))(Option);
+export default connect(state => ({
+  selected: state.selected,
+}))(Option);

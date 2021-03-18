@@ -162,6 +162,9 @@ const settings = {
     delta_s: {
       title: 'Delta S',
     },
+    test: {
+      title: 'Test',
+    },
   },
 };
 
@@ -204,7 +207,6 @@ const options = {
           },
           cellularAdaptation: {
             type: optionTypes.INTEGER,
-            max: 2,
             selected: 1,
             title: 'Cellular Adaptation',
             image: 'cellular_adaptation.jpg',
@@ -245,7 +247,53 @@ const options = {
         text: <>
           <p>Normally you can planeswalk any time you want. This option limits you to three planeswalks, each of them refreshes 10 years after use. Traveling to the interplanar space does not count but going back does.</p>
         </>,
-      }
+      },
+      slowExploration: {
+        type: optionTypes.INTEGER,
+        cost: {
+          delta_s: -20,
+          test: 5,
+        },
+        title: 'Slow Exploration',
+        image: 'slow_exploration.jpg',
+        text: <>
+          <p>You should get comfortable wherever you decide to go, especially in the beginning. Normally you can create new planes any time you want. <strong>This option limits you to one new plane every 50 years. Only time spent living within planes counts.</strong> If you end up with no karma and no planes with non-negative Δ_p you will get stuck forever.</p>
+        </>,
+      },
+      simpleMode: {
+        type: optionTypes.INTEGER,
+        cost: {
+          delta_s: -20,
+        },
+        title: 'Simple Mode',
+        image: 'simple_mode.jpg',
+        text: <>
+          <p>Instead of your karmakarma having to be zero or positive, you need to keep your Δ above or equal zero at all times. This means you can no longer accumulate karma in harsh conditions to use it up later on places and/or bodies with negative Δ. This makes keeping track of your karma pointless.</p>
+        </>,
+      },
+      eideicMemory: {
+        type: optionTypes.INTEGER,
+        cost: {
+          delta_s: 10,
+        },
+        title: 'Eideic Memory',
+        image: 'eideic_memory.jpg',
+        text: <>
+          <p>You are able to perfectly remember anything you've experienced. Memories stored with this ability are separate from your mind and require a conscius thought to recall, but are easily searchable.</p>
+        </>,
+      },
+      saveSlot: {
+        type: optionTypes.INTEGER,
+        cost: {
+          delta_s: 50,
+        },
+        max: Infinity,
+        title: 'Save Slot',
+        image: 'save_slot.jpg',
+        text: <>
+          <p>You get one save slot. You can save and load at any time. Saves rewind everything except your karma. First save can be made only after you finalize this CYOA.</p>
+        </>,
+      },
     },
   },
 };

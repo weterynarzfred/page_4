@@ -1,3 +1,8 @@
+$selected: rgb(151, 217, 255);
+$positive: rgb(161, 255, 73);
+$negative: rgb(255, 115, 45);
+$text: rgb(255, 222, 160);
+
 body {
   background-color: #222;
   color: #eee;
@@ -19,18 +24,27 @@ body {
   right: 0;
   left: 0;
   background-color: #000;
-  padding: 0.5em 3em;
+  padding: 0.5em 2em;
   z-index: 20;
+  display: flex;
+  align-items: center;
 
   .currency {
     display: flex;
+    align-items: center;
+    padding: 0 0.5em;
 
     .currency-name {
       padding-right: 0.5em;
+      font-size: 0.75em;
 
       &:after {
         content: ':';
       }
+    }
+
+    .currency-value {
+      font-weight: 700;
     }
   }
 }
@@ -46,7 +60,7 @@ body {
     &.option-integer,
     &.option-text,
     &.option-select {
-      margin: 0.5em 0;
+      margin: 0.5em 0 2em 0;
       padding: 0 0.5em;
 
       .option-content {
@@ -74,7 +88,7 @@ body {
     .option-image-content {
       background-position: center;
       background-size: cover;
-      border: solid rgb(255, 222, 160);
+      border: solid $text;
       border-width: 1px 1px 6px 1px;
     }
 
@@ -94,6 +108,12 @@ p {
   margin-left: auto;
   text-align: justify;
   line-height: 1.45;
+  text-indent: 1.5em;
+  color: $text;
+
+  strong {
+    color: #fff;
+  }
 }
 
 @import 'option-integer';
