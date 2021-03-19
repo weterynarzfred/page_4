@@ -1,12 +1,13 @@
-import classNames from 'classnames';
 import React from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import getSelected from '../functions/getSelected';
 import { optionTypes } from '../include/enum';
 import GroupControls from './GroupControls';
 import InstancerControls from './InstancerControls';
 import IntegerControls from './IntegerControls';
 import OptionCost from './OptionCost';
+import OptionRequirements from './OptionRequirements';
 import SelectControls from './SelectControls';
 import Stats from './Stats';
 import TextControls from './TextControls';
@@ -44,17 +45,6 @@ function Option(props) {
     ></div>
   </div> : null;
 
-  const requirements = [];
-  if (option.requirements !== undefined) {
-    let index = 0;
-    for (const test of option.requirements) {
-      requirements.push(<div className={classNames('requirement', { met: test.value })} key={index}>
-        {test.text}
-      </div>);
-      index++;
-    }
-  }
-
   return (
     <div className={classNames('Option', `option-${option.type}`, { selected })}>
       <div className="option-content">
@@ -64,7 +54,7 @@ function Option(props) {
         <Stats currencies={option.currencies} />
         <div className="option-text">{option.text}</div>
         {controls}
-        {requirements.length > 0 ? <div className="option-requirements">{requirements}</div> : null}
+        <OptionRequirements option={option} />
       </div>
     </div>
   );

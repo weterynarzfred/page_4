@@ -1,0 +1,24 @@
+.OptionRequirements {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .requirements-title {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.5rem 0;
+    letter-spacing: 0.1em;
+    word-spacing: 0.2em;
+  }
+
+  .requirement {
+    color: $negative;
+    text-align: center;
+    font-size: 0.8em;
+    margin: 0.1rem 0;
+
+    &.met {
+      color: $positive;
+    }
+  }
+}

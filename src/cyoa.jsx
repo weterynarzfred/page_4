@@ -287,13 +287,13 @@ const options = {
         cost: {
           delta_s: -100,
         },
-        title: 'Etarnal Wanderer',
+        title: 'Eternal Wanderer',
         image: 'eternal_wanderer.jpg',
         text: <>
           <p>Once you leave a plane for any reason you are permanently banned from entering it ever again. Works the same way the "Earth Ban" does.</p>
         </>,
       },
-      grantPlanesWalk: {
+      grantPlaneswalk: {
         type: optionTypes.INTEGER,
         cost: {
           delta_s: 10,
@@ -301,9 +301,7 @@ const options = {
         requirements: [
           {
             text: <>Cannot be taken in "Simple Mode".</>,
-            callback: state => {
-              return !getSelected('soul.simpleMode', state.options);
-            }
+            callback: state => !getSelected('soul.simpleMode', state.options),
           }
         ],
         title: 'Grant Planeswalk',
@@ -351,6 +349,28 @@ const options = {
         cost: {
           delta_s: -20,
         },
+        requirements: [
+          {
+            text: <>Requires "Simple Mode".</>,
+            callback: state => getSelected('soul.simpleMode', state.options),
+          },
+          {
+            text: <>No other "Soul" options can be selected.</>,
+            callback: state => {
+              return !(
+                getSelected('soul.earthBan', state.options) ||
+                getSelected('soul.restrictedTravel', state.options) ||
+                getSelected('soul.slowExploration', state.options) ||
+                getSelected('soul.eideicMemory', state.options) ||
+                getSelected('soul.eternalWanderer', state.options) ||
+                getSelected('soul.grantPlaneswalk', state.options) ||
+                getSelected('soul.omnilingualism', state.options) ||
+                getSelected('soul.testMode', state.options) ||
+                getSelected('soul.saveSlot', state.options)
+              );
+            },
+          },
+        ],
         title: 'Reject the Offer',
         image: 'reject_the_offer.jpg',
         text: <>

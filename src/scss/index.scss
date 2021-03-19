@@ -16,6 +16,7 @@ body {
 
 .App {
   padding-top: 3em;
+  padding-bottom: 90vh;
 }
 
 .Stats {
@@ -90,6 +91,7 @@ body {
       background-size: cover;
       border: solid $text;
       border-width: 1px 1px 6px 1px;
+      box-shadow: 0 0 7em 0 rgba(13, 88, 72, 0.3) inset;
     }
 
     .SelectControls {
@@ -97,16 +99,6 @@ body {
 
       .SelectChoice {
         margin: 0.5em;
-      }
-    }
-
-    .option-requirements {
-      .requirement {
-        color: $negative;
-
-        &.met {
-          color: $positive;
-        }
       }
     }
   }
@@ -126,5 +118,6 @@ p {
   }
 }
 
+@import 'option-requirements';
 @import 'option-integer';
 @import 'option-group';
