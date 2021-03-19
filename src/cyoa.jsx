@@ -134,6 +134,25 @@ const options_test = {
       },
     },
   },
+  instancer: state => {
+    return {
+      type: optionTypes.INSTANCER,
+      title: 'Instancer',
+      instanceOptions: {
+        title: (state, option) => {
+          const currentSlug = option.path.slice(-2, -1);
+          return {
+            type: optionTypes.TEXT,
+            title: `Name: ${getSelected(`instancer.${currentSlug}.optionC`, state.options)}`,
+          };
+        },
+        optionC: {
+          type: optionTypes.INTEGER,
+          title: 'C',
+        },
+      },
+    };
+  },
 };
 
 /**

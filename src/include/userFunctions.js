@@ -1,4 +1,5 @@
 import { optionTypes } from './enum';
+import { parseOptions } from './parsedOptions';
 
 const userFunctions = [];
 
@@ -8,6 +9,17 @@ function addUserFunction(func) {
     isUserFunction: true,
     functionId: userFunctions.length - 1,
   };
+}
+
+function callOptionFunction(option, state) {
+  const parentPath = option.path.slice(0, -1);
+  const value = parseOptions(
+    {
+      [option.slug]: userFunctions[option.functionId](state, option),
+    },
+    parentPath
+  )[option.slug];
+  Object.assign(option, value);
 }
 
 function callUserFunction(target, state, userFunction = target) {
@@ -22,7 +34,7 @@ function callUserFunction(target, state, userFunction = target) {
 function recalculateUserFunctions(options, state) {
   for (const slug in options) {
     if (options[slug].isUserFunction) {
-      callUserFunction(options[slug], state);
+      callOptionFunction(options[slug], state);
     }
 
     if (options[slug].options !== undefined) {
