@@ -19,37 +19,6 @@ body {
   padding-bottom: 90vh;
 }
 
-.Stats {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  background-color: #000;
-  padding: 0.5em 2em;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-
-  .currency {
-    display: flex;
-    align-items: center;
-    padding: 0 0.5em;
-
-    .currency-name {
-      padding-right: 0.5em;
-      font-size: 0.75em;
-
-      &:after {
-        content: ':';
-      }
-    }
-
-    .currency-value {
-      font-weight: 700;
-    }
-  }
-}
-
 .OptionsList {
   display: flex;
   flex-wrap: wrap;
@@ -118,6 +87,7 @@ p {
   }
 }
 
+@import 'stats';
 @import 'option-requirements';
 @import 'option-integer';
 @import 'option-group';

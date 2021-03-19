@@ -1,22 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import Currencies from './Currencies';
+import Warnings from './Warnings';
 
 function Stats(props) {
-  if (props.currencies === undefined) return null;
-
-  const currencyElements = [];
-  for (const costSlug in props.currencies) {
-    const cost = props.currencies[costSlug];
-    currencyElements.push(<div className="currency" key={costSlug}>
-      <div className="currency-name">{cost.title}</div>
-      <div className="currency-value">{cost.value}</div>
-    </div>);
-  }
-
   return (
     <div className="Stats">
-      {currencyElements}
+      <Currencies currencies={props.currencies} />
+      <Warnings />
     </div>
   );
 }
 
-export default Stats;
+export default connect(state => ({ currencies: state.currencies }))(Stats);

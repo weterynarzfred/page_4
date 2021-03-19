@@ -1,0 +1,78 @@
+.Stats {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: #000;
+  padding: 0.5em 2em;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+
+  .Currencies {
+    display: flex;
+    align-items: center;
+
+    .currency {
+      display: flex;
+      align-items: center;
+      padding: 0 0.5em;
+
+      .currency-name {
+        padding-right: 0.5em;
+        font-size: 0.75em;
+
+        &:after {
+          content: ':';
+        }
+      }
+
+      .currency-value {
+        font-weight: 700;
+      }
+    }
+  }
+
+  .Warnings {
+    padding: 0 0.5rem;
+
+    .warning-icon {
+      background-color: $negative;
+      color: #fff;
+      border: 2px solid #fff;
+      transform: rotate(45deg) rotateX(0deg);
+      width: 1em;
+      height: 1em;
+      text-align: center;
+      line-height: 0.65;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:hover {
+        opacity: 0.75;
+      }
+    }
+
+    .warning-list {
+      position: absolute;
+      top: 100%;
+      background-color: #000;
+      padding: 0.5rem;
+      font-size: 0.8em;
+      border: 1px solid #555;
+
+      .warning {
+        display: flex;
+        align-items: center;
+        padding: 0.25em 0;
+
+        .warning-path {
+          padding-right: 0.5rem;
+          font-family: monospace;
+          color: #ccc;
+        }
+      }
+    }
+  }
+}

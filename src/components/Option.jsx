@@ -9,7 +9,7 @@ import IntegerControls from './IntegerControls';
 import OptionCost from './OptionCost';
 import OptionRequirements from './OptionRequirements';
 import SelectControls from './SelectControls';
-import Stats from './Stats';
+import Currencies from './Currencies';
 import TextControls from './TextControls';
 
 function Option(props) {
@@ -51,7 +51,7 @@ function Option(props) {
         <div className="option-title">{option.title}</div>
         <OptionCost option={option} />
         {image}
-        <Stats currencies={option.currencies} />
+        <Currencies currencies={option.currencies} />
         <div className="option-text">{option.text}</div>
         {controls}
         <OptionRequirements option={option} />
