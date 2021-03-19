@@ -9,7 +9,9 @@ function parseOptions(options, path = []) {
       options[slug] = addUserFunction(options[slug]);
     }
     const currentPath = _.clone(path);
-    currentPath.push(slug);
+    if (slug !== 'instanceGroup') {
+      currentPath.push(slug);
+    }
     options[slug].slug = slug;
     options[slug].path = currentPath;
 
@@ -17,8 +19,8 @@ function parseOptions(options, path = []) {
       parseOptions(options[slug].options, currentPath);
     }
 
-    if (options[slug].instanceOptions !== undefined) {
-      parseOptions(options[slug].instanceOptions, currentPath);
+    if (options[slug].instanceGroup !== undefined) {
+      parseOptions({ instanceGroup: options[slug].instanceGroup }, currentPath);
     }
 
     if (options[slug].type === optionTypes.INTEGER) {
@@ -32,6 +34,11 @@ function parseOptions(options, path = []) {
       for (const test of options[slug].requirements) {
         test.callback = addUserFunction(test.callback);
       }
+    }
+
+    if (typeof options[slug].title === 'function') {
+      options[slug]._title = addUserFunction(options[slug].title, 'title');
+      options[slug].title = '?';
     }
   }
 

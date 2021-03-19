@@ -3,11 +3,13 @@ import { parseOptions } from './parsedOptions';
 
 const userFunctions = [];
 
-function addUserFunction(func) {
+function addUserFunction(func, target) {
   userFunctions.push(func);
+  console.log(userFunctions);
   return {
     isUserFunction: true,
     functionId: userFunctions.length - 1,
+    target,
   };
 }
 
@@ -22,10 +24,16 @@ function callOptionFunction(option, state) {
   Object.assign(option, value);
 }
 
-function callUserFunction(target, state, userFunction = target) {
-  const value = userFunctions[userFunction.functionId](state);
-  if (typeof value === 'object') {
-    Object.assign(target, value);
+function callUserFunction(
+  target,
+  state,
+  userFunction = option,
+  option = target
+) {
+  const value = userFunctions[userFunction.functionId](state, option);
+
+  if (userFunction.target !== undefined) {
+    target[userFunction.target] = value;
   } else {
     target.value = value;
   }
@@ -45,12 +53,21 @@ function recalculateUserFunctions(options, state) {
       recalculateUserFunctions(options[slug].selected, state);
     }
 
+    if (options[slug]._title !== undefined) {
+      callUserFunction(options[slug], state, options[slug]._title);
+    }
+
     if (options[slug].requirements !== undefined) {
       for (const test of options[slug].requirements) {
-        callUserFunction(test, state, test.callback);
+        callUserFunction(test, state, test.callback, options[slug]);
       }
     }
   }
 }
 
-export { addUserFunction, callUserFunction, recalculateUserFunctions };
+export {
+  addUserFunction,
+  callUserFunction,
+  callOptionFunction,
+  recalculateUserFunctions,
+};

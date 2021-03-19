@@ -6,18 +6,16 @@ import { actions } from '../include/enum';
 import Option from './Option';
 
 function handleAdd(value) {
-  const instanceOptions = _.cloneDeep(this.option.instanceOptions);
-  for (const slug in instanceOptions) {
-    const option = instanceOptions[slug];
+  const instanceGroup = _.cloneDeep(this.option.instanceGroup);
+  for (const slug in instanceGroup.options) {
+    const option = instanceGroup.options[slug];
     option.path.splice(-1, 0, value.nextId);
   }
 
   this.dispatch({
     type: actions.SELECT_OPTION,
     option: this.option,
-    add: {
-      options: instanceOptions,
-    },
+    add: instanceGroup,
   });
 }
 

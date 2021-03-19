@@ -375,7 +375,7 @@ const options = {
           },
           {
             text: <>No other "Soul" options can be selected.</>,
-            callback: state => {
+            callback: (state, option) => {
               return !(
                 getSelected('soul.earthBan', state.options) ||
                 getSelected('soul.restrictedTravel', state.options) ||
@@ -408,23 +408,30 @@ const options = {
     text: <>
       <p>In this section you will create bodies that you will be able to use yourself. Those options influence your Δ_b. You cannot change selected options for an already created body but you can create new ones at any time.</p>
     </>,
-    instanceOptions: {
-      bodyName: {
-        type: optionTypes.TEXT,
-        title: 'Body Name',
+    instanceGroup: {
+      title: (state, option) => {
+        return getSelected(`body.${option.path.slice(-1)}.bodyName`, state.options) || 'body';
       },
-      gender: {
-        type: optionTypes.SELECT,
-        title: 'Gender',
-        choices: {
-          male: {
-            title: 'Male',
-          },
-          female: {
-            title: 'Female',
-          },
-          hermaphrodite: {
-            title: 'Hermaphrodite',
+      options: {
+        bodyName: (state, option) => {
+          return {
+            type: optionTypes.TEXT,
+            title: `Body Name ${getSelected(`body.${option.path.slice(-2, -1)}.gender`, state.options)}`,
+          };
+        },
+        gender: {
+          type: optionTypes.SELECT,
+          title: 'Gender',
+          choices: {
+            male: {
+              title: 'Male',
+            },
+            female: {
+              title: 'Female',
+            },
+            hermaphrodite: {
+              title: 'Hermaphrodite',
+            },
           },
         },
       },
