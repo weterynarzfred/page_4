@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import getSelected from '../functions/getSelected';
 import { actions } from '../include/enum';
-import { parseOptions } from '../include/parsedOptions';
 import Option from './Option';
 
 function handleAdd(value) {
@@ -44,7 +43,7 @@ function InstancerControls(props) {
 
   return (
     <div className="InstancerControls">
-      <button onClick={handleAdd.bind(props, value)}>add instance</button>
+      <button className="add-instance" onClick={handleAdd.bind(props, value)}>add instance</button>
       <div className="instance-list">
         {instanceElements}
       </div>

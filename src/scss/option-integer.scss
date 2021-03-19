@@ -19,12 +19,11 @@
   }
 
   .option-image {
-    max-width: 12em;
+    max-width: 6em;
     margin: 1em auto;
 
     .option-image-content {
       padding-bottom: 162%;
-      filter: blur(2px);
       transition: 0.3s;
     }
   }

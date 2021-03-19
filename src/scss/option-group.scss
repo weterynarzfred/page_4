@@ -1,32 +1,4 @@
 .Option.option-group {
-  width: 100%;
-
-  > .option-content {
-    > .option-title {
-      text-align: center;
-      font-size: 4em;
-    }
-
-    > .option-image {
-      max-width: 80em;
-      margin: 1em auto;
-
-      .option-image-content {
-        padding-bottom: 33%;
-      }
-    }
-
-    > .option-text {
-      font-size: 1.25em;
-    }
-  }
-
-  .Option.option-group {
-    > .option-content > .option-title {
-      font-size: 2.5em;
-    }
-  }
-
   .GroupControls {
     display: flex;
     flex-wrap: wrap;

@@ -46,7 +46,17 @@ function Option(props) {
   </div> : null;
 
   return (
-    <div className={classNames('Option', `option-${option.type}`, { selected })}>
+    <div className={classNames(
+      'Option',
+      `option-${option.type}`,
+      { selected },
+      {
+        'option-is-container': [
+          optionTypes.GROUP,
+          optionTypes.INSTANCER,
+        ].includes(option.type)
+      }
+    )}>
       <div className="option-content">
         <div className="option-title">{option.title}</div>
         <OptionCost option={option} />

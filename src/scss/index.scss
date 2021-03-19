@@ -38,18 +38,6 @@ body {
       }
     }
 
-    &.option-instancer {
-      background-color: #333;
-      padding: 0.5em;
-      margin: 0.5em 0.1em;
-
-      .instance {
-        border: 1px solid #666;
-        padding: 0.5em;
-        margin: 0.5em 0.1em;
-      }
-    }
-
     .option-title {
       font-family: 'Piazzolla', serif;
       font-size: 1.25em;
@@ -90,4 +78,6 @@ p {
 @import 'stats';
 @import 'option-requirements';
 @import 'option-integer';
+@import 'option-is-container';
 @import 'option-group';
+@import 'option-instancer';

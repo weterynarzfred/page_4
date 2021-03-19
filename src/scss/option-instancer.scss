@@ -1,0 +1,32 @@
+.Option.option-instancer {
+  > .option-content {
+    .add-instance {
+      background: none;
+      border: none;
+      background-color: #000;
+      height: 3em;
+      padding: 0 2em;
+      font-size: 1em;
+      border: 2px solid #999;
+      color: #fff;
+      margin: 2em auto 0 auto;
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      word-spacing: 0.2em;
+      cursor: pointer;
+      font-weight: 700;
+      transition: 0.2s;
+      border-radius: 1.5em;
+
+      &:hover {
+        color: $selected;
+        border-color: $selected;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
