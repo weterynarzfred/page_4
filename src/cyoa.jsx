@@ -320,6 +320,7 @@ const options = {
             creation: {
               cost: { delta_b: 25 },
               title: 'Creation',
+              image: 'creation.jpg',
               text: <>
                 <p>Your body will be created at the selected age. You will have to enter your first plane though teleportation or summoning.</p>
               </>,

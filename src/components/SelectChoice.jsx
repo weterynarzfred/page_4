@@ -6,6 +6,7 @@ import { actions } from 'Include/enum';
 import { getUserText } from 'Include/userTexts';
 import getSelectedValue from 'Functions/getSelectedValue';
 import OptionCost from 'Components/OptionCost';
+import OptionImage from 'Components/OptionImage';
 import CheckboxControl from 'Components/controls/CheckboxControl';
 import GroupControls from 'Components/controls/GroupControls';
 
@@ -33,6 +34,7 @@ function SelectChoice(props) {
       <div className="option-content">
         <div className="option-title">{props.choice.title}</div>
         <OptionCost cost={props.choice.cost} currencies={props.currencies} />
+        <OptionImage image={props.choice.image} />
         <div className="option-text">{getUserText(props.choice.text)}</div>
         <CheckboxControl
           selected={selected}

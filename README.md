@@ -15,27 +15,28 @@ All configuration is done through objects `settings` and `options` in `src/cyoa.
 - `title` - display name of the option or a function returning one.
 - `type` - one of optionTypes.
 - `selected` - initial value of the option.
+- `image` - filename of the image to display in the option. Searched in the `public/images` folder.
 
 `if type === optionTypes.INTEGER || type === optionTypes.INSTANCER`
-- `cost` - object with costs of each time the option is bought
+- `cost` - object with costs of each time the option is bought.
 
 `if type === optionTypes.GROUP`
-- `options` - suboptions of the group, same rules apply as for any other option
+- `options` - suboptions of the group, same rules apply as for any other option.
 
 `if type === optionTypes.INTEGER`
-- `max` - maximum number of simultaneously chosen options
-- `requirements` - an array containing objects with
-  - `text` - text to be displayed, has to be a string
-  - `callback` - a function returning wheter the requirement is met
+- `max` - maximum number of simultaneously chosen options.
+- `requirements` - an array containing objects with.
+  - `text` - text to be displayed, has to be a string.
+  - `callback` - a function returning wheter the requirement is met.
 
 `if type === optionTypes.SELECT`
-- `max` - maximum number of simultaneously chosen options
-- `choices` - choices to select from, ech choice can have:
- title - display name of the choice
- cost - object with costs of the choice
+- `max` - maximum number of simultaneously chosen options.
+- `choices` - choices to select from, each choice can have:
+  - `title` - display name of the choice.
+  - `cost` - object with costs of the choice.
 
 `if type === optionTypes.INSTANCER`
-- `instanceGroup` - an option with type optionTypes.GROUP, it will be cloned as each of theeated instances; it cannot be a function
+- `instanceGroup` - an option with type optionTypes.GROUP, it will be cloned as each of theeated instances; it cannot be a function.
 
 When a function requires refreshed data from other options it can call
 `callOptionFunction(getOption('testOption', state.options), state);`
@@ -50,7 +51,6 @@ or
 
 
 ## todo
-- images in selection choices
 - requirements in selection choices
 - dividing options to tabs
 - make as many parameters interchangable with functions as possible

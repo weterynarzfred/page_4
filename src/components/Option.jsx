@@ -9,6 +9,7 @@ import isSelected from 'Functions/isSelected';
 import OptionCost from 'Components/OptionCost';
 import OptionRequirements from 'Components/OptionRequirements';
 import Currencies from 'Components/Currencies';
+import OptionImage from 'Components/OptionImage';
 import GroupControls from 'Components/controls/GroupControls';
 import InstancerControls from 'Components/controls/InstancerControls';
 import IntegerControls from 'Components/controls/IntegerControls';
@@ -48,13 +49,6 @@ function Option(props) {
       controls = null;
   }
 
-  const image = option.image !== undefined ? <div className="option-image">
-    <div
-      className="option-image-content"
-      style={{ backgroundImage: `url(./images/${option.image})` }}
-    ></div>
-  </div> : null;
-
   return (
     <div className={classNames(
       'Option',
@@ -77,7 +71,7 @@ function Option(props) {
       <div className="option-content">
         <div className="option-title">{option.title}</div>
         <OptionCost cost={option.cost} currencies={currencies} />
-        {image}
+        <OptionImage image={option.image} />
         <Currencies currencies={option.currencies} />
         <div className="option-text">{getUserText(option.text)}</div>
         {controls}
