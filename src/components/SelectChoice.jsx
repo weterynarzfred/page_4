@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { actions } from '../include/enum';
-import getSelected from '../functions/getSelected';
-import OptionCost from './OptionCost';
 import classNames from 'classnames';
-import CheckboxControl from './CheckboxControl';
-import { getUserText } from '../include/userTexts';
+import { actions } from 'Include/enum';
+import { getUserText } from 'Include/userTexts';
+import getSelected from 'Functions/getSelected';
+import OptionCost from 'Components/OptionCost';
+import CheckboxControl from 'Components/controls/CheckboxControl';
 
 function handleToggle(selected) {
   const args = {

@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import getOption from './getOption';
-import { optionTypes } from '../include/enum';
+import { optionTypes } from 'Include/enum';
+import getOption from 'Functions/getOption';
 
 function getIntegerValue(action, value) {
   if (value === undefined) value = 0;

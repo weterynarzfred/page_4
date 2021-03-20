@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Option from './Option';
+import Option from 'Components/Option';
 
 function OptionsList(props) {
   const optionElements = [];

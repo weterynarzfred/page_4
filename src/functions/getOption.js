@@ -1,8 +1,7 @@
 import _ from 'lodash';
-import { optionTypes } from '../include/enum';
-import { pipe } from '../include/pipe';
+import { optionTypes } from 'Include/enum';
 
-function getOption(path, options = pipe.options) {
+function getOption(path, options) {
   let currentPath;
   if (typeof path === 'string') {
     currentPath = path.split('.');

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { optionTypes } from '../include/enum';
-import getSelected from '../functions/getSelected';
+import { optionTypes } from 'Include/enum';
+import getSelected from 'Functions/getSelected';
 
 function findWarnings(options) {
   const warnings = [];

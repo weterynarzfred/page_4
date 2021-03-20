@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Currencies from './Currencies';
-import Warnings from './Warnings';
+import Currencies from 'Components/Currencies';
+import Warnings from 'Components/Warnings';
 
 function Stats(props) {
   return (

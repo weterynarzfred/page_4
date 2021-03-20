@@ -1,5 +1,5 @@
 import React from 'react';
-import SelectChoice from './SelectChoice';
+import SelectChoice from 'Components/SelectChoice';
 
 function SelectControls(props) {
 

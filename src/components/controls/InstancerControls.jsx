@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
-import getSelected from '../functions/getSelected';
-import { actions } from '../include/enum';
-import Option from './Option';
+import { actions } from 'Include/enum';
+import getSelected from 'Functions/getSelected';
+import Option from 'Components/Option';
 
 function handleAdd(value) {
   const instanceGroup = _.cloneDeep(this.option.instanceGroup);

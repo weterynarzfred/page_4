@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import React from 'react';
-import calculateCosts from './functions/calculateCosts';
-import getOption from './functions/getOption';
-import getSelected from './functions/getSelected';
-import { optionTypes } from './include/enum';
-import { callUserFunction } from './include/userFunctions';
+import { optionTypes } from 'Include/enum';
+import { callUserFunction } from 'Include/userFunctions';
+import calculateCosts from 'Functions/calculateCosts';
+import getOption from 'Functions/getOption';
+import getSelected from 'Functions/getSelected';
 
 const settings = {
   currencies: {

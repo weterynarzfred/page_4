@@ -2,17 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import _ from 'lodash';
-import getSelected from '../functions/getSelected';
-import { optionTypes } from '../include/enum';
-import GroupControls from './GroupControls';
-import InstancerControls from './InstancerControls';
-import IntegerControls from './IntegerControls';
-import OptionCost from './OptionCost';
-import OptionRequirements from './OptionRequirements';
-import SelectControls from './SelectControls';
-import Currencies from './Currencies';
-import TextControls from './TextControls';
-import { getUserText } from '../include/userTexts';
+import { optionTypes } from 'Include/enum';
+import { getUserText } from 'Include/userTexts';
+import getSelected from 'Functions/getSelected';
+import OptionCost from 'Components/OptionCost';
+import OptionRequirements from 'Components/OptionRequirements';
+import Currencies from 'Components/Currencies';
+import GroupControls from 'Components/controls/GroupControls';
+import InstancerControls from 'Components/controls/InstancerControls';
+import IntegerControls from 'Components/controls/IntegerControls';
+import SelectControls from 'Components/controls/SelectControls';
+import TextControls from 'Components/controls/TextControls';
 
 function Option(props) {
   let option = props.option;

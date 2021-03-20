@@ -1,9 +1,8 @@
 import _ from 'lodash';
-import { optionTypes } from '../include/enum';
-import { pipe } from './../include/pipe';
-import getOption from './getOption';
+import { optionTypes } from 'Include/enum';
+import getOption from 'Functions/getOption';
 
-function getSelected(option, options = pipe.options) {
+function getSelected(option, options) {
   let currentOption;
   if (typeof option === 'string') {
     currentOption = getOption(option.split('.'), options);

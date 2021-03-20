@@ -1,5 +1,5 @@
-import { optionTypes } from '../include/enum';
-import getSelected from './getSelected';
+import { optionTypes } from 'Include/enum';
+import getSelected from 'Functions/getSelected';
 
 function cleanupState(options, state) {
   for (const slug in options) {

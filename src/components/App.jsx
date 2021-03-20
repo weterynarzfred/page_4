@@ -1,7 +1,7 @@
 import React from 'react';
-import './../scss/index.scss';
-import OptionList from './OptionList';
-import Stats from './Stats';
+import 'Src/scss/index.scss';
+import OptionList from 'Components/OptionList';
+import Stats from 'Components/Stats';
 
 function App(props) {
   return (

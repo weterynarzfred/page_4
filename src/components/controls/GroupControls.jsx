@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Option from './Option';
+import Option from 'Components/Option';
 
 function GroupControls(props) {
   const optionElements = [];

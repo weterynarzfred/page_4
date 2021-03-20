@@ -1,7 +1,6 @@
 import { createStore } from 'redux';
 import produce from 'immer';
 import _ from 'lodash';
-import { setPipe } from './pipe';
 import { actions } from './enum';
 import parsedOptions from './parsedOptions';
 import { recalculateUserFunctions } from './userFunctions';
@@ -28,7 +27,6 @@ function rootReducer(state = initialState, action = '') {
     cleanupState(newState.options, newState);
     calculateCosts(newState.options, newState.currencies, true);
 
-    setPipe(_.cloneDeep(newState));
     return newState;
   });
 }

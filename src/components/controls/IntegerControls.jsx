@@ -1,9 +1,9 @@
 import React from 'react';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
-import getSelected from '../functions/getSelected';
-import { actions } from '../include/enum';
-import CheckboxControl from './CheckboxControl';
+import { actions } from 'Include/enum';
+import getSelected from 'Functions/getSelected';
+import CheckboxControl from 'Components/controls/CheckboxControl';
+import SpinboxControl from 'Components/controls/SpinboxControl';
 
 function handleDecrement(value) {
   if (value <= this.option.min) return;
@@ -34,23 +34,18 @@ function IntegerControls(props) {
   const value = getSelected(props.option, props.selected);
   const useSpinbox = (props.option.max !== 1 || props.option.min !== 0);
 
-  const spinbox = <div className="integer-spinbox">
-    <div className="integer-spinbox-content">
-      <button
-        onClick={handleDecrement.bind(props, value)}
-        className={classNames({ disabled: value <= props.option.min })}
-      >-</button>
-      <div className="integer-value">{value}</div>
-      <button
-        onClick={handleIncrement.bind(props, value)}
-        className={classNames({ disabled: value >= props.option.max })}
-      >+</button>
-    </div>
-  </div>;
-
   return (
     <div className="IntegerControls">
-      {useSpinbox ? spinbox : <CheckboxControl selected={value === 1} handleToggle={handleToggle.bind(props, value)} />}
+      {useSpinbox ? <SpinboxControl
+        handleDecrement={handleDecrement.bind(props, value)}
+        handleIncrement={handleIncrement.bind(props, value)}
+        min={props.option.min}
+        max={props.option.max}
+        value={value}
+      /> : <CheckboxControl
+        selected={value === 1}
+        handleToggle={handleToggle.bind(props, value)}
+      />}
     </div>
   );
 }
