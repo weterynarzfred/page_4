@@ -6,42 +6,6 @@ import getSelected from './functions/getSelected';
 import { optionTypes } from './include/enum';
 import { callUserFunction } from './include/userFunctions';
 
-/**
- * Each options can be an object or a function returning one. Function will receive the state and the option itself as its arguments. Each option object can have properties:
- * title - display name of the option or a function returning one
- * type - one of optionTypes
- * selected - initial value of the option
- *
- * if type === optionTypes.INTEGER || type === optionTypes.INSTANCER
- * cost - object with costs of each time the option is bought
- *
- * if type === optionTypes.GROUP
- * options - suboptions of the group, same rules apply as for any other option
- *
- * if type === optionTypes.INTEGER
- * max - maximum number of simultaneously chosen options
- * requirements - an array containing objects with
- *  text - text to be displayed, has to be a string
- *  callback - a function returning wheter the requirement is met
- * 
- * if type === optionTypes.SELECT
- * max - maximum number of simultaneously chosen options
- * choices - choices to select from, ech choice can have:
- *  title - display name of the choice
- *  cost - object with costs of the choice
- *
- * if type === optionTypes.INSTANCER
- * instanceGroup - an option with type optionTypes.GROUP, it will be cloned as each of the created instances; it cannot be a function
- * 
- * When a function requires refreshed data from other options it can call
- * callUserFunction(getOption('testOption', state.options), state);
- * 
- * or when it requires updated currency stats it can call
- * calculateCosts(state.options, state.currencies, true);
- * or
- * calculateCosts(state.options, getOption('testGroup', state.options).currencies, true);
- */
-
 const settings = {
   currencies: {
     delta_s: {
