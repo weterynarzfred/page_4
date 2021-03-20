@@ -46,8 +46,9 @@ or
 
 
 ## todo
-- texts in selecion choices
+- images in selection choices
 - requirements in selection choices
+- add suboptions to options and possibly choices
 - dividing options to tabs
 - styling of instances
 - styling group currencies

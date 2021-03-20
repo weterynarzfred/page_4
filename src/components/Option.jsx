@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import _ from 'lodash';
 import getSelected from '../functions/getSelected';
 import { optionTypes } from '../include/enum';
 import GroupControls from './GroupControls';
@@ -11,8 +12,7 @@ import OptionRequirements from './OptionRequirements';
 import SelectControls from './SelectControls';
 import Currencies from './Currencies';
 import TextControls from './TextControls';
-import _ from 'lodash';
-import { userTexts } from '../include/userTexts';
+import { getUserText } from '../include/userTexts';
 
 function Option(props) {
   let option = props.option;
@@ -77,7 +77,7 @@ function Option(props) {
         <OptionCost cost={option.cost} currencies={currencies} />
         {image}
         <Currencies currencies={option.currencies} />
-        <div className="option-text">{userTexts[option.text]}</div>
+        <div className="option-text">{getUserText(option.text)}</div>
         {controls}
         <OptionRequirements option={option} />
       </div>

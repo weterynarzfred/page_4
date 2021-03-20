@@ -5,6 +5,7 @@ import getSelected from '../functions/getSelected';
 import OptionCost from './OptionCost';
 import classNames from 'classnames';
 import CheckboxControl from './CheckboxControl';
+import { getUserText } from '../include/userTexts';
 
 function handleToggle(selected) {
   const args = {
@@ -25,6 +26,7 @@ function SelectChoice(props) {
       <div className="option-content">
         <div className="option-title">{props.choice.title}</div>
         <OptionCost cost={props.choice.cost} currencies={props.currencies} />
+        <div className="option-text">{getUserText(props.choice.text)}</div>
         <CheckboxControl selected={selected} handleToggle={handleToggle.bind(props, selected)} />
       </div>
     </div>

@@ -5,4 +5,9 @@ function addUserText(text) {
   return userTexts.length - 1;
 }
 
-export { userTexts, addUserText };
+function getUserText(id) {
+  if (isNaN(id)) return '';
+  return userTexts[id];
+}
+
+export { addUserText, getUserText };

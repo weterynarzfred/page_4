@@ -258,7 +258,6 @@ const options = {
             {
               text: 'test text',
               callback: (state, option) => {
-                console.log(state, option);
                 return true;
               },
             },
