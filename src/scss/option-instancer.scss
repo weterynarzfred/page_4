@@ -69,6 +69,15 @@
           }
         }
       }
+
+      > .option-group > .option-content .Currencies {
+        position: absolute;
+        top: -1px;
+        right: 4em;
+        background-color: #000;
+        padding: 0.5em;
+        border: 1px solid #999;
+      }
     }
   }
 }

@@ -1,8 +1,10 @@
 .Option.option-group {
-  .GroupControls {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 3em 0;
+  > .option-content {
+    > .GroupControls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 3em 0;
+    }
   }
 }

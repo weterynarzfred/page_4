@@ -235,17 +235,19 @@ const options = {
     title: 'Scenarios',
     options: {
       body: state => {
-        const bodyOption = getOption('body', state.options);
         const choices = {};
-        const bodies = getSelectedValue(bodyOption, state.options);
+        const bodies = getSelectedValue('body', state.options);
         for (const bodySlug in bodies) {
           if (isNaN(bodySlug)) continue;
           const title = getSelectedValue(
             `body.${bodySlug}.bodyName`,
             state.options
           );
+          calculateCosts(state.options, getOption(bodies[bodySlug], state.options).currencies, true);
+          const cost = bodies[bodySlug].currencies.delta_b.value;
           choices[bodySlug] = {
             title,
+            cost: { delta_s: -cost },
           };
         }
 
@@ -280,7 +282,7 @@ const options = {
         test: {
           type: optionTypes.INTEGER,
           cost: { delta_b: 25 },
-          title: state => `Test ${isSelected('body.0.arrival.birth', state.options) ? 'true' : 'false'}`,
+          title: (state, option) => `Test ${isSelected(`${option.path.slice(0, -1).join('.')}.arrival.birth`, state.options) ? 'true' : 'false'}`,
           requirements: [
             {
               text: 'test text',
@@ -336,6 +338,22 @@ const options = {
                   title: 'Surrogate Birth',
                   text: <>
                     <p>The child can be born to a mother of a different race.</p>
+                  </>,
+                },
+                specificChild: {
+                  type: optionTypes.INTEGER,
+                  cost: { delta_b: 5 },
+                  title: 'Specific Child',
+                  text: <>
+                    <p>You can select a specific unborn child. For at least a moment, you have to, physically be in the vicinity of the mother, or the child in case of an artificial womb, to select them.</p>
+                  </>,
+                },
+                timeSkip: {
+                  type: optionTypes.INTEGER,
+                  cost: { delta_b: 20 },
+                  title: 'Time Skip',
+                  text: <>
+                    <p>Time will be skipped so that you appear inside the body at your chosen age, up to 10 years old. Up to that point your body will behave similarly as you might have behaved if you didn't have your memories and powers. You will remember everything your body has experienced but without any emotional baggage.</p>
                   </>,
                 },
               },

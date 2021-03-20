@@ -54,7 +54,6 @@ or
 - requirements in selection choices
 - dividing options to tabs
 - make as many parameters interchangable with functions as possible
-- styling of instances
-- styling group currencies
 - collapsing instance groups
 - make a working preview
+- generate warnings when selected value is outside the min-max bounds
