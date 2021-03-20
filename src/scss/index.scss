@@ -75,6 +75,10 @@ p {
   }
 }
 
+button:focus {
+  outline: none;
+}
+
 @import 'stats';
 @import 'option-requirements';
 @import 'option-is-selectable';
@@ -82,4 +86,5 @@ p {
 @import 'option-text';
 @import 'option-is-container';
 @import 'option-group';
+@import 'option-select';
 @import 'option-instancer';

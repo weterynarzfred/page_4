@@ -34,14 +34,25 @@ function InstancerControls(props) {
     if (isNaN(slug)) continue;
     const instance = value[slug];
     instanceElements.push(<div className="instance" key={slug}>
-      <button onClick={handleDelete.bind(props, instance)}>delete</button>
+      <button
+        className="delete-instance"
+        onClick={handleDelete.bind(props, instance)}
+      >
+        <svg viewBox="0 0 100 100">
+          <path d="M10 10L90 90" />
+          <path d="M10 90L90 10" />
+        </svg>
+      </button>
       <Option option={instance} currencies={props.currencies} />
     </div>);
   }
 
   return (
     <div className="InstancerControls">
-      <button className="add-instance" onClick={handleAdd.bind(props, value)}>add instance</button>
+      <button
+        className="add-instance"
+        onClick={handleAdd.bind(props, value)}
+      >add instance</button>
       <div className="instance-list">
         {instanceElements}
       </div>
@@ -49,4 +60,6 @@ function InstancerControls(props) {
   );
 }
 
-export default connect(state => ({ selected: state.selected }))(InstancerControls);
+export default connect(state => ({
+  selected: state.selected
+}))(InstancerControls);

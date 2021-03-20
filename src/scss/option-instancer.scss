@@ -4,28 +4,70 @@
       background: none;
       border: none;
       background-color: #000;
+      border: 2px solid #999;
+      display: block;
       height: 3em;
       padding: 0 2em;
-      font-size: 1em;
-      border: 2px solid #999;
-      color: #fff;
       margin: 2em auto 0 auto;
-      display: block;
+      color: #fff;
+      font-size: 1em;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       word-spacing: 0.2em;
-      cursor: pointer;
-      font-weight: 700;
-      transition: 0.2s;
       border-radius: 1.5em;
+      cursor: pointer;
+      transition: 0.2s;
 
       &:hover {
         color: $selected;
         border-color: $selected;
       }
+    }
 
-      &:focus {
-        outline: none;
+    .instance {
+      position: relative;
+      margin-top: 1em;
+      border-top: 1px solid #999;
+
+      .delete-instance {
+        position: absolute;
+        top: 0.5rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        background-color: #000;
+        border: 2px solid #999;
+        height: 2rem;
+        width: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        border-radius: 1.5rem;
+        cursor: pointer;
+        transition: 0.2s;
+        z-index: 1;
+
+        svg {
+          display: block;
+          width: 70%;
+
+          path {
+            stroke: #fff;
+            stroke-width: 25;
+            stroke-linecap: round;
+            transition: 0.2s;
+          }
+        }
+
+        &:hover {
+          border-color: $negative;
+
+          svg path {
+            stroke: $negative;
+          }
+        }
       }
     }
   }

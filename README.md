@@ -52,4 +52,5 @@ or
 - dividing options to tabs
 - styling of instances
 - styling group currencies
+- collapsing instance groups
 - make a working preview

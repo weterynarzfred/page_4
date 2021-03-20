@@ -4,7 +4,7 @@
   > .option-content {
     > .option-title {
       text-align: center;
-      font-size: 4em;
+      font-size: 4.2361em;
     }
 
     > .option-image {
@@ -22,8 +22,42 @@
   }
 
   .Option.option-is-container {
-    > .option-content > .option-title {
-      font-size: 2.5em;
+    > .option-content {
+      > .option-title {
+        font-size: 3.3302em;
+      }
+
+      .Option.option-is-container {
+        > .option-content {
+          > .option-title {
+            font-size: 2.618em;
+          }
+
+          .Option.option-is-container {
+            > .option-content {
+              > .option-title {
+                font-size: 2.0582em;
+              }
+
+              .Option.option-is-container {
+                > .option-content {
+                  > .option-title {
+                    font-size: 1.618em;
+                  }
+
+                  .Option.option-is-container {
+                    > .option-content {
+                      > .option-title {
+                        font-size: 1.272em;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
