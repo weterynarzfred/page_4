@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { actions } from 'Include/enum';
-import getSelected from 'Functions/getSelected';
+import getSelectedValue from 'Functions/getSelectedValue';
 import CheckboxControl from 'Components/controls/CheckboxControl';
 import SpinboxControl from 'Components/controls/SpinboxControl';
 
@@ -31,7 +31,7 @@ function handleToggle(value) {
 }
 
 function IntegerControls(props) {
-  const value = getSelected(props.option, props.selected);
+  const value = getSelectedValue(props.option, props.selected);
   const useSpinbox = (props.option.max !== 1 || props.option.min !== 0);
 
   return (
@@ -50,4 +50,6 @@ function IntegerControls(props) {
   );
 }
 
-export default connect(state => ({ selected: state.selected }))(IntegerControls);
+export default connect(state => ({
+  selected: state.selected,
+}))(IntegerControls);

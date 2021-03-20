@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { optionTypes } from 'Include/enum';
-import getSelected from 'Functions/getSelected';
+import getSelectedValue from 'Functions/getSelectedValue';
 
 function findWarnings(options) {
   const warnings = [];
@@ -10,7 +10,7 @@ function findWarnings(options) {
     const option = options[slug];
     if (option.requirements !== undefined) {
       if (option.type === optionTypes.INTEGER) {
-        const selected = getSelected(option);
+        const selected = getSelectedValue(option);
         if (selected > 0) {
           for (const test of option.requirements) {
             if (!test.value) {

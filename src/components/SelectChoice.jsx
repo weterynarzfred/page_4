@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import _ from 'lodash';
 import { actions } from 'Include/enum';
 import { getUserText } from 'Include/userTexts';
-import getSelected from 'Functions/getSelected';
+import getSelectedValue from 'Functions/getSelectedValue';
 import OptionCost from 'Components/OptionCost';
 import CheckboxControl from 'Components/controls/CheckboxControl';
+import GroupControls from 'Components/controls/GroupControls';
 
 function handleToggle(selected) {
   const args = {
@@ -18,8 +20,13 @@ function handleToggle(selected) {
 }
 
 function SelectChoice(props) {
-  const value = getSelected(props.option, props.selected);
+  const value = getSelectedValue(props.option, props.selected);
   const selected = value.includes(props.slug);
+
+  const currencies = _.cloneDeep(props.currencies);
+  if (props.choice.currencies !== undefined) {
+    Object.assign(currencies, _.cloneDeep(props.choice.currencies));
+  }
 
   return (
     <div className={classNames('SelectChoice', 'option-is-selectable', { selected })}>
@@ -27,7 +34,11 @@ function SelectChoice(props) {
         <div className="option-title">{props.choice.title}</div>
         <OptionCost cost={props.choice.cost} currencies={props.currencies} />
         <div className="option-text">{getUserText(props.choice.text)}</div>
-        <CheckboxControl selected={selected} handleToggle={handleToggle.bind(props, selected)} />
+        <CheckboxControl
+          selected={selected}
+          handleToggle={handleToggle.bind(props, selected)}
+        />
+        <GroupControls options={props.choice.options} currencies={currencies} />
       </div>
     </div>
   );

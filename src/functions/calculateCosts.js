@@ -1,5 +1,6 @@
 import { optionTypes } from 'Include/enum';
-import getSelected from 'Functions/getSelected';
+import getSelectedValue from 'Functions/getSelectedValue';
+import isSelected from './isSelected';
 
 function applyCost(cost, costs, count) {
   if (cost === undefined) return;
@@ -10,7 +11,7 @@ function applyCost(cost, costs, count) {
   }
 }
 
-function calculateCosts(options, costs, reset) {
+function calculateCosts(options, costs, reset, allOptions = options) {
   if (reset) {
     for (const costSlug in costs) {
       if (costs[costSlug].start === undefined) costs[costSlug].value = 0;
@@ -19,32 +20,34 @@ function calculateCosts(options, costs, reset) {
   }
 
   for (const slug in options) {
+    if (slug === 'nextId') continue;
+
     const option = options[slug];
+    if (!isSelected(option, allOptions)) continue;
+
     if (option.type === optionTypes.INTEGER) {
-      applyCost(option.cost, costs, getSelected(option, options));
-    } else if (option.type === optionTypes.SELECT) {
-      getSelected(option, options).forEach(choice => {
-        if (option.choices[choice] !== undefined) {
-          applyCost(option.choices[choice].cost, costs, 1);
-        }
-      });
+      applyCost(option.cost, costs, getSelectedValue(option, allOptions));
     } else if (option.type === optionTypes.INSTANCER) {
-      const keys = Object.keys(getSelected(option, options)).filter(
+      const keys = Object.keys(getSelectedValue(option, allOptions)).filter(
         key => !isNaN(key)
       );
       applyCost(option.cost, costs, keys.length);
     }
 
     if (option.options !== undefined) {
-      calculateCosts(option.options, costs);
+      calculateCosts(option.options, costs, false, allOptions);
     }
 
     if (option.type === optionTypes.INSTANCER) {
-      calculateCosts(option.selected, costs);
+      calculateCosts(option.selected, costs, false, allOptions);
+    }
+
+    if (option.type === optionTypes.SELECT) {
+      calculateCosts(option.choices, costs, false, allOptions);
     }
 
     if (option.currencies !== undefined) {
-      calculateCosts(option.options, option.currencies, true);
+      calculateCosts(option.options, option.currencies, true, allOptions);
     }
   }
 }

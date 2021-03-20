@@ -2,17 +2,17 @@ import _ from 'lodash';
 import { optionTypes } from 'Include/enum';
 import getOption from 'Functions/getOption';
 
-function getSelected(option, options) {
-  let currentOption;
-  if (typeof option === 'string') {
-    currentOption = getOption(option.split('.'), options);
-  } else if (_.isArray(option)) {
-    currentOption = getOption(option, options);
-  } else {
-    currentOption = option;
-  }
+function getSelectedValue(option, options) {
+  const currentOption = getOption(option, options);
 
-  let value = currentOption.selected;
+  let value;
+  if (currentOption.isChoice) {
+    return getSelectedValue(currentOption.path.slice(0, -1), options).includes(
+      currentOption.slug
+    );
+  } else {
+    value = currentOption.selected;
+  }
   if (value === undefined) {
     switch (currentOption.type) {
       case optionTypes.INTEGER:
@@ -28,4 +28,4 @@ function getSelected(option, options) {
   return value;
 }
 
-export default getSelected;
+export default getSelectedValue;

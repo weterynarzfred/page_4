@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { actions } from 'Include/enum';
-import getSelected from 'Functions/getSelected';
+import getSelectedValue from 'Functions/getSelectedValue';
 
 function handleChange(event) {
   this.dispatch({
@@ -12,7 +12,7 @@ function handleChange(event) {
 }
 
 function TextControls(props) {
-  const value = getSelected(props.option);
+  const value = getSelectedValue(props.option);
   return (
     <div className="TextControls">
       <input type="text" value={value} onChange={handleChange.bind(props)} />

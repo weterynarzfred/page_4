@@ -30,6 +30,8 @@ function parseOptions(options, path = []) {
         if (isNaN(choice.text)) {
           choice.text = addUserText(choice.text);
         }
+        choice.type = optionTypes.INTEGER;
+        choice.isChoice = true;
       }
     }
 
@@ -41,6 +43,11 @@ function parseOptions(options, path = []) {
     // parse the instance options of the instancer
     if (option.instanceGroup !== undefined) {
       parseOptions({ instanceGroup: option.instanceGroup }, currentPath);
+    }
+
+    // parse the choices of the select
+    if (option.choices !== undefined) {
+      parseOptions(option.choices, currentPath);
     }
 
     // assign default values to min and max

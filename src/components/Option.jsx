@@ -4,7 +4,8 @@ import classNames from 'classnames';
 import _ from 'lodash';
 import { optionTypes } from 'Include/enum';
 import { getUserText } from 'Include/userTexts';
-import getSelected from 'Functions/getSelected';
+import getSelectedValue from 'Functions/getSelectedValue';
+import isSelected from 'Functions/isSelected';
 import OptionCost from 'Components/OptionCost';
 import OptionRequirements from 'Components/OptionRequirements';
 import Currencies from 'Components/Currencies';
@@ -23,11 +24,13 @@ function Option(props) {
   }
 
   let controls;
-  let selected = false;
+  let selected = isSelected(option, props.options);
   switch (option.type) {
     case optionTypes.INTEGER:
-      controls = <IntegerControls option={option} />;
-      selected = getSelected(option, props.selected) > 0;
+      controls = <>
+        <IntegerControls option={option} />
+        <GroupControls options={option.options} currencies={currencies} />
+      </>;
       break;
     case optionTypes.SELECT:
       controls = <SelectControls option={option} currencies={currencies} />;
@@ -36,11 +39,10 @@ function Option(props) {
       controls = <InstancerControls option={option} currencies={currencies} />;
       break;
     case optionTypes.GROUP:
-      controls = <GroupControls option={option} currencies={currencies} />;
+      controls = <GroupControls options={option.options} currencies={currencies} />;
       break;
     case optionTypes.TEXT:
       controls = <TextControls option={option} />;
-      selected = getSelected(option, props.selected).length > 0;
       break;
     default:
       controls = null;
@@ -86,5 +88,5 @@ function Option(props) {
 }
 
 export default connect(state => ({
-  selected: state.selected,
+  options: state.options,
 }))(Option);

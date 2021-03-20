@@ -1,13 +1,19 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Option from 'Components/Option';
 
 function GroupControls(props) {
+  if (props.options === undefined) return null;
+
   const optionElements = [];
-  for (const slug in props.option.options) {
-    const option = props.option.options[slug];
-    optionElements.push(<Option option={option} key={slug} currencies={props.currencies} />);
+  for (const slug in props.options) {
+    const option = props.options[slug];
+    optionElements.push(<Option
+      option={option}
+      key={slug}
+      currencies={props.currencies}
+    />);
   }
+  if (optionElements.length === 0) return null;
 
   return (
     <div className="GroupControls">
@@ -16,4 +22,4 @@ function GroupControls(props) {
   );
 }
 
-export default connect(state => ({ selected: state.selected }))(GroupControls);
+export default GroupControls;

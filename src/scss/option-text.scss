@@ -1,16 +1,21 @@
 .Option.option-text {
-  input {
-    width: 100%;
-    background: none;
-    border: none;
-    font: inherit;
-    color: inherit;
-    border-bottom: 1px solid #999;
-    margin: 0.5rem 0;
+  .TextControls {
+    padding: 1rem 2rem;
 
-    &:focus {
-      outline: none;
-      border-color: $selected;
+    input {
+      width: 100%;
+      background: none;
+      border: none;
+      font: inherit;
+      color: inherit;
+      border-bottom: 1px solid #999;
+      display: block;
+      appearance: none;
+
+      &:focus {
+        outline: none;
+        border-color: $selected;
+      }
     }
   }
 }

@@ -2,15 +2,26 @@ import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import { actions } from 'Include/enum';
-import getSelected from 'Functions/getSelected';
+import getSelectedValue from 'Functions/getSelectedValue';
 import Option from 'Components/Option';
+
+function fixPathsInInstance(options, id, depth = 1) {
+  for (const slug in options) {
+    const option = options[slug];
+    option.path.splice(-depth, 0, id);
+
+    if (option.options !== undefined) {
+      fixPathsInInstance(option.options, id, depth + 1);
+    }
+    if (option.choices !== undefined) {
+      fixPathsInInstance(option.choices, id, depth + 1);
+    }
+  }
+}
 
 function handleAdd(value) {
   const instanceGroup = _.cloneDeep(this.option.instanceGroup);
-  for (const slug in instanceGroup.options) {
-    const option = instanceGroup.options[slug];
-    option.path.splice(-1, 0, value.nextId);
-  }
+  fixPathsInInstance(instanceGroup.options, value.nextId);
 
   this.dispatch({
     type: actions.SELECT_OPTION,
@@ -28,7 +39,7 @@ function handleDelete(instance) {
 }
 
 function InstancerControls(props) {
-  const value = getSelected(props.option, props.selected);
+  const value = getSelectedValue(props.option, props.selected);
   const instanceElements = [];
   for (const slug in value) {
     if (isNaN(slug)) continue;

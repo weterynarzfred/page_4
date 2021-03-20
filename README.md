@@ -38,18 +38,22 @@ All configuration is done through objects `settings` and `options` in `src/cyoa.
 - `instanceGroup` - an option with type optionTypes.GROUP, it will be cloned as each of theeated instances; it cannot be a function
 
 When a function requires refreshed data from other options it can call
-`callUserFunction(getOption('testOption', state.options), state);`
+`callOptionFunction(getOption('testOption', state.options), state);`
 or when it requires updated currency stats it can call
 `calculateCosts(state.options, state.currencies, true);`
 or 
 `calculateCosts(state.options, getOption('testGroup', state.options).currencies, true);`
 
+### restricted keys
+- `instanceGroup`
+- `nextId`
+
 
 ## todo
 - images in selection choices
 - requirements in selection choices
-- add suboptions to options and possibly choices
 - dividing options to tabs
+- make as many parameters interchangable with functions as possible
 - styling of instances
 - styling group currencies
 - collapsing instance groups

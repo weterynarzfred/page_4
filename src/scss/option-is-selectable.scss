@@ -5,7 +5,7 @@
   .option-content {
     position: relative;
     background-color: #333;
-    color: #ccc;
+    color: $disabledText;
     border: solid #999;
     border-width: 1px 1px 6px 1px;
     transition: 0.3s;
@@ -13,7 +13,6 @@
 
     > .option-title {
       border-bottom: 1px solid #555;
-      margin: 0 -2rem;
       padding: 0 0.5em;
       height: 2rem;
       display: flex;
@@ -29,6 +28,10 @@
       padding-bottom: 162%;
       transition: 0.3s;
     }
+  }
+
+  .option-text {
+    padding: 0 2em;
   }
 
   .OptionCost {
@@ -61,25 +64,32 @@
     }
   }
 
+  .GroupControls {
+    .Option:last-child {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  &:not(.selected) {
+    p {
+      color: $disabledText;
+    }
+  }
+
   &.selected {
-    .option-content {
+    > .option-content {
       background-color: #222;
       border-color: $selected;
 
-      .option-title {
+      > .option-title {
         color: #fff;
       }
     }
   }
 
-  &.selected .option-content,
-  .option-content:hover {
+  &.selected > .option-content,
+  > .option-content:hover {
+    background-color: #222;
     filter: none;
-
-    > .option-image {
-      .option-image-content {
-        filter: none;
-      }
-    }
   }
 }

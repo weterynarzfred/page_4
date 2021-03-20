@@ -2,6 +2,7 @@ $selected: rgb(151, 217, 255);
 $positive: rgb(161, 255, 73);
 $negative: rgb(255, 115, 45);
 $text: rgb(255, 222, 160);
+$disabledText: #aaa;
 
 body {
   background-color: #222;
@@ -34,7 +35,7 @@ body {
       padding: 0 0.5em;
 
       .option-content {
-        padding: 1em 2em;
+        padding-top: 1em;
       }
     }
 
@@ -69,6 +70,7 @@ p {
   line-height: 1.45;
   text-indent: 1.5em;
   color: $text;
+  transition: 0.3s;
 
   strong {
     color: #fff;

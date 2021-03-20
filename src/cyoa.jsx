@@ -4,7 +4,9 @@ import { optionTypes } from 'Include/enum';
 import { callUserFunction } from 'Include/userFunctions';
 import calculateCosts from 'Functions/calculateCosts';
 import getOption from 'Functions/getOption';
-import getSelected from 'Functions/getSelected';
+import getSelectedValue from 'Functions/getSelectedValue';
+import isSelected from './functions/isSelected';
+import { callOptionFunction } from './include/userFunctions';
 
 const settings = {
   currencies: {
@@ -150,7 +152,7 @@ const options = {
         requirements: [
           {
             text: <>Cannot be taken in "Simple Mode".</>,
-            callback: state => !getSelected('soul.simpleMode', state.options),
+            callback: state => !getSelectedValue('soul.simpleMode', state.options),
           }
         ],
         title: 'Grant Planeswalk',
@@ -201,21 +203,21 @@ const options = {
         requirements: [
           {
             text: <>Requires "Simple Mode".</>,
-            callback: state => getSelected('soul.simpleMode', state.options),
+            callback: state => getSelectedValue('soul.simpleMode', state.options),
           },
           {
             text: <>No other "Soul" options can be selected.</>,
             callback: (state, option) => {
               return !(
-                getSelected('soul.earthBan', state.options) ||
-                getSelected('soul.restrictedTravel', state.options) ||
-                getSelected('soul.slowExploration', state.options) ||
-                getSelected('soul.eideicMemory', state.options) ||
-                getSelected('soul.eternalWanderer', state.options) ||
-                getSelected('soul.grantPlaneswalk', state.options) ||
-                getSelected('soul.omnilingualism', state.options) ||
-                getSelected('soul.testMode', state.options) ||
-                getSelected('soul.saveSlot', state.options)
+                getSelectedValue('soul.earthBan', state.options) ||
+                getSelectedValue('soul.restrictedTravel', state.options) ||
+                getSelectedValue('soul.slowExploration', state.options) ||
+                getSelectedValue('soul.eideicMemory', state.options) ||
+                getSelectedValue('soul.eternalWanderer', state.options) ||
+                getSelectedValue('soul.grantPlaneswalk', state.options) ||
+                getSelectedValue('soul.omnilingualism', state.options) ||
+                getSelectedValue('soul.testMode', state.options) ||
+                getSelectedValue('soul.saveSlot', state.options)
               );
             },
           },
@@ -225,6 +227,32 @@ const options = {
         text: <>
           <p>You loose the gift of planeswalking. You can create a new body, complete with a race and magic system. You will reappear in your old world. This can be used to continue living your old life with new boons, or to begin as a completely new person. Same as for all people in your old world there is no way to know what will happen to you after death.</p>
         </>,
+      },
+    },
+  },
+  scenarios: {
+    type: optionTypes.GROUP,
+    title: 'Scenarios',
+    options: {
+      body: state => {
+        const bodyOption = getOption('body', state.options);
+        const choices = {};
+        const bodies = getSelectedValue(bodyOption, state.options);
+        for (const bodySlug in bodies) {
+          if (isNaN(bodySlug)) continue;
+          const title = getSelectedValue(
+            `body.${bodySlug}.bodyName`,
+            state.options
+          );
+          choices[bodySlug] = {
+            title,
+          };
+        }
+
+        return {
+          type: optionTypes.SELECT,
+          choices,
+        };
       },
     },
   },
@@ -241,19 +269,18 @@ const options = {
         },
       },
       title: (state, option) => {
-        return getSelected(`body.${option.path.slice(-1)}.bodyName`, state.options) || 'body';
+        return getSelectedValue(`body.${option.path.slice(-1)}.bodyName`, state.options);
       },
       options: {
-        bodyName: (state, option) => {
-          return {
-            type: optionTypes.TEXT,
-            title: `Body Name ${getSelected(`body.${option.path.slice(-2, -1)}.sex`, state.options)}`,
-          };
+        bodyName: {
+          type: optionTypes.TEXT,
+          title: (state, option) => `Body Name ${getSelectedValue(`body.${option.path.slice(-2, -1)}.sex`, state.options)}`,
+          selected: 'Body',
         },
         test: {
           type: optionTypes.INTEGER,
           cost: { delta_b: 25 },
-          title: 'Test',
+          title: state => `Test ${isSelected('body.0.arrival.birth', state.options) ? 'true' : 'false'}`,
           requirements: [
             {
               text: 'test text',
@@ -302,6 +329,16 @@ const options = {
                 <p>You are born as a random sapient child in the plane. This happens before a soul is bound to the child. You will keep your memories but your physical and magical capabilities will be impaired until you reach adulthood. At the same time your learning speed will be increased.</p>
                 <p>You can select any race that is present in the plane, you will be born to a mother of this race.</p>
               </>,
+              options: {
+                surrogateBirth: {
+                  type: optionTypes.INTEGER,
+                  cost: { delta_b: 10 },
+                  title: 'Surrogate Birth',
+                  text: <>
+                    <p>The child can be born to a mother of a different race.</p>
+                  </>,
+                },
+              },
             },
             possesion: {
               cost: { delta_b: 10 },
