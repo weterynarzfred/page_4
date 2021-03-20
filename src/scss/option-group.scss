@@ -4,9 +4,5 @@
     flex-wrap: wrap;
     justify-content: center;
     margin: 3em 0;
-
-    > .Option:not(.option-group) {
-      width: 25%;
-    }
   }
 }

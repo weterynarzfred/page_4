@@ -6,7 +6,7 @@ function OptionsList(props) {
   const optionElements = [];
   for (const slug in props.options) {
     const option = props.options[slug];
-    optionElements.push(<Option key={slug} option={option} />);
+    optionElements.push(<Option key={slug} option={option} currencies={props.currencies} />);
   }
 
   return (
@@ -16,4 +16,7 @@ function OptionsList(props) {
   );
 }
 
-export default connect(state => ({ options: state.options }))(OptionsList);
+export default connect(state => ({
+  options: state.options,
+  currencies: state.currencies,
+}))(OptionsList);

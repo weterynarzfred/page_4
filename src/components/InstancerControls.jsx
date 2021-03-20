@@ -35,7 +35,7 @@ function InstancerControls(props) {
     const instance = value[slug];
     instanceElements.push(<div className="instance" key={slug}>
       <button onClick={handleDelete.bind(props, instance)}>delete</button>
-      <Option option={instance} />
+      <Option option={instance} currencies={props.currencies} />
     </div>);
   }
 

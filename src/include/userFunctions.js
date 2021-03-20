@@ -5,7 +5,6 @@ const userFunctions = [];
 
 function addUserFunction(func, target) {
   userFunctions.push(func);
-  console.log(userFunctions);
   return {
     isUserFunction: true,
     functionId: userFunctions.length - 1,

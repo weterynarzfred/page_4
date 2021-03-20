@@ -6,7 +6,7 @@ function GroupControls(props) {
   const optionElements = [];
   for (const slug in props.option.options) {
     const option = props.option.options[slug];
-    optionElements.push(<Option option={option} key={slug} />);
+    optionElements.push(<Option option={option} key={slug} currencies={props.currencies} />);
   }
 
   return (

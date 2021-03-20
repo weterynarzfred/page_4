@@ -11,9 +11,15 @@ import OptionRequirements from './OptionRequirements';
 import SelectControls from './SelectControls';
 import Currencies from './Currencies';
 import TextControls from './TextControls';
+import _ from 'lodash';
 
 function Option(props) {
   let option = props.option;
+
+  const currencies = _.cloneDeep(props.currencies);
+  if (option.currencies !== undefined) {
+    Object.assign(currencies, option.currencies);
+  }
 
   let controls;
   let selected = false;
@@ -23,13 +29,13 @@ function Option(props) {
       selected = getSelected(option, props.selected) > 0;
       break;
     case optionTypes.SELECT:
-      controls = <SelectControls option={option} />;
+      controls = <SelectControls option={option} currencies={currencies} />;
       break;
     case optionTypes.INSTANCER:
-      controls = <InstancerControls option={option} />;
+      controls = <InstancerControls option={option} currencies={currencies} />;
       break;
     case optionTypes.GROUP:
-      controls = <GroupControls option={option} />;
+      controls = <GroupControls option={option} currencies={currencies} />;
       break;
     case optionTypes.TEXT:
       controls = <TextControls option={option} />;
@@ -60,13 +66,14 @@ function Option(props) {
       {
         'option-is-container': [
           optionTypes.GROUP,
+          optionTypes.SELECT,
           optionTypes.INSTANCER,
         ].includes(option.type)
       }
     )}>
       <div className="option-content">
         <div className="option-title">{option.title}</div>
-        <OptionCost option={option} />
+        <OptionCost option={option} currencies={currencies} />
         {image}
         <Currencies currencies={option.currencies} />
         <div className="option-text">{option.text}</div>

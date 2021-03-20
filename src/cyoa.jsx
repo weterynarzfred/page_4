@@ -398,10 +398,6 @@ const options = {
       },
     },
   },
-  test: {
-    type: optionTypes.TEXT,
-    title: 'Test',
-  },
   body: {
     type: optionTypes.INSTANCER,
     title: 'Body',
@@ -409,6 +405,11 @@ const options = {
       <p>In this section you will create bodies that you will be able to use yourself. Those options influence your Δ_b. You cannot change selected options for an already created body but you can create new ones at any time.</p>
     </>,
     instanceGroup: {
+      currencies: {
+        delta_b: {
+          title: 'Delta B',
+        },
+      },
       title: (state, option) => {
         return getSelected(`body.${option.path.slice(-1)}.bodyName`, state.options) || 'body';
       },
@@ -418,6 +419,11 @@ const options = {
             type: optionTypes.TEXT,
             title: `Body Name ${getSelected(`body.${option.path.slice(-2, -1)}.gender`, state.options)}`,
           };
+        },
+        test: {
+          type: optionTypes.INTEGER,
+          title: 'Test',
+          cost: { delta_b: 25 },
         },
         gender: {
           type: optionTypes.SELECT,
@@ -431,6 +437,24 @@ const options = {
             },
             hermaphrodite: {
               title: 'Hermaphrodite',
+            },
+          },
+        },
+        arrival: {
+          type: optionTypes.SELECT,
+          title: 'Arrival',
+          choices: {
+            creation: {
+              title: 'Creation',
+              cost: { delta_b: 25 },
+            },
+            birth: {
+              title: 'Birth',
+              cost: { delta_b: -10 },
+            },
+            possesion: {
+              title: 'Possesion',
+              cost: { delta_b: 10 },
             },
           },
         },

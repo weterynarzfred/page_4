@@ -1,6 +1,5 @@
-import classNames from 'classnames';
 import React from 'react';
-import { connect } from 'react-redux';
+import classNames from 'classnames';
 
 function OptionCost(props) {
   if (props.option.cost === undefined) return null;
@@ -34,6 +33,4 @@ function OptionCost(props) {
   );
 }
 
-export default connect(state => ({
-  currencies: state.currencies,
-}))(OptionCost);
+export default OptionCost;

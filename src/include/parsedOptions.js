@@ -23,7 +23,9 @@ function parseOptions(options, path = []) {
       parseOptions({ instanceGroup: options[slug].instanceGroup }, currentPath);
     }
 
-    if (options[slug].type === optionTypes.INTEGER) {
+    if (
+      [optionTypes.INTEGER, optionTypes.SELECT].includes(options[slug].type)
+    ) {
       if (options[slug].min === undefined) options[slug].min = 0;
       if (options[slug].max === undefined) options[slug].max = 1;
       if (options[slug].max < options[slug].min)
