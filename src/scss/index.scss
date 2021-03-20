@@ -21,6 +21,7 @@ body {
 
 .OptionsList {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
 
   .Option {
@@ -77,7 +78,9 @@ p {
 
 @import 'stats';
 @import 'option-requirements';
+@import 'option-is-selectable';
 @import 'option-integer';
+@import 'option-text';
 @import 'option-is-container';
 @import 'option-group';
 @import 'option-instancer';

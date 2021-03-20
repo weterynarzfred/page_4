@@ -33,6 +33,7 @@ function Option(props) {
       break;
     case optionTypes.TEXT:
       controls = <TextControls option={option} />;
+      selected = getSelected(option, props.selected).length > 0;
       break;
     default:
       controls = null;
@@ -50,6 +51,12 @@ function Option(props) {
       'Option',
       `option-${option.type}`,
       { selected },
+      {
+        'option-is-selectable': [
+          optionTypes.INTEGER,
+          optionTypes.TEXT,
+        ].includes(option.type)
+      },
       {
         'option-is-container': [
           optionTypes.GROUP,

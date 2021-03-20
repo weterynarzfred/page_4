@@ -1,0 +1,82 @@
+.Option.option-is-selectable {
+  .option-content {
+    position: relative;
+    background-color: #333;
+    color: #ccc;
+    border: solid #999;
+    border-width: 1px 1px 6px 1px;
+    transition: 0.3s;
+    filter: grayscale(1);
+
+    > .option-title {
+      border-bottom: 1px solid #555;
+      margin: 0 -2rem;
+      padding: 0 0.5em;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .option-image {
+    max-width: 6em;
+    margin: 1em auto;
+
+    .option-image-content {
+      padding-bottom: 162%;
+      transition: 0.3s;
+    }
+  }
+
+  .OptionCost {
+    position: absolute;
+    top: 3em;
+    right: 0;
+    border-collapse: collapse;
+    border: solid #555;
+    border-width: 0 0 1px 1px;
+
+    .cost {
+      background-color: #222;
+
+      .cost-title {
+        font-size: 0.75em;
+        padding: 0.25rem;
+      }
+
+      .cost-value {
+        font-weight: 700;
+        padding: 0.25rem;
+      }
+
+      &.positive .cost-value {
+        color: $positive;
+      }
+      &.negative .cost-value {
+        color: $negative;
+      }
+    }
+  }
+
+  &.selected {
+    .option-content {
+      background-color: #222;
+      border-color: $selected;
+
+      .option-title {
+        color: #fff;
+      }
+    }
+  }
+
+  &.selected .option-content,
+  .option-content:hover {
+    filter: none;
+
+    > .option-image {
+      .option-image-content {
+        filter: none;
+      }
+    }
+  }
+}
