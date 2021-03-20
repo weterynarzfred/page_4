@@ -2,6 +2,7 @@ import _ from 'lodash';
 import { options } from './../cyoa';
 import { optionTypes } from './enum';
 import { addUserFunction } from './userFunctions';
+import { addUserText } from './userTexts';
 
 function parseOptions(options, path = []) {
   for (const slug in options) {
@@ -14,6 +15,9 @@ function parseOptions(options, path = []) {
     }
     options[slug].slug = slug;
     options[slug].path = currentPath;
+    if (isNaN(options[slug].text)) {
+      options[slug].text = addUserText(options[slug].text);
+    }
 
     if (options[slug].options !== undefined) {
       parseOptions(options[slug].options, currentPath);

@@ -12,13 +12,14 @@ import SelectControls from './SelectControls';
 import Currencies from './Currencies';
 import TextControls from './TextControls';
 import _ from 'lodash';
+import { userTexts } from '../include/userTexts';
 
 function Option(props) {
   let option = props.option;
 
   const currencies = _.cloneDeep(props.currencies);
   if (option.currencies !== undefined) {
-    Object.assign(currencies, option.currencies);
+    Object.assign(currencies, _.cloneDeep(option.currencies));
   }
 
   let controls;
@@ -73,10 +74,10 @@ function Option(props) {
     )}>
       <div className="option-content">
         <div className="option-title">{option.title}</div>
-        <OptionCost option={option} currencies={currencies} />
+        <OptionCost cost={option.cost} currencies={currencies} />
         {image}
         <Currencies currencies={option.currencies} />
-        <div className="option-text">{option.text}</div>
+        <div className="option-text">{userTexts[option.text]}</div>
         {controls}
         <OptionRequirements option={option} />
       </div>

@@ -6,174 +6,40 @@ import getSelected from './functions/getSelected';
 import { optionTypes } from './include/enum';
 import { callUserFunction } from './include/userFunctions';
 
-const settings_test = {
-  currencies: {
-    gold: {
-      title: 'Gold',
-      start: 100,
-    },
-    magic: {
-      title: 'Magic',
-    },
-  },
-};
-
-const options_test = {
-  testA: state => {
-    callUserFunction(getOption('testB', state.options), state);
-    return {
-      title: `Test A - ${getSelected('testB', state.options)}`,
-      type: optionTypes.INTEGER,
-    };
-  },
-  testB: state => {
-    const racesOption = getOption('friendlyRaces', state.options);
-    callUserFunction(racesOption, state);
-    const races = getSelected('friendlyRaces', state.options).map(
-      selected => racesOption.choices[selected].title
-    );
-    return {
-      title: `Test B - ${races.join(', ')}`,
-      type: optionTypes.INTEGER,
-    };
-  },
-  main: {
-    title: 'Main',
-    type: optionTypes.GROUP,
-    currencies: {
-      manliness: {
-        title: 'Manliness',
-      },
-    },
-    options: {
-      yourName: {
-        title: 'Your Name',
-        type: optionTypes.TEXT,
-      },
-      beAGirl: state => {
-        return {
-          title: `Be a Girl ${getSelected('main.yourName', state.options)}`,
-          type: optionTypes.INTEGER,
-          cost: { gold: 2, manliness: -5 },
-        };
-      },
-    },
-  },
-  function: state => {
-    const main = getOption('main', state.options);
-    calculateCosts(state.options, main.currencies, true);
-    return {
-      title: `Function ${main.currencies.manliness.value}`,
-      type: optionTypes.TEXT,
-    };
-  },
-  friendlyRaces: state => {
-    const choices = {};
-    const races = getSelected('races', state.options);
-    for (const raceSlug in races) {
-      if (isNaN(raceSlug)) continue;
-      const magic = getSelected(`races.${raceSlug}.magic`, state.options);
-      const name = getSelected(`races.${raceSlug}.name`, state.options);
-      choices[raceSlug] = {
-        title: name,
-        cost: { gold: name.length, magic: -magic },
-      };
-    }
-    return {
-      title: 'Friendly Races',
-      type: optionTypes.SELECT,
-      choices,
-    };
-  },
-  races: {
-    title: 'Races',
-    type: optionTypes.INSTANCER,
-    instanceOptions: {
-      name: {
-        title: 'Name',
-        type: optionTypes.TEXT,
-        selected: 'Race',
-      },
-      magic: state => {
-        return {
-          title: `Magic ${getSelected('main.yourName', state.options)}`,
-          type: optionTypes.INTEGER,
-        };
-      },
-    },
-  },
-  worlds: {
-    title: 'Worlds',
-    type: optionTypes.INSTANCER,
-    cost: {
-      gold: 1,
-    },
-    instanceOptions: {
-      a: {
-        title: 'A',
-        type: optionTypes.TEXT,
-      },
-      races: state => {
-        const choices = {
-          test: {
-            title: 'Test',
-          },
-        };
-        const races = getSelected('races', state.options);
-        for (const raceSlug in races) {
-          if (isNaN(raceSlug)) continue;
-          choices[raceSlug] = {
-            title: getSelected(`races.${raceSlug}.name`, state.options),
-          };
-        }
-        return {
-          title: 'Races',
-          type: optionTypes.SELECT,
-          choices,
-        };
-      },
-    },
-  },
-  instancer: state => {
-    return {
-      type: optionTypes.INSTANCER,
-      title: 'Instancer',
-      instanceOptions: {
-        title: (state, option) => {
-          const currentSlug = option.path.slice(-2, -1);
-          return {
-            type: optionTypes.TEXT,
-            title: `Name: ${getSelected(`instancer.${currentSlug}.optionC`, state.options)}`,
-          };
-        },
-        optionC: {
-          type: optionTypes.INTEGER,
-          title: 'C',
-        },
-      },
-    };
-  },
-};
-
 /**
- * Each options can be an object or a function returning one. Function will receive the state as its argument. Each option object can have properties:
- * title - display name of the option
+ * Each options can be an object or a function returning one. Function will receive the state and the option itself as its arguments. Each option object can have properties:
+ * title - display name of the option or a function returning one
  * type - one of optionTypes
  * selected - initial value of the option
  *
- * if type !== optionTypes.GROUP
+ * if type === optionTypes.INTEGER || type === optionTypes.INSTANCER
  * cost - object with costs of each time the option is bought
  *
  * if type === optionTypes.GROUP
  * options - suboptions of the group, same rules apply as for any other option
  *
+ * if type === optionTypes.INTEGER
+ * max - maximum number of simultaneously chosen options
+ * requirements - an array containing objects with
+ *  text - text to be displayed, has to be a string
+ *  callback - a function returning wheter the requirement is met
+ * 
  * if type === optionTypes.SELECT
+ * max - maximum number of simultaneously chosen options
  * choices - choices to select from, ech choice can have:
  *  title - display name of the choice
  *  cost - object with costs of the choice
  *
  * if type === optionTypes.INSTANCER
- * instanceOptions - suboptions of each of the created instances, same rules apply as for any other option
+ * instanceGroup - an option with type optionTypes.GROUP, it will be cloned as each of the created instances; it cannot be a function
+ * 
+ * When a function requires refreshed data from other options it can call
+ * callUserFunction(getOption('testOption', state.options), state);
+ * 
+ * or when it requires updated currency stats it can call
+ * calculateCosts(state.options, state.currencies, true);
+ * or
+ * calculateCosts(state.options, getOption('testGroup', state.options).currencies, true);
  */
 
 const settings = {
@@ -417,20 +283,35 @@ const options = {
         bodyName: (state, option) => {
           return {
             type: optionTypes.TEXT,
-            title: `Body Name ${getSelected(`body.${option.path.slice(-2, -1)}.gender`, state.options)}`,
+            title: `Body Name ${getSelected(`body.${option.path.slice(-2, -1)}.sex`, state.options)}`,
           };
         },
         test: {
           type: optionTypes.INTEGER,
-          title: 'Test',
           cost: { delta_b: 25 },
+          title: 'Test',
+          requirements: [
+            {
+              text: 'test text',
+              callback: (state, option) => {
+                console.log(state, option);
+                return true;
+              },
+            },
+          ],
         },
-        gender: {
+        sex: {
           type: optionTypes.SELECT,
-          title: 'Gender',
+          title: 'Sex',
+          text: <>
+            <p>Select the biological sex of the body.</p>
+          </>,
           choices: {
             male: {
               title: 'Male',
+              text: <>
+                <p>Has XY chromosomes and male genitalia.</p>
+              </>,
             },
             female: {
               title: 'Female',
@@ -445,16 +326,26 @@ const options = {
           title: 'Arrival',
           choices: {
             creation: {
-              title: 'Creation',
               cost: { delta_b: 25 },
+              title: 'Creation',
+              text: <>
+                <p>Your body will be created at the selected age. You will have to enter your first plane though teleportation or summoning.</p>
+              </>,
             },
             birth: {
-              title: 'Birth',
               cost: { delta_b: -10 },
+              title: 'Birth',
+              text: <>
+                <p>You are born as a random sapient child in the plane. This happens before a soul is bound to the child. You will keep your memories but your physical and magical capabilities will be impaired until you reach adulthood. At the same time your learning speed will be increased.</p>
+                <p>You can select any race that is present in the plane, you will be born to a mother of this race.</p>
+              </>,
             },
             possesion: {
-              title: 'Possesion',
               cost: { delta_b: 10 },
+              title: 'Possesion',
+              text: <>
+                <p>This body will have to access the plane through haunting or possesion. Skip selecting race, gender, age, strength and beauty when choosing options in this section.</p>
+              </>,
             },
           },
         },

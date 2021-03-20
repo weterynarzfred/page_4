@@ -11,6 +11,7 @@ function SelectControls(props) {
       option={props.option}
       choice={choice}
       slug={slug}
+      currencies={props.currencies}
     />);
   }
 

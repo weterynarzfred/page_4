@@ -2,12 +2,12 @@ import React from 'react';
 import classNames from 'classnames';
 
 function OptionCost(props) {
-  if (props.option.cost === undefined) return null;
+  if (props.cost === undefined) return null;
 
   let costs = [];
-  for (const costSlug in props.option.cost) {
+  for (const costSlug in props.cost) {
     const classes = [];
-    let displayValue = -props.option.cost[costSlug];
+    let displayValue = -props.cost[costSlug];
     if (displayValue > 0) {
       displayValue = `+ ${displayValue}`;
       classes.push('positive');

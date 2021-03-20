@@ -1,8 +1,9 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import getSelected from '../functions/getSelected';
 import { actions } from '../include/enum';
+import CheckboxControl from './CheckboxControl';
 
 function handleDecrement(value) {
   if (value <= this.option.min) return;
@@ -47,14 +48,9 @@ function IntegerControls(props) {
     </div>
   </div>;
 
-  const checkbox = <div
-    className={classNames('integer-checkbox', { checked: value === 1 })}
-    onClick={handleToggle.bind(props, value)}
-  ></div>;
-
   return (
     <div className="IntegerControls">
-      {useSpinbox ? spinbox : checkbox}
+      {useSpinbox ? spinbox : <CheckboxControl selected={value === 1} handleToggle={handleToggle.bind(props, value)} />}
     </div>
   );
 }
