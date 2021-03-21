@@ -1,7 +1,9 @@
 import React from 'react';
 
 function OptionImage(props) {
-  if (props.image === undefined) return null;
+  if (props.image === undefined) return (
+    <div className="option-image-placeholder"></div>
+  );
 
   return (
     <div className="OptionImage">

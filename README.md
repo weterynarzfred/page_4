@@ -52,8 +52,7 @@ or
 
 ## todo
 - requirements in selection choices
-- dividing options to tabs
 - make as many parameters interchangable with functions as possible
-- collapsing instance groups
 - make a working preview
 - generate warnings when selected value is outside the min-max bounds
+- generate warnings when currency is below zero

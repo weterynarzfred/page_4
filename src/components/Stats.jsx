@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
+import getOption from 'Functions/getOption';
 import Currencies from './Currencies';
 import Warnings from './Warnings';
 import PathLink from './PathLink';
@@ -9,21 +11,32 @@ function Stats(props) {
 
   let pathTarget = [];
   for (const part of props.path) {
-    pathElements.push(<div
-      className="path-separator"
-      key={pathTarget.join('.') + '-separator'}
-    >/</div>);
+    if (pathTarget.length > 0) {
+      pathElements.push(<div
+        className="path-separator"
+        key={pathTarget.join('.') + '-separator'}
+      >/</div>);
+    }
     pathTarget.push(part);
+    const currentOption = getOption(pathTarget, props.options);
     pathElements.push(<PathLink
       key={pathTarget.join('.')}
-      text={part}
+      text={currentOption.title}
       path={pathTarget.join('.')}
     />);
   }
 
+  const currencies = _.cloneDeep(props.currencies);
+  if (props.path.length > 0) {
+    const currentOption = getOption(props.path, props.options);
+    if (currentOption.currencies !== undefined) {
+      Object.assign(currencies, currentOption.currencies);
+    }
+  }
+
   return (
     <div className="Stats">
-      <Currencies currencies={props.currencies} />
+      <Currencies currencies={currencies} />
       <Warnings />
       <div className="path">{pathElements}</div>
     </div>
@@ -31,6 +44,7 @@ function Stats(props) {
 }
 
 export default connect(state => ({
+  options: state.options,
   currencies: state.currencies,
   path: state.path,
 }))(Stats);

@@ -252,6 +252,7 @@ const options = {
 
         return {
           type: optionTypes.SELECT,
+          max: Infinity,
           choices,
         };
       },

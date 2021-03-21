@@ -2,10 +2,11 @@
   width: 25em;
   max-width: 100%;
 
-  .option-content {
+  > .option-content {
     position: relative;
     background-color: #333;
     color: $disabledText;
+    padding-top: 1em;
     border: solid #999;
     border-width: 1px 1px 6px 1px;
     transition: 0.3s;
@@ -30,8 +31,13 @@
     }
   }
 
+  .option-image-placeholder {
+    height: 1em;
+  }
+
   .option-text {
     padding: 0 2em;
+    min-height: 1em;
   }
 
   .OptionCost {

@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { actions } from 'Include/enum';
 import getSelectedValue from 'Functions/getSelectedValue';
-import Option from 'Components/Option';
+import PathLink from 'Components/PathLink';
 
 function fixPathsInInstance(options, id, depth = 1) {
   for (const slug in options) {
@@ -45,6 +45,9 @@ function InstancerControls(props) {
     if (isNaN(slug)) continue;
     const instance = value[slug];
     instanceElements.push(<div className="instance" key={slug}>
+      <PathLink text={instance.title} path={instance.path.join('.')}>
+
+      </PathLink>
       <button
         className="delete-instance"
         onClick={handleDelete.bind(props, instance)}
@@ -54,7 +57,6 @@ function InstancerControls(props) {
           <path d="M10 90L90 10" />
         </svg>
       </button>
-      <Option option={instance} currencies={props.currencies} />
     </div>);
   }
 
