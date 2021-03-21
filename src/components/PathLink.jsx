@@ -15,8 +15,7 @@ function PathLink(props) {
       if (props.onClick !== undefined) props.onClick();
       handleClick.call(props);
     }}>
-      {props.children}
-      {props.text}
+      {props.children === undefined ? props.text : props.children}
     </div>
   );
 }

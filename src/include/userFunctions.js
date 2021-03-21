@@ -52,6 +52,10 @@ function recalculateUserFunctions(options, state) {
       recalculateUserFunctions(options[slug].selected, state);
     }
 
+    if (options[slug].type === optionTypes.SELECT) {
+      recalculateUserFunctions(options[slug].choices, state);
+    }
+
     if (options[slug]._title !== undefined) {
       callUserFunction(options[slug], state, options[slug]._title);
     }

@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import { optionTypes } from 'Include/enum';
 import getSelectedValue from 'Functions/getSelectedValue';
 
-function findWarnings(options) {
+function findWarnings(options, allOptions = options) {
   const warnings = [];
 
   for (const slug in options) {
     const option = options[slug];
     if (option.requirements !== undefined) {
       if (option.type === optionTypes.INTEGER) {
-        const selected = getSelectedValue(option);
+        const selected = getSelectedValue(option, allOptions);
         if (selected > 0) {
           for (const test of option.requirements) {
             if (!test.value) {
@@ -25,11 +25,15 @@ function findWarnings(options) {
     }
 
     if (option.options !== undefined) {
-      warnings.push(...findWarnings(option.options));
+      warnings.push(...findWarnings(option.options, allOptions));
+    }
+
+    if (option.type === optionTypes.SELECT) {
+      warnings.push(...findWarnings(option.choices, allOptions));
     }
 
     if (option.type === optionTypes.INSTANCER) {
-      warnings.push(...findWarnings(option.selected));
+      warnings.push(...findWarnings(option.selected, allOptions));
     }
   }
 

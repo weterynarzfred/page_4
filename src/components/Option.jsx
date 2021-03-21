@@ -50,6 +50,7 @@ function Option(props) {
       'Option',
       `option-${props.option.type}`,
       { selected },
+      { 'top-level': props.topLevel },
       {
         'option-is-selectable': [
           optionTypes.INTEGER,
@@ -68,7 +69,7 @@ function Option(props) {
         <div className="option-title">{props.option.title}</div>
         <OptionCost cost={props.option.cost} currencies={currencies} />
         <OptionImage image={props.option.image} />
-        <Currencies currencies={props.option.currencies} />
+        {props.topLevel ? null : <Currencies currencies={props.option.currencies} />}
         <div className="option-text">{props.option.text === undefined ? '' : cloneElement(props.option.text)}</div>
         {controls}
         <OptionRequirements option={props.option} />

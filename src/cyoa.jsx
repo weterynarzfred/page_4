@@ -8,7 +8,7 @@ import getSelectedValue from 'Functions/getSelectedValue';
 import isSelected from './functions/isSelected';
 
 const settings = {
-  initialScreen: ['intro'],
+  initialScreen: ['body'],
   showRoot: false,
   currencies: {
     delta_s: {
@@ -281,19 +281,6 @@ const options = {
           title: (state, option) => `Body Name ${getSelectedValue(`body.${option.path.slice(-2, -1)}.sex`, state.options)}`,
           selected: 'Body',
         },
-        test: {
-          type: optionTypes.INTEGER,
-          cost: { delta_b: 25 },
-          title: (state, option) => `Test ${isSelected(`${option.path.slice(0, -1).join('.')}.arrival.birth`, state.options) ? 'true' : 'false'}`,
-          requirements: [
-            {
-              text: 'test text',
-              callback: (state, option) => {
-                return true;
-              },
-            },
-          ],
-        },
         sex: {
           type: optionTypes.SELECT,
           title: 'Sex',
@@ -363,6 +350,17 @@ const options = {
             },
             possesion: {
               cost: { delta_b: 10 },
+              requirements: [
+                {
+                  text: 'Has to be male of female',
+                  callback: (state, option) => {
+                    return getSelectedValue(
+                      `${option.path.slice(0, -2).join('.')}.sex`,
+                      state.options
+                    ).some(e => ['male', 'female'].includes(e));
+                  },
+                },
+              ],
               title: 'Possesion',
               text: <>
                 <p>This body will have to access the plane through haunting or possesion. Skip selecting race, gender, age, strength and beauty when choosing options in this section.</p>

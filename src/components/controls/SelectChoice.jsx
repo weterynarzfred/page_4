@@ -8,6 +8,7 @@ import OptionCost from 'Components/optionElements/OptionCost';
 import OptionImage from 'Components/optionElements/OptionImage';
 import CheckboxControl from './CheckboxControl';
 import GroupControls from './GroupControls';
+import OptionRequirements from '../optionElements/OptionRequirements';
 
 function handleToggle(selected) {
   const args = {
@@ -39,6 +40,7 @@ function SelectChoice(props) {
           selected={selected}
           handleToggle={handleToggle.bind(props, selected)}
         />
+        <OptionRequirements option={props.choice} />
         <GroupControls options={props.choice.options} currencies={currencies} />
       </div>
     </div>

@@ -5,6 +5,7 @@ import { actions } from 'Include/enum';
 import getSelectedValue from 'Functions/getSelectedValue';
 import PathLink from 'Components/PathLink';
 import deepClone from '../../functions/deepClone';
+import Currencies from '../Currencies';
 
 function fixPathsInInstance(options, id, depth = 1) {
   for (const slug in options) {
@@ -46,8 +47,9 @@ function InstancerControls(props) {
     if (isNaN(slug)) continue;
     const instance = value[slug];
     instanceElements.push(<div className="instance" key={slug}>
-      <PathLink text={instance.title} path={instance.path.join('.')}>
-
+      <PathLink path={instance.path.join('.')}>
+        <div className="instance-link-title">{instance.title}</div>
+        <Currencies currencies={instance.currencies} />
       </PathLink>
       <button
         className="delete-instance"

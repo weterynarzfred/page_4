@@ -19,6 +19,7 @@ function OptionsList(props) {
       key={slug}
       option={option}
       currencies={props.currencies}
+      topLevel={true}
     />);
   }
 
