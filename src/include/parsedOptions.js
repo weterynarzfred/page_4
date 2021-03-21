@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import { options } from 'Src/cyoa';
-import { optionTypes } from 'Include/enum';
-import { addUserFunction } from 'Include/userFunctions';
-import { addUserText } from 'Include/userTexts';
+import { optionTypes } from './enum';
+import { addUserFunction } from './userFunctions';
+import { addUserText } from './userTexts';
 
 function parseOptions(options, path = []) {
   for (const slug in options) {

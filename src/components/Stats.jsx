@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Currencies from 'Components/Currencies';
-import Warnings from 'Components/Warnings';
+import Currencies from './Currencies';
+import Warnings from './Warnings';
 import PathLink from './PathLink';
 
 function Stats(props) {
   const pathElements = [
     <PathLink
       key=''
-      text="home"
+      text="main menu"
       path={''}
     />
   ];

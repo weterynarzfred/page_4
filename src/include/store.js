@@ -1,18 +1,18 @@
 import { createStore } from 'redux';
 import produce from 'immer';
 import _ from 'lodash';
+import { settings } from 'Src/cyoa';
+import cleanupState from 'Functions/cleanupState';
+import selectOptionReducer from 'Functions/selectOptionReducer';
+import calculateCosts from 'Functions/calculateCosts';
 import { actions } from './enum';
 import parsedOptions from './parsedOptions';
 import { recalculateUserFunctions } from './userFunctions';
-import { settings } from '../cyoa';
-import cleanupState from '../functions/cleanupState';
-import selectOptionReducer from '../functions/selectOptionReducer';
-import calculateCosts from '../functions/calculateCosts';
 
 const initialState = {
   options: parsedOptions,
   currencies: settings.currencies,
-  path: ['intro', 'yourSituation'],
+  path: ['intro'],
 };
 
 function rootReducer(state = initialState, action = '') {

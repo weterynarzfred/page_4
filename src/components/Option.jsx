@@ -4,17 +4,16 @@ import classNames from 'classnames';
 import _ from 'lodash';
 import { optionTypes } from 'Include/enum';
 import { getUserText } from 'Include/userTexts';
-import getSelectedValue from 'Functions/getSelectedValue';
 import isSelected from 'Functions/isSelected';
-import OptionCost from 'Components/OptionCost';
-import OptionRequirements from 'Components/OptionRequirements';
-import Currencies from 'Components/Currencies';
-import OptionImage from 'Components/OptionImage';
-import GroupControls from 'Components/controls/GroupControls';
-import InstancerControls from 'Components/controls/InstancerControls';
-import IntegerControls from 'Components/controls/IntegerControls';
-import SelectControls from 'Components/controls/SelectControls';
-import TextControls from 'Components/controls/TextControls';
+import Currencies from './Currencies';
+import OptionRequirements from './optionElements/OptionRequirements';
+import OptionImage from './optionElements/OptionImage';
+import OptionCost from './optionElements/OptionCost';
+import GroupControls from './controls/GroupControls';
+import InstancerControls from './controls/InstancerControls';
+import IntegerControls from './controls/IntegerControls';
+import SelectControls from './controls/SelectControls';
+import TextControls from './controls/TextControls';
 
 function Option(props) {
   let option = props.option;

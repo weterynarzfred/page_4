@@ -1,5 +1,5 @@
-import { optionTypes } from 'Include/enum';
-import { parseOptions } from 'Include/parsedOptions';
+import { optionTypes } from './enum';
+import { parseOptions } from './parsedOptions';
 
 const userFunctions = [];
 

@@ -1,5 +1,5 @@
 import { optionTypes } from 'Include/enum';
-import getSelectedValue from 'Functions/getSelectedValue';
+import getSelectedValue from './getSelectedValue';
 import isSelected from './isSelected';
 
 function applyCost(cost, costs, count) {

@@ -5,10 +5,10 @@ import _ from 'lodash';
 import { actions } from 'Include/enum';
 import { getUserText } from 'Include/userTexts';
 import getSelectedValue from 'Functions/getSelectedValue';
-import OptionCost from 'Components/OptionCost';
-import OptionImage from 'Components/OptionImage';
-import CheckboxControl from 'Components/controls/CheckboxControl';
-import GroupControls from 'Components/controls/GroupControls';
+import OptionCost from 'Components/optionElements/OptionCost';
+import OptionImage from 'Components/optionElements/OptionImage';
+import CheckboxControl from './CheckboxControl';
+import GroupControls from './GroupControls';
 
 function handleToggle(selected) {
   const args = {

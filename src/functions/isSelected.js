@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { optionTypes } from 'Include/enum';
-import getOption from 'Functions/getOption';
+import getOption from './getOption';
 import getSelectedValue from './getSelectedValue';
 
 function isSelected(option, options, checkedParents = 0) {
