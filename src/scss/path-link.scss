@@ -1,0 +1,19 @@
+.path {
+  display: flex;
+  align-items: center;
+  font-family: monospace;
+  padding-left: 1em;
+}
+
+.path-separator {
+  padding: 0 0.2em;
+}
+
+.PathLink {
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    color: $selected;
+  }
+}

@@ -12,6 +12,7 @@ import calculateCosts from '../functions/calculateCosts';
 const initialState = {
   options: parsedOptions,
   currencies: settings.currencies,
+  path: ['intro', 'yourSituation'],
 };
 
 function rootReducer(state = initialState, action = '') {
@@ -19,6 +20,9 @@ function rootReducer(state = initialState, action = '') {
     switch (action.type) {
       case actions.SELECT_OPTION:
         selectOptionReducer(newState, action);
+        break;
+      case actions.CHANGE_PATH:
+        newState.path = action.path;
         break;
       default:
     }
