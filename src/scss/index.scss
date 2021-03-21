@@ -3,6 +3,7 @@ $positive: rgb(161, 255, 73);
 $negative: rgb(255, 115, 45);
 $text: rgb(255, 222, 160);
 $disabledText: #aaa;
+$titleFont: 'Piazzolla', serif;
 
 body {
   background-color: #222;
@@ -40,7 +41,7 @@ body {
     }
 
     .option-title {
-      font-family: 'Piazzolla', serif;
+      font-family: $titleFont;
       font-size: 1.25em;
     }
 
@@ -81,6 +82,7 @@ button:focus {
   outline: none;
 }
 
+@import 'navigation';
 @import 'stats';
 @import 'path-link';
 @import 'option-requirements';

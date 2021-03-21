@@ -5,13 +5,7 @@ import Warnings from './Warnings';
 import PathLink from './PathLink';
 
 function Stats(props) {
-  const pathElements = [
-    <PathLink
-      key=''
-      text="main menu"
-      path={''}
-    />
-  ];
+  const pathElements = [];
 
   let pathTarget = [];
   for (const part of props.path) {

@@ -11,7 +11,10 @@ function handleClick() {
 
 function PathLink(props) {
   return (
-    <div className="PathLink" onClick={handleClick.bind(props)}>
+    <div className="PathLink" onClick={() => {
+      if (props.onClick !== undefined) props.onClick();
+      handleClick.call(props);
+    }}>
       {props.text}
     </div>
   );
