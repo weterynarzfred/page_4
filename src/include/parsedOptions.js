@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import { options } from 'Src/cyoa';
 import { optionTypes } from './enum';
 import { addUserFunction } from './userFunctions';
 import { addUserText } from './userTexts';
@@ -74,7 +73,4 @@ function parseOptions(options, path = []) {
   return options;
 }
 
-const parsedOptions = parseOptions(options);
-
-export default parsedOptions;
 export { parseOptions };

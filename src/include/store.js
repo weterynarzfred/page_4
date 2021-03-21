@@ -1,16 +1,16 @@
 import { createStore } from 'redux';
 import produce from 'immer';
 import _ from 'lodash';
-import { settings } from 'Src/cyoa';
+import { settings, options } from '../cyoa';
 import cleanupState from 'Functions/cleanupState';
 import selectOptionReducer from 'Functions/selectOptionReducer';
 import calculateCosts from 'Functions/calculateCosts';
 import { actions } from './enum';
-import parsedOptions from './parsedOptions';
+import { parseOptions } from './parsedOptions';
 import { recalculateUserFunctions } from './userFunctions';
 
 const initialState = {
-  options: parsedOptions,
+  options: parseOptions(options),
   currencies: settings.currencies,
   path: ['intro'],
 };

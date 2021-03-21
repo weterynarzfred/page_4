@@ -33,12 +33,10 @@ function OptionsList(props) {
     }
   }
 
-
-
   return (
-    <div className="OptionsList">
+    <main className="OptionsList">
       {optionElements}
-    </div>
+    </main>
   );
 }
 

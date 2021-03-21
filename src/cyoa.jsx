@@ -6,7 +6,6 @@ import calculateCosts from 'Functions/calculateCosts';
 import getOption from 'Functions/getOption';
 import getSelectedValue from 'Functions/getSelectedValue';
 import isSelected from './functions/isSelected';
-import { callOptionFunction } from './include/userFunctions';
 
 const settings = {
   currencies: {
