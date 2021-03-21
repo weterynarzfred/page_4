@@ -9,15 +9,17 @@ function OptionsList(props) {
   if (props.path.length > 0) {
     const mainOption = getOption(props.path, props.options);
     currentOptions[mainOption.slug] = mainOption;
+  } else {
+    currentOptions = props.options;
+  }
 
-    for (const slug in currentOptions) {
-      const option = currentOptions[slug];
-      optionElements.push(<Option
-        key={slug}
-        option={option}
-        currencies={props.currencies}
-      />);
-    }
+  for (const slug in currentOptions) {
+    const option = currentOptions[slug];
+    optionElements.push(<Option
+      key={slug}
+      option={option}
+      currencies={props.currencies}
+    />);
   }
 
   return (

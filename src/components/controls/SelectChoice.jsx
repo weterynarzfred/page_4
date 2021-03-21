@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { cloneElement } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import _ from 'lodash';
 import { actions } from 'Include/enum';
-import { getUserText } from 'Include/userTexts';
 import getSelectedValue from 'Functions/getSelectedValue';
 import OptionCost from 'Components/optionElements/OptionCost';
 import OptionImage from 'Components/optionElements/OptionImage';
@@ -35,7 +34,7 @@ function SelectChoice(props) {
         <div className="option-title">{props.choice.title}</div>
         <OptionCost cost={props.choice.cost} currencies={props.currencies} />
         <OptionImage image={props.choice.image} />
-        <div className="option-text">{getUserText(props.choice.text)}</div>
+        <div className="option-text">{props.choice.text === undefined ? '' : cloneElement(props.choice.text)}</div>
         <CheckboxControl
           selected={selected}
           handleToggle={handleToggle.bind(props, selected)}

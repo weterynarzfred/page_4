@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import { optionTypes } from 'Include/enum';
+import { optionTypes } from './include/enum';
 import { callUserFunction } from 'Include/userFunctions';
 import calculateCosts from 'Functions/calculateCosts';
 import getOption from 'Functions/getOption';
@@ -8,6 +8,8 @@ import getSelectedValue from 'Functions/getSelectedValue';
 import isSelected from './functions/isSelected';
 
 const settings = {
+  initialScreen: ['intro'],
+  showRoot: false,
   currencies: {
     delta_s: {
       title: 'Delta S',

@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { cloneElement } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import _ from 'lodash';
 import { optionTypes } from 'Include/enum';
-import { getUserText } from 'Include/userTexts';
 import isSelected from 'Functions/isSelected';
 import Currencies from './Currencies';
 import OptionRequirements from './optionElements/OptionRequirements';
@@ -16,33 +15,31 @@ import SelectControls from './controls/SelectControls';
 import TextControls from './controls/TextControls';
 
 function Option(props) {
-  let option = props.option;
-
   const currencies = _.cloneDeep(props.currencies);
-  if (option.currencies !== undefined) {
-    Object.assign(currencies, _.cloneDeep(option.currencies));
+  if (props.option.currencies !== undefined) {
+    Object.assign(currencies, _.cloneDeep(props.option.currencies));
   }
 
   let controls;
-  let selected = isSelected(option, props.options);
-  switch (option.type) {
+  let selected = isSelected(props.option, props.options);
+  switch (props.option.type) {
     case optionTypes.INTEGER:
       controls = <>
-        <IntegerControls option={option} />
-        <GroupControls options={option.options} currencies={currencies} />
+        <IntegerControls option={props.option} />
+        <GroupControls options={props.option.options} currencies={currencies} />
       </>;
       break;
     case optionTypes.SELECT:
-      controls = <SelectControls option={option} currencies={currencies} />;
+      controls = <SelectControls option={props.option} currencies={currencies} />;
       break;
     case optionTypes.INSTANCER:
-      controls = <InstancerControls option={option} currencies={currencies} />;
+      controls = <InstancerControls option={props.option} currencies={currencies} />;
       break;
     case optionTypes.GROUP:
-      controls = <GroupControls options={option.options} currencies={currencies} />;
+      controls = <GroupControls options={props.option.options} currencies={currencies} />;
       break;
     case optionTypes.TEXT:
-      controls = <TextControls option={option} />;
+      controls = <TextControls option={props.option} />;
       break;
     default:
       controls = null;
@@ -51,30 +48,30 @@ function Option(props) {
   return (
     <div className={classNames(
       'Option',
-      `option-${option.type}`,
+      `option-${props.option.type}`,
       { selected },
       {
         'option-is-selectable': [
           optionTypes.INTEGER,
           optionTypes.TEXT,
-        ].includes(option.type)
+        ].includes(props.option.type)
       },
       {
         'option-is-container': [
           optionTypes.GROUP,
           optionTypes.SELECT,
           optionTypes.INSTANCER,
-        ].includes(option.type)
+        ].includes(props.option.type)
       }
     )}>
       <div className="option-content">
-        <div className="option-title">{option.title}</div>
-        <OptionCost cost={option.cost} currencies={currencies} />
-        <OptionImage image={option.image} />
-        <Currencies currencies={option.currencies} />
-        <div className="option-text">{getUserText(option.text)}</div>
+        <div className="option-title">{props.option.title}</div>
+        <OptionCost cost={props.option.cost} currencies={currencies} />
+        <OptionImage image={props.option.image} />
+        <Currencies currencies={props.option.currencies} />
+        <div className="option-text">{props.option.text === undefined ? '' : cloneElement(props.option.text)}</div>
         {controls}
-        <OptionRequirements option={option} />
+        <OptionRequirements option={props.option} />
       </div>
     </div>
   );

@@ -5,13 +5,22 @@ import getOption from 'Functions/getOption';
 import Currencies from './Currencies';
 import Warnings from './Warnings';
 import PathLink from './PathLink';
+import { settings } from '../cyoa';
 
 function Stats(props) {
   const pathElements = [];
-
   let pathTarget = [];
+
+  if (settings.showRoot) {
+    pathElements.push(<PathLink
+      key={''}
+      text="root"
+      path={''}
+    />);
+  }
+
   for (const part of props.path) {
-    if (pathTarget.length > 0) {
+    if (pathTarget.length > 0 || settings.showRoot) {
       pathElements.push(<div
         className="path-separator"
         key={pathTarget.join('.') + '-separator'}

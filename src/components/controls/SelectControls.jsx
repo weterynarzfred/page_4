@@ -1,15 +1,15 @@
 import React from 'react';
+import _ from 'lodash';
 import SelectChoice from './SelectChoice';
 
 function SelectControls(props) {
 
   const choiceElements = [];
   for (const slug in props.option.choices) {
-    const choice = props.option.choices[slug];
     choiceElements.push(<SelectChoice
       key={slug}
       option={props.option}
-      choice={choice}
+      choice={props.option.choices[slug]}
       slug={slug}
       currencies={props.currencies}
     />);

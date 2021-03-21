@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { actions } from 'Include/enum';
 import getSelectedValue from 'Functions/getSelectedValue';
 import PathLink from 'Components/PathLink';
+import deepClone from '../../functions/deepClone';
 
 function fixPathsInInstance(options, id, depth = 1) {
   for (const slug in options) {
@@ -20,7 +21,7 @@ function fixPathsInInstance(options, id, depth = 1) {
 }
 
 function handleAdd(value) {
-  const instanceGroup = _.cloneDeep(this.option.instanceGroup);
+  const instanceGroup = deepClone(this.option.instanceGroup);
   fixPathsInInstance(instanceGroup.options, value.nextId);
 
   this.dispatch({

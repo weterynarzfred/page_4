@@ -12,7 +12,7 @@ import { recalculateUserFunctions } from './userFunctions';
 const initialState = {
   options: parseOptions(options),
   currencies: settings.currencies,
-  path: ['intro'],
+  path: settings.initialScreen,
 };
 
 function rootReducer(state = initialState, action = '') {

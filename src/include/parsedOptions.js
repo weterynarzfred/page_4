@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import { optionTypes } from './enum';
 import { addUserFunction } from './userFunctions';
-import { addUserText } from './userTexts';
 
 function parseOptions(options, path = []) {
   for (const slug in options) {
@@ -19,16 +18,10 @@ function parseOptions(options, path = []) {
     option.slug = slug;
     option.path = currentPath;
 
-    // move react elements in text to user texts array
-    if (isNaN(option.text)) {
-      option.text = addUserText(option.text);
-    }
+    // mark choices with properties
     if (option.choices !== undefined) {
       for (const choiceSlug in option.choices) {
         const choice = option.choices[choiceSlug];
-        if (isNaN(choice.text)) {
-          choice.text = addUserText(choice.text);
-        }
         choice.type = optionTypes.INTEGER;
         choice.isChoice = true;
       }
@@ -66,7 +59,13 @@ function parseOptions(options, path = []) {
     // move functions for generating titles to user functions array
     if (typeof option.title === 'function') {
       option._title = addUserFunction(option.title, 'title');
-      option.title = '?';
+      option.title = '';
+    }
+
+    //
+    if (typeof option.text === 'function') {
+      option._text = addUserFunction(option.text, 'text');
+      option.text = '';
     }
   }
 
