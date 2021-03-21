@@ -40,10 +40,9 @@ All configuration is done through objects `settings` and `options` in `src/cyoa.
 
 When a function requires refreshed data from other options it can call
 `callOptionFunction(getOption('testOption', state.options), state);`
+
 or when it requires updated currency stats it can call
 `calculateCosts(state.options, state.currencies, true);`
-or 
-`calculateCosts(state.options, getOption('testGroup', state.options).currencies, true);`
 
 ### restricted keys
 - `instanceGroup`
@@ -55,3 +54,4 @@ or
 - make a working preview
 - generate warnings when selected value is outside the min-max bounds
 - generate warnings when currency is below zero
+- add a disclaimer

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { optionTypes } from 'Include/enum';
 import getSelectedValue from 'Functions/getSelectedValue';
+import PathLink from './PathLink';
 
 function findWarnings(options, allOptions = options) {
   const warnings = [];
@@ -46,8 +47,13 @@ function Warnings(props) {
   const warningElements = [];
   const warnings = findWarnings(props.options);
   for (const warning of warnings) {
+    const parentPath = warning.path.slice(0, -1);
     warningElements.push(<div className="warning" key={warning.path.join('.')}>
-      <div className="warning-path">{warning.path.join('.')}:</div>
+      <div className="warning-path">
+        <PathLink path={parentPath.join('.')}>
+          {parentPath.join('.')}
+        </PathLink>
+      </div>
       <div className="warning-text">{warning.text}</div>
     </div>);
   }

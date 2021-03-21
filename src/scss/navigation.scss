@@ -57,6 +57,10 @@
       .navigation-link {
         font-family: $titleFont;
         font-size: 2em;
+
+        .PathLink {
+          text-decoration: none;
+        }
       }
     }
   }

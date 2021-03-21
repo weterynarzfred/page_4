@@ -11,12 +11,12 @@ function handleClick() {
 
 function PathLink(props) {
   return (
-    <div className="PathLink" onClick={() => {
+    <span className="PathLink" onClick={() => {
       if (props.onClick !== undefined) props.onClick();
       handleClick.call(props);
     }}>
       {props.children === undefined ? props.text : props.children}
-    </div>
+    </span>
   );
 }
 

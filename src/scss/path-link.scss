@@ -3,6 +3,10 @@
   align-items: center;
   font-family: monospace;
   padding-left: 1em;
+
+  .PathLink {
+    text-decoration: none;
+  }
 }
 
 .path-separator {
@@ -12,6 +16,7 @@
 .PathLink {
   cursor: pointer;
   transition: 0.2s;
+  text-decoration: underline;
 
   &:hover {
     color: $selected;

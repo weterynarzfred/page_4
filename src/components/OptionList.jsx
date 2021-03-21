@@ -1,20 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import getOption from 'Functions/getOption';
 import Option from './Option';
 
 function OptionsList(props) {
-  let currentOptions = {};
   const optionElements = [];
-  if (props.path.length > 0) {
-    const mainOption = getOption(props.path, props.options);
-    currentOptions[mainOption.slug] = mainOption;
-  } else {
-    currentOptions = props.options;
-  }
 
-  for (const slug in currentOptions) {
-    const option = currentOptions[slug];
+  for (const slug in props.currentOptions) {
+    const option = props.currentOptions[slug];
     optionElements.push(<Option
       key={slug}
       option={option}
@@ -31,7 +23,5 @@ function OptionsList(props) {
 }
 
 export default connect(state => ({
-  path: state.path,
   options: state.options,
-  currencies: state.currencies,
 }))(OptionsList);

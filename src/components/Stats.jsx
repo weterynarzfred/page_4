@@ -54,6 +54,5 @@ function Stats(props) {
 
 export default connect(state => ({
   options: state.options,
-  currencies: state.currencies,
   path: state.path,
 }))(Stats);

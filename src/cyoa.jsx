@@ -6,6 +6,7 @@ import calculateCosts from 'Functions/calculateCosts';
 import getOption from 'Functions/getOption';
 import getSelectedValue from 'Functions/getSelectedValue';
 import isSelected from './functions/isSelected';
+import PathLink from './components/PathLink';
 
 const settings = {
   initialScreen: ['body'],
@@ -244,10 +245,13 @@ const options = {
             `body.${bodySlug}.bodyName`,
             state.options
           );
-          calculateCosts(state.options, getOption(bodies[bodySlug], state.options).currencies, true);
+          calculateCosts(state.options, state.currencies, true);
           const cost = bodies[bodySlug].currencies.delta_b.value;
           choices[bodySlug] = {
             title,
+            text: <><p>
+              <PathLink path={bodies[bodySlug].path.join('.')}>edit</PathLink>
+            </p></>,
             cost: { delta_s: -cost },
           };
         }
@@ -352,7 +356,7 @@ const options = {
               cost: { delta_b: 10 },
               requirements: [
                 {
-                  text: 'Has to be male of female',
+                  text: 'Body has to be male of female',
                   callback: (state, option) => {
                     return getSelectedValue(
                       `${option.path.slice(0, -2).join('.')}.sex`,
