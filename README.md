@@ -50,8 +50,10 @@ or when it requires updated currency stats it can call
 
 
 ## todo
-- make as many parameters interchangable with functions as possible
-- make a working preview
+- allow for jsx in requirements
+- scroll to recent position after tab change
 - generate warnings when selected value is outside the min-max bounds
+- make a working preview
 - generate warnings when currency is below zero
 - add a disclaimer
+- return to previous tab
