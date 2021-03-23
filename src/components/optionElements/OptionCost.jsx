@@ -6,19 +6,26 @@ function OptionCost(props) {
 
   let costs = [];
   for (const costSlug in props.cost) {
-    const classes = [];
+    let color = false;
     let displayValue = -props.cost[costSlug];
     if (displayValue > 0) {
       displayValue = `+ ${displayValue}`;
-      classes.push('positive');
+      color = 1;
     }
     else {
       if (displayValue < 0) {
-        classes.push('negative');
+        color = -1;
       }
       displayValue = `- ${-displayValue}`;
     }
-    costs.push(<tr className={classNames('cost', classes)} key={costSlug}>
+
+    if (props.currencies[costSlug].inverted) color *= -1;
+
+    costs.push(<tr className={classNames(
+      'cost',
+      { positive: color > 0 },
+      { negative: color < 0 }
+    )} key={costSlug}>
       <td className="cost-title">{props.currencies[costSlug].title}</td>
       <td className="cost-value">{displayValue}</td>
     </tr>);

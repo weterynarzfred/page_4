@@ -127,13 +127,13 @@ export default {
             state.options
           );
           calculateCosts(state.options, state.currencies, true);
-          const cost = races[raceSlug].currencies.racePoints.value;
+          const cost = races[raceSlug].currencies.racePower.value + races[raceSlug].currencies.raceFamiliarity.value;
           choices[raceSlug] = {
             title,
             text: <><p>
               <PathLink path={races[raceSlug].path.join('.')}>edit</PathLink>
             </p></>,
-            cost: { delta_b: -cost },
+            cost: { delta_b: cost },
           };
         }
 
