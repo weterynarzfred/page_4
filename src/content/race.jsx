@@ -187,7 +187,7 @@ export default {
               },
             },
           },
-          syrength: {
+          strength: {
             type: optionTypes.SELECT,
             title: 'Strength',
             text: <>
@@ -236,6 +236,72 @@ export default {
                 </>,
               },
             },
+          },
+          intelligence: {
+            type: optionTypes.SELECT,
+            title: 'Intelligence',
+            choices: {
+              instinctive: {
+                cost: { racePower: 10 },
+                title: 'Instinctive',
+              },
+              sentient: {
+                cost: { racePower: 7 },
+                title: 'Sentient',
+              },
+              highSentient: {
+                cost: { racePower: 5 },
+                title: 'Hight Sentient',
+              },
+              lowSapient: {
+                cost: { racePower: 2 },
+                title: 'Low Sapient',
+              },
+              averageHuman: {
+                title: 'Average Human',
+              },
+              highHuman: {
+                title: 'High Human',
+                cost: { racePower: -10 },
+              },
+            },
+          },
+        },
+      },
+      modifiers: {
+        type: optionTypes.GROUP,
+        title: 'Modifiers',
+        options: {
+          flying: {
+            type: optionTypes.INTEGER,
+            cost: { racePower: -10 },
+            title: 'Flying',
+          },
+          venomous: {
+            type: optionTypes.INTEGER,
+            cost: { racePower: -5 },
+            title: 'Venomous',
+          },
+          elemental: {
+            type: optionTypes.INTEGER,
+            cost: { racePower: -10 },
+            image: 'elemental.jpg',
+            title: 'Elemental',
+          },
+          enhancedSenses: {
+            type: optionTypes.INTEGER,
+            cost: { racePower: -5 },
+            title: 'Enhanced Senses',
+          },
+          resilient: {
+            type: optionTypes.INTEGER,
+            cost: { racePower: -10 },
+            title: 'Resilient',
+          },
+          vampiric: {
+            type: optionTypes.INTEGER,
+            cost: { racePower: -10 },
+            title: 'Vampiric',
           },
         },
       },

@@ -58,6 +58,7 @@ const options = {
         return {
           type: optionTypes.SELECT,
           max: Infinity,
+          title: 'Body',
           choices,
         };
       },

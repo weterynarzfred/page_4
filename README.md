@@ -50,6 +50,7 @@ or when it requires updated currency stats it can call
 
 
 ## todo
+- fix controls in selects choice when opened by path
 - allow for jsx in requirements
 - scroll to recent position after tab change
 - generate warnings when selected value is outside the min-max bounds

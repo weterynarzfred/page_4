@@ -14,6 +14,9 @@ function getOption(path, options) {
     return options[currentPath[0]];
   } else {
     const slug = currentPath.shift();
+    if (options[slug] === undefined) {
+      console.error(`No option ${slug} found at ${currentPath}`);
+    }
     if (options[slug].type === optionTypes.INSTANCER) {
       return getOption(currentPath, options[slug].selected);
     } else if (options[slug].type === optionTypes.SELECT) {

@@ -21,7 +21,7 @@ function handleToggle(selected) {
 }
 
 function SelectChoice(props) {
-  const value = getSelectedValue(props.option, props.selected);
+  const value = getSelectedValue(props.option, props.options);
   const selected = value.includes(props.slug);
 
   const currencies = _.cloneDeep(props.currencies);
@@ -47,4 +47,4 @@ function SelectChoice(props) {
   );
 }
 
-export default connect(state => ({ selected: state.selected }))(SelectChoice);
+export default connect(state => ({ options: state.options }))(SelectChoice);

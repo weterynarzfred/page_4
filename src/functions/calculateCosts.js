@@ -27,10 +27,10 @@ function calculateCosts(options, costs, reset, allOptions = options) {
 
     if (option.type === optionTypes.INTEGER) {
       applyCost(option.cost, costs, getSelectedValue(option, allOptions));
-    } else if (option.type === optionTypes.INSTANCER) {
-      const keys = Object.keys(getSelectedValue(option, allOptions)).filter(
-        key => !isNaN(key)
-      );
+    }
+
+    if (option.type === optionTypes.INSTANCER) {
+      const keys = Object.keys(getSelectedValue(option, allOptions));
       applyCost(option.cost, costs, keys.length);
     }
 

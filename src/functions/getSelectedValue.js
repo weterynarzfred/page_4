@@ -10,6 +10,11 @@ function getSelectedValue(option, options) {
     return getSelectedValue(currentOption.path.slice(0, -1), options).includes(
       currentOption.slug
     );
+  } else if (currentOption.type === optionTypes.INSTANCER) {
+    value = {};
+    for (const slug in currentOption.selected) {
+      if (!isNaN(slug)) value[slug] = currentOption.selected[slug];
+    }
   } else {
     value = currentOption.selected;
   }
@@ -22,7 +27,7 @@ function getSelectedValue(option, options) {
       case optionTypes.TEXT:
         return '';
       case optionTypes.INSTANCER:
-        return { nextId: 0 };
+        return {};
     }
   }
   return value;

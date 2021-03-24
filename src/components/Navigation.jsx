@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PathLink from './PathLink';
+import SummaryList from './SummaryList';
 
 function Navigation(props) {
   const [opened, setOpened] = useState(false);
@@ -26,8 +27,13 @@ function Navigation(props) {
         <div></div>
       </div>
       <nav id="navigation-menu">
-        <div id="navigation-links">
-          {linkElements}
+        <div className="navigation-menu-content">
+          <div id="navigation-links">
+            {linkElements}
+          </div>
+          <div id="summary-menu">
+            <SummaryList options={props.options} />
+          </div>
         </div>
       </nav>
     </div>

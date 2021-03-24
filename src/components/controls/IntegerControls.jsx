@@ -31,7 +31,7 @@ function handleToggle(value) {
 }
 
 function IntegerControls(props) {
-  const value = getSelectedValue(props.option, props.selected);
+  const value = getSelectedValue(props.option, props.options);
   const useSpinbox = (props.option.max !== 1 || props.option.min !== 0);
 
   return (
@@ -51,5 +51,5 @@ function IntegerControls(props) {
 }
 
 export default connect(state => ({
-  selected: state.selected,
+  options: state.options,
 }))(IntegerControls);

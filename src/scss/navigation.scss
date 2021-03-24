@@ -49,16 +49,52 @@
     backdrop-filter: blur(10px);
     z-index: 19;
     transition: 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow: auto;
 
-    #navigation-links {
-      .navigation-link {
-        font-family: $titleFont;
-        font-size: 2em;
+    .navigation-menu-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100%;
 
-        .PathLink {
+      #navigation-links {
+        padding: 2em;
+
+        .navigation-link {
+          font-family: $titleFont;
+          font-size: 2em;
+
+          .PathLink {
+            text-decoration: none;
+          }
+        }
+      }
+
+      #summary-menu {
+        padding: 2rem;
+
+        .SummaryList {
+          list-style-type: none;
+          margin: 0;
+          padding-left: 1em;
+
+          .SummaryItem {
+            position: relative;
+
+            &:after {
+              content: '';
+              display: block;
+              position: absolute;
+              top: 0.7em;
+              left: -1em;
+              width: 0.5em;
+              height: 1px;
+              background-color: #fff;
+            }
+          }
+        }
+
+        .summary-item-title .PathLink {
           text-decoration: none;
         }
       }

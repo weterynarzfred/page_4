@@ -41,7 +41,7 @@ function handleDelete(instance) {
 }
 
 function InstancerControls(props) {
-  const value = getSelectedValue(props.option, props.selected);
+  const value = props.option.selected || { nextId: 0 };
   const instanceElements = [];
   for (const slug in value) {
     if (isNaN(slug)) continue;
@@ -77,5 +77,5 @@ function InstancerControls(props) {
 }
 
 export default connect(state => ({
-  selected: state.selected
+  options: state.options
 }))(InstancerControls);

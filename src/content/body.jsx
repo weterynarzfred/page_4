@@ -27,7 +27,7 @@ export default {
     options: {
       bodyName: {
         type: optionTypes.TEXT,
-        title: (state, option) => `Body Name ${getSelectedValue(`body.${option.path.slice(-2, -1)}.sex`, state.options)}`,
+        title: (state, option) => `Body Name ${getSelectedValue([...option.path.slice(0, -1), 'sex'], state.options)}`,
         selected: 'Body',
       },
       sex: {

@@ -22,7 +22,7 @@ function isSelected(option, options, checkedParents = 0) {
     case optionTypes.TEXT:
       return value.length > 0;
     case optionTypes.INSTANCER:
-      return Object.keys(value).length > 1;
+      return Object.keys(value).length > 0;
   }
   return value;
 }
