@@ -102,7 +102,7 @@ export default {
             requirements: [
               {
                 text: (state, option) => <>
-                  Body has to be <PathLink path={[...option.path.slice(0, -2), 'sex'].join('.')}>male of female</PathLink>
+                  Body has to be <PathLink path={[...option.path.slice(0, -2), 'sex']}>male of female</PathLink>
                 </>,
                 callback: (state, option) => {
                   return getSelectedValue(

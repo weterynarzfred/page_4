@@ -1,11 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { actions } from 'Include/enum';
+import _ from 'lodash';
 
 function handleClick() {
+  const path = _.isArray(this.path) ?
+    this.path :
+    this.path.split('.').filter(e => e !== '');
+
   this.dispatch({
     type: actions.CHANGE_PATH,
-    path: this.path.split('.').filter(e => e !== ''),
+    path,
   });
 }
 
