@@ -36,7 +36,7 @@ All configuration is done through objects `settings` and `options` in `src/cyoa.
   - `cost` - object with costs of the choice.
 
 `if type === optionTypes.INSTANCER`
-- `instanceGroup` - an option with type optionTypes.GROUP, it will be cloned as each of theeated instances; it cannot be a function.
+- `instanceGroup` - an option with type optionTypes.GROUP, it will be cloned as each of the instances; it cannot be a function.
 
 When a function requires refreshed data from other options it can call
 `callOptionFunction(getOption('testOption', state.options), state);`
@@ -50,11 +50,17 @@ or when it requires updated currency stats it can call
 
 
 ## todo
-- fix controls in selects choice when opened by path
-- allow for jsx in requirements
-- scroll to recent position after tab change
 - generate warnings when selected value is outside the min-max bounds
-- make a working preview
+- allow for jsx in requirements
+- return to previous tab (react-router ?)
+- scroll to recent position after tab change
 - generate warnings when currency is below zero
 - add a disclaimer
-- return to previous tab
+- make a working preview
+
+- add a slider to choose the ratio between choices
+- add an alternative way to display selection choices
+- add currency summary to menu
+- split cyoa.jsx in example and actual content
+- save and load from sessionStorage and json file
+- add a restart button

@@ -6,7 +6,11 @@ function SummaryList(props) {
 
   const items = [];
   for (const slug in props.options) {
-    items.push(<SummaryItem key={slug} option={props.options[slug]} />);
+    items.push(<SummaryItem
+      key={slug}
+      option={props.options[slug]}
+      onClick={props.onClick}
+    />);
   }
 
   return (

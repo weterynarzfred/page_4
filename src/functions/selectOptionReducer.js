@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { optionTypes } from 'Include/enum';
 import getOption from './getOption';
+import deepClone from './deepClone';
 
 function getIntegerValue(action, value) {
   if (value === undefined) value = 0;
@@ -56,13 +57,26 @@ const getOptionValue = {
 };
 
 function selectOptionReducer(newState, action) {
-  let value = getOption(action.option.path, newState.options).selected;
-  if (action.value === undefined) {
-    value = getOptionValue[action.option.type](action, value);
+  let path;
+  let actionCopy = deepClone(action);
+  let type;
+  if (action.option.isChoice) {
+    path = action.option.path.slice(0, -1);
+    type = optionTypes.SELECT;
+    if (action.add !== undefined) actionCopy.add = action.option.slug;
+    if (action.subtract !== undefined) actionCopy.subtract = action.option.slug;
+  } else {
+    path = action.option.path;
+    type = action.option.type;
+  }
+
+  let value = getOption(path, newState.options).selected;
+  if (actionCopy.value === undefined) {
+    value = getOptionValue[type](actionCopy, value);
   } else {
     value = action.value;
   }
-  getOption(action.option.path, newState.options).selected = value;
+  getOption(path, newState.options).selected = value;
 }
 
 export default selectOptionReducer;

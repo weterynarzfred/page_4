@@ -8,11 +8,7 @@ import Currencies from './Currencies';
 import OptionRequirements from './optionElements/OptionRequirements';
 import OptionImage from './optionElements/OptionImage';
 import OptionCost from './optionElements/OptionCost';
-import GroupControls from './controls/GroupControls';
-import InstancerControls from './controls/InstancerControls';
-import IntegerControls from './controls/IntegerControls';
-import SelectControls from './controls/SelectControls';
-import TextControls from './controls/TextControls';
+import OptionControls from './optionElements/OptionControls';
 
 function Option(props) {
   const currencies = _.cloneDeep(props.currencies);
@@ -20,30 +16,7 @@ function Option(props) {
     Object.assign(currencies, _.cloneDeep(props.option.currencies));
   }
 
-  let controls;
   let selected = isSelected(props.option, props.options);
-  switch (props.option.type) {
-    case optionTypes.INTEGER:
-      controls = <>
-        <IntegerControls option={props.option} />
-        <GroupControls options={props.option.options} currencies={currencies} />
-      </>;
-      break;
-    case optionTypes.SELECT:
-      controls = <SelectControls option={props.option} currencies={currencies} />;
-      break;
-    case optionTypes.INSTANCER:
-      controls = <InstancerControls option={props.option} currencies={currencies} />;
-      break;
-    case optionTypes.GROUP:
-      controls = <GroupControls options={props.option.options} currencies={currencies} />;
-      break;
-    case optionTypes.TEXT:
-      controls = <TextControls option={props.option} />;
-      break;
-    default:
-      controls = null;
-  }
 
   return (
     <div className={classNames(
@@ -71,7 +44,7 @@ function Option(props) {
         <OptionImage image={props.option.image} />
         {props.topLevel ? null : <Currencies currencies={props.option.currencies} />}
         <div className="option-text">{props.option.text === undefined ? '' : cloneElement(props.option.text)}</div>
-        {controls}
+        <OptionControls option={props.option} currencies={currencies} />
         <OptionRequirements option={props.option} />
       </div>
     </div>

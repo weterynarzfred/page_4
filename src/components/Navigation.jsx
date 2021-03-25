@@ -32,7 +32,10 @@ function Navigation(props) {
             {linkElements}
           </div>
           <div id="summary-menu">
-            <SummaryList options={props.options} />
+            <SummaryList
+              options={props.options}
+              onClick={() => setOpened(false)}
+            />
           </div>
         </div>
       </nav>
