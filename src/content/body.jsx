@@ -101,7 +101,9 @@ export default {
             cost: { delta_b: 10 },
             requirements: [
               {
-                text: 'Body has to be male of female',
+                text: (state, option) => <>
+                  Body has to be <PathLink path={[...option.path.slice(0, -2), 'sex'].join('.')}>male of female</PathLink>
+                </>,
                 callback: (state, option) => {
                   return getSelectedValue(
                     `${option.path.slice(0, -2).join('.')}.sex`,

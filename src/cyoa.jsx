@@ -20,9 +20,6 @@ const settings = {
     delta_s: {
       title: 'Delta S',
     },
-    test: {
-      title: 'Test',
-    },
   },
 };
 

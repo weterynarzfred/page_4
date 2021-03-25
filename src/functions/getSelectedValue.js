@@ -6,10 +6,6 @@ function getSelectedValue(option, options) {
   const currentOption = getOption(option, options);
 
   let value;
-  if (currentOption === undefined) {
-    console.error(`Option not found.`);
-    return false;
-  }
   if (currentOption.isChoice) {
     return getSelectedValue(currentOption.path.slice(0, -1), options).includes(
       currentOption.slug

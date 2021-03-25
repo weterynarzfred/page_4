@@ -53,6 +53,10 @@ function parseOptions(options, path = []) {
     if (option.requirements !== undefined) {
       for (const test of option.requirements) {
         test.callback = addUserFunction(test.callback);
+        if (typeof test.text === 'function') {
+          test._text = addUserFunction(test.text, 'text');
+          test.text = '';
+        }
       }
     }
 

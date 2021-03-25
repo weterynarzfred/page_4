@@ -51,13 +51,13 @@ or when it requires updated currency stats it can call
 
 ## todo
 - generate warnings when selected value is outside the min-max bounds
-- allow for jsx in requirements
 - return to previous tab (react-router ?)
 - scroll to recent position after tab change
 - generate warnings when currency is below zero
 - add a disclaimer
 - make a working preview
 
+- add numbering to options
 - add a slider to choose the ratio between choices
 - add an alternative way to display selection choices
 - add currency summary to menu

@@ -67,6 +67,9 @@ function recalculateUserFunctions(options, state) {
     if (options[slug].requirements !== undefined) {
       for (const test of options[slug].requirements) {
         callUserFunction(test, state, test.callback, options[slug]);
+        if (test._text !== undefined) {
+          callUserFunction(test, state, test._text, options[slug]);
+        }
       }
     }
   }
