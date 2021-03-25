@@ -5,7 +5,7 @@ import getOption from 'Functions/getOption';
 import Currencies from './Currencies';
 import Warnings from './Warnings';
 import PathLink from './PathLink';
-import { settings } from '../cyoa';
+import { settings } from 'cyoa';
 
 function Stats(props) {
   const pathElements = [];

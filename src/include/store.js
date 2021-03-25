@@ -1,7 +1,7 @@
 import { createStore } from 'redux';
 import produce from 'immer';
 import _ from 'lodash';
-import { settings, options } from '../cyoa';
+import { settings, options } from 'cyoa';
 import cleanupState from 'Functions/cleanupState';
 import selectOptionReducer from 'Functions/selectOptionReducer';
 import calculateCosts from 'Functions/calculateCosts';

@@ -61,6 +61,5 @@ or when it requires updated currency stats it can call
 - add a slider to choose the ratio between choices
 - add an alternative way to display selection choices
 - add currency summary to menu
-- split cyoa.jsx in example and actual content
 - save and load from sessionStorage and json file
 - add a restart button
