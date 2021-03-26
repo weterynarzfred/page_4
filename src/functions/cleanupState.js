@@ -1,5 +1,5 @@
 import { optionTypes } from 'Include/enum';
-import getSelectedValue from './getSelectedValue';
+import { getSelectedValue } from './getSelectedValue';
 
 function cleanupState(options, state) {
   for (const slug in options) {

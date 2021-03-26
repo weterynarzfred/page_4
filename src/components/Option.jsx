@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import _ from 'lodash';
 import { optionTypes } from 'Include/enum';
-import isSelected from 'Functions/isSelected';
 import Currencies from './Currencies';
 import OptionRequirements from './optionElements/OptionRequirements';
 import OptionImage from './optionElements/OptionImage';
 import OptionCost from './optionElements/OptionCost';
 import OptionControls from './optionElements/OptionControls';
+import { isSelected } from '../functions/getSelectedValue';
 
 function Option(props) {
   const currencies = _.cloneDeep(props.currencies);

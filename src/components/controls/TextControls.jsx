@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { actions } from 'Include/enum';
-import getSelectedValue from 'Functions/getSelectedValue';
+import { getSelectedValue } from '../../functions/getSelectedValue';
 
 function handleChange(event) {
   this.dispatch({

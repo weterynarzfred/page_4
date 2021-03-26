@@ -50,7 +50,6 @@ or when it requires updated currency stats it can call
 
 
 ## todo
-- generate warnings when selected value is outside the min-max bounds
 - return to previous tab (react-router ?)
 - scroll to recent position after tab change
 - generate warnings when currency is below zero

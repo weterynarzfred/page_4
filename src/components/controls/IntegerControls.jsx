@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { actions } from 'Include/enum';
-import getSelectedValue from 'Functions/getSelectedValue';
 import CheckboxControl from './CheckboxControl';
 import SpinboxControl from './SpinboxControl';
+import { getSelectedValue } from '../../functions/getSelectedValue';
 
 function handleDecrement(value) {
   if (value <= this.option.min) return;

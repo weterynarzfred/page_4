@@ -19,6 +19,10 @@ function OptionCost(props) {
       displayValue = `- ${-displayValue}`;
     }
 
+    if (props.currencies[costSlug] === undefined) {
+      console.error(`Currency ${costSlug} not found`);
+      return null;
+    }
     if (props.currencies[costSlug].inverted) color *= -1;
 
     costs.push(<tr className={classNames(

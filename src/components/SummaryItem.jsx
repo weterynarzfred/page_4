@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import getSelectedValue from '../functions/getSelectedValue';
-import isSelected from '../functions/isSelected';
+import { getSelectedValue, isSelected } from '../functions/getSelectedValue';
 import { optionTypes } from '../include/enum';
 import PathLink from './PathLink';
 import SummaryList from './SummaryList';

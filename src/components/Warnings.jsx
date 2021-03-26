@@ -1,27 +1,41 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { optionTypes } from 'Include/enum';
-import getSelectedValue from 'Functions/getSelectedValue';
 import PathLink from './PathLink';
+import { getSelectedCount, getSelectedValue } from '../functions/getSelectedValue';
 
 function findWarnings(options, allOptions = options) {
   const warnings = [];
 
   for (const slug in options) {
     const option = options[slug];
+    const selectedCount = getSelectedCount(option, allOptions);
     if (option.requirements !== undefined) {
       if (option.type === optionTypes.INTEGER) {
-        const selected = getSelectedValue(option, allOptions);
-        if (selected > 0) {
+        if (selectedCount > 0) {
           for (const test of option.requirements) {
             if (!test.value) {
               warnings.push({
                 path: option.path,
-                text: test.text,
+                text: <>{option.title} &ndash; {test.text}</>,
               });
             }
           }
         }
+      }
+    }
+    if ([optionTypes.INTEGER, optionTypes.SELECT].includes(option.type)) {
+      if (selectedCount < option.min) {
+        warnings.push({
+          path: option.path,
+          text: `${option.title} cannot have less than ${option.min} selected.`,
+        });
+      }
+      if (selectedCount > option.max) {
+        warnings.push({
+          path: option.path,
+          text: `${option.title} cannot have more than ${option.max} selected.`,
+        });
       }
     }
 
@@ -34,7 +48,7 @@ function findWarnings(options, allOptions = options) {
     }
 
     if (option.type === optionTypes.INSTANCER) {
-      warnings.push(...findWarnings(option.selected, allOptions));
+      warnings.push(...findWarnings(getSelectedValue(option, allOptions), allOptions));
     }
   }
 
@@ -47,7 +61,9 @@ function Warnings(props) {
   const warningElements = [];
   const warnings = findWarnings(props.options);
   for (const warning of warnings) {
-    const parentPath = warning.path.slice(0, -1);
+    const parentPath = warning.path.length > 1 ?
+      warning.path.slice(0, -1) :
+      warning.path;
     warningElements.push(<div className="warning" key={warning.path.join('.')}>
       <div className="warning-path">
         <PathLink path={parentPath.join('.')}>
