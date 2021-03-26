@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import 'Src/scss/index.scss';
 import getOption from 'Functions/getOption';
 import Navigation from './Navigation';
 import OptionList from './OptionList';
 import Stats from './Stats';
+import { actions } from '../include/enum';
 
 function App(props) {
+  useEffect(() => {
+    const currentPath = props.location.pathname.split('/').filter(e => e !== '');
+    if (currentPath.join('.') !== props.path.join('.')) {
+      props.dispatch({
+        type: actions.CHANGE_PATH,
+        path: currentPath,
+      });
+      console.log(currentPath);
+    }
+  });
+
   const currencies = _.cloneDeep(props.currencies);
 
   let currentOptions = {};

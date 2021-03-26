@@ -9,7 +9,7 @@ function OptionImage(props) {
     <div className="OptionImage">
       <div
         className="option-image-content"
-        style={{ backgroundImage: `url(./images/${props.image})` }}
+        style={{ backgroundImage: `url(/images/${props.image})` }}
       ></div>
     </div>
   );

@@ -50,8 +50,7 @@ or when it requires updated currency stats it can call
 
 
 ## todo
-- return to previous tab (react-router ?)
-- scroll to recent position after tab change
+- scroll to top after tab change
 - generate warnings when currency is below zero
 - add a disclaimer
 - make a working preview
