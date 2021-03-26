@@ -2,7 +2,6 @@ import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import { actions } from 'Include/enum';
-import getSelectedValue from 'Functions/getSelectedValue';
 import PathLink from 'Components/PathLink';
 import deepClone from '../../functions/deepClone';
 import Currencies from '../Currencies';
