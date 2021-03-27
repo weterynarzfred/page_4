@@ -11,8 +11,9 @@ function getOption(path, options) {
   }
 
   if (currentPath.length === 1) {
-    if (options[currentPath[0]] === undefined) {
+    if (options === undefined || options[currentPath[0]] === undefined) {
       console.error(`Option ${currentPath[0]} not found`);
+      return undefined;
     }
     return options[currentPath[0]];
   } else {

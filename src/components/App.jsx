@@ -27,6 +27,7 @@ function App(props) {
     for (let i = 0; i < props.path.length; i++) {
       currentPath.push(props.path[i]);
       const currentOption = getOption(currentPath, props.options);
+      if (currentOption === undefined) return null;
       if (currentOption.currencies !== undefined) {
         Object.assign(currencies, _.cloneDeep(currentOption.currencies));
       }
