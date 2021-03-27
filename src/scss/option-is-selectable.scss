@@ -4,7 +4,7 @@
 
   > .option-content {
     position: relative;
-    background-color: #333;
+    background-color: $disabledBackground;
     color: $disabledText;
     padding-top: 1em;
     border: solid #999;
@@ -84,7 +84,6 @@
 
   &.selected {
     > .option-content {
-      background-color: #222;
       border-color: $selected;
 
       > .option-title {
@@ -95,7 +94,7 @@
 
   &.selected > .option-content,
   > .option-content:hover {
-    background-color: #222;
+    background-color: $enabledBackground;
     filter: none;
   }
 }

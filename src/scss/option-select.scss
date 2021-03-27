@@ -4,5 +4,67 @@
     flex-wrap: wrap;
     justify-content: center;
     margin: 3em 0;
+
+    > table {
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 70em;
+      margin: 0 2em;
+
+      > tbody > tr {
+        background-color: $disabledBackground;
+        transition: 0.3s;
+        filter: grayscale(1);
+
+        &.selected,
+        &:hover {
+          background-color: $enabledBackground;
+          filter: none;
+        }
+
+        > td {
+          position: relative;
+          border: 1px solid #999;
+          padding: 0 1em;
+          height: 3em;
+
+          &.choice-control-cell {
+            width: 3em;
+
+            .CheckboxControl {
+              top: 50%;
+              margin-top: -1em;
+            }
+          }
+
+          &.option-text {
+            width: 37em;
+
+            p {
+              margin: 0.25em 0;
+            }
+
+            .OptionRequirements {
+              align-items: flex-start;
+
+              .requirements-title {
+                padding: 0 1em;
+                &:before,
+                &:after {
+                  display: none;
+                }
+              }
+            }
+          }
+
+          &.choice-cost-cell {
+            .OptionCost {
+              border: none;
+              position: static;
+            }
+          }
+        }
+      }
+    }
   }
 }

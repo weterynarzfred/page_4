@@ -31,6 +31,7 @@ All configuration is done through objects `settings` and `options` in `src/cyoa.
 
 `if type === optionTypes.SELECT`
 - `max` - maximum number of simultaneously chosen options.
+- `displayAsTable` - display the choices as a table with rows: checkbox, title, text and rewuirements, cost.
 - `choices` - choices to select from, each choice can have:
   - `title` - display name of the choice.
   - `cost` - object with costs of the choice.
@@ -57,7 +58,6 @@ or when it requires updated currency stats it can call
 
 - add numbering to options
 - add a slider to choose the ratio between choices
-- add an alternative way to display selection choices
 - add currency summary to menu
 - save and load from sessionStorage and json file
 - add a restart button

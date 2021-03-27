@@ -10,12 +10,25 @@ function SelectControls(props) {
       key={slug}
       option={props.option.choices[slug]}
       currencies={props.currencies}
+      displayAsTableRow={props.option.displayAsTable}
     />);
+  }
+
+  let content;
+  if (props.option.displayAsTable) {
+    content = <table>
+      <tbody>
+        {choiceElements}
+      </tbody>
+    </table>;
+  }
+  else {
+    content = choiceElements;
   }
 
   return (
     <div className="SelectControls">
-      {choiceElements}
+      {content}
     </div>
   );
 }

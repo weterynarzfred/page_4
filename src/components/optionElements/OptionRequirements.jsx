@@ -15,7 +15,7 @@ function OptionRequirements(props) {
 
   return (
     <div className="OptionRequirements">
-      <div className="requirements-title">&mdash; requirements &mdash;</div>
+      <div className="requirements-title">requirements</div>
       {requirements}
     </div>
   );

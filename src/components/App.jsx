@@ -15,7 +15,6 @@ function App(props) {
         type: actions.CHANGE_PATH,
         path: currentPath,
       });
-      console.log(currentPath);
     }
   });
 

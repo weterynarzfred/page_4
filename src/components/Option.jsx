@@ -1,4 +1,4 @@
-import React, { cloneElement } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import _ from 'lodash';
@@ -16,39 +16,70 @@ function Option(props) {
     Object.assign(currencies, _.cloneDeep(props.option.currencies));
   }
 
-  let selected = isSelected(props.option, props.options);
-
-  return (
-    <div className={classNames(
-      'Option',
-      `option-${props.option.type}`,
-      { selected },
-      { 'top-level': props.topLevel },
-      {
-        'option-is-selectable': [
-          optionTypes.INTEGER,
-          optionTypes.TEXT,
-        ].includes(props.option.type)
-      },
-      {
-        'option-is-container': [
-          optionTypes.GROUP,
-          optionTypes.SELECT,
-          optionTypes.INSTANCER,
-        ].includes(props.option.type)
-      }
-    )}>
-      <div className="option-content">
-        <div className="option-title">{props.option.title}</div>
-        <OptionCost cost={props.option.cost} currencies={currencies} />
-        <OptionImage image={props.option.image} />
-        {props.topLevel ? null : <Currencies currencies={props.option.currencies} />}
-        <div className="option-text">{props.option.text === undefined ? '' : cloneElement(props.option.text)}</div>
-        <OptionControls option={props.option} currencies={currencies} />
-        <OptionRequirements option={props.option} />
-      </div>
-    </div>
+  const classes = classNames(
+    'Option',
+    `option-${props.option.type}`,
+    { 'selected': isSelected(props.option, props.options) },
+    { 'top-level': props.topLevel },
+    { 'option-is-row': props.displayAsTableRow },
+    {
+      'option-is-selectable': [
+        optionTypes.INTEGER,
+        optionTypes.TEXT,
+      ].includes(props.option.type)
+    },
+    {
+      'option-is-container': [
+        optionTypes.GROUP,
+        optionTypes.SELECT,
+        optionTypes.INSTANCER,
+      ].includes(props.option.type)
+    }
   );
+
+  const optionText = props.option.text === undefined ? '' : props.option.text;
+  const optionCurrencies = props.topLevel ?
+    null :
+    <Currencies currencies={props.option.currencies} />;
+
+  if (props.displayAsTableRow) {
+    const optionTitle = props.option.title === undefined ?
+      null :
+      <td className="option-title">{props.option.title}</td>;
+
+    return (
+      <tr className={classes}>
+        <td className="choice-control-cell">
+          <OptionControls option={props.option} currencies={currencies} />
+        </td>
+        {optionTitle}
+        <td className="option-text">
+          {optionText}
+          <OptionRequirements option={props.option} />
+        </td>
+        <td className="choice-cost-cell">
+          <OptionCost cost={props.option.cost} currencies={currencies} />
+        </td>
+      </tr>
+    );
+  }
+  else {
+    return (
+      <div className={classes}>
+        <div className="option-content">
+          <div className="option-title">{props.option.title}</div>
+          <OptionCost cost={props.option.cost} currencies={currencies} />
+          <OptionImage image={props.option.image} />
+          {optionCurrencies}
+          <div className="option-text">{optionText}</div>
+          <OptionControls option={props.option} currencies={currencies} />
+          <OptionRequirements option={props.option} />
+        </div>
+      </div>
+    );
+  }
+
+
 }
 
 export default connect(state => ({

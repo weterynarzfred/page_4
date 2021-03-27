@@ -2,11 +2,14 @@ $selected: rgb(151, 217, 255);
 $positive: rgb(161, 255, 73);
 $negative: rgb(255, 115, 45);
 $text: rgb(255, 222, 160);
-$disabledText: #aaa;
+$background: #222;
+$disabledText: #999;
+$disabledBackground: #222;
+$enabledBackground: #111;
 $titleFont: 'Piazzolla', serif;
 
 body {
-  background-color: #222;
+  background-color: $background;
   color: #eee;
   font-family: 'Lato', sans-serif;
   margin: 0;
