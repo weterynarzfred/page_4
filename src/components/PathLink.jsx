@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import { Link } from 'react-router-dom';
 
 function PathLink(props) {
-  const path = _.isArray(props.path) ?
+  const path = Array.isArray(props.path) ?
     props.path :
     props.path.split('.').filter(e => e !== '');
 

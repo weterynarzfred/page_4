@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 import { optionTypes } from 'Include/enum';
 import { callUserFunction } from 'Include/userFunctions';

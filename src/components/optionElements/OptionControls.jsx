@@ -12,17 +12,29 @@ function OptionControls(props) {
     case optionTypes.INTEGER:
       controls = <>
         <IntegerControls option={props.option} />
-        <GroupControls options={props.option.options} currencies={props.currencies} />
+        <GroupControls
+          options={props.option.options}
+          currencies={props.currencies}
+        />
       </>;
       break;
     case optionTypes.SELECT:
-      controls = <SelectControls option={props.option} currencies={props.currencies} />;
+      controls = <SelectControls
+        option={props.option}
+        currencies={props.currencies}
+      />;
       break;
     case optionTypes.INSTANCER:
-      controls = <InstancerControls option={props.option} currencies={props.currencies} />;
+      controls = <InstancerControls
+        option={props.option}
+        currencies={props.currencies}
+      />;
       break;
     case optionTypes.GROUP:
-      controls = <GroupControls options={props.option.options} currencies={props.currencies} />;
+      controls = <GroupControls
+        options={props.option.options}
+        currencies={props.currencies}
+      />;
       break;
     case optionTypes.TEXT:
       controls = <TextControls option={props.option} />;

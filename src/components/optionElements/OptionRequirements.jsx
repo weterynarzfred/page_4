@@ -7,7 +7,10 @@ function OptionRequirements(props) {
   const requirements = [];
   let index = 0;
   for (const test of props.option.requirements) {
-    requirements.push(<div className={classNames('requirement', { met: test.value })} key={index}>
+    requirements.push(<div
+      className={classNames('requirement', { met: test.value })}
+      key={index}
+    >
       {test.text}
     </div>);
     index++;

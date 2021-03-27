@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { optionTypes } from 'Include/enum';
 import getOption from './getOption';
 import deepClone from './deepClone';
@@ -39,7 +38,7 @@ function getInstancerValue(action, value) {
     value[value.nextId] = action.add;
     value[value.nextId].type = optionTypes.GROUP;
     value[value.nextId].slug = value.nextId;
-    value[value.nextId].path = _.clone(action.option.path);
+    value[value.nextId].path = deepClone(action.option.path);
     value[value.nextId].path.push(value.nextId);
     value.nextId++;
   }

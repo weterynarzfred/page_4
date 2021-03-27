@@ -1,13 +1,13 @@
-import _ from 'lodash';
 import { optionTypes } from 'Include/enum';
+import deepClone from './deepClone';
 
 function getOption(path, options) {
-  if (typeof path === 'object' && !_.isArray(path)) return path;
+  if (typeof path === 'object' && !Array.isArray(path)) return path;
   let currentPath;
   if (typeof path === 'string') {
     currentPath = path.split('.');
   } else {
-    currentPath = _.clone(path);
+    currentPath = deepClone(path);
   }
 
   if (currentPath.length === 1) {

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import deepClone from '../functions/deepClone';
 import { optionTypes } from './enum';
 import { addUserFunction } from './userFunctions';
 
@@ -11,7 +11,7 @@ function parseOptions(options, path = []) {
     const option = options[slug];
 
     // assign slugs and paths
-    const currentPath = _.clone(path);
+    const currentPath = deepClone(path);
     if (slug !== 'instanceGroup') {
       currentPath.push(slug);
     }

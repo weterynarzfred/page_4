@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { optionTypes } from 'Include/enum';
 import getOption from './getOption';
 

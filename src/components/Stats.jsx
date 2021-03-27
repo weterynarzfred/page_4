@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import getOption from 'Functions/getOption';
 import Currencies from './Currencies';
 import Warnings from './Warnings';
 import PathLink from './PathLink';
 import { settings } from 'cyoa';
+import deepClone from '../functions/deepClone';
 
 function Stats(props) {
   const pathElements = [];
@@ -35,7 +35,7 @@ function Stats(props) {
     />);
   }
 
-  const currencies = _.cloneDeep(props.currencies);
+  const currencies = deepClone(props.currencies);
   if (props.path.length > 0) {
     const currentOption = getOption(props.path, props.options);
     if (currentOption.currencies !== undefined) {

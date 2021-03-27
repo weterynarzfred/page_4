@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import _ from 'lodash';
 import { optionTypes } from 'Include/enum';
 import Currencies from './Currencies';
 import OptionRequirements from './optionElements/OptionRequirements';
@@ -9,11 +8,12 @@ import OptionImage from './optionElements/OptionImage';
 import OptionCost from './optionElements/OptionCost';
 import OptionControls from './optionElements/OptionControls';
 import { isSelected } from '../functions/getSelectedValue';
+import deepClone from '../functions/deepClone';
 
 function Option(props) {
-  const currencies = _.cloneDeep(props.currencies);
+  const currencies = deepClone(props.currencies);
   if (props.option.currencies !== undefined) {
-    Object.assign(currencies, _.cloneDeep(props.option.currencies));
+    Object.assign(currencies, deepClone(props.option.currencies));
   }
 
   const classes = classNames(
