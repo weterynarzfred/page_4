@@ -51,9 +51,9 @@ or when it requires updated currency stats it can call
 
 
 ## todo
-- scroll to top after tab change
 - generate warnings when currency is below zero
 - add a disclaimer
+- add tooltips
 - make a working preview
 
 - add numbering to options

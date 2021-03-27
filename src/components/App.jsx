@@ -11,6 +11,7 @@ function App(props) {
   useEffect(() => {
     const currentPath = props.location.pathname.split('/').filter(e => e !== '');
     if (currentPath.join('.') !== props.path.join('.')) {
+      window.scrollTo(0, 0);
       props.dispatch({
         type: actions.CHANGE_PATH,
         path: currentPath,
