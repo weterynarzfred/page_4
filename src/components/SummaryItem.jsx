@@ -6,31 +6,23 @@ import PathLink from './PathLink';
 import SummaryList from './SummaryList';
 
 function SummaryItem(props) {
-  if (!isSelected(props.option, props.options)) return null;
+  if (
+    props.option.hidden ||
+    !isSelected(props.option, props.options)
+  ) return null;
 
-  const value = getSelectedValue(props.option, props.options);
-
-  let list = null;
+  let suboptions = {};
   if (
     props.option.type === optionTypes.GROUP ||
     props.option.type === optionTypes.INTEGER
   ) {
-    list = <SummaryList
-      options={props.option.options}
-      onClick={props.onClick}
-    />;
+    suboptions = props.option.options;
   }
   else if (props.option.type === optionTypes.SELECT) {
-    list = <SummaryList
-      options={props.option.choices}
-      onClick={props.onClick}
-    />;
+    suboptions = props.option.choices;
   }
   else if (props.option.type === optionTypes.INSTANCER) {
-    list = <SummaryList
-      options={value}
-      onClick={props.onClick}
-    />;
+    suboptions = getSelectedValue(props.option, props.options);
   }
 
   return (
@@ -41,7 +33,10 @@ function SummaryItem(props) {
           onClick={props.onClick}
         >{props.option.title}</PathLink>
       </span>
-      {list}
+      <SummaryList
+        options={suboptions}
+        onClick={props.onClick}
+      />
     </li>
   );
 }

@@ -9,6 +9,7 @@ All configuration is done through objects `settings` and `options` in `src/cyoa.
 - `currencies` - an object containing global currencies of the CYOA. It contains currency objects, each of them has to have an unique key and can contain:
   - `title` - displayed name of the currency.
   - `start` - starting value of the currency.
+  - `inverted` - inverts positive and negative cost colors.
 
 ### `options`
 `options` contain all of the choices the user can choose from. Each option has to have an unique key and can be an object or a function returning one. Function will receive the state and the option itself as its arguments. Each option object can have properties as:
@@ -16,6 +17,7 @@ All configuration is done through objects `settings` and `options` in `src/cyoa.
 - `type` - one of optionTypes, default is optionTypes.INTEGER.
 - `selected` - initial value of the option.
 - `image` - filename of the image to display in the option. Searched in the `public/images` folder.
+- `hidden` - disables showing the option anywhere on the page.
 
 `if type === optionTypes.INTEGER || type === optionTypes.INSTANCER`
 - `cost` - object with costs of each time the option is bought.
@@ -55,7 +57,6 @@ or when it requires updated currency stats it can call
 - add a disclaimer
 - add tooltips
 - make a working preview
-
 - add numbering to options
 - add a slider to choose the ratio between choices
 - add currency summary to menu
@@ -64,3 +65,4 @@ or when it requires updated currency stats it can call
 - add masonry js
 - selecting options by clicking anywhere on them
 - add links to the top bar
+- add blurring to nsfw images

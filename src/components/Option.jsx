@@ -11,6 +11,8 @@ import { isSelected } from '../functions/getSelectedValue';
 import deepClone from '../functions/deepClone';
 
 function Option(props) {
+  if (props.option.hidden) return null;
+
   const currencies = deepClone(props.currencies);
   if (props.option.currencies !== undefined) {
     Object.assign(currencies, deepClone(props.option.currencies));
