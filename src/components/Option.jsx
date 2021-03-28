@@ -68,7 +68,9 @@ function Option(props) {
       <div className={classes}>
         <div className="option-content">
           <div className="option-title">{props.option.title}</div>
-          <OptionCost cost={props.option.cost} currencies={currencies} />
+          <div className="option-cost-wrap">
+            <OptionCost cost={props.option.cost} currencies={currencies} />
+          </div>
           <OptionImage image={props.option.image} />
           {optionCurrencies}
           <div className="option-text">{optionText}</div>

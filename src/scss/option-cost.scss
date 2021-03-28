@@ -1,0 +1,29 @@
+.OptionCost {
+  position: absolute;
+  top: 3em;
+  right: 0;
+  border-collapse: collapse;
+  border: solid #555;
+  border-width: 0 0 1px 1px;
+
+  .cost {
+    background-color: #222;
+
+    .cost-title {
+      font-size: 0.75em;
+      padding: 0.25rem;
+    }
+
+    .cost-value {
+      font-weight: 700;
+      padding: 0.25rem;
+    }
+
+    &.positive .cost-value {
+      color: $positive;
+    }
+    &.negative .cost-value {
+      color: $negative;
+    }
+  }
+}

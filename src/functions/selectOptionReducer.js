@@ -62,6 +62,7 @@ function selectOptionReducer(newState, action) {
   if (action.option.isChoice) {
     path = action.option.path.slice(0, -1);
     type = optionTypes.SELECT;
+    actionCopy.option = getOption(path, newState.options);
     if (action.add !== undefined) actionCopy.add = action.option.slug;
     if (action.subtract !== undefined) actionCopy.subtract = action.option.slug;
   } else {

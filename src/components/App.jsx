@@ -6,6 +6,7 @@ import Navigation from './Navigation';
 import OptionList from './OptionList';
 import Stats from './Stats';
 import { actions } from '../include/enum';
+import deepClone from '../functions/deepClone';
 
 function App(props) {
   useEffect(() => {
@@ -20,7 +21,7 @@ function App(props) {
     }
   });
 
-  const currencies = _.cloneDeep(props.currencies);
+  const currencies = deepClone(props.currencies);
 
   let currentOptions = {};
   if (props.path.length > 0) {
@@ -30,7 +31,7 @@ function App(props) {
       const currentOption = getOption(currentPath, props.options);
       if (currentOption === undefined) return null;
       if (currentOption.currencies !== undefined) {
-        Object.assign(currencies, _.cloneDeep(currentOption.currencies));
+        Object.assign(currencies, deepClone(currentOption.currencies));
       }
     }
 

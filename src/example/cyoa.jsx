@@ -10,8 +10,9 @@ const settings = {
   initialScreen: ['example'],
   showRoot: false,
   currencies: {
-    delta_s: {
-      title: 'Delta S',
+    gold: {
+      title: 'Gold',
+      start: 50,
     },
   },
 };
@@ -23,7 +24,51 @@ const options = {
     options: {
       a: {
         type: optionTypes.INTEGER,
+        cost: { gold: 5 },
+        max: 2,
         title: 'A',
+      },
+      b: {
+        type: optionTypes.INTEGER,
+        cost: { gold: 10 },
+        title: 'B',
+      },
+      c: {
+        type: optionTypes.INSTANCER,
+        cost: { gold: 5 },
+        max: 2,
+        title: 'C',
+        instanceGroup: {
+          title: (state, option) => getSelectedValue(
+            option.options.name,
+            state.options
+          ) || `Instance ${option.slug}`,
+          options: {
+            name: {
+              type: optionTypes.TEXT,
+              title: 'Name',
+            },
+          },
+        },
+      },
+      d: {
+        type: optionTypes.SELECT,
+        max: 2,
+        title: 'D',
+        choices: {
+          d1: {
+            cost: { gold: 1 },
+            title: 'D1',
+          },
+          d2: {
+            cost: { gold: 2 },
+            title: 'D2',
+          },
+          d3: {
+            cost: { gold: 3 },
+            title: 'D3',
+          },
+        },
       },
     },
   },

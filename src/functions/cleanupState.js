@@ -1,10 +1,11 @@
 import { optionTypes } from 'Include/enum';
+import deepClone from './deepClone';
 import { getSelectedValue } from './getSelectedValue';
 
 function cleanupState(options, state) {
   for (const slug in options) {
     if (options[slug].type === optionTypes.SELECT) {
-      const selected = _.clone(getSelectedValue(options[slug]));
+      const selected = deepClone(getSelectedValue(options[slug]));
       for (let index = 0; index < selected.length; index++) {
         if (options[slug].choices[selected[index]] === undefined) {
           options[slug].selected.splice(index, 1);
