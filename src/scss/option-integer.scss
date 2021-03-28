@@ -29,15 +29,9 @@
       button {
         width: 1em;
         height: 1em;
-        background-color: #000;
-        border: none;
-        color: inherit;
         font-size: 2em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: 0.2s;
+        padding: 0;
+        border: 0;
 
         &:first-child {
           padding-bottom: 0.17em;
@@ -47,21 +41,6 @@
         &:last-child {
           padding-top: 0.08em;
           margin-right: -2px;
-        }
-
-        &:hover {
-          color: $selected;
-        }
-
-        &:focus {
-          outline: none;
-        }
-
-        &.disabled {
-          background-color: #555;
-          border-color: #999;
-          color: #ccc;
-          cursor: auto;
         }
       }
     }

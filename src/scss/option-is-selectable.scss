@@ -4,8 +4,8 @@
 
   > .option-content {
     position: relative;
-    background-color: $disabledBackground;
-    color: $disabledText;
+    background-color: $selectableBackground;
+    color: $selectableText;
     padding-top: 1em;
     border: solid #999;
     border-width: 1px 1px 6px 1px;
@@ -78,7 +78,7 @@
 
   &:not(.selected) {
     p {
-      color: $disabledText;
+      color: $selectableText;
     }
   }
 

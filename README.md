@@ -54,6 +54,7 @@ or when it requires updated currency stats it can call
 - generate warnings when currency is below zero
 - add a disclaimer
 - add tooltips
+- add numbers to initial instance titles
 - make a working preview
 
 - add numbering to options

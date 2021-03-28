@@ -4,28 +4,8 @@
       margin: 0 0.5em;
 
       .add-instance {
-        background: none;
-        border: none;
-        background-color: #000;
-        border: 2px solid #999;
-        display: block;
         height: 3em;
-        padding: 0 2em;
         margin: 2em auto 0 auto;
-        color: #fff;
-        font-size: 1em;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        word-spacing: 0.2em;
-        border-radius: 1.5em;
-        cursor: pointer;
-        transition: 0.2s;
-
-        &:hover {
-          color: $selected;
-          border-color: $selected;
-        }
       }
 
       .instance-list {
@@ -36,7 +16,7 @@
         border: 1px solid #999;
         min-height: 12em;
 
-        .instance {
+        .InstanceControl {
           position: relative;
           width: 100%;
           display: flex;

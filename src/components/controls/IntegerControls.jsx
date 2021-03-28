@@ -5,9 +5,7 @@ import CheckboxControl from './CheckboxControl';
 import SpinboxControl from './SpinboxControl';
 import { getSelectedValue } from '../../functions/getSelectedValue';
 
-function handleDecrement(value) {
-  if (value <= this.option.min) return;
-
+function handleDecrement() {
   this.dispatch({
     type: actions.SELECT_OPTION,
     option: this.option,
@@ -15,9 +13,7 @@ function handleDecrement(value) {
   });
 }
 
-function handleIncrement(value) {
-  if (value >= this.option.max) return;
-
+function handleIncrement() {
   this.dispatch({
     type: actions.SELECT_OPTION,
     option: this.option,
@@ -37,8 +33,8 @@ function IntegerControls(props) {
   return (
     <div className="IntegerControls">
       {useSpinbox ? <SpinboxControl
-        handleDecrement={handleDecrement.bind(props, value)}
-        handleIncrement={handleIncrement.bind(props, value)}
+        handleDecrement={handleDecrement.bind(props)}
+        handleIncrement={handleIncrement.bind(props)}
         min={props.option.min}
         max={props.option.max}
         value={value}

@@ -1,27 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { actions } from 'Include/enum';
-import PathLink from 'Components/PathLink';
 import deepClone from '../../functions/deepClone';
-import Currencies from '../Currencies';
+import InstanceControl from './InstanceControl';
+import classNames from 'classnames';
+import { getSelectedCount, getSelectedValue } from '../../functions/getSelectedValue';
 
 function fixPathsInInstance(options, id, depth = 1) {
+  if (options === undefined) return;
+
   for (const slug in options) {
     const option = options[slug];
     option.path.splice(-depth, 0, id);
 
-    if (option.options !== undefined) {
-      fixPathsInInstance(option.options, id, depth + 1);
-    }
-    if (option.choices !== undefined) {
-      fixPathsInInstance(option.choices, id, depth + 1);
-    }
+    fixPathsInInstance(option.options, id, depth + 1);
+    fixPathsInInstance(option.choices, id, depth + 1);
   }
 }
 
-function handleAdd(value) {
+function handleAdd(nextId) {
   const instanceGroup = deepClone(this.option.instanceGroup);
-  fixPathsInInstance(instanceGroup.options, value.nextId);
+  fixPathsInInstance(instanceGroup.options, nextId);
 
   this.dispatch({
     type: actions.SELECT_OPTION,
@@ -30,42 +29,29 @@ function handleAdd(value) {
   });
 }
 
-function handleDelete(instance) {
-  this.dispatch({
-    type: actions.SELECT_OPTION,
-    option: this.option,
-    subtract: instance,
-  });
-}
 
 function InstancerControls(props) {
-  const value = props.option.selected || { nextId: 0 };
+  const nextId = props.option.selected === undefined ? 0 : props.option.selected.nextId;
+  const selected = getSelectedValue(props.option, props.options);
   const instanceElements = [];
-  for (const slug in value) {
-    if (isNaN(slug)) continue;
-    const instance = value[slug];
-    instanceElements.push(<div className="instance" key={slug}>
-      <PathLink path={instance.path.join('.')}>
-        <div className="instance-link-title">{instance.title}</div>
-        <Currencies currencies={instance.currencies} />
-      </PathLink>
-      <button
-        className="delete-instance"
-        onClick={handleDelete.bind(props, instance)}
-      >
-        <svg viewBox="0 0 100 100">
-          <path d="M10 10L90 90" />
-          <path d="M10 90L90 10" />
-        </svg>
-      </button>
-    </div>);
+  for (const slug in selected) {
+    instanceElements.push(<InstanceControl
+      instancer={props.option}
+      instance={selected[slug]}
+      key={slug}
+    />);
   }
+
+  const isAddDisabled = Object.keys(selected).length >= props.option.max;
 
   return (
     <div className="InstancerControls">
       <button
-        className="add-instance"
-        onClick={handleAdd.bind(props, value)}
+        className={classNames(
+          'add-instance',
+          { disabled: isAddDisabled }
+        )}
+        onClick={isAddDisabled ? null : handleAdd.bind(props, nextId)}
       >add instance</button>
       <div className="instance-list">
         {instanceElements}

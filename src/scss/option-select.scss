@@ -12,7 +12,7 @@
       margin: 0 2em;
 
       > tbody > tr {
-        background-color: $disabledBackground;
+        background-color: $selectableBackground;
         transition: 0.3s;
         filter: grayscale(1);
 

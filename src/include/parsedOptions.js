@@ -43,7 +43,11 @@ function parseOptions(options, path = []) {
     }
 
     // assign default values to min and max
-    if ([optionTypes.INTEGER, optionTypes.SELECT].includes(option.type)) {
+    if (
+      [optionTypes.INTEGER, optionTypes.SELECT, optionTypes.INSTANCER].includes(
+        option.type
+      )
+    ) {
       if (option.min === undefined) option.min = 0;
       if (option.max === undefined) option.max = 1;
       if (option.max < option.min) option.max = option.min;

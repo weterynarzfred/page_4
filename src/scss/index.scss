@@ -3,9 +3,14 @@ $positive: rgb(161, 255, 73);
 $negative: rgb(255, 115, 45);
 $text: rgb(255, 222, 160);
 $background: #222;
-$disabledText: #999;
-$disabledBackground: #222;
+$borderColor: #999;
 $enabledBackground: #111;
+$enabledText: #fff;
+$selectableBackground: #222;
+$selectableText: #999;
+$disabledBackground: #444;
+$disabledText: #777;
+$disabledBorderColor: #777;
 $titleFont: 'Piazzolla', serif;
 
 body {
@@ -73,8 +78,40 @@ p {
   }
 }
 
-button:focus {
-  outline: none;
+button {
+  background: none;
+  border: none;
+  background-color: $enabledBackground;
+  color: $enabledText;
+  border: 2px solid $borderColor;
+  padding: 0 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  word-spacing: 0.2em;
+  border-radius: 1.5em;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    color: $selected;
+    border-color: $selected;
+  }
+
+  &.disabled {
+    border-color: $disabledBorderColor;
+    background-color: $disabledBackground;
+    color: $disabledText;
+    cursor: auto;
+  }
 }
 
 @import 'navigation';
