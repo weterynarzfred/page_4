@@ -13,7 +13,7 @@ All configuration is done through objects `settings` and `options` in `src/cyoa.
 ### `options`
 `options` contain all of the choices the user can choose from. Each option has to have an unique key and can be an object or a function returning one. Function will receive the state and the option itself as its arguments. Each option object can have properties as:
 - `title` - display name of the option or a function returning one.
-- `type` - one of optionTypes.
+- `type` - one of optionTypes, default is optionTypes.INTEGER.
 - `selected` - initial value of the option.
 - `image` - filename of the image to display in the option. Searched in the `public/images` folder.
 
@@ -61,3 +61,5 @@ or when it requires updated currency stats it can call
 - add currency summary to menu
 - save and load from sessionStorage and json file
 - add a restart button
+- add masonry js
+- selecting options by clicking anywhere on them

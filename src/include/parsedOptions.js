@@ -10,6 +10,8 @@ function parseOptions(options, path = []) {
     }
     const option = options[slug];
 
+    if (option.type === undefined) option.type = optionTypes.INTEGER;
+
     // assign slugs and paths
     const currentPath = deepClone(path);
     if (slug !== 'instanceGroup') {
@@ -43,13 +45,14 @@ function parseOptions(options, path = []) {
     }
 
     // assign default values to min and max
-    if (
-      [optionTypes.INTEGER, optionTypes.SELECT, optionTypes.INSTANCER].includes(
-        option.type
-      )
-    ) {
+    if ([optionTypes.INTEGER, optionTypes.SELECT].includes(option.type)) {
       if (option.min === undefined) option.min = 0;
       if (option.max === undefined) option.max = 1;
+      if (option.max < option.min) option.max = option.min;
+    }
+    if (optionTypes.INSTANCER === option.type) {
+      if (option.min === undefined) option.min = 0;
+      if (option.max === undefined) option.max = Infinity;
       if (option.max < option.min) option.max = option.min;
     }
 

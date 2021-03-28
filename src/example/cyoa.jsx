@@ -23,13 +23,11 @@ const options = {
     title: 'Example',
     options: {
       a: {
-        type: optionTypes.INTEGER,
         cost: { gold: 5 },
         max: 2,
         title: 'A',
       },
       b: {
-        type: optionTypes.INTEGER,
         cost: { gold: 10 },
         title: 'B',
       },
