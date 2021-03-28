@@ -46,7 +46,18 @@ body {
 
     .option-title {
       font-family: $titleFont;
-      font-size: 1.25em;
+      display: flex;
+      align-items: baseline;
+
+      .option-numbering {
+        padding-right: 0.5em;
+        font-size: 0.75em;
+        opacity: 0.5;
+      }
+
+      .option-title-text {
+        font-size: 1.25em;
+      }
     }
 
     .option-image-content {

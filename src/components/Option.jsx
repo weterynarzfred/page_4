@@ -9,6 +9,7 @@ import OptionCost from './optionElements/OptionCost';
 import OptionControls from './optionElements/OptionControls';
 import { isSelected } from '../functions/getSelectedValue';
 import deepClone from '../functions/deepClone';
+import OptionTitle from './optionElements/OptionTitle';
 
 function Option(props) {
   if (props.option.hidden) return null;
@@ -39,22 +40,25 @@ function Option(props) {
     }
   );
 
+  const optionTitle = <OptionTitle option={props.option} showNumbering={[
+    optionTypes.GROUP,
+    optionTypes.SELECT,
+    optionTypes.INSTANCER,
+  ].includes(props.option.type)} />;
   const optionText = props.option.text === undefined ? '' : props.option.text;
   const optionCurrencies = props.topLevel ?
     null :
     <Currencies currencies={props.option.currencies} />;
 
   if (props.displayAsTableRow) {
-    const optionTitle = props.option.title === undefined ?
-      null :
-      <td className="option-title">{props.option.title}</td>;
-
     return (
       <tr className={classes}>
         <td className="choice-control-cell">
           <OptionControls option={props.option} currencies={currencies} />
         </td>
-        {optionTitle}
+        <td className="choice-title-cell">
+          {optionTitle}
+        </td>
         <td className="option-text">
           {optionText}
           <OptionRequirements option={props.option} />
@@ -69,7 +73,7 @@ function Option(props) {
     return (
       <div className={classes}>
         <div className="option-content">
-          <div className="option-title">{props.option.title}</div>
+          {optionTitle}
           <div className="option-cost-wrap">
             <OptionCost cost={props.option.cost} currencies={currencies} />
           </div>

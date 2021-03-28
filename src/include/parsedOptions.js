@@ -10,6 +10,7 @@ function parseOptions(options, path = []) {
     }
     const option = options[slug];
 
+    // default option type
     if (option.type === undefined) option.type = optionTypes.INTEGER;
 
     // assign slugs and paths
@@ -67,7 +68,7 @@ function parseOptions(options, path = []) {
       }
     }
 
-    // move functions for generating titles to user functions array
+    // move functions for generating properties to the user functions array
     const callables = {
       title: '',
       text: '',
