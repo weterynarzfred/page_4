@@ -10,6 +10,7 @@ import OptionControls from './optionElements/OptionControls';
 import { isSelected } from '../functions/getSelectedValue';
 import deepClone from '../functions/deepClone';
 import OptionTitle from './optionElements/OptionTitle';
+import OptionText from './optionElements/OptionText';
 
 function Option(props) {
   if (props.option.hidden) return null;
@@ -46,7 +47,6 @@ function Option(props) {
     optionTypes.SELECT,
     optionTypes.INSTANCER,
   ].includes(props.option.type)} />;
-  const optionText = props.option.text === undefined ? '' : props.option.text;
   const optionCurrencies = props.topLevel ?
     null :
     <Currencies currencies={props.option.currencies} />;
@@ -61,7 +61,7 @@ function Option(props) {
           {optionTitle}
         </td>
         <td className="option-text">
-          {optionText}
+          <OptionText text={props.option.text} />
           <OptionRequirements option={props.option} />
         </td>
         <td className="choice-cost-cell">
@@ -80,7 +80,9 @@ function Option(props) {
           </div>
           <OptionImage image={props.option.image} />
           {optionCurrencies}
-          <div className="option-text">{optionText}</div>
+          <div className="option-text">
+            <OptionText text={props.option.text} />
+          </div>
           <OptionControls option={props.option} currencies={currencies} />
           <OptionRequirements option={props.option} />
         </div>
