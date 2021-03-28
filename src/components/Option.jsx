@@ -2,15 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { optionTypes } from 'Include/enum';
-import Currencies from './Currencies';
-import OptionRequirements from './optionElements/OptionRequirements';
-import OptionImage from './optionElements/OptionImage';
-import OptionCost from './optionElements/OptionCost';
-import OptionControls from './optionElements/OptionControls';
 import { isSelected } from '../functions/getSelectedValue';
 import deepClone from '../functions/deepClone';
-import OptionTitle from './optionElements/OptionTitle';
-import OptionText from './optionElements/OptionText';
+import ChoiceTable from './optionElements/ChoiceTable';
+import OptionContent from './optionElements/OptionContent';
 
 function Option(props) {
   if (props.option.hidden) return null;
@@ -42,51 +37,24 @@ function Option(props) {
     { 'masonry-cell': props.isMasonryCell }
   );
 
-  const optionTitle = <OptionTitle option={props.option} showNumbering={[
-    optionTypes.GROUP,
-    optionTypes.SELECT,
-    optionTypes.INSTANCER,
-  ].includes(props.option.type)} />;
-  const optionCurrencies = props.topLevel ?
-    null :
-    <Currencies currencies={props.option.currencies} />;
 
   if (props.displayAsTableRow) {
     return (
-      <tr className={classes}>
-        <td className="choice-control-cell">
-          <OptionControls option={props.option} currencies={currencies} />
-        </td>
-        <td className="choice-title-cell">
-          {optionTitle}
-        </td>
-        <td className="option-text">
-          <OptionText text={props.option.text} />
-          <OptionRequirements option={props.option} />
-        </td>
-        <td className="choice-cost-cell">
-          <OptionCost cost={props.option.cost} currencies={currencies} />
-        </td>
-      </tr>
+      <ChoiceTable
+        classes={classes}
+        option={props.option}
+        currencies={currencies}
+      />
     );
   }
   else {
     return (
-      <div className={classes}>
-        <div className="option-content">
-          {optionTitle}
-          <div className="option-cost-wrap">
-            <OptionCost cost={props.option.cost} currencies={currencies} />
-          </div>
-          <OptionImage image={props.option.image} />
-          {optionCurrencies}
-          <div className="option-text">
-            <OptionText text={props.option.text} />
-          </div>
-          <OptionControls option={props.option} currencies={currencies} />
-          <OptionRequirements option={props.option} />
-        </div>
-      </div>
+      <OptionContent
+        topLevel={props.topLevel}
+        classes={classes}
+        option={props.option}
+        currencies={currencies}
+      />
     );
   }
 

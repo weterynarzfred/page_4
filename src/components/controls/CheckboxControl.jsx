@@ -5,7 +5,10 @@ function CheckboxControl(props) {
   return (
     <div
       className={classNames('CheckboxControl', { checked: props.selected })}
-      onClick={props.handleToggle}
+      onClick={(event) => {
+        event.stopPropagation();
+        props.handleToggle();
+      }}
     ></div>
   );
 }

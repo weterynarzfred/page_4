@@ -2,20 +2,23 @@ import React from 'react';
 import classNames from 'classnames';
 
 function SpinboxControl(props) {
-  const isIncrementDisabled = props.value >= props.max;
-  const isDecrementDisabled = props.value <= props.min;
-
   return (
     <div className="integer-spinbox">
       <div className="integer-spinbox-content">
         <button
-          onClick={isDecrementDisabled ? null : props.handleDecrement}
-          className={classNames({ disabled: isDecrementDisabled })}
+          onClick={(event) => {
+            event.stopPropagation();
+            props.handleDecrement();
+          }}
+          className={classNames({ disabled: props.value <= props.min })}
         >-</button>
         <div className="integer-value">{props.value}</div>
         <button
-          onClick={isIncrementDisabled ? null : props.handleIncrement}
-          className={classNames({ disabled: isIncrementDisabled })}
+          onClick={(event) => {
+            event.stopPropagation();
+            props.handleIncrement();
+          }}
+          className={classNames({ disabled: props.value >= props.max })}
         >+</button>
       </div>
     </div>
