@@ -8,6 +8,15 @@ import { settings } from 'cyoa';
 import deepClone from '../functions/deepClone';
 
 function Stats(props) {
+
+  const linkElements = [];
+  for (const slug in props.options) {
+    const option = props.options[slug];
+    linkElements.push(<div className="stats-link" key={slug}>
+      <PathLink path={option.path}>{option.title}</PathLink>
+    </div>);
+  }
+
   const pathElements = [];
   let pathTarget = [];
 
@@ -48,6 +57,7 @@ function Stats(props) {
       <Currencies currencies={currencies} />
       <Warnings />
       <div className="path">{pathElements}</div>
+      <div className="stats-links">{linkElements}</div>
     </div>
   );
 }

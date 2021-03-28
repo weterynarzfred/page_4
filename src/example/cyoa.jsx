@@ -5,6 +5,7 @@ import calculateCosts from 'Functions/calculateCosts';
 import getOption from 'Functions/getOption';
 import PathLink from 'Components/PathLink';
 import { isSelected, getSelectedValue } from 'Functions/getSelectedValue';
+import deepClone from 'Functions/deepClone';
 
 const settings = {
   initialScreen: ['example'],

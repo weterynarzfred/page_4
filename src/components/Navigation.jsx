@@ -11,11 +11,9 @@ function Navigation(props) {
   for (const slug in props.options) {
     const option = props.options[slug];
     linkElements.push(<div className="navigation-link" key={slug}>
-      <PathLink
-        onClick={() => setOpened(false)}
-        text={option.title}
-        path={option.path.join('.')}
-      />
+      <PathLink onClick={() => setOpened(false)} path={option.path}>
+        {option.title}
+      </PathLink>
     </div>);
   }
 
