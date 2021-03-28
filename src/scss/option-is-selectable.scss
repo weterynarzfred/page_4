@@ -1,6 +1,8 @@
 .option-is-selectable {
   width: 25em;
   max-width: 100%;
+  margin: 0.5em 0 1em 0;
+  padding: 0 0.5em;
 
   > .option-content {
     position: relative;

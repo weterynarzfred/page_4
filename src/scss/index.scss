@@ -37,13 +37,6 @@ body {
   .Option {
     position: relative;
 
-    &.option-integer,
-    &.option-text,
-    &.option-select {
-      margin: 0.5em 0 2em 0;
-      padding: 0 0.5em;
-    }
-
     .option-title {
       font-family: $titleFont;
       display: flex;

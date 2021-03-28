@@ -75,7 +75,7 @@ function Warnings(props) {
       warning.path;
     warningElements.push(<div className="warning" key={warning.id}>
       <div className="warning-path">
-        <PathLink path={parentPath.join('.')}>
+        <PathLink path={parentPath.join('.')} onClick={() => setOpened(false)}>
           {parentPath.join('.')}
         </PathLink>
       </div>
