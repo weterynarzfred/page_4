@@ -68,15 +68,17 @@ function parseOptions(options, path = []) {
     }
 
     // move functions for generating titles to user functions array
-    if (typeof option.title === 'function') {
-      option._title = addUserFunction(option.title, 'title');
-      option.title = '';
-    }
+    const callables = {
+      title: '',
+      text: '',
+      cost: {},
+    };
 
-    //
-    if (typeof option.text === 'function') {
-      option._text = addUserFunction(option.text, 'text');
-      option.text = '';
+    for (const callable in callables) {
+      if (typeof option[callable] === 'function') {
+        option['_' + callable] = addUserFunction(option[callable], callable);
+        option[callable] = callables[callable];
+      }
     }
   }
 

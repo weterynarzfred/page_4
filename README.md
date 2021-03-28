@@ -63,3 +63,4 @@ or when it requires updated currency stats it can call
 - add a restart button
 - add masonry js
 - selecting options by clicking anywhere on them
+- add links to the top bar

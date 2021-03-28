@@ -56,12 +56,12 @@ function recalculateUserFunctions(options, state) {
       recalculateUserFunctions(options[slug].choices, state);
     }
 
-    if (options[slug]._title !== undefined) {
-      callUserFunction(options[slug], state, options[slug]._title);
-    }
+    const callables = ['_title', '_text', '_cost'];
 
-    if (options[slug]._text !== undefined) {
-      callUserFunction(options[slug], state, options[slug]._text);
+    for (const callable of callables) {
+      if (options[slug][callable] !== undefined) {
+        callUserFunction(options[slug], state, options[slug][callable]);
+      }
     }
 
     if (options[slug].requirements !== undefined) {
