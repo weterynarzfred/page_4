@@ -7,13 +7,30 @@ import SelectControls from '../controls/SelectControls';
 import TextControls from '../controls/TextControls';
 
 function OptionControls(props) {
+  let useMasonry = false;
+  if (
+    props.option.type === optionTypes.GROUP &&
+    props.option.options !== undefined
+  ) {
+    useMasonry = true;
+    for (const slug in props.option.options) {
+      const option = props.option.options[slug];
+      if (![optionTypes.INTEGER, optionTypes.TEXT].includes(option.type)) {
+        useMasonry = false;
+        break;
+      }
+    }
+  }
+
   let controls;
   switch (props.option.type) {
     case optionTypes.INTEGER:
       controls = <>
         <IntegerControls option={props.option} />
         <GroupControls
+          option={props.option}
           options={props.option.options}
+          useMasonry={useMasonry}
           currencies={props.currencies}
         />
       </>;
@@ -21,6 +38,7 @@ function OptionControls(props) {
     case optionTypes.SELECT:
       controls = <SelectControls
         option={props.option}
+        useMasonry={useMasonry}
         currencies={props.currencies}
       />;
       break;
@@ -32,7 +50,9 @@ function OptionControls(props) {
       break;
     case optionTypes.GROUP:
       controls = <GroupControls
+        option={props.option}
         options={props.option.options}
+        useMasonry={useMasonry}
         currencies={props.currencies}
       />;
       break;

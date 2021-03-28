@@ -125,6 +125,11 @@ button {
   }
 }
 
+.masonry-grid {
+  margin-right: auto;
+  margin-left: auto;
+}
+
 @import 'navigation';
 @import 'stats';
 @import 'path-link';

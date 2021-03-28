@@ -62,6 +62,6 @@ or when it requires updated currency stats it can call
 - add currency summary to menu
 - save and load from sessionStorage and json file
 - add a restart button
-- add masonry js
 - selecting options by clicking anywhere on them
 - add blurring to nsfw images
+- add hyphenation

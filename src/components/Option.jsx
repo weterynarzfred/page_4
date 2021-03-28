@@ -37,7 +37,8 @@ function Option(props) {
         optionTypes.SELECT,
         optionTypes.INSTANCER,
       ].includes(props.option.type)
-    }
+    },
+    { 'masonry-cell': props.isMasonryCell }
   );
 
   const optionTitle = <OptionTitle option={props.option} showNumbering={[
