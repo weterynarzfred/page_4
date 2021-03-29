@@ -24,7 +24,7 @@ function ChoiceTable(props) {
         <OptionTitle option={props.option} />
       </td>
       <td className="option-text">
-        <OptionText text={props.option.text} />
+        <OptionText text={props.option.text} path={props.option.path} />
         <OptionRequirements option={props.option} />
       </td>
       <td className="choice-cost-cell">

@@ -1,6 +1,7 @@
 import deepClone from '../functions/deepClone';
-import { optionTypes } from './enum';
+import { dataTypes, optionTypes } from './enum';
 import { addUserFunction } from './userFunctions';
+import { addUserText } from './userTexts';
 
 function parseOptions(options, path = []) {
   for (const slug in options) {
@@ -56,6 +57,7 @@ function parseOptions(options, path = []) {
       if (option.max === undefined) option.max = Infinity;
       if (option.max < option.min) option.max = option.min;
     }
+    if (option.max === Infinity) option.max = Number.MAX_SAFE_INTEGER;
 
     // move requirements to user functions array
     if (option.requirements !== undefined) {
@@ -79,6 +81,25 @@ function parseOptions(options, path = []) {
       if (typeof option[callable] === 'function') {
         option['_' + callable] = addUserFunction(option[callable], callable);
         option[callable] = callables[callable];
+      }
+    }
+
+    // store react elements in user texts object
+    if (option.text !== undefined) {
+      addUserText(option.path.join('.'), option.text);
+      option.text = dataTypes.USER_TEXT;
+    }
+    if (option.requirements !== undefined) {
+      let index = 0;
+      for (const test of option.requirements) {
+        if (test.text !== undefined) {
+          addUserText(
+            [...option.path, 'requirements', index].join('.'),
+            test.text
+          );
+          test.text = dataTypes.USER_TEXT;
+        }
+        index++;
       }
     }
   }

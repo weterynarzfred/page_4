@@ -39,7 +39,7 @@ All configuration is done through objects `settings` and `options` in `src/cyoa.
   - `cost` - object with costs of the choice.
 
 `if type === optionTypes.INSTANCER`
-- `instanceGroup` - an option with type optionTypes.GROUP, it will be cloned as each of the instances; it cannot be a function.
+- `instanceGroup` - an option with type optionTypes.GROUP, it will be cloned as each of the instances. It cannot be a function. It cannot contain other instancers.
 
 When a function requires refreshed data from other options it can call
 `callOptionFunction(getOption('testOption', state.options), state);`
@@ -50,15 +50,18 @@ or when it requires updated currency stats it can call
 ### restricted keys
 - `instanceGroup`
 - `nextId`
+- `requirements`
 
 
 ## todo
+- stop click propagation on links
+- collapsable / openable options
 - generate warnings when currency is below zero
 - add a disclaimer
 - add tooltips
 - make a working preview
 - add a slider to choose the ratio between choices
 - add currency summary to menu
-- save and load from sessionStorage and json file
+- save and load from a json file
 - add a restart button
 - add blurring to nsfw images

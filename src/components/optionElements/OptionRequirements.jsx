@@ -1,5 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
+import { dataTypes } from '../../include/enum';
+import { getUserText } from '../../include/userTexts';
 
 function OptionRequirements(props) {
   if (props.option.requirements === undefined) return null;
@@ -7,11 +9,18 @@ function OptionRequirements(props) {
   const requirements = [];
   let index = 0;
   for (const test of props.option.requirements) {
+    let text;
+    if (test.text === dataTypes.USER_TEXT) {
+      text = getUserText([...props.option.path, 'requirements', index].join('.'));
+    }
+    else {
+      text = test.text;
+    }
     requirements.push(<div
       className={classNames('requirement', { met: test.value })}
       key={index}
     >
-      {test.text}
+      {text}
     </div>);
     index++;
   }

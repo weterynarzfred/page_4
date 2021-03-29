@@ -11,4 +11,8 @@ const actions = {
   CHANGE_PATH: 'CHANGE_PATH',
 };
 
-export { optionTypes, actions };
+const dataTypes = {
+  USER_TEXT: 'USER_TEXT',
+};
+
+export { optionTypes, actions, dataTypes };

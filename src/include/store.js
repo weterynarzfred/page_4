@@ -1,5 +1,7 @@
 import { createStore } from 'redux';
 import produce from 'immer';
+import { persistStore, persistReducer, REHYDRATE } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import { settings, options } from 'cyoa';
 import cleanupState from 'Functions/cleanupState';
 import selectOptionReducer from 'Functions/selectOptionReducer';
@@ -8,6 +10,12 @@ import { actions } from './enum';
 import { parseOptions } from './parsedOptions';
 import { recalculateUserFunctions } from './userFunctions';
 
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['options'],
+};
+
 const initialState = {
   options: parseOptions(options),
   currencies: settings.currencies,
@@ -15,6 +23,10 @@ const initialState = {
 };
 
 function rootReducer(state = initialState, action = '') {
+  if (action.type === REHYDRATE) {
+    return state;
+  }
+
   return produce(state, newState => {
     switch (action.type) {
       case actions.SELECT_OPTION:
@@ -34,9 +46,13 @@ function rootReducer(state = initialState, action = '') {
   });
 }
 
-const store = createStore(
-  rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export default store;
+export default () => {
+  let store = createStore(
+    persistedReducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
+  let persistor = persistStore(store);
+  return { store, persistor };
+};
