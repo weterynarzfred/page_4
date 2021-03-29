@@ -9,6 +9,7 @@ const optionTypes = {
 const actions = {
   SELECT_OPTION: 'SELECT_OPTION',
   CHANGE_PATH: 'CHANGE_PATH',
+  RESTART: 'RESTART',
 };
 
 const dataTypes = {

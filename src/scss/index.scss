@@ -78,7 +78,7 @@ p {
   transition: 0.3s;
 
   strong {
-    color: #fff;
+    color: $enabledText;
   }
 }
 
@@ -87,8 +87,8 @@ button {
   border: none;
   background-color: $enabledBackground;
   color: $enabledText;
-  border: 2px solid $borderColor;
-  padding: 0 2em;
+  border: 1px solid $borderColor;
+  padding: 0.5em 2em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,7 +99,6 @@ button {
   font-weight: 700;
   letter-spacing: 0.1em;
   word-spacing: 0.2em;
-  border-radius: 1.5em;
 
   &:focus {
     outline: none;
@@ -124,6 +123,7 @@ button {
   max-width: 100%;
 }
 
+@import 'dialog';
 @import 'navigation';
 @import 'stats';
 @import 'path-link';

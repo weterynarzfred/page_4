@@ -7,6 +7,7 @@ import OptionList from './OptionList';
 import Stats from './Stats';
 import { actions } from '../include/enum';
 import deepClone from '../functions/deepClone';
+import Dialog from './Dialog';
 
 function App(props) {
   useEffect(() => {
@@ -46,6 +47,7 @@ function App(props) {
       <Navigation />
       <Stats currencies={currencies} />
       <OptionList currentOptions={currentOptions} currencies={currencies} />
+      <Dialog />
     </div>
   );
 }

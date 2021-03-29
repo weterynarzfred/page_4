@@ -1,11 +1,23 @@
-import classNames from 'classnames';
 import React, { useState } from 'react';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import PathLink from './PathLink';
 import SummaryList from './SummaryList';
+import { actions } from '../include/enum';
+import { useHistory } from 'react-router';
+
+function handleRestart(history, setOpened) {
+  history.push('/');
+  setOpened(false);
+
+  this.dispatch({
+    type: actions.RESTART,
+  });
+}
 
 function Navigation(props) {
   const [opened, setOpened] = useState(false);
+  const history = useHistory();
 
   const linkElements = [];
   for (const slug in props.options) {
@@ -26,6 +38,20 @@ function Navigation(props) {
       </div>
       <nav id="navigation-menu">
         <div className="navigation-menu-content">
+          <button id="restart-button" onClick={() => {
+            window.dispatchEvent(new CustomEvent('dialogOpen', {
+              detail: {
+                title: 'Restart',
+                text: <p>Are you sure you want to start over?</p>,
+                buttons: [
+                  {
+                    onClick: handleRestart.bind(props, history, setOpened),
+                    text: 'restart',
+                  }
+                ],
+              }
+            }));
+          }}>restart</button>
           <div id="navigation-links">
             {linkElements}
           </div>

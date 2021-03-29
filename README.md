@@ -60,7 +60,8 @@ or when it requires updated currency stats it can call
 - add tooltips
 - make a working preview
 - add a slider to choose the ratio between choices
-- add currency summary to menu
+- add better summary to main menu
 - save and load from a json file
-- add a restart button
 - add blurring to nsfw images
+- configure masonry to use `useRef`
+- add `USER_FUNCTION` to `dataTypes`

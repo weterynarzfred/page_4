@@ -35,6 +35,9 @@ function rootReducer(state = initialState, action = '') {
       case actions.CHANGE_PATH:
         newState.path = action.path;
         break;
+      case actions.RESTART:
+        newState = initialState;
+        break;
       default:
     }
 

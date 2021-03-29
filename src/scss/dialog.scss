@@ -1,0 +1,66 @@
+.Dialog {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 22;
+
+  &.opened {
+    left: 0;
+  }
+
+  .dialog-content {
+    position: relative;
+    background-color: $enabledBackground;
+    padding: 1em 3em;
+    box-shadow: 1px 1px 5px #000;
+    border: 1px solid $borderColor;
+
+    .dialog-close {
+      position: absolute;
+      top: 0.25rem;
+      right: 0.25rem;
+      border-radius: 50%;
+      padding: 0.2em;
+      width: 1.2em;
+      height: 1.2em;
+      border: 1px solid $enabledText;
+      cursor: pointer;
+      transition: 0.2s;
+
+      path {
+        stroke: $enabledText;
+        stroke-width: 10;
+        transition: 0.2s;
+      }
+
+      &:hover {
+        border-color: $negative;
+
+        path {
+          stroke: $negative;
+        }
+      }
+    }
+
+    .dialog-title {
+      text-align: center;
+      font-size: 1.25em;
+    }
+
+    .dialog-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      button {
+        margin: 0 0.25rem;
+        font-size: 0.75em;
+      }
+    }
+  }
+}
