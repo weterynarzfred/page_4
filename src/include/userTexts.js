@@ -2,7 +2,6 @@ const userTexts = {};
 
 function addUserText(path, text) {
   userTexts[path] = text;
-  console.log(Object.keys(userTexts));
 }
 
 function getUserText(path) {

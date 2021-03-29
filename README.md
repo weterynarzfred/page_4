@@ -54,7 +54,6 @@ or when it requires updated currency stats it can call
 
 
 ## todo
-- stop click propagation on links
 - collapsable / openable options
 - generate warnings when currency is below zero
 - add a disclaimer

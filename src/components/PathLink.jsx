@@ -8,7 +8,8 @@ function PathLink(props) {
     props.path.split('.').filter(e => e !== '');
 
   return (
-    <Link to={'/' + path.join('/')} className="Link" onClick={() => {
+    <Link to={'/' + path.join('/')} className="Link" onClick={event => {
+      event.stopPropagation();
       if (props.onClick !== undefined) props.onClick();
     }}>
       {props.children === undefined ? props.text : props.children}
