@@ -1,0 +1,42 @@
+.SliderControls {
+  padding: 1em 2em 2em 2em;
+
+  .slider-value {
+    text-align: center;
+    padding-bottom: 1rem;
+    font-size: 1.25em;
+    font-weight: 700;
+    color: $selected;
+  }
+
+  .rc-slider-track {
+    background-color: $selected;
+  }
+
+  .rc-slider-handle {
+    top: 50%;
+    width: 1.5em;
+    height: 1.5em;
+    margin-top: -0.75em;
+    border-color: $selectableText;
+    transition: border-color 0.2s;
+
+    &:hover {
+      border-color: $selected;
+    }
+
+    &:active {
+      box-shadow: none;
+    }
+
+    &.rc-slider-handle-click-focused {
+      border-color: $selectableText;
+    }
+  }
+
+  .rc-slider-dot {
+    &.rc-slider-dot-active {
+      border-color: $selected;
+    }
+  }
+}

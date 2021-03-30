@@ -32,6 +32,11 @@ function getTextValue(action, value) {
   return value;
 }
 
+function getSliderValue(action, value) {
+  if (value === undefined) value = 0;
+  return value;
+}
+
 function getInstancerValue(action, value) {
   if (value === undefined) value = { nextId: 0 };
   if (action.add !== undefined) {
@@ -52,6 +57,7 @@ const getOptionValue = {
   [optionTypes.INTEGER]: getIntegerValue,
   [optionTypes.SELECT]: getSelectValue,
   [optionTypes.TEXT]: getTextValue,
+  [optionTypes.SLIDER]: getSliderValue,
   [optionTypes.INSTANCER]: getInstancerValue,
 };
 

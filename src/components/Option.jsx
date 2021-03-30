@@ -25,6 +25,7 @@ function Option(props) {
       'option-is-selectable': [
         optionTypes.INTEGER,
         optionTypes.TEXT,
+        optionTypes.SLIDER,
       ].includes(props.option.type)
     },
     {

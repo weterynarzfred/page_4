@@ -27,6 +27,8 @@ function getSelectedValue(option, options) {
         return [];
       case optionTypes.TEXT:
         return '';
+      case optionTypes.SLIDER:
+        return currentOption.min;
       case optionTypes.INSTANCER:
         return {};
     }
@@ -49,6 +51,8 @@ function getSelectedCount(option, options) {
       return value.length;
     case optionTypes.TEXT:
       return value.length;
+    case optionTypes.SLIDER:
+      return value;
     case optionTypes.INSTANCER:
       return Object.keys(value).length;
   }
@@ -73,6 +77,8 @@ function isSelected(option, options, checkedParents = 0) {
       return value.length > 0;
     case optionTypes.TEXT:
       return value.length > 0;
+    case optionTypes.SLIDER:
+      return value > 0;
     case optionTypes.INSTANCER:
       return Object.keys(value).length > 0;
   }

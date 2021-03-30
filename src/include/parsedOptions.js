@@ -47,7 +47,11 @@ function parseOptions(options, path = []) {
     }
 
     // assign default values to min and max
-    if ([optionTypes.INTEGER, optionTypes.SELECT].includes(option.type)) {
+    if (
+      [optionTypes.INTEGER, optionTypes.SELECT, optionTypes.SLIDER].includes(
+        option.type
+      )
+    ) {
       if (option.min === undefined) option.min = 0;
       if (option.max === undefined) option.max = 1;
       if (option.max < option.min) option.max = option.min;
@@ -59,7 +63,7 @@ function parseOptions(options, path = []) {
     }
     if (option.max === Infinity) option.max = Number.MAX_SAFE_INTEGER;
 
-    // move requirements to user functions array
+    // move requirements to the user functions array
     if (option.requirements !== undefined) {
       for (const test of option.requirements) {
         test.callback = addUserFunction(test.callback);
@@ -68,6 +72,14 @@ function parseOptions(options, path = []) {
           test.text = '';
         }
       }
+    }
+
+    // move valueTranforms to the user functions array
+    if (option.valueTransform !== undefined) {
+      option.valueTransform = addUserFunction(
+        option.valueTransform,
+        'transformedValue'
+      );
     }
 
     // move functions for generating properties to the user functions array

@@ -57,6 +57,10 @@ function recalculateUserFunctions(options, state) {
       recalculateUserFunctions(options[slug].choices, state);
     }
 
+    if (options[slug].valueTransform !== undefined) {
+      callUserFunction(options[slug], state, options[slug].valueTransform);
+    }
+
     const callables = ['_title', '_text', '_cost'];
 
     for (const callable of callables) {

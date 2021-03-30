@@ -69,6 +69,25 @@ const options = {
           },
         },
       },
+      e: {
+        type: optionTypes.SLIDER,
+        title: 'E',
+        sliderAttributes: {
+          step: 0.1,
+          marks: {
+            0: '0%',
+            0.5: '50%',
+            1: '100%',
+          },
+          dots: true,
+        },
+        valueTransform: (state, option) => {
+          return (getSelectedValue(option) * 100).toFixed(0) + '%';
+        },
+        text: <>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae nam deleniti vel veniam laborum maxime quo quibusdam voluptatum nulla. Suscipit labore natus accusamus ab sed facere impedit ipsa a exercitationem?</p>
+        </>,
+      },
     },
   },
 };

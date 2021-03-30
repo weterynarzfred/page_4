@@ -41,6 +41,10 @@ All configuration is done through objects `settings` and `options` in `src/cyoa.
 `if type === optionTypes.INSTANCER`
 - `instanceGroup` - an option with type optionTypes.GROUP, it will be cloned as each of the instances. It cannot be a function. It cannot contain other instancers.
 
+`if type === optionTypes.SLIDER`
+- `sliderAttributes` - an object with attributes that will be passed directly to `rc-slider`.
+- `valueTransform` - a function that will be applied to the value before it is displayed.
+
 When a function requires refreshed data from other options it can call
 `callOptionFunction(getOption('testOption', state.options), state);`
 
@@ -60,7 +64,6 @@ or when it requires updated currency stats it can call
 - add a disclaimer
 - add tooltips explaining gui
 - make a working preview
-- add a slider to choose the ratio between choices
 - add better summary to main menu
 - save and load from a json file
 - add blurring to nsfw images

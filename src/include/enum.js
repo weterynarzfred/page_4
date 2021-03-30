@@ -1,6 +1,7 @@
 const optionTypes = {
   INTEGER: 'integer',
   TEXT: 'text',
+  SLIDER: 'slider',
   SELECT: 'select',
   INSTANCER: 'instancer',
   GROUP: 'group',
