@@ -39,4 +39,13 @@
       border-color: $selected;
     }
   }
+
+  .rc-slider-mark-text {
+    transition: color 0.2s;
+    color: $selectableText;
+
+    &.rc-slider-mark-text-active {
+      color: $selectableText;
+    }
+  }
 }

@@ -37,8 +37,8 @@ function OptionContent(props) {
         <div className="option-text">
           <OptionText text={props.option.text} path={props.option.path} />
         </div>
-        <OptionControls option={props.option} currencies={props.currencies} />
         <OptionRequirements option={props.option} />
+        <OptionControls option={props.option} currencies={props.currencies} />
       </div>
     </div>
   );

@@ -14,7 +14,11 @@ function checkIfMasonry(option) {
 
   for (const slug in option.options) {
     const type = option.options[slug].type;
-    if (![optionTypes.INTEGER, optionTypes.TEXT].includes(type)) return false;
+    if (![
+      optionTypes.INTEGER,
+      optionTypes.TEXT,
+      optionTypes.SLIDER,
+    ].includes(type)) return false;
   }
   return true;
 }
