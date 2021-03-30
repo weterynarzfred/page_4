@@ -49,7 +49,13 @@ function rootReducer(state = initialState, action = '') {
   });
 }
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+// skip redux-persist in development
+let persistedReducer;
+if (process.env.NODE_ENV === 'development') {
+  persistedReducer = rootReducer;
+} else {
+  persistedReducer = persistReducer(persistConfig, rootReducer);
+}
 
 export default () => {
   let store = createStore(

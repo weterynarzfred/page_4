@@ -16,14 +16,26 @@ const redirect = settings.showRoot ? null : (
 
 const { store, persistor } = createStore();
 
-ReactDOM.render(
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
+if (process.env.NODE_ENV === 'development') {
+  ReactDOM.render(
+    <Provider store={store}>
       <Router>
         {redirect}
         <Route path="/" component={App} />
       </Router>
-    </PersistGate>
-  </Provider>,
-  document.getElementById('root')
-);
+    </Provider>,
+    document.getElementById('root')
+  );
+} else {
+  ReactDOM.render(
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Router>
+          {redirect}
+          <Route path="/" component={App} />
+        </Router>
+      </PersistGate>
+    </Provider>,
+    document.getElementById('root')
+  );
+}

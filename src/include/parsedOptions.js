@@ -86,17 +86,14 @@ function parseOptions(options, path = []) {
 
     // store react elements in user texts object
     if (option.text !== undefined) {
-      addUserText(option.path.join('.'), option.text);
+      addUserText(option.path, option.text);
       option.text = dataTypes.USER_TEXT;
     }
     if (option.requirements !== undefined) {
       let index = 0;
       for (const test of option.requirements) {
         if (test.text !== undefined) {
-          addUserText(
-            [...option.path, 'requirements', index].join('.'),
-            test.text
-          );
+          addUserText([...option.path, `requirement-${index}`], test.text);
           test.text = dataTypes.USER_TEXT;
         }
         index++;

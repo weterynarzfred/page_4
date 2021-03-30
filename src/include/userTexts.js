@@ -1,7 +1,10 @@
 const userTexts = {};
 
 function addUserText(path, text) {
-  userTexts[path] = text;
+  let pathString;
+  if (Array.isArray(path)) pathString = path.join('.');
+  else pathString = path;
+  userTexts[pathString] = text;
 }
 
 function getUserText(path) {

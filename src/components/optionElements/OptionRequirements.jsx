@@ -11,7 +11,7 @@ function OptionRequirements(props) {
   for (const test of props.option.requirements) {
     let text;
     if (test.text === dataTypes.USER_TEXT) {
-      text = getUserText([...props.option.path, 'requirements', index].join('.'));
+      text = getUserText([...props.option.path, `requirement-${index}`]);
     }
     else {
       text = test.text;

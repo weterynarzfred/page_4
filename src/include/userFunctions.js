@@ -1,5 +1,6 @@
-import { optionTypes } from './enum';
+import { dataTypes, optionTypes } from './enum';
 import { parseOptions } from './parsedOptions';
+import { addUserText } from './userTexts';
 
 const userFunctions = [];
 
@@ -65,11 +66,18 @@ function recalculateUserFunctions(options, state) {
     }
 
     if (options[slug].requirements !== undefined) {
+      let index = 0;
       for (const test of options[slug].requirements) {
         callUserFunction(test, state, test.callback, options[slug]);
         if (test._text !== undefined) {
           callUserFunction(test, state, test._text, options[slug]);
+          addUserText(
+            [...options[slug].path, `requirement-${index}`],
+            test.text
+          );
+          test.text = dataTypes.USER_TEXT;
         }
+        index++;
       }
     }
   }
