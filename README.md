@@ -54,14 +54,14 @@ or when it requires updated currency stats it can call
 
 
 ## todo
-- collapsable / openable options
+- collapsible / openable options
+- add conditionally hidden options
 - generate warnings when currency is below zero
 - add a disclaimer
-- add tooltips
+- add tooltips explaining gui
 - make a working preview
 - add a slider to choose the ratio between choices
 - add better summary to main menu
 - save and load from a json file
 - add blurring to nsfw images
-- configure masonry to use `useRef`
 - add `USER_FUNCTION` to `dataTypes`

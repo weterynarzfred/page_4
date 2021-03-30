@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Masonry from 'masonry-layout';
 import Option from 'Components/Option';
 import classNames from 'classnames';
@@ -6,9 +6,10 @@ import classNames from 'classnames';
 function GroupControls(props) {
   if (props.options === undefined) return null;
 
+  const gridRef = useRef(null);
   useEffect(() => {
     if (props.useMasonry) {
-      new Masonry(`#group-controls-${props.option.path.join('-')}`, {
+      new Masonry(gridRef.current, {
         itemSelector: '.masonry-cell',
         fitWidth: true,
         transitionDuration: 0,
@@ -30,8 +31,11 @@ function GroupControls(props) {
 
   return (
     <div
-      className={classNames('GroupControls', { 'masonry-grid': props.useMasonry })}
-      id={`group-controls-${props.option.path.join('-')}`}
+      className={classNames(
+        'GroupControls',
+        { 'masonry-grid': props.useMasonry }
+      )}
+      ref={gridRef}
     >
       {optionElements}
     </div>

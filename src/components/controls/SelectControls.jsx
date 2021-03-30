@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Masonry from 'masonry-layout';
 import Option from '../Option';
 import classNames from 'classnames';
 
 function SelectControls(props) {
-
+  const gridRef = useRef(null);
   useEffect(() => {
     if (!props.option.displayAsTable) {
-      new Masonry(`#select-controls-${props.option.path.join('-')}`, {
+      new Masonry(gridRef.current, {
         itemSelector: '.masonry-cell',
         fitWidth: true,
         transitionDuration: 0,
@@ -44,7 +44,7 @@ function SelectControls(props) {
         'SelectControls',
         { 'masonry-grid': !props.option.displayAsTable }
       )}
-      id={`select-controls-${props.option.path.join('-')}`}
+      ref={gridRef}
     >
       {content}
     </div>
