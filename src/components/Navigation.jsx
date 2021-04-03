@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import PathLink from './PathLink';
 import SummaryList from './SummaryList';
-import { actions } from '../include/enum';
+import { actions } from '../include/constants';
 import { useHistory } from 'react-router';
 import getProp from './../functions/getProp';
 

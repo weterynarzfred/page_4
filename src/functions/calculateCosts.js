@@ -1,4 +1,4 @@
-import { optionTypes } from 'Include/enum';
+import { optionTypes } from 'Include/constants';
 import { getSelectedValue, isSelected } from './getSelectedValue';
 
 function applyCost(cost, costs, count) {
@@ -22,7 +22,7 @@ function calculateCosts(options, costs, reset, allOptions = options) {
     if (slug === 'nextId') continue;
 
     const option = options[slug];
-    if (!isSelected(option, allOptions)) continue;
+    if (option.disabled || !isSelected(option, allOptions)) continue;
 
     if (option.type === optionTypes.INTEGER) {
       applyCost(option.cost, costs, getSelectedValue(option, allOptions));

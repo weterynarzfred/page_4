@@ -1,4 +1,4 @@
-import { optionTypes } from 'Include/enum';
+import { optionTypes } from 'Include/constants';
 import deepClone from './deepClone';
 import { getSelectedValue } from './getSelectedValue';
 

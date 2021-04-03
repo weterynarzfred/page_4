@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { actions } from 'Include/enum';
+import { actions } from 'Include/constants';
 import deepClone from '../../functions/deepClone';
 import InstanceControl from './InstanceControl';
 import classNames from 'classnames';
-import { getSelectedCount, getSelectedValue } from '../../functions/getSelectedValue';
+import { getSelectedValue } from '../../functions/getSelectedValue';
 
 function fixPathsInInstance(options, id, depth = 1) {
   if (options === undefined) return;

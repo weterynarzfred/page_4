@@ -1,4 +1,4 @@
-import { optionTypes } from 'Include/enum';
+import { optionTypes } from 'Include/constants';
 import deepClone from './deepClone';
 
 function getOption(path, options) {
@@ -19,7 +19,7 @@ function getOption(path, options) {
   } else {
     const slug = currentPath.shift();
     if (options[slug] === undefined) {
-      console.error(`No option ${slug} found at ${currentPath}`);
+      console.error(`No option found at ${currentPath} ${slug}`);
     }
     if (options[slug].type === optionTypes.INSTANCER) {
       return getOption(currentPath, options[slug].selected);

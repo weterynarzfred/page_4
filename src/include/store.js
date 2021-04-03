@@ -6,7 +6,7 @@ import { settings, options } from 'cyoa';
 import cleanupState from 'Functions/cleanupState';
 import selectOptionReducer from 'Functions/selectOptionReducer';
 import calculateCosts from 'Functions/calculateCosts';
-import { actions } from './enum';
+import { actions } from './constants';
 import { parseOptions } from './parsedOptions';
 import { recalculateUserFunctions } from './userFunctions';
 

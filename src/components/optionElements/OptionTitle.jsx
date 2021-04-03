@@ -1,6 +1,6 @@
 import React from 'react';
 import getProp from '../../functions/getProp';
-import { optionTypes } from '../../include/enum';
+import { optionTypes } from '../../include/constants';
 
 function OptionTitle(props) {
   const showNumbering = [

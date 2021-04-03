@@ -1,5 +1,5 @@
 import deepClone from '../functions/deepClone';
-import { dataTypes, optionTypes } from './enum';
+import { callables, dataTypes, optionTypes } from './constants';
 import { addUserFunction } from './userFunctions';
 import { addUserText } from './userTexts';
 
@@ -83,12 +83,6 @@ function parseOptions(options, path = []) {
     }
 
     // move functions for generating properties to the user functions array
-    const callables = {
-      title: '',
-      text: '',
-      cost: {},
-    };
-
     for (const callable in callables) {
       if (typeof option[callable] === 'function') {
         option['_' + callable] = addUserFunction(option[callable], callable);

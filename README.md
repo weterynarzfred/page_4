@@ -18,6 +18,7 @@ All configuration is done through objects `settings` and `options` in `src/cyoa.
 - `selected` - initial value of the option.
 - `image` - filename of the image to display in the option. Searched in the `public/images` folder.
 - `hidden` - disables showing the option anywhere on the page.
+- `disabled` - option and its suboptions are skipped when calculating costs and requirements.
 
 `if type === optionTypes.INTEGER || type === optionTypes.INSTANCER`
 - `cost` - object with costs of each time the option is bought.
@@ -59,7 +60,6 @@ or when it requires updated currency stats it can call
 
 
 ## todo
-- add conditionally hidden options
 - generate warnings when currency is below zero
 - add a disclaimer
 - add tooltips explaining gui

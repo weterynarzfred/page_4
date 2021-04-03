@@ -1,4 +1,4 @@
-import { actions } from 'Include/enum';
+import { actions } from 'Include/constants';
 
 function handleDecrement(value) {
   if (value <= this.option.min) return;

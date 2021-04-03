@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { optionTypes } from 'Include/enum';
+import { optionTypes } from 'Include/constants';
 import PathLink from './PathLink';
 import {
   getSelectedCount,
@@ -14,9 +14,11 @@ function findWarnings(options, allOptions = options) {
 
   for (const slug in options) {
     const option = options[slug];
+    if (option.disabled) continue;
+
     const selectedCount = getSelectedCount(option, allOptions);
     if (option.requirements !== undefined) {
-      if (option.type === optionTypes.INTEGER) {
+      if (option.type === optionTypes.INTEGER || option.type === optionTypes.SELECT) {
         if (selectedCount > 0) {
           let index = 0;
           for (const test of option.requirements) {

@@ -17,4 +17,13 @@ const dataTypes = {
   USER_TEXT: 'USER_TEXT',
 };
 
-export { optionTypes, actions, dataTypes };
+const callables = {
+  title: '',
+  text: '',
+  cost: {},
+  min: 0,
+  disabled: false,
+  hidden: false,
+};
+
+export { optionTypes, actions, dataTypes, callables };

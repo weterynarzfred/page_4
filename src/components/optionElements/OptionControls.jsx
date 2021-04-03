@@ -1,5 +1,5 @@
 import React from 'react';
-import { optionTypes } from 'Include/enum';
+import { optionTypes } from 'Include/constants';
 import GroupControls from '../controls/GroupControls';
 import InstancerControls from '../controls/InstancerControls';
 import IntegerControls from '../controls/IntegerControls';

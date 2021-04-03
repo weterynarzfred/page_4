@@ -1,5 +1,5 @@
 import React from 'react';
-import { optionTypes } from 'Include/enum';
+import { optionTypes } from 'Include/constants';
 import { callUserFunction } from 'Include/userFunctions';
 import calculateCosts from 'Functions/calculateCosts';
 import getOption from 'Functions/getOption';

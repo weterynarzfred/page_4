@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import { optionTypes } from 'Include/enum';
+import { optionTypes } from 'Include/constants';
 import { isSelected } from '../functions/getSelectedValue';
 import deepClone from '../functions/deepClone';
 import ChoiceTable from './optionElements/ChoiceTable';
@@ -53,6 +53,7 @@ function Option(props) {
     { 'option-is-row': props.displayAsTableRow },
     { 'option-is-selectable': isSelectable },
     { 'option-is-container': isContainer },
+    { 'option-disabled': props.option.disabled },
     { 'option-collapsible': isCollapsible },
     { 'option-collapsed': isCollapsible && !opened },
     { 'option-requirements-warning': requirementsWarning },

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import getProp from '../functions/getProp';
 import { getSelectedValue, isSelected } from '../functions/getSelectedValue';
-import { optionTypes } from '../include/enum';
+import { optionTypes } from '../include/constants';
 import PathLink from './PathLink';
 import SummaryList from './SummaryList';
 

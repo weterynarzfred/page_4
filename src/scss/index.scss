@@ -53,6 +53,7 @@ body {
 
   .Option {
     position: relative;
+    transition: filter 0.3s, opacity 0.3s;
 
     .option-title {
       font-family: $titleFont;
@@ -80,6 +81,15 @@ body {
 
     .SelectControls {
       display: flex;
+    }
+
+    &.option-disabled {
+      opacity: 0.33;
+      filter: grayscale(1);
+
+      .option-collapsible-content {
+        pointer-events: none;
+      }
     }
   }
 }

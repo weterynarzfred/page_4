@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { getSelectedCount } from '../../functions/getSelectedValue';
 import { handleIncrement, handleToggle } from '../../functions/handlers';
-import { optionTypes } from '../../include/enum';
+import { optionTypes } from '../../include/constants';
 import Currencies from '../Currencies';
 import OptionControls from './OptionControls';
 import OptionCost from './OptionCost';

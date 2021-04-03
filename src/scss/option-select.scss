@@ -49,11 +49,7 @@
               align-items: flex-start;
 
               .requirements-title {
-                padding: 0 1em;
-                &:before,
-                &:after {
-                  display: none;
-                }
+                display: none;
               }
             }
           }

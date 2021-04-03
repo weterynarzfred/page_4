@@ -1,4 +1,4 @@
-import { optionTypes } from 'Include/enum';
+import { optionTypes } from 'Include/constants';
 import getOption from './getOption';
 
 function getSelectedValue(option, options) {

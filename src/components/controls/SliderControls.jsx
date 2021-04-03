@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import { actions } from 'Include/enum';
+import { actions } from 'Include/constants';
 import { getSelectedValue } from '../../functions/getSelectedValue';
 
 function handleChange(value) {

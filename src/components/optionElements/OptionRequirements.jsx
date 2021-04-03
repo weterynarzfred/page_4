@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { dataTypes } from '../../include/enum';
+import { dataTypes } from '../../include/constants';
 import { getUserText } from '../../include/userTexts';
 
 function OptionRequirements(props) {

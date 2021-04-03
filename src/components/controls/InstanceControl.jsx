@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PathLink from 'Components/PathLink';
 import Currencies from '../Currencies';
-import { actions } from '../../include/enum';
+import { actions } from '../../include/constants';
 import getProp from '../../functions/getProp';
 
 function handleDelete() {

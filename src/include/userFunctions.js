@@ -1,4 +1,4 @@
-import { dataTypes, optionTypes } from './enum';
+import { callables, dataTypes, optionTypes } from './constants';
 import { parseOptions } from './parsedOptions';
 import { addUserText } from './userTexts';
 
@@ -61,11 +61,9 @@ function recalculateUserFunctions(options, state) {
       callUserFunction(options[slug], state, options[slug].valueTransform);
     }
 
-    const callables = ['_title', '_text', '_cost'];
-
-    for (const callable of callables) {
-      if (options[slug][callable] !== undefined) {
-        callUserFunction(options[slug], state, options[slug][callable]);
+    for (const callable in callables) {
+      if (options[slug][`_${callable}`] !== undefined) {
+        callUserFunction(options[slug], state, options[slug][`_${callable}`]);
       }
     }
 

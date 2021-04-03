@@ -5,7 +5,7 @@ import getOption from 'Functions/getOption';
 import Navigation from './Navigation';
 import OptionList from './OptionList';
 import Stats from './Stats';
-import { actions } from '../include/enum';
+import { actions } from '../include/constants';
 import deepClone from '../functions/deepClone';
 import Dialog from './Dialog';
 
