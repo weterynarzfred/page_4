@@ -34,6 +34,17 @@ function Option(props) {
     optionTypes.SELECT,
   ].includes(props.option.type);
 
+  let requirementsWarning = props.option.requirements !== undefined;
+  if (props.option.requirements !== undefined) {
+    requirementsWarning = false;
+    for (const test of props.option.requirements) {
+      if (!test.value) {
+        requirementsWarning = true;
+        break;
+      }
+    }
+  }
+
   const classes = classNames(
     'Option',
     `option-${props.option.type}`,
@@ -44,6 +55,7 @@ function Option(props) {
     { 'option-is-container': isContainer },
     { 'option-collapsible': isCollapsible },
     { 'option-collapsed': isCollapsible && !opened },
+    { 'option-requirements-warning': requirementsWarning },
     { 'masonry-cell': props.isMasonryCell }
   );
 

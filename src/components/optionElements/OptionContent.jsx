@@ -32,6 +32,7 @@ function OptionContent(props) {
     if (props.opened) {
       collapsibleRef.current.style.height = openedHeight + 'px';
       setTimeout(() => {
+        if (collapsibleRef.current === null) return;
         collapsibleRef.current.style.height = 'auto';
       }, 500);
     }

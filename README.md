@@ -69,5 +69,4 @@ or when it requires updated currency stats it can call
 - add blurring to nsfw images
 - add `USER_FUNCTION` to `dataTypes`
 - add option type with order selection
-- mark options with warnings
 - display currencies in groups that are not instances

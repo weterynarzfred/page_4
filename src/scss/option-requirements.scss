@@ -25,9 +25,19 @@
     font-size: 0.8em;
     margin: 0.1rem 0;
     padding: 0 1rem;
+    transition: 0.2s;
 
     &.met {
       color: $positive;
+    }
+  }
+}
+
+.option-requirements-warning {
+  &.option-is-selectable,
+  &.option-is-selectable.selected {
+    > .option-content {
+      border-color: $negative;
     }
   }
 }
