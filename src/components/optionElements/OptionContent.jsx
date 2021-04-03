@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { getSelectedCount } from '../../functions/getSelectedValue';
 import { handleIncrement, handleToggle } from '../../functions/handlers';
@@ -25,22 +25,47 @@ function handleClick(event) {
 }
 
 function OptionContent(props) {
+  const collapsibleRef = useRef();
+
+  useEffect(() => {
+    const openedHeight = collapsibleRef.current.scrollHeight;
+    if (props.opened) {
+      collapsibleRef.current.style.height = openedHeight + 'px';
+      setTimeout(() => {
+        collapsibleRef.current.style.height = 'auto';
+      }, 500);
+    }
+    else {
+      collapsibleRef.current.style.height = openedHeight + 'px';
+      setTimeout(() => {
+        collapsibleRef.current.style.height = 0;
+      }, 40);
+    }
+  }, [props.opened]);
+
   return (
     <div className={props.classes} onClick={handleClick.bind(props)}>
       <div className="option-content">
-        <OptionTitle option={props.option} />
-        <div className="option-cost-wrap">
-          <OptionCost cost={props.option.cost} currencies={props.currencies} />
+        <OptionTitle option={props.option} onClick={props.setOpened} />
+        <div className="option-collapsible-content" ref={collapsibleRef}>
+          <div className="option-cost-wrap">
+            <OptionCost cost={props.option.cost} currencies={props.currencies} />
+          </div>
+          <OptionImage image={props.option.image} />
+          {props.topLevel ? null : <Currencies currencies={props.option.currencies} />}
+          <div className="option-text">
+            <OptionText option={props.option} />
+          </div>
+          <OptionRequirements option={props.option} />
+          <OptionControls option={props.option} currencies={props.currencies} />
         </div>
-        <OptionImage image={props.option.image} />
-        {props.topLevel ? null : <Currencies currencies={props.option.currencies} />}
-        <div className="option-text">
-          <OptionText option={props.option} />
-        </div>
-        <OptionRequirements option={props.option} />
-        <OptionControls option={props.option} currencies={props.currencies} />
+        {props.isCollapsible ? <div className="option-collapsible-elipsis" onClick={props.setOpened}>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div> : null}
       </div>
-    </div>
+    </div >
   );
 }
 

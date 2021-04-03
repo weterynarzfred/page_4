@@ -7,17 +7,19 @@
       font-size: 4.2361em;
     }
 
-    > .OptionImage {
-      max-width: 80em;
-      margin: 1em auto;
+    > .option-collapsible-content {
+      > .OptionImage {
+        max-width: 80em;
+        margin: 1em auto;
 
-      .option-image-content {
-        padding-bottom: 33%;
+        .option-image-content {
+          padding-bottom: 33%;
+        }
       }
-    }
 
-    > .option-text {
-      font-size: 1.25em;
+      > .option-text {
+        font-size: 1.25em;
+      }
     }
   }
 
@@ -58,6 +60,67 @@
           }
         }
       }
+    }
+  }
+}
+
+.option-collapsible {
+  > .option-content {
+    > .option-title .option-title-text {
+      cursor: pointer;
+      transition: 0.2s;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    .option-collapsible-content {
+      padding: 0.1px 0;
+      transition: 0.5s;
+      overflow: hidden;
+    }
+
+    .option-collapsible-elipsis {
+      position: relative;
+      margin: 0.5em auto;
+      width: 3em;
+      height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid $disabledBorderColor;
+      border-radius: 1em;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.2s;
+
+      > div {
+        width: 0.5em;
+        height: 0.5em;
+        margin: 0 0.1em;
+        background-color: $enabledText;
+        border-radius: 50%;
+        transition: 0.2s;
+      }
+
+      &:hover {
+        background-color: $selectableBackground;
+        opacity: 1;
+        border-color: $borderColor;
+
+        > div {
+          margin: 0 0.16em;
+        }
+      }
+    }
+  }
+  &.option-collapsed {
+    .option-collapsible-elipsis {
+      height: 2em;
+      pointer-events: all;
+      opacity: 0.3;
     }
   }
 }

@@ -48,6 +48,7 @@ function App(props) {
       <Stats currencies={currencies} />
       <OptionList currentOptions={currentOptions} currencies={currencies} />
       <Dialog />
+      <div id="overlay" style={{ backgroundImage: "url('./images/general/001_RV_TEXTURE_DIRT.png')" }}></div>
     </div>
   );
 }

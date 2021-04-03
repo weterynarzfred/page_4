@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { optionTypes } from 'Include/enum';
@@ -10,10 +10,29 @@ import OptionContent from './optionElements/OptionContent';
 function Option(props) {
   if (props.option.hidden) return null;
 
+  const [opened, setOpened] = useState(true);
+
   const currencies = deepClone(props.currencies);
   if (props.option.currencies !== undefined) {
     Object.assign(currencies, deepClone(props.option.currencies));
   }
+
+  const isSelectable = [
+    optionTypes.INTEGER,
+    optionTypes.TEXT,
+    optionTypes.SLIDER,
+  ].includes(props.option.type);
+
+  const isContainer = [
+    optionTypes.GROUP,
+    optionTypes.SELECT,
+    optionTypes.INSTANCER,
+  ].includes(props.option.type);
+
+  const isCollapsible = !props.topLevel && [
+    optionTypes.GROUP,
+    optionTypes.SELECT,
+  ].includes(props.option.type);
 
   const classes = classNames(
     'Option',
@@ -21,20 +40,10 @@ function Option(props) {
     { 'selected': isSelected(props.option, props.options) },
     { 'top-level': props.topLevel },
     { 'option-is-row': props.displayAsTableRow },
-    {
-      'option-is-selectable': [
-        optionTypes.INTEGER,
-        optionTypes.TEXT,
-        optionTypes.SLIDER,
-      ].includes(props.option.type)
-    },
-    {
-      'option-is-container': [
-        optionTypes.GROUP,
-        optionTypes.SELECT,
-        optionTypes.INSTANCER,
-      ].includes(props.option.type)
-    },
+    { 'option-is-selectable': isSelectable },
+    { 'option-is-container': isContainer },
+    { 'option-collapsible': isCollapsible },
+    { 'option-collapsed': isCollapsible && !opened },
     { 'masonry-cell': props.isMasonryCell }
   );
 
@@ -55,6 +64,9 @@ function Option(props) {
         classes={classes}
         option={props.option}
         currencies={currencies}
+        isCollapsible={isCollapsible}
+        opened={opened}
+        setOpened={() => setOpened(!opened)}
       />
     );
   }

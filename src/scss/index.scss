@@ -3,6 +3,7 @@ $positive: rgb(161, 255, 73);
 $negative: rgb(255, 115, 45);
 $text: rgb(255, 222, 160);
 $background: #222;
+$background2: #111;
 $borderColor: #999;
 $enabledBackground: #111;
 $enabledText: #fff;
@@ -25,8 +26,24 @@ body {
 }
 
 .App {
+  position: relative;
   padding-top: 3em;
   padding-bottom: 20vh;
+  min-height: 100vh;
+  background-image: linear-gradient(45deg, $background 0%, $background2 100%);
+  box-shadow: 0 0 50em #000 inset;
+
+  #overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 101;
+    background-size: 100% auto;
+    pointer-events: none;
+    opacity: 0.04;
+  }
 }
 
 .OptionsList {
@@ -58,7 +75,7 @@ body {
       background-size: cover;
       border: solid $text;
       border-width: 1px 1px 6px 1px;
-      box-shadow: 0 0 7em 0 rgba(13, 88, 72, 0.3) inset;
+      box-shadow: 0 0 5em 0 rgba(255, 178, 34, 0.2) inset;
     }
 
     .SelectControls {

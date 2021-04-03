@@ -14,7 +14,9 @@ function OptionTitle(props) {
   return (
     <div className="option-title">
       {numbering}
-      <div className="option-title-text">{getProp('title', props.option)}</div>
+      <div className="option-title-text" onClick={() => {
+        if (props.onClick !== undefined) props.onClick();
+      }}>{getProp('title', props.option)}</div>
     </div>
   );
 }

@@ -59,7 +59,6 @@ or when it requires updated currency stats it can call
 
 
 ## todo
-- collapsible / openable options
 - add conditionally hidden options
 - generate warnings when currency is below zero
 - add a disclaimer
@@ -71,3 +70,4 @@ or when it requires updated currency stats it can call
 - add `USER_FUNCTION` to `dataTypes`
 - add option type with order selection
 - mark options with warnings
+- display currencies in groups that are not instances
