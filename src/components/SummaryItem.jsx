@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import getProp from '../functions/getProp';
 import { getSelectedValue, isSelected } from '../functions/getSelectedValue';
 import { optionTypes } from '../include/enum';
 import PathLink from './PathLink';
@@ -31,7 +32,7 @@ function SummaryItem(props) {
         <PathLink
           path={props.option.path.join('.')}
           onClick={props.onClick}
-        >{props.option.title}</PathLink>
+        >{getProp('title', props.option)}</PathLink>
       </span>
       <SummaryList
         options={suboptions}

@@ -1,4 +1,5 @@
 import React from 'react';
+import getProp from '../../functions/getProp';
 import { optionTypes } from '../../include/enum';
 
 function OptionTitle(props) {
@@ -13,7 +14,7 @@ function OptionTitle(props) {
   return (
     <div className="option-title">
       {numbering}
-      <div className="option-title-text">{props.option.title}</div>
+      <div className="option-title-text">{getProp('title', props.option)}</div>
     </div>
   );
 }

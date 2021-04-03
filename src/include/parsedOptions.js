@@ -101,6 +101,10 @@ function parseOptions(options, path = []) {
       addUserText(option.path, option.text);
       option.text = dataTypes.USER_TEXT;
     }
+    if (option.title !== undefined) {
+      addUserText([...option.path, '_title'], option.title);
+      option.title = dataTypes.USER_TEXT;
+    }
     if (option.requirements !== undefined) {
       let index = 0;
       for (const test of option.requirements) {

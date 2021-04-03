@@ -5,6 +5,7 @@ import PathLink from './PathLink';
 import SummaryList from './SummaryList';
 import { actions } from '../include/enum';
 import { useHistory } from 'react-router';
+import getProp from './../functions/getProp';
 
 function handleRestart(history, setOpened) {
   history.push('/');
@@ -24,7 +25,7 @@ function Navigation(props) {
     const option = props.options[slug];
     linkElements.push(<div className="navigation-link" key={slug}>
       <PathLink onClick={() => setOpened(false)} path={option.path}>
-        {option.title}
+        {getProp('title', option)}
       </PathLink>
     </div>);
   }

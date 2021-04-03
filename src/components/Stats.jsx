@@ -6,6 +6,7 @@ import Warnings from './Warnings';
 import PathLink from './PathLink';
 import { settings } from 'cyoa';
 import deepClone from '../functions/deepClone';
+import getProp from '../functions/getProp';
 
 function Stats(props) {
 
@@ -13,7 +14,7 @@ function Stats(props) {
   for (const slug in props.options) {
     const option = props.options[slug];
     linkElements.push(<div className="stats-link" key={slug}>
-      <PathLink path={option.path}>{option.title}</PathLink>
+      <PathLink path={option.path}>{getProp('title', option)}</PathLink>
     </div>);
   }
 
@@ -39,7 +40,7 @@ function Stats(props) {
     const currentOption = getOption(pathTarget, props.options);
     pathElements.push(<PathLink
       key={pathTarget.join('.')}
-      text={currentOption.title}
+      text={getProp('title', currentOption)}
       path={pathTarget.join('.')}
     />);
   }

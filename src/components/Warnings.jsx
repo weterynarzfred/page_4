@@ -6,6 +6,8 @@ import {
   getSelectedCount,
   getSelectedValue
 } from '../functions/getSelectedValue';
+import getProp from '../functions/getProp';
+import { getUserText } from '../include/userTexts';
 
 function findWarnings(options, allOptions = options) {
   const warnings = [];
@@ -22,7 +24,7 @@ function findWarnings(options, allOptions = options) {
               warnings.push({
                 id: option.path.join('.') + '-' + index++,
                 path: option.path,
-                text: <>{option.title} &ndash; {test.text}</>,
+                text: <>{getProp('title', option)} &ndash; {getUserText([...option.path, `requirement-${index}`])}</>,
               });
             }
           }
@@ -34,14 +36,14 @@ function findWarnings(options, allOptions = options) {
         warnings.push({
           id: option.path.join('.') + '-lessThanMin',
           path: option.path,
-          text: `${option.title} cannot have less than ${option.min} selected.`,
+          text: `${getProp('title', option)} cannot have less than ${option.min} selected.`,
         });
       }
       if (selectedCount > option.max) {
         warnings.push({
           id: option.path.join('.') + '-moreThanMax',
           path: option.path,
-          text: `${option.title} cannot have more than ${option.max} selected.`,
+          text: `${getProp('title', option)} cannot have more than ${option.max} selected.`,
         });
       }
     }

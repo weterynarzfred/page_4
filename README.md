@@ -54,7 +54,8 @@ or when it requires updated currency stats it can call
 ### restricted keys
 - `instanceGroup`
 - `nextId`
-- `requirements`
+- `requirement`
+- `_title`
 
 
 ## todo
@@ -68,3 +69,5 @@ or when it requires updated currency stats it can call
 - save and load from a json file
 - add blurring to nsfw images
 - add `USER_FUNCTION` to `dataTypes`
+- add option type with order selection
+- mark options with warnings

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PathLink from 'Components/PathLink';
 import Currencies from '../Currencies';
 import { actions } from '../../include/enum';
+import getProp from '../../functions/getProp';
 
 function handleDelete() {
   this.dispatch({
@@ -16,7 +17,7 @@ function InstanceControl(props) {
   return (
     <div className="InstanceControl">
       <PathLink path={props.instance.path.join('.')}>
-        <div className="instance-link-title">{props.instance.title}</div>
+        <div className="instance-link-title">{getProp('title', props.instance)}</div>
         <Currencies currencies={props.instance.currencies} />
       </PathLink>
       <button
