@@ -24,11 +24,12 @@ function findWarnings(options, allOptions = options) {
           for (const test of option.requirements) {
             if (!test.value) {
               warnings.push({
-                id: option.path.join('.') + '-' + index++,
+                id: option.path.join('.') + '-' + index,
                 path: option.path,
                 text: <>{getProp('title', option)} &ndash; {getUserText([...option.path, `requirement-${index}`])}</>,
               });
             }
+            index++;
           }
         }
       }
