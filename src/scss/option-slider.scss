@@ -2,11 +2,18 @@
   padding: 1em 2em 2em 2em;
 
   .slider-value {
+    background: none;
+    border: none;
+    width: 100%;
     text-align: center;
-    padding-bottom: 1rem;
+    margin-bottom: 1rem;
     font-size: 1.25em;
     font-weight: 700;
     color: $selected;
+
+    &:focus {
+      outline: none;
+    }
   }
 
   .rc-slider-track {

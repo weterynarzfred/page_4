@@ -71,3 +71,4 @@ or when it requires updated currency stats it can call
 - add `USER_FUNCTION` to `dataTypes`
 - add option type with order selection
 - display currencies in groups that are not instances
+- add a button to enlarge images

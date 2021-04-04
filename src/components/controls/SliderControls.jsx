@@ -4,6 +4,25 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { actions } from 'Include/constants';
 import { getSelectedValue } from '../../functions/getSelectedValue';
+import formatNumber from '../../functions/formatNumber';
+
+const { createSliderWithTooltip } = Slider;
+const { Handle } = Slider;
+const SliderWithTooltip = createSliderWithTooltip(Slider);
+
+const handle = props => {
+  const { value, dragging, index, ...restProps } = props;
+  return (
+    <SliderTooltip
+      prefixCls="rc-slider-tooltip"
+      visible={dragging}
+      placement="top"
+      key={index}
+    >
+      <Handle value={value} {...restProps} />
+    </SliderTooltip>
+  );
+};
 
 function handleChange(value) {
   if (
@@ -42,13 +61,19 @@ function SliderControls(props) {
   return (
     <div className="SliderControls">
       <div className="slider-value">{displayValue}</div>
-      <Slider
+      {props.option.useTooltips ? <SliderWithTooltip
         {...props.option.sliderAttributes}
         min={props.option.min}
         max={props.option.max}
         value={_value}
         onChange={value => set_value(value)}
-      />
+      /> : <Slider
+        {...props.option.sliderAttributes}
+        min={props.option.min}
+        max={props.option.max}
+        value={_value}
+        onChange={value => set_value(value)}
+      />}
     </div>
   );
 }
