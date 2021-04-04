@@ -1,7 +1,7 @@
-$selected: rgb(151, 217, 255);
-$positive: rgb(161, 255, 73);
-$negative: rgb(255, 115, 45);
-$text: rgb(255, 222, 160);
+$selected: #97d9ff;
+$positive: #a1ff49;
+$negative: #ff732d;
+$text: #ffdea0;
 $background: #222;
 $background2: #111;
 $borderColor: #999;
@@ -148,6 +148,17 @@ button {
   margin-right: auto;
   margin-left: auto;
   max-width: 100%;
+}
+
+.recharts-wrapper {
+  margin: 0 auto;
+
+  .recharts-pie-sector {
+    path {
+      stroke: $background;
+      stroke-width: 5;
+    }
+  }
 }
 
 @import 'dialog';

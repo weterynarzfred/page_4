@@ -81,6 +81,12 @@ function parseOptions(options, path = []) {
         'transformedValue'
       );
     }
+    if (option.displayTransform !== undefined) {
+      option.displayTransform = addUserFunction(
+        option.displayTransform,
+        'transformedDisplay'
+      );
+    }
 
     // move functions for generating properties to the user functions array
     for (const callable in callables) {

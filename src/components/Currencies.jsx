@@ -8,7 +8,7 @@ function Currencies(props) {
     const cost = props.currencies[costSlug];
     currencyElements.push(<div className="currency" key={costSlug}>
       <div className="currency-name">{cost.title}</div>
-      <div className="currency-value">{cost.value}</div>
+      <div className="currency-value">{cost.value.toFixed(2)}</div>
     </div>);
   }
 

@@ -60,6 +60,9 @@ function recalculateUserFunctions(options, state) {
     if (options[slug].valueTransform !== undefined) {
       callUserFunction(options[slug], state, options[slug].valueTransform);
     }
+    if (options[slug].displayTransform !== undefined) {
+      callUserFunction(options[slug], state, options[slug].displayTransform);
+    }
 
     for (const callable in callables) {
       if (options[slug][`_${callable}`] !== undefined) {

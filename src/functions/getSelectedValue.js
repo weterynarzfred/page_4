@@ -16,6 +16,8 @@ function getSelectedValue(option, options) {
     for (const slug in currentOption.selected) {
       if (!isNaN(slug)) value[slug] = currentOption.selected[slug];
     }
+  } else if (currentOption.transformedValue !== undefined) {
+    value = currentOption.transformedValue;
   } else {
     value = currentOption.selected;
   }
