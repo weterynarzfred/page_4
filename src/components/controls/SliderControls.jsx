@@ -6,6 +6,11 @@ import { actions } from 'Include/constants';
 import { getSelectedValue } from '../../functions/getSelectedValue';
 
 function handleChange(value) {
+  if (
+    value === undefined ||
+    value === this.option.selected
+  ) return;
+
   this.dispatch({
     type: actions.SELECT_OPTION,
     option: this.option,
@@ -14,7 +19,7 @@ function handleChange(value) {
 }
 
 function SliderControls(props) {
-  const [_value, set_value] = useState(0);
+  const [_value, set_value] = useState();
   const [lastUpdate, setLastUpdate] = useState(0);
   const [updateTimeout, setUpdateTimeout] = useState();
 

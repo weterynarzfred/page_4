@@ -1,6 +1,11 @@
 import { createStore } from 'redux';
 import produce from 'immer';
-import { persistStore, persistReducer, REHYDRATE } from 'redux-persist';
+import {
+  persistStore,
+  persistReducer,
+  REHYDRATE,
+  PERSIST,
+} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { settings, options } from 'cyoa';
 import cleanupState from 'Functions/cleanupState';
@@ -41,9 +46,18 @@ function rootReducer(state = initialState, action = '') {
       default:
     }
 
-    recalculateUserFunctions(newState.options, newState);
-    cleanupState(newState.options, newState);
-    calculateCosts(newState.options, newState.currencies, true);
+    if ([PERSIST, actions.SELECT_OPTION].includes(action.type)) {
+      console.time('recalc');
+      recalculateUserFunctions(newState.options, newState);
+      cleanupState(newState.options, newState);
+      calculateCosts(
+        newState.options,
+        newState.currencies,
+        true,
+        newState.options
+      );
+      console.timeEnd('recalc');
+    }
 
     return newState;
   });

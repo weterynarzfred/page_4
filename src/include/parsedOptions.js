@@ -63,6 +63,22 @@ function parseOptions(options, path = []) {
     }
     if (option.max === Infinity) option.max = Number.MAX_SAFE_INTEGER;
 
+    // assign initial selected values
+    if (option.selected === undefined) {
+      if ([optionTypes.INTEGER, optionTypes.SLIDER].includes(option.type)) {
+        option.selected = 0;
+      }
+      if (option.type === optionTypes.TEXT) {
+        option.selected = '';
+      }
+      if (option.type === optionTypes.SELECT) {
+        option.selected = [];
+      }
+      if (option.type === optionTypes.INSTANCER) {
+        option.selected = { nextId: 0 };
+      }
+    }
+
     // move requirements to the user functions array
     if (option.requirements !== undefined) {
       for (const test of option.requirements) {

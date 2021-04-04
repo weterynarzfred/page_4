@@ -10,7 +10,7 @@ function applyCost(cost, costs, count) {
   }
 }
 
-function calculateCosts(options, costs, reset, allOptions = options) {
+function calculateCosts(options, costs, reset, allOptions) {
   if (reset) {
     for (const costSlug in costs) {
       if (costs[costSlug].start === undefined) costs[costSlug].value = 0;
@@ -22,7 +22,7 @@ function calculateCosts(options, costs, reset, allOptions = options) {
     if (slug === 'nextId') continue;
 
     const option = options[slug];
-    if (option.disabled || !isSelected(option, allOptions)) continue;
+    if (option.disabled || !isSelected(option, allOptions, Infinity)) continue;
 
     if (option.type === optionTypes.INTEGER) {
       applyCost(option.cost, costs, getSelectedValue(option, allOptions));

@@ -6,9 +6,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 import App from 'Components/App';
 import createStore from 'Include/store';
 import { settings } from 'cyoa';
-import { setAutoFreeze } from 'immer';
-
-setAutoFreeze(false);
 
 const redirect = settings.showRoot ? null : (
   <Redirect exact from="/" to={'/' + settings.initialScreen.join('/')} />
