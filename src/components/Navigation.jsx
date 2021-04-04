@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
+import { settings } from 'cyoa';
 import PathLink from './PathLink';
 import SummaryList from './SummaryList';
 import { actions } from '../include/constants';
@@ -8,7 +9,12 @@ import { useHistory } from 'react-router';
 import getProp from './../functions/getProp';
 
 function handleRestart(history, setOpened) {
-  history.push('/');
+  if (settings.initialScreen === undefined) {
+    history.push('/');
+  }
+  else {
+    history.push(settings.initialScreen.join('/'));
+  }
   setOpened(false);
 
   this.dispatch({

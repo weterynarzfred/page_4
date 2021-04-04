@@ -20,7 +20,6 @@ function handleChange(value) {
 
 function SliderControls(props) {
   const [_value, set_value] = useState();
-  const [lastUpdate, setLastUpdate] = useState(0);
   const [updateTimeout, setUpdateTimeout] = useState();
 
   useEffect(() => {
@@ -29,17 +28,10 @@ function SliderControls(props) {
   }, []);
 
   useEffect(() => {
-    const now = new Date().getTime();
-    if (now < lastUpdate + 100) {
-      clearTimeout(updateTimeout);
-      setUpdateTimeout(setTimeout(() => {
-        handleChange.call(props, _value);
-        setLastUpdate(now);
-      }, 100));
-      return;
-    }
-    handleChange.call(props, _value);
-    setLastUpdate(now);
+    clearTimeout(updateTimeout);
+    setUpdateTimeout(setTimeout(() => {
+      handleChange.call(props, _value);
+    }, 200));
   }, [_value]);
 
   const value = getSelectedValue(props.option);

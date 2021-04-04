@@ -14,6 +14,7 @@ import calculateCosts from 'Functions/calculateCosts';
 import { actions } from './constants';
 import { parseOptions } from './parsedOptions';
 import { recalculateUserFunctions } from './userFunctions';
+import deepClone from '../functions/deepClone';
 
 const persistConfig = {
   key: 'root',
@@ -41,13 +42,14 @@ function rootReducer(state = initialState, action = '') {
         newState.path = action.path;
         break;
       case actions.RESTART:
-        newState = initialState;
+        newState = deepClone(initialState);
         break;
       default:
     }
 
-    if ([PERSIST, actions.SELECT_OPTION].includes(action.type)) {
-      console.time('recalc');
+    if (
+      [PERSIST, actions.SELECT_OPTION, actions.RESTART].includes(action.type)
+    ) {
       recalculateUserFunctions(newState.options, newState);
       cleanupState(newState.options, newState);
       calculateCosts(
@@ -56,7 +58,6 @@ function rootReducer(state = initialState, action = '') {
         true,
         newState.options
       );
-      console.timeEnd('recalc');
     }
 
     return newState;
