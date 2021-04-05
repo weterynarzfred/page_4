@@ -10,7 +10,7 @@ function applyCost(cost, costs, count) {
   }
 }
 
-function calculateCosts(options, costs, reset, allOptions) {
+function calculateCosts(options, costs, reset, allOptions = options) {
   if (reset) {
     for (const costSlug in costs) {
       if (costs[costSlug].start === undefined) costs[costSlug].value = 0;

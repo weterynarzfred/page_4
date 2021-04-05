@@ -52,12 +52,7 @@ function rootReducer(state = initialState, action = '') {
     ) {
       recalculateUserFunctions(newState.options, newState);
       cleanupState(newState.options, newState);
-      calculateCosts(
-        newState.options,
-        newState.currencies,
-        true,
-        newState.options
-      );
+      calculateCosts(newState.options, newState.currencies, true);
     }
 
     return newState;
