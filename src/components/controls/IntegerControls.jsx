@@ -6,8 +6,7 @@ import { getSelectedValue } from '../../functions/getSelectedValue';
 import { handleDecrement, handleIncrement, handleToggle } from '../../functions/handlers';
 
 function IntegerControls(props) {
-  // const value = getSelectedValue(props.option, props.options);
-  // const useSpinbox = (props.option.max !== 1 || props.option.min !== 0);
+  const useSpinbox = (props.max !== 1 || props.min !== 0);
 
   // return (
   //   <div className="IntegerControls">
@@ -24,13 +23,17 @@ function IntegerControls(props) {
   //   </div>
   // );
 
-  // const value = getSelectedValue(props.optionKey);
-
   return <div className="IntegerControls">
-    <CheckboxControl
+    {useSpinbox ? <SpinboxControl
+      handleDecrement={handleDecrement.bind(props, props.selectedValue)}
+      handleIncrement={handleIncrement.bind(props, props.selectedValue)}
+      min={props.min}
+      max={props.max}
+      value={props.selectedValue}
+    /> : <CheckboxControl
       selected={props.selectedValue === 1}
       handleToggle={handleToggle.bind(props, props.selectedValue)}
-    />
+    />}
   </div>;
 }
 

@@ -24,26 +24,13 @@ const userTexts = {};
 
 function addUserText(content, optionKey, prop) {
   const key = optionKey + '_' + prop;
-  let version = 0;
-  if (userTexts[key] !== undefined) version = userTexts[key].value + 1;
-  userTexts[key] = {
-    version,
-    content,
-  };
-
-  console.log(userTexts);
+  userTexts[key] = content;
 }
 
 function getUserText(optionKey, prop) {
   const key = optionKey + '_' + prop;
   if (userTexts[key] === undefined) return '';
-  return userTexts[key].content;
+  return userTexts[key];
 }
 
-function isUserTextCurrent(optionKey, prop, version) {
-  const key = optionKey + '_' + prop;
-  if (userTexts[key] === undefined) return false;
-  return userTexts[key].version === version;
-}
-
-export { addUserText, getUserText, isUserTextCurrent };
+export { addUserText, getUserText };

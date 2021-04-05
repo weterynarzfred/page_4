@@ -61,7 +61,7 @@ const getOptionValue = {
   [optionTypes.INSTANCER]: getInstancerValue,
 };
 
-function selectOptionReducer(newState, action) {
+function selectOptionReducer(newState, action, changes) {
   // let path;
   // let actionCopy = deepClone(action);
   // let type;
@@ -87,6 +87,9 @@ function selectOptionReducer(newState, action) {
   const option = newState.options[action.optionKey];
   const previousValue = option.selected;
   const newValue = getOptionValue[option.type](action, previousValue);
+  if (JSON.stringify(previousValue) !== JSON.stringify(newValue)) {
+    changes.push(action.optionKey);
+  }
   option.selected = newValue;
 }
 

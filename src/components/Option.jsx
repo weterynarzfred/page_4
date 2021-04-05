@@ -8,6 +8,7 @@ import ChoiceTable from './optionElements/ChoiceTable';
 import OptionContent from './optionElements/OptionContent';
 
 function Option(props) {
+  if (props.option === undefined) return null;
   // if (props.option.hidden) return null;
 
   // const [opened, setOpened] = useState(true);
@@ -84,7 +85,6 @@ function Option(props) {
   //   );
   // }
 
-  if (props.option === undefined) return null;
 
   return <OptionContent option={props.option} classes={classes} />;
 }

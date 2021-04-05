@@ -136,6 +136,28 @@ function __parseOptions(options, path = []) {
   return options;
 }
 
+const props = {
+  type: optionTypes.INTEGER,
+  title: '',
+  text: '',
+  min: 0,
+  max: 1,
+};
+
+function assignProps(option, rawOption) {
+  for (const prop in props) {
+    option[prop] = rawOption[prop];
+    if (option[prop] !== undefined && option[prop].isUserFunction) {
+      addUserFunction(option[prop], option.optionKey, prop);
+      option['_' + prop] = {
+        isUserFunction: true,
+        subscribed: option[prop].subscribed,
+      };
+      option[prop] = props[prop];
+    }
+  }
+}
+
 function addUserTexts(option) {
   if (option.title !== undefined) {
     addUserText(option.title, option.optionKey, 'title');
@@ -167,9 +189,7 @@ function parseOptions(rawOptions, parentPath = []) {
     option.path = [...parentPath];
     option.optionKey = [...option.path, option.slug].join('.');
 
-    option.type = rawOption.type;
-    option.title = rawOption.title;
-    option.text = rawOption.text;
+    assignProps(option, rawOption);
 
     if (rawOption.options !== undefined) {
       const subOptions = parseOptions(rawOption.options, [
