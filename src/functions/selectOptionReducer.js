@@ -62,27 +62,32 @@ const getOptionValue = {
 };
 
 function selectOptionReducer(newState, action) {
-  let path;
-  let actionCopy = deepClone(action);
-  let type;
-  if (action.option.isChoice) {
-    path = action.option.path.slice(0, -1);
-    type = optionTypes.SELECT;
-    actionCopy.option = getOption(path, newState.options);
-    if (action.add !== undefined) actionCopy.add = action.option.slug;
-    if (action.subtract !== undefined) actionCopy.subtract = action.option.slug;
-  } else {
-    path = action.option.path;
-    type = action.option.type;
-  }
+  // let path;
+  // let actionCopy = deepClone(action);
+  // let type;
+  // if (action.option.isChoice) {
+  //   path = action.option.path.slice(0, -1);
+  //   type = optionTypes.SELECT;
+  //   actionCopy.option = getOption(path, newState.options);
+  //   if (action.add !== undefined) actionCopy.add = action.option.slug;
+  //   if (action.subtract !== undefined) actionCopy.subtract = action.option.slug;
+  // } else {
+  //   path = action.option.path;
+  //   type = action.option.type;
+  // }
 
-  let value = getOption(path, newState.options).selected;
-  if (actionCopy.value === undefined) {
-    value = getOptionValue[type](actionCopy, value);
-  } else {
-    value = action.value;
-  }
-  getOption(path, newState.options).selected = value;
+  // let value = getOption(path, newState.options).selected;
+  // if (actionCopy.value === undefined) {
+  //   value = getOptionValue[type](actionCopy, value);
+  // } else {
+  //   value = action.value;
+  // }
+  // getOption(path, newState.options).selected = value;
+
+  const option = newState.options[action.optionKey];
+  const previousValue = option.selected;
+  const newValue = getOptionValue[option.type](action, previousValue);
+  option.selected = newValue;
 }
 
 export default selectOptionReducer;

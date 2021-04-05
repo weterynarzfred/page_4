@@ -3,7 +3,7 @@ import { callables, dataTypes, optionTypes } from './constants';
 import { addUserFunction } from './userFunctions';
 import { addUserText } from './userTexts';
 
-function parseOptions(options, path = []) {
+function __parseOptions(options, path = []) {
   for (const slug in options) {
     // move functions for generating options to user functions array
     if (typeof options[slug] === 'function') {
@@ -136,4 +136,55 @@ function parseOptions(options, path = []) {
   return options;
 }
 
-export { parseOptions };
+function addUserTexts(option) {
+  if (option.title !== undefined) {
+    addUserText(option.title, option.optionKey, 'title');
+    delete option.title;
+  }
+
+  if (option.text !== undefined) {
+    addUserText(option.text, option.optionKey, 'text');
+    delete option.text;
+  }
+}
+
+function assignDefaults(option) {
+  if (option.type === undefined) option.type = optionTypes.INTEGER;
+
+  if (option.type === optionTypes.INTEGER) {
+    if (option.min === undefined) option.min = 0;
+    if (option.max === undefined) option.max = 1;
+    else if (option.max === Infinity) option.max = Number.MAX_SAFE_INTEGER;
+  }
+}
+
+function parseOptions(rawOptions, parentPath = []) {
+  const options = {};
+  for (const slug in rawOptions) {
+    const rawOption = rawOptions[slug];
+    const option = {};
+    option.slug = slug;
+    option.path = [...parentPath];
+    option.optionKey = [...option.path, option.slug].join('.');
+
+    option.type = rawOption.type;
+    option.title = rawOption.title;
+    option.text = rawOption.text;
+
+    if (rawOption.options !== undefined) {
+      const subOptions = parseOptions(rawOption.options, [
+        ...option.path,
+        option.slug,
+      ]);
+      option.subOptions = Object.keys(subOptions);
+      Object.assign(options, subOptions);
+    }
+
+    addUserTexts(option);
+    assignDefaults(option);
+    options[option.optionKey] = option;
+  }
+  return options;
+}
+
+export default parseOptions;

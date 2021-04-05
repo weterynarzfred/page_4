@@ -11,65 +11,76 @@ import OptionRequirements from './OptionRequirements';
 import OptionText from './OptionText';
 import OptionTitle from './OptionTitle';
 
-function handleClick(event) {
-  event.stopPropagation();
-  if (this.option.type === optionTypes.INTEGER) {
-    const value = getSelectedCount(this.option, this.options);
-    if (this.option.max === 1 && this.option.min === 0) {
-      handleToggle.call(this, value);
-    }
-    else {
-      handleIncrement.call(this, value);
-    }
-  }
-}
+// function handleClick(event) {
+//   event.stopPropagation();
+//   if (this.option.type === optionTypes.INTEGER) {
+//     const value = getSelectedCount(this.option, this.options);
+//     if (this.option.max === 1 && this.option.min === 0) {
+//       handleToggle.call(this, value);
+//     }
+//     else {
+//       handleIncrement.call(this, value);
+//     }
+//   }
+// }
 
 function OptionContent(props) {
-  const collapsibleRef = useRef();
+  // const collapsibleRef = useRef();
 
-  useEffect(() => {
-    const openedHeight = collapsibleRef.current.scrollHeight;
-    if (props.opened) {
-      collapsibleRef.current.style.height = openedHeight + 'px';
-      setTimeout(() => {
-        if (collapsibleRef.current === null) return;
-        collapsibleRef.current.style.height = 'auto';
-      }, 500);
-    }
-    else {
-      collapsibleRef.current.style.height = openedHeight + 'px';
-      setTimeout(() => {
-        collapsibleRef.current.style.height = 0;
-      }, 40);
-    }
-  }, [props.opened]);
+  // useEffect(() => {
+  //   const openedHeight = collapsibleRef.current.scrollHeight;
+  //   if (props.opened) {
+  //     collapsibleRef.current.style.height = openedHeight + 'px';
+  //     setTimeout(() => {
+  //       if (collapsibleRef.current === null) return;
+  //       collapsibleRef.current.style.height = 'auto';
+  //     }, 500);
+  //   }
+  //   else {
+  //     collapsibleRef.current.style.height = openedHeight + 'px';
+  //     setTimeout(() => {
+  //       collapsibleRef.current.style.height = 0;
+  //     }, 40);
+  //   }
+  // }, [props.opened]);
 
-  return (
-    <div className={props.classes} onClick={handleClick.bind(props)}>
-      <div className="option-content">
-        <OptionTitle option={props.option} onClick={props.setOpened} />
-        <div className="option-collapsible-content" ref={collapsibleRef}>
-          <div className="option-cost-wrap">
-            <OptionCost cost={props.option.cost} currencies={props.currencies} />
-          </div>
-          <OptionImage image={props.option.image} />
-          {props.topLevel ? null : <Currencies currencies={props.option.currencies} />}
-          <div className="option-text">
-            <OptionText option={props.option} />
-          </div>
-          <OptionRequirements option={props.option} />
-          <OptionControls option={props.option} currencies={props.currencies} />
+  // return (
+  //   <div className={props.classes} onClick={handleClick.bind(props)}>
+  //     <div className="option-content">
+  //       <OptionTitle option={props.option} onClick={props.setOpened} />
+  //       <div className="option-collapsible-content" ref={collapsibleRef}>
+  //         <div className="option-cost-wrap">
+  //           <OptionCost cost={props.option.cost} currencies={props.currencies} />
+  //         </div>
+  //         <OptionImage image={props.option.image} />
+  //         {props.topLevel ? null : <Currencies currencies={props.option.currencies} />}
+  //         <div className="option-text">
+  //           <OptionText option={props.option} />
+  //         </div>
+  //         <OptionRequirements option={props.option} />
+  //         <OptionControls option={props.option} currencies={props.currencies} />
+  //       </div>
+  //       {props.isCollapsible ? <div className="option-collapsible-elipsis" onClick={props.setOpened}>
+  //         <div></div>
+  //         <div></div>
+  //         <div></div>
+  //       </div> : null}
+  //     </div>
+  //   </div >
+  // );
+  return <div className={props.classes}>
+    <div className="option-content">
+      <OptionTitle optionKey={props.option.optionKey} />
+      <div className="option-collapsible-content">
+        <div className="option-text">
+          <OptionText optionKey={props.option.optionKey} />
         </div>
-        {props.isCollapsible ? <div className="option-collapsible-elipsis" onClick={props.setOpened}>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div> : null}
+        <OptionControls option={props.option} />
       </div>
-    </div >
-  );
+    </div>
+  </div>;
 }
 
 export default connect(state => ({
-  options: state.options,
+  // options: state.options,
 }))(OptionContent);

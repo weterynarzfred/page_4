@@ -7,12 +7,12 @@ import {
   PERSIST,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { settings, options } from 'cyoa';
+import { settings, rawOptions } from 'cyoa';
 import cleanupState from 'Functions/cleanupState';
 import selectOptionReducer from 'Functions/selectOptionReducer';
 import calculateCosts from 'Functions/calculateCosts';
 import { actions } from './constants';
-import { parseOptions } from './parsedOptions';
+import parseOptions from './parseOptions';
 import { recalculateUserFunctions } from './userFunctions';
 import deepClone from '../functions/deepClone';
 
@@ -23,8 +23,8 @@ const persistConfig = {
 };
 
 const initialState = {
-  options: parseOptions(options),
-  currencies: settings.currencies,
+  options: parseOptions(rawOptions),
+  // currencies: settings.currencies,
   path: settings.initialScreen,
 };
 
@@ -41,19 +41,25 @@ function rootReducer(state = initialState, action = '') {
       case actions.CHANGE_PATH:
         newState.path = action.path;
         break;
-      case actions.RESTART:
-        newState = deepClone(initialState);
-        break;
-      default:
+      //   case actions.RESTART:
+      //     newState = deepClone(initialState);
+      //     break;
+      //   default:
     }
 
-    if (
-      [PERSIST, actions.SELECT_OPTION, actions.RESTART].includes(action.type)
-    ) {
-      recalculateUserFunctions(newState.options, newState);
-      cleanupState(newState.options, newState);
-      calculateCosts(newState.options, newState.currencies, true);
-    }
+    // if (
+    //   [PERSIST, actions.SELECT_OPTION, actions.RESTART].includes(action.type)
+    // ) {
+    //   console.time('recalculate');
+    //   recalculateUserFunctions(newState.options, newState);
+    //   console.timeEnd('recalculate');
+    //   console.time('cleanup');
+    //   cleanupState(newState.options, newState);
+    //   console.timeEnd('cleanup');
+    //   console.time('costs');
+    //   calculateCosts(newState.options, newState.currencies, true);
+    //   console.timeEnd('costs');
+    // }
 
     return newState;
   });

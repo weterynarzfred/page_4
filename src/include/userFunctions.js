@@ -1,5 +1,5 @@
 import { callables, dataTypes, optionTypes } from './constants';
-import { parseOptions } from './parsedOptions';
+import parseOptions from './parseOptions';
 import { addUserText } from './userTexts';
 
 const userFunctions = [];

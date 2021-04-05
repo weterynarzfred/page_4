@@ -46,50 +46,44 @@ body {
   }
 }
 
-.OptionsList {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+.Option {
+  position: relative;
+  transition: filter 0.3s, opacity 0.3s;
 
-  .Option {
-    position: relative;
-    transition: filter 0.3s, opacity 0.3s;
+  .option-title {
+    font-family: $titleFont;
+    display: flex;
+    align-items: baseline;
 
-    .option-title {
-      font-family: $titleFont;
-      display: flex;
-      align-items: baseline;
-
-      .option-numbering {
-        padding-right: 0.5em;
-        font-size: 0.75em;
-        opacity: 0.5;
-      }
-
-      .option-title-text {
-        font-size: 1.25em;
-      }
+    .option-numbering {
+      padding-right: 0.5em;
+      font-size: 0.75em;
+      opacity: 0.5;
     }
 
-    .option-image-content {
-      background-position: center;
-      background-size: cover;
-      border: solid $text;
-      border-width: 1px 1px 6px 1px;
-      box-shadow: 0 0 5em 0 rgba(255, 178, 34, 0.2) inset;
+    .option-title-text {
+      font-size: 1.25em;
     }
+  }
 
-    .SelectControls {
-      display: flex;
-    }
+  .option-image-content {
+    background-position: center;
+    background-size: cover;
+    border: solid $text;
+    border-width: 1px 1px 6px 1px;
+    box-shadow: 0 0 5em 0 rgba(255, 178, 34, 0.2) inset;
+  }
 
-    &.option-disabled {
-      opacity: 0.33;
-      filter: grayscale(1);
+  .SelectControls {
+    display: flex;
+  }
 
-      .option-collapsible-content {
-        pointer-events: none;
-      }
+  &.option-disabled {
+    opacity: 0.33;
+    filter: grayscale(1);
+
+    .option-collapsible-content {
+      pointer-events: none;
     }
   }
 }

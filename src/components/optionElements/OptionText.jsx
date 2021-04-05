@@ -5,7 +5,7 @@ import getProp from '../../functions/getProp';
 function OptionText(props) {
   return (
     <Hyphenated>
-      {getProp('text', props.option)}
+      {getProp(props.optionKey, 'text')}
     </Hyphenated>
   );
 }

@@ -1,21 +1,21 @@
 import { actions } from 'Include/constants';
 
 function handleDecrement(value) {
-  if (value <= this.option.min) return;
+  if (value <= this.min) return;
 
   this.dispatch({
     type: actions.SELECT_OPTION,
-    option: this.option,
+    optionKey: this.optionKey,
     subtract: 1,
   });
 }
 
 function handleIncrement(value) {
-  if (value >= this.option.max) return;
+  if (value >= this.max) return;
 
   this.dispatch({
     type: actions.SELECT_OPTION,
-    option: this.option,
+    optionKey: this.optionKey,
     add: 1,
   });
 }

@@ -1,28 +1,31 @@
 import { optionTypes } from 'Include/constants';
 import getOption from './getOption';
 
-function getSelectedValue(option, options) {
-  const currentOption = getOption(option, options);
+function getSelectedValue(option) {
+  // const currentOption = getOption(option, options);
 
-  let value;
-  if (currentOption.isChoice) {
-    return getSelectedValue(currentOption.path.slice(0, -1), options).includes(
-      currentOption.slug
-    )
-      ? 1
-      : 0;
-  } else if (currentOption.type === optionTypes.INSTANCER) {
-    value = {};
-    for (const slug in currentOption.selected) {
-      if (!isNaN(slug)) value[slug] = currentOption.selected[slug];
-    }
-  } else if (currentOption.transformedValue !== undefined) {
-    value = currentOption.transformedValue;
-  } else {
-    value = currentOption.selected;
-  }
+  // let value;
+  // if (currentOption.isChoice) {
+  //   return getSelectedValue(currentOption.path.slice(0, -1), options).includes(
+  //     currentOption.slug
+  //   )
+  //     ? 1
+  //     : 0;
+  // } else if (currentOption.type === optionTypes.INSTANCER) {
+  //   value = {};
+  //   for (const slug in currentOption.selected) {
+  //     if (!isNaN(slug)) value[slug] = currentOption.selected[slug];
+  //   }
+  // } else if (currentOption.transformedValue !== undefined) {
+  //   value = currentOption.transformedValue;
+  // } else {
+  //   value = currentOption.selected;
+  // }
+
+  let value = option.selected;
+
   if (value === undefined) {
-    switch (currentOption.type) {
+    switch (option.type) {
       case optionTypes.INTEGER:
         return 0;
       case optionTypes.SELECT:
@@ -30,7 +33,7 @@ function getSelectedValue(option, options) {
       case optionTypes.TEXT:
         return '';
       case optionTypes.SLIDER:
-        return currentOption.min;
+        return option.min;
       case optionTypes.INSTANCER:
         return {};
     }

@@ -8,14 +8,14 @@ import ChoiceTable from './optionElements/ChoiceTable';
 import OptionContent from './optionElements/OptionContent';
 
 function Option(props) {
-  if (props.option.hidden) return null;
+  // if (props.option.hidden) return null;
 
-  const [opened, setOpened] = useState(true);
+  // const [opened, setOpened] = useState(true);
 
-  const currencies = deepClone(props.currencies);
-  if (props.option.currencies !== undefined) {
-    Object.assign(currencies, deepClone(props.option.currencies));
-  }
+  // const currencies = deepClone(props.currencies);
+  // if (props.option.currencies !== undefined) {
+  //   Object.assign(currencies, deepClone(props.option.currencies));
+  // }
 
   const isSelectable = [
     optionTypes.INTEGER,
@@ -29,64 +29,68 @@ function Option(props) {
     optionTypes.INSTANCER,
   ].includes(props.option.type);
 
-  const isCollapsible = !props.topLevel && [
-    optionTypes.GROUP,
-    optionTypes.SELECT,
-  ].includes(props.option.type);
+  // const isCollapsible = !props.topLevel && [
+  //   optionTypes.GROUP,
+  //   optionTypes.SELECT,
+  // ].includes(props.option.type);
 
-  let requirementsWarning = props.option.requirements !== undefined;
-  if (props.option.requirements !== undefined) {
-    requirementsWarning = false;
-    for (const test of props.option.requirements) {
-      if (!test.value) {
-        requirementsWarning = true;
-        break;
-      }
-    }
-  }
+  // let requirementsWarning = props.option.requirements !== undefined;
+  // if (props.option.requirements !== undefined) {
+  //   requirementsWarning = false;
+  //   for (const test of props.option.requirements) {
+  //     if (!test.value) {
+  //       requirementsWarning = true;
+  //       break;
+  //     }
+  //   }
+  // }
 
   const classes = classNames(
     'Option',
     `option-${props.option.type}`,
-    { 'selected': isSelected(props.option, props.options) },
-    { 'top-level': props.topLevel },
-    { 'option-is-row': props.displayAsTableRow },
+    //   { 'selected': isSelected(props.option, props.options) },
+    //   { 'top-level': props.topLevel },
+    //   { 'option-is-row': props.displayAsTableRow },
     { 'option-is-selectable': isSelectable },
     { 'option-is-container': isContainer },
-    { 'option-disabled': props.option.disabled },
-    { 'option-collapsible': isCollapsible },
-    { 'option-collapsed': isCollapsible && !opened },
-    { 'option-requirements-warning': requirementsWarning },
-    { 'masonry-cell': props.isMasonryCell }
+    //   { 'option-disabled': props.option.disabled },
+    //   { 'option-collapsible': isCollapsible },
+    //   { 'option-collapsed': isCollapsible && !opened },
+    //   { 'option-requirements-warning': requirementsWarning },
+    //   { 'masonry-cell': props.isMasonryCell }
   );
 
 
-  if (props.displayAsTableRow) {
-    return (
-      <ChoiceTable
-        classes={classes}
-        option={props.option}
-        currencies={currencies}
-      />
-    );
-  }
-  else {
-    return (
-      <OptionContent
-        topLevel={props.topLevel}
-        classes={classes}
-        option={props.option}
-        currencies={currencies}
-        isCollapsible={isCollapsible}
-        opened={opened}
-        setOpened={() => setOpened(!opened)}
-      />
-    );
-  }
+  // if (props.displayAsTableRow) {
+  //   return (
+  //     <ChoiceTable
+  //       classes={classes}
+  //       option={props.option}
+  //       currencies={currencies}
+  //     />
+  //   );
+  // }
+  // else {
+  //   return (
+  //     <OptionContent
+  //       topLevel={props.topLevel}
+  //       classes={classes}
+  //       option={props.option}
+  //       currencies={currencies}
+  //       isCollapsible={isCollapsible}
+  //       opened={opened}
+  //       setOpened={() => setOpened(!opened)}
+  //     />
+  //   );
+  // }
 
+  if (props.option === undefined) return null;
 
+  return <OptionContent option={props.option} classes={classes} />;
 }
 
-export default connect(state => ({
-  options: state.options,
-}))(Option);
+export default connect((state, props) => {
+  return {
+    option: state.options[props.optionKey],
+  };
+})(Option);
