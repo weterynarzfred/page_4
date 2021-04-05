@@ -46,6 +46,7 @@ All configuration is done through objects `settings` and `options` in `src/cyoa.
 - `sliderAttributes` - an object with attributes that will be passed directly to `rc-slider`.
 - `displayTransform` - a function that will be applied to the value before it is displayed.
 - `valueTransform`
+- `useTooltip`
 
 When a function requires refreshed data from other options it can call
 `callOptionFunction(getOption('testOption', state.options), state);`
@@ -72,3 +73,6 @@ or when it requires updated currency stats it can call
 - add option type with order selection
 - display currencies in groups that are not instances
 - add a button to enlarge images
+- calculate `userTexts` only when needed
+- add `logScale` to sliders
+- add `RATIO` `optionType`
