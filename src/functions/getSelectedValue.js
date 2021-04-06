@@ -30,7 +30,6 @@ function getSelectedValue(option, options) {
       value = option.selected;
       break;
     case optionTypes.SELECT:
-      console.log(deepClone(option));
       value = option.choices.filter(
         optionKey => getSelectedValue(options[optionKey]) >= 1
       );

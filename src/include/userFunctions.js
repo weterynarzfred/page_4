@@ -92,11 +92,18 @@ function recalculateUserFunctions(state, changes, force = false) {
   for (const key in userFunctions) {
     const userFunction = userFunctions[key];
     const recreate =
-      force || userFunction.subscribed.some(item => changes.includes(item));
+      force ||
+      userFunction.subscribed.some(item =>
+        changes.some(change => change.startsWith(item))
+      );
     if (recreate) {
       const option = state.options[userFunction.optionKey];
       const result = userFunction.callback(state, option);
-      option[userFunction.prop] = result;
+      if (['text', 'title'].includes(userFunction.prop)) {
+        addUserText(result, userFunction.optionKey, userFunction.prop);
+      } else {
+        option[userFunction.prop] = result;
+      }
     }
   }
 }
