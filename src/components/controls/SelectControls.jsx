@@ -4,49 +4,67 @@ import Option from '../Option';
 import classNames from 'classnames';
 
 function SelectControls(props) {
-  const gridRef = useRef(null);
-  useEffect(() => {
-    if (!props.option.displayAsTable) {
-      new Masonry(gridRef.current, {
-        itemSelector: '.masonry-cell',
-        fitWidth: true,
-        transitionDuration: 0,
-      });
-    }
-  }, []);
+  // const gridRef = useRef(null);
+  // useEffect(() => {
+  //   if (!props.option.displayAsTable) {
+  //     new Masonry(gridRef.current, {
+  //       itemSelector: '.masonry-cell',
+  //       fitWidth: true,
+  //       transitionDuration: 0,
+  //     });
+  //   }
+  // }, []);
+
+  // const choiceElements = [];
+  // for (const slug in props.option.choices) {
+  //   choiceElements.push(<Option
+  //     key={slug}
+  //     isMasonryCell={!props.option.displayAsTable}
+  //     option={props.option.choices[slug]}
+  //     currencies={props.currencies}
+  //     displayAsTableRow={props.option.displayAsTable}
+  //   />);
+  // }
+
+  // let content;
+  // if (props.option.displayAsTable) {
+  //   content = <table>
+  //     <tbody>
+  //       {choiceElements}
+  //     </tbody>
+  //   </table>;
+  // }
+  // else {
+  //   content = choiceElements;
+  // }
+
+  // return (
+  //   <div
+  //     className={classNames(
+  //       'SelectControls',
+  //       { 'masonry-grid': !props.option.displayAsTable }
+  //     )}
+  //     ref={gridRef}
+  //   >
+  //     {content}
+  //   </div>
+  // );
 
   const choiceElements = [];
-  for (const slug in props.option.choices) {
+  for (const optionKey of props.choices) {
     choiceElements.push(<Option
-      key={slug}
-      isMasonryCell={!props.option.displayAsTable}
-      option={props.option.choices[slug]}
-      currencies={props.currencies}
-      displayAsTableRow={props.option.displayAsTable}
+      key={optionKey}
+      optionKey={optionKey}
     />);
-  }
-
-  let content;
-  if (props.option.displayAsTable) {
-    content = <table>
-      <tbody>
-        {choiceElements}
-      </tbody>
-    </table>;
-  }
-  else {
-    content = choiceElements;
   }
 
   return (
     <div
       className={classNames(
-        'SelectControls',
-        { 'masonry-grid': !props.option.displayAsTable }
+        'SelectControls'
       )}
-      ref={gridRef}
     >
-      {content}
+      {choiceElements}
     </div>
   );
 }

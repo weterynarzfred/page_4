@@ -40,7 +40,7 @@ function IntegerControls(props) {
 export default connect((state, props) => {
   const option = state.options[props.optionKey];
   return {
-    selectedValue: getSelectedValue(option),
+    selectedValue: getSelectedValue(option, state.options),
     min: option.min,
     max: option.max,
   };

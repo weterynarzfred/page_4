@@ -25,6 +25,8 @@ const userTexts = {};
 function addUserText(content, optionKey, prop) {
   const key = optionKey + '_' + prop;
   userTexts[key] = content;
+
+  console.log(userTexts);
 }
 
 function getUserText(optionKey, prop) {

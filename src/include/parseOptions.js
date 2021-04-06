@@ -136,7 +136,7 @@ function __parseOptions(options, path = []) {
   return options;
 }
 
-const props = {
+const defaultProps = {
   type: optionTypes.INTEGER,
   title: '',
   text: '',
@@ -144,8 +144,8 @@ const props = {
   max: 1,
 };
 
-function assignProps(option, rawOption) {
-  for (const prop in props) {
+function assignProps(option, rawOption, assign) {
+  for (const prop in defaultProps) {
     option[prop] = rawOption[prop];
     if (option[prop] !== undefined && option[prop].isUserFunction) {
       addUserFunction(option[prop], option.optionKey, prop);
@@ -153,9 +153,11 @@ function assignProps(option, rawOption) {
         isUserFunction: true,
         subscribed: option[prop].subscribed,
       };
-      option[prop] = props[prop];
+      option[prop] = defaultProps[prop];
     }
   }
+
+  Object.assign(option, assign);
 }
 
 function addUserTexts(option) {
@@ -180,24 +182,33 @@ function assignDefaults(option) {
   }
 }
 
-function parseOptions(rawOptions, parentPath = []) {
+function parseOptions(rawOptions, parentPath = [], assign = {}) {
   const options = {};
   for (const slug in rawOptions) {
     const rawOption = rawOptions[slug];
     const option = {};
     option.slug = slug;
     option.path = [...parentPath];
-    option.optionKey = [...option.path, option.slug].join('.');
+    const fullPath = [...option.path, option.slug];
+    option.optionKey = fullPath.join('.');
 
-    assignProps(option, rawOption);
+    assignProps(option, rawOption, assign);
 
     if (rawOption.options !== undefined) {
-      const subOptions = parseOptions(rawOption.options, [
-        ...option.path,
-        option.slug,
-      ]);
-      option.subOptions = Object.keys(subOptions);
-      Object.assign(options, subOptions);
+      option.subOptions = Object.keys(rawOption.options).map(slug =>
+        [...fullPath, slug].join('.')
+      );
+      Object.assign(options, parseOptions(rawOption.options, fullPath));
+    }
+
+    if (rawOption.choices !== undefined) {
+      Object.assign(
+        options,
+        parseOptions(rawOption.choices, fullPath, { isChoice: true })
+      );
+      option.choices = Object.keys(rawOption.choices).map(slug =>
+        [...fullPath, slug].join('.')
+      );
     }
 
     addUserTexts(option);

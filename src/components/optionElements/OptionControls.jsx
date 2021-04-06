@@ -41,13 +41,14 @@ function OptionControls(props) {
       //     </>;
       controls = <IntegerControls optionKey={props.option.optionKey} />;
       break;
-    //   case optionTypes.SELECT:
-    //     controls = <SelectControls
-    //       option={props.option}
-    //       useMasonry={useMasonry}
-    //       currencies={props.currencies}
-    //     />;
-    //     break;
+    case optionTypes.SELECT:
+      //     controls = <SelectControls
+      //       option={props.option}
+      //       useMasonry={useMasonry}
+      //       currencies={props.currencies}
+      //     />;
+      controls = <SelectControls choices={props.option.choices} />;
+      break;
     //   case optionTypes.INSTANCER:
     //     controls = <InstancerControls
     //       option={props.option}

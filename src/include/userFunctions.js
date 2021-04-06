@@ -108,8 +108,6 @@ function addUserFunction(functionObject, optionKey, prop) {
   userFunctions[key] = functionObject;
   userFunctions[key].optionKey = optionKey;
   userFunctions[key].prop = prop;
-
-  console.log(userFunctions);
 }
 
 export {

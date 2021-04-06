@@ -1,7 +1,8 @@
 import { optionTypes } from 'Include/constants';
+import deepClone from './deepClone';
 import getOption from './getOption';
 
-function getSelectedValue(option) {
+function getSelectedValue(option, options) {
   // const currentOption = getOption(option, options);
 
   // let value;
@@ -22,7 +23,28 @@ function getSelectedValue(option) {
   //   value = currentOption.selected;
   // }
 
-  let value = option.selected;
+  let value;
+
+  switch (option.type) {
+    case optionTypes.INTEGER:
+      value = option.selected;
+      break;
+    case optionTypes.SELECT:
+      console.log(deepClone(option));
+      value = option.choices.filter(
+        optionKey => getSelectedValue(options[optionKey]) >= 1
+      );
+      break;
+    case optionTypes.TEXT:
+      //
+      break;
+    case optionTypes.SLIDER:
+      //
+      break;
+    case optionTypes.INSTANCER:
+      //
+      break;
+  }
 
   if (value === undefined) {
     switch (option.type) {
