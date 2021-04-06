@@ -1,6 +1,6 @@
 import React from 'react';
-import getProp from '../../functions/getProp';
 import { optionTypes } from '../../include/constants';
+import { getUserText } from '../../include/userTexts';
 
 function OptionTitle(props) {
   // const showNumbering = [
@@ -23,7 +23,7 @@ function OptionTitle(props) {
   return (
     <div className="option-title">
       <div className="option-title-text">
-        {getProp(props.optionKey, 'title')}
+        {getUserText(props.optionKey, 'title')}
       </div>
     </div>
   );

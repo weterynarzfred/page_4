@@ -1,64 +1,88 @@
 import { optionTypes } from 'Include/constants';
 import getOption from './getOption';
 import deepClone from './deepClone';
+import parseOptions from '../include/parseOptions';
 
-function getIntegerValue(action, value) {
-  if (value === undefined) value = 0;
-  if (action.add !== undefined) value += action.add;
-  else if (action.subtract !== undefined) value -= action.subtract;
-  return value;
+function getIntegerValue(action, newState) {
+  const option = newState.options[action.optionKey];
+  if (action.add !== undefined) option.selected += action.add;
+  else if (action.subtract !== undefined) option.selected -= action.subtract;
+  return [option.optionKey];
 }
 
-function getSelectValue(action, value) {
-  if (value === undefined) value = [];
-  if (action.add !== undefined) {
-    if (!value.includes(action.add)) {
-      value.push(action.add);
-      if (value.length > action.option.max) {
-        value.shift();
+// function getSelectValue(action, value) {
+//   if (value === undefined) value = [];
+//   if (action.add !== undefined) {
+//     if (!value.includes(action.add)) {
+//       value.push(action.add);
+//       if (value.length > action.option.max) {
+//         value.shift();
+//       }
+//     }
+//   } else if (action.subtract !== undefined) {
+//     if (value.includes(action.subtract)) {
+//       const index = value.indexOf(action.subtract);
+//       value.splice(index, 1);
+//     }
+//   }
+//   return value;
+// }
+
+// function getTextValue(action, value) {
+//   if (value === undefined) value = '';
+//   return value;
+// }
+
+// function getSliderValue(action, value) {
+//   if (value === undefined) value = 0;
+//   return value;
+// }
+
+function getInstancerValue(action, newState) {
+  const option = newState.options[action.optionKey];
+  if (action.add) {
+    const instance = deepClone(option.instanceGroup);
+    const instancerPath = [...option.path, option.slug];
+    instance.type = optionTypes.GROUP;
+    const parsedIntance = parseOptions(
+      {
+        [option.nextId]: instance,
+      },
+      instancerPath,
+      { isInstance: true }
+    );
+    Object.assign(newState.options, parsedIntance);
+    option.selected.push([...instancerPath, option.nextId++].join('.'));
+
+    return [option.optionKey];
+  }
+}
+
+function getGroupValue(action, newState) {
+  const option = newState.options[action.optionKey];
+  if (option.isInstance && action.subtract) {
+    const instance = newState.options[option.path.join('.')];
+    instance.selected = instance.selected.filter(
+      item => item !== option.optionKey
+    );
+
+    Object.keys(newState.options).filter(optionKey => {
+      if (optionKey.startsWith(option.optionKey)) {
+        delete newState.options[optionKey];
       }
-    }
-  } else if (action.subtract !== undefined) {
-    if (value.includes(action.subtract)) {
-      const index = value.indexOf(action.subtract);
-      value.splice(index, 1);
-    }
-  }
-  return value;
-}
+    });
 
-function getTextValue(action, value) {
-  if (value === undefined) value = '';
-  return value;
-}
-
-function getSliderValue(action, value) {
-  if (value === undefined) value = 0;
-  return value;
-}
-
-function getInstancerValue(action, value) {
-  if (value === undefined) value = { nextId: 0 };
-  if (action.add !== undefined) {
-    value[value.nextId] = action.add;
-    value[value.nextId].type = optionTypes.GROUP;
-    value[value.nextId].slug = value.nextId;
-    value[value.nextId].path = deepClone(action.option.path);
-    value[value.nextId].path.push(value.nextId);
-    value.nextId++;
+    return [option.optionKey];
   }
-  if (action.subtract !== undefined) {
-    delete value[action.subtract.slug];
-  }
-  return value;
 }
 
 const getOptionValue = {
   [optionTypes.INTEGER]: getIntegerValue,
-  [optionTypes.SELECT]: getSelectValue,
-  [optionTypes.TEXT]: getTextValue,
-  [optionTypes.SLIDER]: getSliderValue,
+  // [optionTypes.SELECT]: getSelectValue,
+  // [optionTypes.TEXT]: getTextValue,
+  // [optionTypes.SLIDER]: getSliderValue,
   [optionTypes.INSTANCER]: getInstancerValue,
+  [optionTypes.GROUP]: getGroupValue,
 };
 
 function selectOptionReducer(newState, action, changes) {
@@ -85,12 +109,9 @@ function selectOptionReducer(newState, action, changes) {
   // getOption(path, newState.options).selected = value;
 
   const option = newState.options[action.optionKey];
-  const previousValue = option.selected;
-  const newValue = getOptionValue[option.type](action, previousValue);
-  if (JSON.stringify(previousValue) !== JSON.stringify(newValue)) {
-    changes.push(action.optionKey);
-  }
-  option.selected = newValue;
+  const newChanges = getOptionValue[option.type](action, newState);
+  changes.push(...newChanges);
+  console.log(changes);
 }
 
 export default selectOptionReducer;

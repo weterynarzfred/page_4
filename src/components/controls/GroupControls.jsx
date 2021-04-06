@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import Masonry from 'masonry-layout';
 import Option from 'Components/Option';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 
 function GroupControls(props) {
   if (props.subOptions === undefined) return null;
@@ -55,4 +56,9 @@ function GroupControls(props) {
   );
 }
 
-export default GroupControls;
+export default connect((state, props) => {
+  const option = state.options[props.optionKey];
+  return {
+    subOptions: option.subOptions,
+  };
+})(GroupControls);

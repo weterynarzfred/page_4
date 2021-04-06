@@ -6,6 +6,7 @@ import IntegerControls from '../controls/IntegerControls';
 import SelectControls from '../controls/SelectControls';
 import TextControls from '../controls/TextControls';
 import SliderControls from '../controls/SliderControls';
+import { connect } from 'react-redux';
 
 // function checkIfMasonry(option) {
 //   if (option.type !== optionTypes.GROUP || option.options === undefined) {
@@ -28,7 +29,7 @@ function OptionControls(props) {
   // const useMasonry = checkIfMasonry(props.option);
 
   let controls;
-  switch (props.option.type) {
+  switch (props.type) {
     case optionTypes.INTEGER:
       //     controls = <>
       //       <IntegerControls option={props.option} />
@@ -39,7 +40,7 @@ function OptionControls(props) {
       //         currencies={props.currencies}
       //       />
       //     </>;
-      controls = <IntegerControls optionKey={props.option.optionKey} />;
+      controls = <IntegerControls optionKey={props.optionKey} />;
       break;
     case optionTypes.SELECT:
       //     controls = <SelectControls
@@ -47,14 +48,15 @@ function OptionControls(props) {
       //       useMasonry={useMasonry}
       //       currencies={props.currencies}
       //     />;
-      controls = <SelectControls choices={props.option.choices} />;
+      controls = <SelectControls optionKey={props.optionKey} />;
       break;
-    //   case optionTypes.INSTANCER:
-    //     controls = <InstancerControls
-    //       option={props.option}
-    //       currencies={props.currencies}
-    //     />;
-    //     break;
+    case optionTypes.INSTANCER:
+      //     controls = <InstancerControls
+      //       option={props.option}
+      //       currencies={props.currencies}
+      //     />;
+      controls = <InstancerControls optionKey={props.optionKey} />;
+      break;
     case optionTypes.GROUP:
       //     controls = <GroupControls
       //       option={props.option}
@@ -62,7 +64,7 @@ function OptionControls(props) {
       //       useMasonry={useMasonry}
       //       currencies={props.currencies}
       //     />;
-      controls = <GroupControls subOptions={props.option.subOptions} />;
+      controls = <GroupControls optionKey={props.optionKey} />;
       break;
     //   case optionTypes.TEXT:
     //     controls = <TextControls option={props.option} />;
@@ -78,4 +80,9 @@ function OptionControls(props) {
 
 }
 
-export default OptionControls;
+export default connect((state, props) => {
+  const option = state.options[props.optionKey];
+  return {
+    type: option.type,
+  };
+})(OptionControls);

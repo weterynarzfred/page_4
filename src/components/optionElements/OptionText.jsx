@@ -1,7 +1,7 @@
 import React from 'react';
 import Hyphenated from 'react-hyphen';
 import { connect } from 'react-redux';
-import getProp from '../../functions/getProp';
+import { getUserText } from '../../include/userTexts';
 
 function OptionText(props) {
   return (
@@ -12,5 +12,5 @@ function OptionText(props) {
 }
 
 export default connect((state, props) => ({
-  text: getProp(props.optionKey, 'text'),
+  text: getUserText(props.optionKey, 'text'),
 }))(OptionText);

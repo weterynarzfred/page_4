@@ -70,17 +70,15 @@ function OptionContent(props) {
   // );
   return <div className={props.classes}>
     <div className="option-content">
-      <OptionTitle optionKey={props.option.optionKey} />
+      <OptionTitle optionKey={props.optionKey} />
       <div className="option-collapsible-content">
         <div className="option-text">
-          <OptionText optionKey={props.option.optionKey} />
+          <OptionText optionKey={props.optionKey} />
         </div>
-        <OptionControls option={props.option} />
+        <OptionControls optionKey={props.optionKey} />
       </div>
     </div>
   </div>;
 }
 
-export default connect(state => ({
-  // options: state.options,
-}))(OptionContent);
+export default OptionContent;

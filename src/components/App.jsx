@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import 'Src/scss/index.scss';
-import getOption from 'Functions/getOption';
-import Navigation from './Navigation';
-import OptionList from './OptionList';
-import Stats from './Stats';
+// import getOption from 'Functions/getOption';
+// import Navigation from './Navigation';
+// import Stats from './Stats';
 import { actions } from '../include/constants';
 import deepClone from '../functions/deepClone';
-import Dialog from './Dialog';
+// import Dialog from './Dialog';
 import Option from './Option';
 
 function App(props) {

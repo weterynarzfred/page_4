@@ -142,6 +142,7 @@ const defaultProps = {
   text: '',
   min: 0,
   max: 1,
+  instanceGroup: {},
 };
 
 function assignProps(option, rawOption, assign) {
@@ -179,6 +180,12 @@ function assignDefaults(option) {
     if (option.min === undefined) option.min = 0;
     if (option.max === undefined) option.max = 1;
     else if (option.max === Infinity) option.max = Number.MAX_SAFE_INTEGER;
+    if (option.selected === undefined) option.selected = 0;
+  }
+
+  if (option.type === optionTypes.INSTANCER) {
+    if (option.nextId === undefined) option.nextId = 0;
+    if (option.selected === undefined) option.selected = [];
   }
 }
 

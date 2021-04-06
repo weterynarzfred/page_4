@@ -33,7 +33,7 @@ function rootReducer(state = initialState, action = '') {
     return state;
   }
 
-  return produce(state, newState => {
+  const producedState = produce(state, newState => {
     const changes = [];
 
     switch (action.type) {
@@ -65,6 +65,8 @@ function rootReducer(state = initialState, action = '') {
 
     return newState;
   });
+
+  return producedState;
 }
 
 // skip redux-persist in development

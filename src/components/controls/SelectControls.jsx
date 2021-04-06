@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import Masonry from 'masonry-layout';
 import Option from '../Option';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 
 function SelectControls(props) {
   // const gridRef = useRef(null);
@@ -69,4 +70,9 @@ function SelectControls(props) {
   );
 }
 
-export default SelectControls;
+export default connect((state, props) => {
+  const option = state.options[props.optionKey];
+  return {
+    choices: option.choices,
+  };
+})(SelectControls);

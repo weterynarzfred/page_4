@@ -8,7 +8,6 @@ import ChoiceTable from './optionElements/ChoiceTable';
 import OptionContent from './optionElements/OptionContent';
 
 function Option(props) {
-  if (props.option === undefined) return null;
   // if (props.option.hidden) return null;
 
   // const [opened, setOpened] = useState(true);
@@ -22,13 +21,13 @@ function Option(props) {
     optionTypes.INTEGER,
     optionTypes.TEXT,
     optionTypes.SLIDER,
-  ].includes(props.option.type);
+  ].includes(props.type);
 
   const isContainer = [
     optionTypes.GROUP,
     optionTypes.SELECT,
     optionTypes.INSTANCER,
-  ].includes(props.option.type);
+  ].includes(props.type);
 
   // const isCollapsible = !props.topLevel && [
   //   optionTypes.GROUP,
@@ -48,7 +47,7 @@ function Option(props) {
 
   const classes = classNames(
     'Option',
-    `option-${props.option.type}`,
+    `option-${props.type}`,
     //   { 'selected': isSelected(props.option, props.options) },
     //   { 'top-level': props.topLevel },
     //   { 'option-is-row': props.displayAsTableRow },
@@ -86,11 +85,12 @@ function Option(props) {
   // }
 
 
-  return <OptionContent option={props.option} classes={classes} />;
+  return <OptionContent optionKey={props.optionKey} classes={classes} />;
 }
 
 export default connect((state, props) => {
+  const option = state.options[props.optionKey];
   return {
-    option: state.options[props.optionKey],
+    type: option.type,
   };
 })(Option);
