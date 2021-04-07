@@ -80,7 +80,7 @@ function InstancerControls(props) {
   return <div className="InstancerControls">
     <button
       className={classNames('add-instance', { disabled: isAddDisabled })}
-      onClick={handleAdd.bind(props)}
+      onClick={isAddDisabled ? null : handleAdd.bind(props)}
     >
       add instance
     </button>

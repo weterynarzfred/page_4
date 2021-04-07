@@ -76,8 +76,8 @@ function getGroupValue(action, newState) {
       }
     });
 
-    clearUserFunctions(instancer.optionKey);
-    clearUserTexts(instancer.optionKey);
+    clearUserFunctions(option.optionKey);
+    clearUserTexts(option.optionKey);
 
     return [instancer.optionKey, ...deletedKeys];
   }
@@ -118,7 +118,7 @@ function selectOptionReducer(newState, action, changes) {
   const option = newState.options[action.optionKey];
   const newChanges = getOptionValue[option.type](action, newState);
   changes.push(...newChanges);
-  console.log(changes);
+  // console.log(changes);
 }
 
 export default selectOptionReducer;

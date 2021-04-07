@@ -16,7 +16,7 @@ function Stats(props) {
   );
 
   const pathElements = [];
-  let currentTarget = [];
+  const currentTarget = [];
 
   if (settings.showRoot) {
     pathElements.push(<PathLink
@@ -27,15 +27,15 @@ function Stats(props) {
   }
 
   for (const part of props.path) {
-    if (currentTarget.length > 0 || settings.showRoot) {
+    currentTarget.push(part);
+    const currentKey = currentTarget.join('/');
+
+    if (currentTarget.length > 1 || settings.showRoot) {
       pathElements.push(<div
         className="path-separator"
         key={currentKey + '-separator'}
       >/</div>);
     }
-
-    currentTarget.push(part);
-    const currentKey = currentTarget.join('/');
 
     pathElements.push(<PathLink
       key={currentKey}
@@ -43,14 +43,6 @@ function Stats(props) {
       path={currentKey}
     />);
   }
-
-  // const currencies = deepClone(props.currencies);
-  // if (props.path.length > 0) {
-  //   const currentOption = getOption(props.path, props.options);
-  //   if (currentOption.currencies !== undefined) {
-  //     Object.assign(currencies, currentOption.currencies);
-  //   }
-  // }
 
   // return (
   //   <div className="Stats">
@@ -62,14 +54,35 @@ function Stats(props) {
   // );
 
   return <div className="Stats">
+    <Currencies currencies={props.currencies} />
     <div className="path">{pathElements}</div>
     <div className="stats-links">{linkElements}</div>
   </div>;
 }
 
-export default connect(state => {
+function mapStateToProps(state) {
+  const currencies = deepClone(state.currencies);
+  if (state.path.length > 0) {
+    const currentTarget = [];
+    for (const part of state.path) {
+      currentTarget.push(part);
+      const currentKey = currentTarget.join('/');
+      if (
+        state.options[currentKey] !== undefined &&
+        state.options[currentKey].currencies !== undefined
+      ) {
+        Object.assign(currencies, state.options[currentKey].currencies);
+      }
+    }
+  }
+
   return {
     topLevelOptionKeys: Object.keys(state.options).filter(key => key.match('/') === null),
     path: state.path,
+    currencies,
   };
+}
+
+export default connect(mapStateToProps, null, null, {
+  areStatePropsEqual: (next, prev) => JSON.stringify(next) === JSON.stringify(prev),
 })(Stats);

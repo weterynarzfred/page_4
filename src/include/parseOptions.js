@@ -145,6 +145,7 @@ const defaultProps = {
   instanceGroup: {},
   selected: undefined,
   cost: undefined,
+  currencies: undefined,
 };
 
 function assignProps(option, rawOption, assign) {
