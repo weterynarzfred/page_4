@@ -108,7 +108,7 @@ function recalculateUserFunctions(state, changes, force = false) {
   }
 }
 
-const userFunctions = {};
+window.userFunctions = {};
 
 function addUserFunction(functionObject, optionKey, prop) {
   const key = optionKey + '_' + prop;

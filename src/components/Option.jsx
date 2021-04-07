@@ -8,6 +8,7 @@ import ChoiceTable from './optionElements/ChoiceTable';
 import OptionContent from './optionElements/OptionContent';
 
 function Option(props) {
+  if (props.type === undefined) return null;
   // if (props.option.hidden) return null;
 
   // const [opened, setOpened] = useState(true);
@@ -48,7 +49,7 @@ function Option(props) {
   const classes = classNames(
     'Option',
     `option-${props.type}`,
-    //   { 'selected': isSelected(props.option, props.options) },
+    { 'selected': props.selected },
     //   { 'top-level': props.topLevel },
     //   { 'option-is-row': props.displayAsTableRow },
     { 'option-is-selectable': isSelectable },
@@ -90,7 +91,9 @@ function Option(props) {
 
 export default connect((state, props) => {
   const option = state.options[props.optionKey];
+  if (option === undefined) return {};
   return {
     type: option.type,
+    selected: isSelected(option, state.options),
   };
 })(Option);

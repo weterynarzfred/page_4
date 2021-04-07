@@ -149,11 +149,10 @@ function assignProps(option, rawOption, assign) {
   for (const prop in defaultProps) {
     option[prop] = rawOption[prop];
     if (option[prop] !== undefined && option[prop].isUserFunction) {
+      option[prop].subscribed = option[prop].subscribed.map(key =>
+        key.replace('CURRENT_KEY', option.optionKey)
+      );
       addUserFunction(option[prop], option.optionKey, prop);
-      option['_' + prop] = {
-        isUserFunction: true,
-        subscribed: option[prop].subscribed,
-      };
       option[prop] = defaultProps[prop];
     }
   }

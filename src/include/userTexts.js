@@ -1,4 +1,4 @@
-const userTexts = {};
+window.userTexts = {};
 
 // function addUserText(path, text) {
 //   let pathString;

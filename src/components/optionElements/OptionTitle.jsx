@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { optionTypes } from '../../include/constants';
 import { getUserText } from '../../include/userTexts';
 
@@ -23,10 +24,12 @@ function OptionTitle(props) {
   return (
     <div className="option-title">
       <div className="option-title-text">
-        {getUserText(props.optionKey, 'title')}
+        {props.title}
       </div>
     </div>
   );
 }
 
-export default OptionTitle;
+export default connect((state, props) => ({
+  title: getUserText(props.optionKey, 'title'),
+}))(OptionTitle);

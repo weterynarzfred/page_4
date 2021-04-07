@@ -69,28 +69,28 @@ function getSelectedCount(option, options) {
   //   return value;
 }
 
-function isSelected(option, options, checkedParents = 0) {
+function isSelected(option, options) {
   //   let currentOption = getOption(option, options);
   //   if (currentOption.path.length > checkedParents + 1) {
   //     const parentPath = currentOption.path.slice(0, checkedParents + 1);
   //     if (!isSelected(parentPath, options, checkedParents + 1)) return false;
   //   }
-  //   const value = getSelectedValue(currentOption, options);
-  //   switch (currentOption.type) {
-  //     case optionTypes.GROUP:
-  //       return true;
-  //     case optionTypes.INTEGER:
-  //       return value > 0;
-  //     case optionTypes.SELECT:
-  //       return value.length > 0;
-  //     case optionTypes.TEXT:
-  //       return value.length > 0;
-  //     case optionTypes.SLIDER:
-  //       return value > 0;
-  //     case optionTypes.INSTANCER:
-  //       return Object.keys(value).length > 0;
-  //   }
-  //   return value;
+  const value = getSelectedValue(option, options);
+  switch (option.type) {
+    case optionTypes.GROUP:
+      return true;
+    case optionTypes.INTEGER:
+      return value > 0;
+    case optionTypes.SELECT:
+      return value.length > 0;
+    case optionTypes.TEXT:
+      return value.length > 0;
+    case optionTypes.SLIDER:
+      return value > 0;
+    case optionTypes.INSTANCER:
+      return value.length > 0;
+  }
+  return value;
 }
 
 export { getSelectedValue, getSelectedCount, isSelected };
