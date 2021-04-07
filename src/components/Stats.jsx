@@ -70,7 +70,6 @@ function Stats(props) {
 export default connect(state => {
   return {
     topLevelOptionKeys: Object.keys(state.options).filter(key => key.match('/') === null),
-    // options: state.options,
     path: state.path,
   };
 })(Stats);

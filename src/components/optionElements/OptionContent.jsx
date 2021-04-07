@@ -71,6 +71,9 @@ function OptionContent(props) {
     <div className="option-content">
       <OptionTitle optionKey={props.optionKey} />
       <div className="option-collapsible-content">
+        <div className="option-cost-wrap">
+          <OptionCost optionKey={props.optionKey} />
+        </div>
         <div className="option-text">
           <OptionText optionKey={props.optionKey} />
         </div>

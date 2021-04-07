@@ -24,7 +24,7 @@ const persistConfig = {
 
 const initialState = {
   options: parseOptions(rawOptions),
-  // currencies: settings.currencies,
+  currencies: settings.currencies,
   path: settings.initialScreen,
 };
 

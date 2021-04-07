@@ -144,12 +144,16 @@ const defaultProps = {
   max: 1,
   instanceGroup: {},
   selected: undefined,
+  cost: undefined,
 };
 
 function assignProps(option, rawOption, assign) {
   for (const prop in defaultProps) {
     option[prop] = rawOption[prop];
-    if (option[prop] !== undefined && option[prop].isUserFunction) {
+
+    if (option[prop] === undefined) {
+      option[prop] = defaultProps[prop];
+    } else if (option[prop].isUserFunction) {
       option[prop].subscribed = option[prop].subscribed.map(key => {
         key = key.replace('CURRENT_KEY', option.optionKey);
         while (key.match(/\.\./) !== null)
@@ -180,9 +184,7 @@ function assignDefaults(option) {
   if (option.type === undefined) option.type = optionTypes.INTEGER;
 
   if (option.type === optionTypes.INTEGER) {
-    if (option.min === undefined) option.min = 0;
-    if (option.max === undefined) option.max = 1;
-    else if (option.max === Infinity) option.max = Number.MAX_SAFE_INTEGER;
+    if (option.max === Infinity) option.max = Number.MAX_SAFE_INTEGER;
     if (option.selected === undefined) option.selected = 0;
   }
 

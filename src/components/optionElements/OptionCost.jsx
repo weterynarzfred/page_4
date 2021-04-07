@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 
 function OptionCost(props) {
   if (props.cost === undefined) return null;
@@ -19,18 +20,18 @@ function OptionCost(props) {
       displayValue = `- ${-displayValue}`;
     }
 
-    if (props.currencies[costSlug] === undefined) {
+    if (props.currencySettings[costSlug] === undefined) {
       console.error(`Currency ${costSlug} not found`);
       return null;
     }
-    if (props.currencies[costSlug].inverted) color *= -1;
+    if (props.currencySettings[costSlug].inverted) color *= -1;
 
     costs.push(<tr className={classNames(
       'cost',
       { positive: color > 0 },
       { negative: color < 0 }
     )} key={costSlug}>
-      <td className="cost-title">{props.currencies[costSlug].title}</td>
+      <td className="cost-title">{props.currencySettings[costSlug].title}</td>
       <td className="cost-value">{displayValue}</td>
     </tr>);
   }
@@ -44,4 +45,18 @@ function OptionCost(props) {
   );
 }
 
-export default OptionCost;
+export default connect((state, props) => {
+  const option = state.options[props.optionKey];
+  if (option.cost === undefined) return {};
+  const currencySettings = {};
+  for (const costSlug in state.currencies) {
+    currencySettings[costSlug] = {
+      title: state.currencies[costSlug].title,
+      inverted: state.currencies[costSlug].inverted,
+    };
+  }
+  return {
+    cost: option.cost,
+    currencySettings,
+  };
+})(OptionCost);
