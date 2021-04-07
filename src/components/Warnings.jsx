@@ -24,7 +24,7 @@ function findWarnings(options, allOptions = options) {
           for (const test of option.requirements) {
             if (!test.value) {
               warnings.push({
-                id: option.path.join('.') + '-' + index,
+                id: option.path.join('/') + '-' + index,
                 path: option.path,
                 text: <>{getProp('title', option)} &ndash; {getUserText([...option.path, `requirement-${index}`])}</>,
               });
@@ -37,14 +37,14 @@ function findWarnings(options, allOptions = options) {
     if ([optionTypes.INTEGER, optionTypes.SELECT].includes(option.type)) {
       if (selectedCount < option.min) {
         warnings.push({
-          id: option.path.join('.') + '-lessThanMin',
+          id: option.path.join('/') + '-lessThanMin',
           path: option.path,
           text: `${getProp('title', option)} cannot have less than ${option.min} selected.`,
         });
       }
       if (selectedCount > option.max) {
         warnings.push({
-          id: option.path.join('.') + '-moreThanMax',
+          id: option.path.join('/') + '-moreThanMax',
           path: option.path,
           text: `${getProp('title', option)} cannot have more than ${option.max} selected.`,
         });
@@ -80,8 +80,8 @@ function Warnings(props) {
       warning.path;
     warningElements.push(<div className="warning" key={warning.id}>
       <div className="warning-path">
-        <PathLink path={parentPath.join('.')} onClick={() => setOpened(false)}>
-          {parentPath.join('.')}
+        <PathLink path={parentPath.join('/')} onClick={() => setOpened(false)}>
+          {parentPath.join('/')}
         </PathLink>
       </div>
       <div className="warning-text">{warning.text}</div>

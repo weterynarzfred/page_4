@@ -16,7 +16,7 @@ function handleDelete() {
 function InstanceControl(props) {
   // return (
   //   <div className="InstanceControl">
-  //     <PathLink path={props.instance.path.join('.')}>
+  //     <PathLink path={props.instance.path.join('/')}>
   //       <div className="instance-link-title">{getProp('title', props.instance)}</div>
   //       <Currencies currencies={props.instance.currencies} />
   //     </PathLink>

@@ -88,6 +88,8 @@ import { addUserText } from './userTexts';
 //   }
 // }
 
+window.userFunctions = {};
+
 function recalculateUserFunctions(state, changes, force = false) {
   for (const key in userFunctions) {
     const userFunction = userFunctions[key];
@@ -108,8 +110,6 @@ function recalculateUserFunctions(state, changes, force = false) {
   }
 }
 
-window.userFunctions = {};
-
 function addUserFunction(functionObject, optionKey, prop) {
   const key = optionKey + '_' + prop;
   userFunctions[key] = functionObject;
@@ -117,9 +117,18 @@ function addUserFunction(functionObject, optionKey, prop) {
   userFunctions[key].prop = prop;
 }
 
+function clearUserFunctions(deletionKey) {
+  Object.keys(userFunctions).filter(optionKey => {
+    if (optionKey.startsWith(deletionKey)) {
+      delete userFunctions[optionKey];
+    }
+  });
+}
+
 export {
   addUserFunction,
   // callUserFunction,
   // callOptionFunction,
   recalculateUserFunctions,
+  clearUserFunctions,
 };

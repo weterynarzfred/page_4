@@ -2,6 +2,8 @@ import { optionTypes } from 'Include/constants';
 import getOption from './getOption';
 import deepClone from './deepClone';
 import parseOptions from '../include/parseOptions';
+import { clearUserFunctions } from '../include/userFunctions';
+import { clearUserTexts } from '../include/userTexts';
 
 function getIntegerValue(action, newState) {
   const option = newState.options[action.optionKey];
@@ -52,27 +54,32 @@ function getInstancerValue(action, newState) {
       { isInstance: true }
     );
     Object.assign(newState.options, parsedIntance);
-    option.selected.push([...instancerPath, option.nextId++].join('.'));
+    option.selected.push([...instancerPath, option.nextId++].join('/'));
 
-    return [option.optionKey];
+    return [option.optionKey, ...Object.keys(parsedIntance)];
   }
 }
 
 function getGroupValue(action, newState) {
   const option = newState.options[action.optionKey];
   if (option.isInstance && action.subtract) {
-    const instance = newState.options[option.path.join('.')];
-    instance.selected = instance.selected.filter(
+    const instancer = newState.options[option.path.join('/')];
+    instancer.selected = instancer.selected.filter(
       item => item !== option.optionKey
     );
 
+    const deletedKeys = [];
     Object.keys(newState.options).filter(optionKey => {
       if (optionKey.startsWith(option.optionKey)) {
+        deletedKeys.push(optionKey);
         delete newState.options[optionKey];
       }
     });
 
-    return [option.optionKey];
+    clearUserFunctions(instancer.optionKey);
+    clearUserTexts(instancer.optionKey);
+
+    return [instancer.optionKey, ...deletedKeys];
   }
 }
 

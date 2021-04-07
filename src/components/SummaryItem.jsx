@@ -30,7 +30,7 @@ function SummaryItem(props) {
     <li className="SummaryItem">
       <span className="summary-item-title">
         <PathLink
-          path={props.option.path.join('.')}
+          path={props.option.path.join('/')}
           onClick={props.onClick}
         >{getProp('title', props.option)}</PathLink>
       </span>

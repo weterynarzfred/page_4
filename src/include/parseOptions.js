@@ -143,6 +143,7 @@ const defaultProps = {
   min: 0,
   max: 1,
   instanceGroup: {},
+  selected: undefined,
 };
 
 function assignProps(option, rawOption, assign) {
@@ -150,7 +151,9 @@ function assignProps(option, rawOption, assign) {
     option[prop] = rawOption[prop];
     if (option[prop] !== undefined && option[prop].isUserFunction) {
       option[prop].subscribed = option[prop].subscribed.map(key =>
-        key.replace('CURRENT_KEY', option.optionKey)
+        key
+          .replace('CURRENT_KEY', option.optionKey)
+          .replace(/\/?[^\/]*\/\.\./, '')
       );
       addUserFunction(option[prop], option.optionKey, prop);
       option[prop] = defaultProps[prop];
@@ -196,13 +199,13 @@ function parseOptions(rawOptions, parentPath = [], assign = {}) {
     option.slug = slug;
     option.path = [...parentPath];
     const fullPath = [...option.path, option.slug];
-    option.optionKey = fullPath.join('.');
+    option.optionKey = fullPath.join('/');
 
     assignProps(option, rawOption, assign);
 
     if (rawOption.options !== undefined) {
       option.subOptions = Object.keys(rawOption.options).map(slug =>
-        [...fullPath, slug].join('.')
+        [...fullPath, slug].join('/')
       );
       Object.assign(options, parseOptions(rawOption.options, fullPath));
     }
@@ -213,7 +216,7 @@ function parseOptions(rawOptions, parentPath = [], assign = {}) {
         parseOptions(rawOption.choices, fullPath, { isChoice: true })
       );
       option.choices = Object.keys(rawOption.choices).map(slug =>
-        [...fullPath, slug].join('.')
+        [...fullPath, slug].join('/')
       );
     }
 

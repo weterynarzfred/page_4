@@ -33,15 +33,15 @@ function Stats(props) {
     if (pathTarget.length > 0 || settings.showRoot) {
       pathElements.push(<div
         className="path-separator"
-        key={pathTarget.join('.') + '-separator'}
+        key={pathTarget.join('/') + '-separator'}
       >/</div>);
     }
     pathTarget.push(part);
     const currentOption = getOption(pathTarget, props.options);
     pathElements.push(<PathLink
-      key={pathTarget.join('.')}
+      key={pathTarget.join('/')}
       text={getProp('title', currentOption)}
-      path={pathTarget.join('.')}
+      path={pathTarget.join('/')}
     />);
   }
 
