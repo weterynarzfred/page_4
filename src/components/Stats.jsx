@@ -6,20 +6,17 @@ import Warnings from './Warnings';
 import PathLink from './PathLink';
 import { settings } from 'cyoa';
 import deepClone from '../functions/deepClone';
-import getProp from '../functions/getProp';
+import { getUserText } from '../include/userTexts';
 
 function Stats(props) {
-
-  const linkElements = [];
-  for (const slug in props.options) {
-    const option = props.options[slug];
-    linkElements.push(<div className="stats-link" key={slug}>
-      <PathLink path={option.path}>{getProp('title', option)}</PathLink>
-    </div>);
-  }
+  const linkElements = props.topLevelOptionKeys.map(optionKey =>
+    <div className="stats-link" key={optionKey}>
+      <PathLink path={optionKey}>{getUserText(optionKey, 'title')}</PathLink>
+    </div>
+  );
 
   const pathElements = [];
-  let pathTarget = [];
+  let currentTarget = [];
 
   if (settings.showRoot) {
     pathElements.push(<PathLink
@@ -30,40 +27,50 @@ function Stats(props) {
   }
 
   for (const part of props.path) {
-    if (pathTarget.length > 0 || settings.showRoot) {
+    if (currentTarget.length > 0 || settings.showRoot) {
       pathElements.push(<div
         className="path-separator"
-        key={pathTarget.join('/') + '-separator'}
+        key={currentKey + '-separator'}
       >/</div>);
     }
-    pathTarget.push(part);
-    const currentOption = getOption(pathTarget, props.options);
+
+    currentTarget.push(part);
+    const currentKey = currentTarget.join('/');
+
     pathElements.push(<PathLink
-      key={pathTarget.join('/')}
-      text={getProp('title', currentOption)}
-      path={pathTarget.join('/')}
+      key={currentKey}
+      text={getUserText(currentKey, 'title')}
+      path={currentKey}
     />);
   }
 
-  const currencies = deepClone(props.currencies);
-  if (props.path.length > 0) {
-    const currentOption = getOption(props.path, props.options);
-    if (currentOption.currencies !== undefined) {
-      Object.assign(currencies, currentOption.currencies);
-    }
-  }
+  // const currencies = deepClone(props.currencies);
+  // if (props.path.length > 0) {
+  //   const currentOption = getOption(props.path, props.options);
+  //   if (currentOption.currencies !== undefined) {
+  //     Object.assign(currencies, currentOption.currencies);
+  //   }
+  // }
 
-  return (
-    <div className="Stats">
-      <Currencies currencies={currencies} />
-      <Warnings />
-      <div className="path">{pathElements}</div>
-      <div className="stats-links">{linkElements}</div>
-    </div>
-  );
+  // return (
+  //   <div className="Stats">
+  //     <Currencies currencies={currencies} />
+  //     <Warnings />
+  //     <div className="path">{pathElements}</div>
+  //     <div className="stats-links">{linkElements}</div>
+  //   </div>
+  // );
+
+  return <div className="Stats">
+    <div className="path">{pathElements}</div>
+    <div className="stats-links">{linkElements}</div>
+  </div>;
 }
 
-export default connect(state => ({
-  options: state.options,
-  path: state.path,
-}))(Stats);
+export default connect(state => {
+  return {
+    topLevelOptionKeys: Object.keys(state.options).filter(key => key.match('/') === null),
+    // options: state.options,
+    path: state.path,
+  };
+})(Stats);

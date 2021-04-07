@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import 'Src/scss/index.scss';
 // import getOption from 'Functions/getOption';
-// import Navigation from './Navigation';
-// import Stats from './Stats';
+import Navigation from './Navigation';
+import Stats from './Stats';
 import { actions } from '../include/constants';
 import deepClone from '../functions/deepClone';
 // import Dialog from './Dialog';
@@ -45,7 +45,7 @@ function App(props) {
 
   // return (
   //   <div className="App">
-  //     <Navigation />
+  //     <Navigation />;
   //     <Stats currencies={currencies} />
   //     <OptionList currentOptions={currentOptions} currencies={currencies} />
   //     <Dialog />
@@ -56,6 +56,8 @@ function App(props) {
   // );
 
   return <div className="App">
+    <Navigation />
+    <Stats />
     <Option optionKey={props.path.join('/')} />
   </div>;
 }

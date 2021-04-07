@@ -6,7 +6,6 @@ import {
   getSelectedCount,
   getSelectedValue
 } from '../functions/getSelectedValue';
-import getProp from '../functions/getProp';
 import { getUserText } from '../include/userTexts';
 
 function findWarnings(options, allOptions = options) {

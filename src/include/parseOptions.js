@@ -150,11 +150,12 @@ function assignProps(option, rawOption, assign) {
   for (const prop in defaultProps) {
     option[prop] = rawOption[prop];
     if (option[prop] !== undefined && option[prop].isUserFunction) {
-      option[prop].subscribed = option[prop].subscribed.map(key =>
-        key
-          .replace('CURRENT_KEY', option.optionKey)
-          .replace(/\/?[^\/]*\/\.\./, '')
-      );
+      option[prop].subscribed = option[prop].subscribed.map(key => {
+        key = key.replace('CURRENT_KEY', option.optionKey);
+        while (key.match(/\.\./) !== null)
+          key = key.replaceAll(/\/?[^\/]+\/\.\./g, '');
+        return key;
+      });
       addUserFunction(option[prop], option.optionKey, prop);
       option[prop] = defaultProps[prop];
     }
