@@ -1,4 +1,5 @@
 import deepClone from '../functions/deepClone';
+import parsePath from '../functions/parsePath';
 import { callables, dataTypes, optionTypes } from './constants';
 import { addUserFunction } from './userFunctions';
 import { addUserText } from './userTexts';
@@ -155,12 +156,9 @@ function assignProps(option, rawOption, assign) {
     if (option[prop] === undefined) {
       option[prop] = defaultProps[prop];
     } else if (option[prop].isUserFunction) {
-      option[prop].subscribed = option[prop].subscribed.map(key => {
-        key = key.replace('CURRENT_KEY', option.optionKey);
-        while (key.match(/\.\./) !== null)
-          key = key.replaceAll(/\/?[^\/]+\/\.\./g, '');
-        return key;
-      });
+      option[prop].subscribed = option[prop].subscribed.map(key =>
+        parsePath(key, option.optionKey)
+      );
       addUserFunction(option[prop], option.optionKey, prop);
       option[prop] = defaultProps[prop];
     }
