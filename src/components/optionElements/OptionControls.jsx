@@ -66,9 +66,9 @@ function OptionControls(props) {
       //     />;
       controls = <GroupControls optionKey={props.optionKey} />;
       break;
-    //   case optionTypes.TEXT:
-    //     controls = <TextControls option={props.option} />;
-    //     break;
+    case optionTypes.TEXT:
+      controls = <TextControls optionKey={props.optionKey} />;
+      break;
     //   case optionTypes.SLIDER:
     //     controls = <SliderControls option={props.option} />;
     //     break;

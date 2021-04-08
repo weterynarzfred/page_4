@@ -35,7 +35,7 @@ function getSelectedValue(option, options) {
       );
       break;
     case optionTypes.TEXT:
-      //
+      value = option.selected;
       break;
     case optionTypes.SLIDER:
       //

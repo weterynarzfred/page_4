@@ -32,10 +32,11 @@ function getIntegerValue(action, newState) {
 //   return value;
 // }
 
-// function getTextValue(action, value) {
-//   if (value === undefined) value = '';
-//   return value;
-// }
+function getTextValue(action, newState) {
+  const option = newState.options[action.optionKey];
+  if (action.value !== undefined) option.selected = action.value;
+  return [option.optionKey + '.selected'];
+}
 
 // function getSliderValue(action, value) {
 //   if (value === undefined) value = 0;
@@ -91,7 +92,7 @@ function getGroupValue(action, newState) {
 const getOptionValue = {
   [optionTypes.INTEGER]: getIntegerValue,
   // [optionTypes.SELECT]: getSelectValue,
-  // [optionTypes.TEXT]: getTextValue,
+  [optionTypes.TEXT]: getTextValue,
   // [optionTypes.SLIDER]: getSliderValue,
   [optionTypes.INSTANCER]: getInstancerValue,
   [optionTypes.GROUP]: getGroupValue,

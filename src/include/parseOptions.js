@@ -191,6 +191,10 @@ function assignDefaults(option) {
     if (option.nextId === undefined) option.nextId = 0;
     if (option.selected === undefined) option.selected = [];
   }
+
+  if (option.type === optionTypes.TEXT) {
+    if (option.selected === undefined) option.selected = '';
+  }
 }
 
 function parseOptions(rawOptions, parentPath = [], assign = {}) {

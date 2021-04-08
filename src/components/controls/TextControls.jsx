@@ -6,18 +6,22 @@ import { getSelectedValue } from '../../functions/getSelectedValue';
 function handleChange(event) {
   this.dispatch({
     type: actions.SELECT_OPTION,
-    option: this.option,
+    optionKey: this.optionKey,
     value: event.target.value,
   });
 }
 
 function TextControls(props) {
-  const value = getSelectedValue(props.option);
   return (
     <div className="TextControls">
-      <input type="text" value={value} onChange={handleChange.bind(props)} />
+      <input type="text" value={props.selectedValue} onChange={handleChange.bind(props)} />
     </div>
   );
 }
 
-export default connect(state => ({ options: state.options }))(TextControls);
+export default connect((state, props) => {
+  const option = state.options[props.optionKey];
+  return {
+    selectedValue: getSelectedValue(option, state.options),
+  };
+})(TextControls);
