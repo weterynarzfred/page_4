@@ -3,12 +3,12 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 
 function OptionCost(props) {
-  if (props.cost === undefined) return null;
+  if (props.costs === undefined) return null;
 
-  let costs = [];
-  for (const costSlug in props.cost) {
+  let costElements = [];
+  for (const costSlug in props.costs) {
     let color = false;
-    let displayValue = -props.cost[costSlug];
+    let displayValue = -props.costs[costSlug].value;
     if (displayValue > 0) {
       displayValue = `+ ${displayValue}`;
       color = 1;
@@ -20,18 +20,14 @@ function OptionCost(props) {
       displayValue = `- ${-displayValue}`;
     }
 
-    if (props.currencySettings[costSlug] === undefined) {
-      console.error(`Currency ${costSlug} not found`);
-      return null;
-    }
-    if (props.currencySettings[costSlug].inverted) color *= -1;
+    if (props.costs[costSlug].inverted) color *= -1;
 
-    costs.push(<tr className={classNames(
+    costElements.push(<tr className={classNames(
       'cost',
       { positive: color > 0 },
       { negative: color < 0 }
     )} key={costSlug}>
-      <td className="cost-title">{props.currencySettings[costSlug].title}</td>
+      <td className="cost-title">{props.costs[costSlug].title}</td>
       <td className="cost-value">{displayValue}</td>
     </tr>);
   }
@@ -39,24 +35,29 @@ function OptionCost(props) {
   return (
     <table className="OptionCost">
       <tbody>
-        {costs}
+        {costElements}
       </tbody>
     </table>
   );
 }
 
-export default connect((state, props) => {
+function mapStateToProps(state, props) {
   const option = state.options[props.optionKey];
   if (option.cost === undefined) return {};
-  const currencySettings = {};
-  for (const costSlug in state.currencies) {
-    currencySettings[costSlug] = {
-      title: state.currencies[costSlug].title,
-      inverted: state.currencies[costSlug].inverted,
+
+  const costs = {};
+  for (const costSlug in option.cost) {
+    costs[costSlug] = {
+      value: option.cost[costSlug],
+      title: state.currencySettings[costSlug].title,
+      inverted: state.currencySettings[costSlug].inverted,
     };
   }
   return {
-    cost: option.cost,
-    currencySettings,
+    costs
   };
+}
+
+export default connect(mapStateToProps, null, null, {
+  areStatePropsEqual: (next, prev) => JSON.stringify(next) === JSON.stringify(prev),
 })(OptionCost);

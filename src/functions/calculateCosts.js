@@ -1,56 +1,56 @@
 import { optionTypes } from 'Include/constants';
+import deepClone from './deepClone';
 import { getSelectedValue, isSelected } from './getSelectedValue';
 
 function applyCost(cost, costs, count) {
   if (cost === undefined) return;
   for (const costSlug in cost) {
     if (costs[costSlug] !== undefined) {
-      costs[costSlug].value -= cost[costSlug] * count;
+      costs[costSlug] -= cost[costSlug] * count;
     }
   }
 }
 
-function calculateCosts(options, costs, reset, allOptions = options) {
-  if (reset) {
-    for (const costSlug in costs) {
-      if (costs[costSlug].start === undefined) costs[costSlug].value = 0;
-      else costs[costSlug].value = costs[costSlug].start;
-    }
+function calculateCosts(
+  newState,
+  currencies = newState.currencies,
+  options = newState.options
+) {
+  for (const costSlug in currencies) {
+    if (newState.currencySettings[costSlug].start === undefined)
+      currencies[costSlug] = 0;
+    else currencies[costSlug] = newState.currencySettings[costSlug].start;
   }
 
-  for (const slug in options) {
-    if (slug === 'nextId') continue;
-
-    const option = options[slug];
-    if (option.disabled || !isSelected(option, allOptions, Infinity)) continue;
+  for (const optionKey in options) {
+    const option = options[optionKey];
+    if (option.disabled || !isSelected(option, newState.options)) continue;
 
     if (option.type === optionTypes.INTEGER) {
-      applyCost(option.cost, costs, getSelectedValue(option, allOptions));
+      applyCost(
+        option.cost,
+        currencies,
+        getSelectedValue(option, newState.options)
+      );
     }
 
-    if (option.type === optionTypes.SLIDER) {
-      applyCost(option.cost, costs, getSelectedValue(option, allOptions));
-    }
+    // if (option.type === optionTypes.SLIDER) {
+    //   applyCost(option.cost, costs, getSelectedValue(option, allOptions));
+    // }
 
-    if (option.type === optionTypes.INSTANCER) {
-      const keys = Object.keys(getSelectedValue(option, allOptions));
-      applyCost(option.cost, costs, keys.length);
-    }
-
-    if (option.options !== undefined) {
-      calculateCosts(option.options, costs, false, allOptions);
-    }
-
-    if (option.type === optionTypes.INSTANCER) {
-      calculateCosts(option.selected, costs, false, allOptions);
-    }
-
-    if (option.type === optionTypes.SELECT) {
-      calculateCosts(option.choices, costs, false, allOptions);
-    }
+    // if (option.type === optionTypes.INSTANCER) {
+    //   const keys = Object.keys(getSelectedValue(option, allOptions));
+    //   applyCost(option.cost, costs, keys.length);
+    // }
 
     if (option.currencies !== undefined) {
-      calculateCosts(option.options, option.currencies, true, allOptions);
+      const subOptions = {};
+      for (const optionKey in newState.options) {
+        if (optionKey.startsWith(option.optionKey + '/')) {
+          subOptions[optionKey] = newState.options[optionKey];
+        }
+      }
+      calculateCosts(newState, option.currencies, subOptions);
     }
   }
 }

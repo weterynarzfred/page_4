@@ -23,12 +23,12 @@ window.userTexts = {};
 // }
 
 function addUserText(content, optionKey, prop) {
-  const key = optionKey + '_' + prop;
+  const key = optionKey + '.' + prop;
   userTexts[key] = content;
 }
 
 function getUserText(optionKey, prop) {
-  const key = optionKey + '_' + prop;
+  const key = optionKey + '.' + prop;
   if (userTexts[key] === undefined) return '';
   return userTexts[key];
 }

@@ -1,14 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 function Currencies(props) {
   if (props.currencies === undefined) return null;
 
   const currencyElements = [];
   for (const costSlug in props.currencies) {
-    const cost = props.currencies[costSlug];
-    const value = cost.value || 0;
+    const title = props.currencySettings[costSlug].title;
+    const value = props.currencies[costSlug] || 0;
     currencyElements.push(<div className="currency" key={costSlug}>
-      <div className="currency-name">{cost.title}</div>
+      <div className="currency-name">{title}</div>
       <div className="currency-value">{value.toFixed(2)}</div>
     </div>);
   }
@@ -20,4 +21,6 @@ function Currencies(props) {
   );
 }
 
-export default Currencies;
+export default connect(state => ({
+  currencySettings: state.currencySettings,
+}))(Currencies);

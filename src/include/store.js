@@ -25,6 +25,7 @@ const persistConfig = {
 const initialState = {
   options: parseOptions(rawOptions),
   currencies: settings.currencies,
+  currencySettings: settings.currencySettings,
   path: settings.initialScreen,
 };
 
@@ -54,13 +55,9 @@ function rootReducer(state = initialState, action = '') {
     ) {
       console.time('recalculate');
       recalculateUserFunctions(newState, changes, action.type === PERSIST);
+      // cleanupState(newState.options, newState);
+      calculateCosts(newState);
       console.timeEnd('recalculate');
-      //   console.time('cleanup');
-      //   cleanupState(newState.options, newState);
-      //   console.timeEnd('cleanup');
-      //   console.time('costs');
-      //   calculateCosts(newState.options, newState.currencies, true);
-      //   console.timeEnd('costs');
     }
 
     return newState;

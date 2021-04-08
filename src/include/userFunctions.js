@@ -91,14 +91,12 @@ import { addUserText } from './userTexts';
 window.userFunctions = {};
 
 function recalculateUserFunctions(state, changes, force = false) {
+  const newChanges = [];
   for (const key in userFunctions) {
     const userFunction = userFunctions[key];
-    const recreate =
-      force ||
-      userFunction.subscribed.some(item =>
-        changes.some(change => change.startsWith(item))
-      );
-    if (recreate) {
+    const recalculate =
+      force || userFunction.subscribed.some(item => changes.includes(item));
+    if (recalculate) {
       const option = state.options[userFunction.optionKey];
       const result = userFunction.callback(state, option);
       if (['text', 'title'].includes(userFunction.prop)) {
@@ -106,8 +104,11 @@ function recalculateUserFunctions(state, changes, force = false) {
       } else {
         option[userFunction.prop] = result;
       }
+      newChanges.push(userFunction.optionKey + '.' + userFunction.prop);
     }
   }
+
+  if (newChanges.length > 0) recalculateUserFunctions(state, newChanges);
 }
 
 function addUserFunction(functionObject, optionKey, prop) {

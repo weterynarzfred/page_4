@@ -9,7 +9,9 @@ function getIntegerValue(action, newState) {
   const option = newState.options[action.optionKey];
   if (action.add !== undefined) option.selected += action.add;
   else if (action.subtract !== undefined) option.selected -= action.subtract;
-  return [option.optionKey];
+  const changes = [option.optionKey + '.selected'];
+  if (option.isChoice) changes.push(option.path.join('/') + '.selected');
+  return changes;
 }
 
 // function getSelectValue(action, value) {
@@ -54,9 +56,12 @@ function getInstancerValue(action, newState) {
       { isInstance: true }
     );
     Object.assign(newState.options, parsedIntance);
-    option.selected.push([...instancerPath, option.nextId++].join('/'));
+    option.selected.push([...instancerPath, option.nextId].join('/'));
 
-    return [option.optionKey, ...Object.keys(parsedIntance)];
+    return [
+      option.optionKey + '.selected',
+      option.optionKey + '/' + option.nextId++,
+    ];
   }
 }
 
@@ -79,7 +84,7 @@ function getGroupValue(action, newState) {
     clearUserFunctions(option.optionKey);
     clearUserTexts(option.optionKey);
 
-    return [instancer.optionKey, ...deletedKeys];
+    return [instancer.optionKey + '.selected'];
   }
 }
 
