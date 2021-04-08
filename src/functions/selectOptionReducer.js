@@ -4,13 +4,30 @@ import deepClone from './deepClone';
 import parseOptions from '../include/parseOptions';
 import { clearUserFunctions } from '../include/userFunctions';
 import { clearUserTexts } from '../include/userTexts';
+import { getSelectedValue } from './getSelectedValue';
 
 function getIntegerValue(action, newState) {
   const option = newState.options[action.optionKey];
   if (action.add !== undefined) option.selected += action.add;
   else if (action.subtract !== undefined) option.selected -= action.subtract;
+  option.timeChanged = new Date().getTime();
   const changes = [option.optionKey + '.selected'];
-  if (option.isChoice) changes.push(option.path.join('/') + '.selected');
+  if (option.isChoice) {
+    const select = newState.options[option.path.join('/')];
+    changes.push(select.optionKey + '.selected');
+    const selectedOptions = getSelectedValue(select, newState.options);
+    console.log(selectedOptions);
+    if (selectedOptions.length > select.max) {
+      const moreChanges = getIntegerValue(
+        {
+          optionKey: selectedOptions[0],
+          subtract: true,
+        },
+        newState
+      );
+      changes.push(...moreChanges);
+    }
+  }
   return changes;
 }
 

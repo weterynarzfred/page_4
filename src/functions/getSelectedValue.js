@@ -30,9 +30,12 @@ function getSelectedValue(option, options) {
       value = option.selected;
       break;
     case optionTypes.SELECT:
-      value = option.choices.filter(
-        optionKey => getSelectedValue(options[optionKey]) >= 1
-      );
+      value = option.choices
+        .filter(optionKey => getSelectedValue(options[optionKey]) >= 1)
+        .sort(
+          (a, b) =>
+            (options[a].timeChanged || 0) - (options[b].timeChanged || 0)
+        );
       break;
     case optionTypes.TEXT:
       value = option.selected;
