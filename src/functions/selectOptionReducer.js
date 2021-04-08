@@ -16,7 +16,6 @@ function getIntegerValue(action, newState) {
     const select = newState.options[option.path.join('/')];
     changes.push(select.optionKey + '.selected');
     const selectedOptions = getSelectedValue(select, newState.options);
-    console.log(selectedOptions);
     if (selectedOptions.length > select.max) {
       const moreChanges = getIntegerValue(
         {
