@@ -10,62 +10,129 @@ function applyCost(cost, costs, count) {
   }
 }
 
-function calculateCosts(
-  newState,
-  currencies = newState.currencies,
-  options = newState.options
-) {
+function calculateCosts({
+  optionChanges,
+  state,
+  currencies = state.currencies,
+  options = state.options,
+  reset = false,
+  calcChanges = false,
+}) {
   const previousValues = deepClone(currencies);
   const changes = [];
 
-  for (const costSlug in currencies) {
-    if (newState.currencySettings[costSlug].start === undefined)
-      currencies[costSlug] = 0;
-    else currencies[costSlug] = newState.currencySettings[costSlug].start;
+  if (reset) {
+    for (const costSlug in currencies) {
+      if (state.currencySettings[costSlug].start === undefined)
+        currencies[costSlug] = 0;
+      else currencies[costSlug] = state.currencySettings[costSlug].start;
+    }
+  }
+
+  const emptyCurrencies = deepClone(currencies);
+  for (const costSlug in emptyCurrencies) {
+    if (state.currencySettings[costSlug].start === undefined)
+      emptyCurrencies[costSlug] = 0;
+    else emptyCurrencies[costSlug] = state.currencySettings[costSlug].start;
   }
 
   for (const optionKey in options) {
     const option = options[optionKey];
+
     if (
-      (option.cost === undefined && option.currencies === undefined) ||
-      option.disabled ||
-      !isSelected(option, newState.options)
-    )
-      continue;
+      option.lastCurrencyValues === undefined ||
+      optionChanges.some(changedKey => changedKey.startsWith(option.optionKey))
+    ) {
+      option.lastCurrencyValues = deepClone(emptyCurrencies);
 
-    if (option.cost !== undefined) {
-      if (option.type === optionTypes.INTEGER) {
-        applyCost(
-          option.cost,
-          currencies,
-          getSelectedValue(option, newState.options)
-        );
-      }
-    }
+      if (!option.disabled && isSelected(option, state.options)) {
+        if (option.cost !== undefined) {
+          if (option.type === optionTypes.INTEGER) {
+            applyCost(
+              option.cost,
+              option.lastCurrencyValues,
+              getSelectedValue(option, state.options)
+            );
+          }
+        }
 
-    // if (option.type === optionTypes.SLIDER) {
-    //   applyCost(option.cost, costs, getSelectedValue(option, allOptions));
-    // }
+        if (option.subOptions !== undefined) {
+          const subOptions = {};
+          for (const optionKey of option.subOptions) {
+            subOptions[optionKey] = state.options[optionKey];
+          }
+          changes.push(
+            ...calculateCosts({
+              state,
+              currencies: option.lastCurrencyValues,
+              options: subOptions,
+              optionChanges,
+            })
+          );
+        }
 
-    // if (option.type === optionTypes.INSTANCER) {
-    //   const keys = Object.keys(getSelectedValue(option, allOptions));
-    //   applyCost(option.cost, costs, keys.length);
-    // }
+        if (option.choices !== undefined) {
+          const subOptions = {};
+          for (const optionKey of option.choices) {
+            subOptions[optionKey] = state.options[optionKey];
+          }
+          changes.push(
+            ...calculateCosts({
+              state,
+              currencies: option.lastCurrencyValues,
+              options: subOptions,
+              optionChanges,
+            })
+          );
+        }
 
-    if (option.currencies !== undefined) {
-      const subOptions = {};
-      for (const optionKey in newState.options) {
-        if (optionKey.startsWith(option.optionKey + '/')) {
-          subOptions[optionKey] = newState.options[optionKey];
+        if (
+          option.type === optionTypes.INSTANCER &&
+          option.selected !== undefined
+        ) {
+          const subOptions = {};
+          for (const optionKey of option.selected) {
+            subOptions[optionKey] = state.options[optionKey];
+          }
+          changes.push(
+            ...calculateCosts({
+              state,
+              currencies: option.lastCurrencyValues,
+              options: subOptions,
+              optionChanges,
+            })
+          );
+        }
+
+        if (option.currencies !== undefined) {
+          const subOptions = {};
+          for (const optionKey in state.options) {
+            if (optionKey.startsWith(option.optionKey + '/')) {
+              subOptions[optionKey] = state.options[optionKey];
+            }
+          }
+          changes.push(
+            ...calculateCosts({
+              state,
+              currencies: option.currencies,
+              options: subOptions,
+              optionChanges,
+              reset: true,
+              calcChanges: true,
+            })
+          );
         }
       }
-      changes.push(...calculateCosts(newState, option.currencies, subOptions));
     }
+
+    applyCost(option.lastCurrencyValues, currencies, -1);
   }
 
-  for (const costSlug in currencies) {
-    if (currencies[costSlug] !== previousValues[costSlug]) {
-      changes.push('currency.' + costSlug);
+  if (calcChanges) {
+    for (const costSlug in currencies) {
+      if (currencies[costSlug] !== previousValues[costSlug]) {
+        changes.push('currency.' + costSlug);
+      }
     }
   }
 

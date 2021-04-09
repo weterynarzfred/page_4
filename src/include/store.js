@@ -52,12 +52,29 @@ function rootReducer(state = initialState, action = '') {
     if (
       [PERSIST, actions.SELECT_OPTION, actions.RESTART].includes(action.type)
     ) {
-      console.time('recalculate');
       let i = 0;
-      while (changes.length > 0 || (i === 0 && action.type === PERSIST)) {
+      console.time('recalculate');
+      while (
+        i < 50 &&
+        (changes.length > 0 || (i === 0 && action.type === PERSIST))
+      ) {
         recalculateUserFunctions(newState, changes, action.type === PERSIST);
-        changes = calculateCosts(newState);
-        console.log(changes);
+        const topLevelOptionKeys = Object.keys(state.options).filter(
+          key => key.match('/') === null
+        );
+        const topLevelOptions = {};
+        for (const optionKey of topLevelOptionKeys) {
+          topLevelOptions[optionKey] = newState.options[optionKey];
+        }
+
+        changes = calculateCosts({
+          state: newState,
+          options: topLevelOptions,
+          reset: true,
+          calcChanges: true,
+          optionChanges: changes,
+        });
+        changes = [...new Set(changes)];
         i++;
       }
       console.timeEnd('recalculate');
