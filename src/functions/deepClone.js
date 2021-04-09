@@ -2,6 +2,7 @@ import { cloneElement } from 'react';
 
 function deepClone(source, repair = false) {
   if (!source) return source;
+  if (typeof source === 'string') return source;
   if (
     source.$$typeof !== undefined &&
     source.$$typeof.toString() === 'Symbol(react.element)'

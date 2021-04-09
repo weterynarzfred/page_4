@@ -8,7 +8,6 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { settings, rawOptions } from 'cyoa';
-import cleanupState from 'Functions/cleanupState';
 import selectOptionReducer from 'Functions/selectOptionReducer';
 import calculateCosts from 'Functions/calculateCosts';
 import { actions } from './constants';
@@ -35,7 +34,7 @@ function rootReducer(state = initialState, action = '') {
   }
 
   const producedState = produce(state, newState => {
-    const changes = [];
+    let changes = [];
 
     switch (action.type) {
       case actions.SELECT_OPTION:
@@ -54,9 +53,13 @@ function rootReducer(state = initialState, action = '') {
       [PERSIST, actions.SELECT_OPTION, actions.RESTART].includes(action.type)
     ) {
       console.time('recalculate');
-      recalculateUserFunctions(newState, changes, action.type === PERSIST);
-      // cleanupState(newState.options, newState);
-      calculateCosts(newState);
+      let i = 0;
+      while (changes.length > 0 || (i === 0 && action.type === PERSIST)) {
+        recalculateUserFunctions(newState, changes, action.type === PERSIST);
+        changes = calculateCosts(newState);
+        console.log(changes);
+        i++;
+      }
       console.timeEnd('recalculate');
     }
 

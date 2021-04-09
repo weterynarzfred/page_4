@@ -3,7 +3,6 @@ import deepClone from './deepClone';
 import { getSelectedValue, isSelected } from './getSelectedValue';
 
 function applyCost(cost, costs, count) {
-  if (cost === undefined) return;
   for (const costSlug in cost) {
     if (costs[costSlug] !== undefined) {
       costs[costSlug] -= cost[costSlug] * count;
@@ -16,6 +15,9 @@ function calculateCosts(
   currencies = newState.currencies,
   options = newState.options
 ) {
+  const previousValues = deepClone(currencies);
+  const changes = [];
+
   for (const costSlug in currencies) {
     if (newState.currencySettings[costSlug].start === undefined)
       currencies[costSlug] = 0;
@@ -24,14 +26,21 @@ function calculateCosts(
 
   for (const optionKey in options) {
     const option = options[optionKey];
-    if (option.disabled || !isSelected(option, newState.options)) continue;
+    if (
+      (option.cost === undefined && option.currencies === undefined) ||
+      option.disabled ||
+      !isSelected(option, newState.options)
+    )
+      continue;
 
-    if (option.type === optionTypes.INTEGER) {
-      applyCost(
-        option.cost,
-        currencies,
-        getSelectedValue(option, newState.options)
-      );
+    if (option.cost !== undefined) {
+      if (option.type === optionTypes.INTEGER) {
+        applyCost(
+          option.cost,
+          currencies,
+          getSelectedValue(option, newState.options)
+        );
+      }
     }
 
     // if (option.type === optionTypes.SLIDER) {
@@ -50,9 +59,17 @@ function calculateCosts(
           subOptions[optionKey] = newState.options[optionKey];
         }
       }
-      calculateCosts(newState, option.currencies, subOptions);
+      changes.push(...calculateCosts(newState, option.currencies, subOptions));
     }
   }
+
+  for (const costSlug in currencies) {
+    if (currencies[costSlug] !== previousValues[costSlug]) {
+      changes.push('currency.' + costSlug);
+    }
+  }
+
+  return changes;
 }
 
 export default calculateCosts;

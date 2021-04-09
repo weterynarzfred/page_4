@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
-import { getSelectedCount, getSelectedValue } from '../../functions/getSelectedValue';
+import { getSelectedValue } from '../../functions/getSelectedValue';
 import { handleIncrement, handleToggle } from '../../functions/handlers';
 import { optionTypes } from '../../include/constants';
 import Currencies from '../Currencies';

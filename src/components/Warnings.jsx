@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { optionTypes } from 'Include/constants';
 import PathLink from './PathLink';
-import {
-  getSelectedCount,
-  getSelectedValue
-} from '../functions/getSelectedValue';
+import { getSelectedValue } from '../functions/getSelectedValue';
 import { getUserText } from '../include/userTexts';
 
 function findWarnings(options, allOptions = options) {

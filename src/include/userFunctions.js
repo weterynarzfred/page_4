@@ -1,8 +1,9 @@
 import deepClone from '../functions/deepClone';
 import { isSelected } from '../functions/getSelectedValue';
+import removeOption from '../functions/removeOption';
 import { callables, dataTypes, optionTypes } from './constants';
 import parseOptions from './parseOptions';
-import { addUserText } from './userTexts';
+import { addUserText, clearUserTexts } from './userTexts';
 
 // const userFunctions = [];
 
@@ -100,11 +101,7 @@ function mergeChoices(state, option, result, newChanges) {
     // delete choices that no longer exist
     for (const choiceKey of option.choices) {
       if (parsedChoices[choiceKey] === undefined) {
-        if (isSelected(state.options[choiceKey], state.options)) {
-          newChanges.push(choiceKey + '.selected');
-          newChanges.push(option.optionKey + '.selected');
-        }
-        delete state.options[choiceKey];
+        removeOption(choiceKey, state, newChanges);
       }
     }
 
@@ -138,22 +135,27 @@ function recalculateUserFunctions(state, changes, force = false) {
     if (recalculate) {
       const option = state.options[userFunction.optionKey];
       const result = userFunction.callback(state, option);
+
       if (['text', 'title'].includes(userFunction.prop)) {
         addUserText(result, userFunction.optionKey, userFunction.prop);
       } else if (userFunction.prop === 'choices') {
         mergeChoices(state, option, result, newChanges);
+      } else if (userFunction.prop === 'cost') {
+        option.cost = result;
       } else {
         option[userFunction.prop] = result;
       }
+
       newChanges.push(userFunction.optionKey + '.' + userFunction.prop);
     }
   }
 
   if (newChanges.length > 0) recalculateUserFunctions(state, newChanges);
+  changes.push(...newChanges);
 }
 
 function addUserFunction(functionObject, optionKey, prop) {
-  const key = optionKey + '_' + prop;
+  const key = optionKey + '.' + prop;
   userFunctions[key] = functionObject;
   userFunctions[key].optionKey = optionKey;
   userFunctions[key].prop = prop;
@@ -161,7 +163,10 @@ function addUserFunction(functionObject, optionKey, prop) {
 
 function clearUserFunctions(deletionKey) {
   Object.keys(userFunctions).filter(optionKey => {
-    if (optionKey.startsWith(deletionKey)) {
+    if (
+      optionKey.startsWith(deletionKey + '.') ||
+      optionKey.startsWith(deletionKey + '/')
+    ) {
       delete userFunctions[optionKey];
     }
   });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getSelectedCount } from '../../functions/getSelectedValue';
+import { getSelectedValue } from '../../functions/getSelectedValue';
 import { handleToggle } from '../../functions/handlers';
 import OptionControls from './OptionControls';
 import OptionCost from './OptionCost';
@@ -10,7 +10,7 @@ import OptionTitle from './OptionTitle';
 
 function handleClick(event) {
   event.stopPropagation();
-  const value = getSelectedCount(this.option, this.options);
+  // const value = getSelectedCount(this.option, this.options);
   handleToggle.call(this, value);
 }
 

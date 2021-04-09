@@ -5,6 +5,24 @@ import parseOptions from '../include/parseOptions';
 import { clearUserFunctions } from '../include/userFunctions';
 import { clearUserTexts } from '../include/userTexts';
 import { getSelectedValue } from './getSelectedValue';
+import removeOption from './removeOption';
+
+function checkChoiceParent(newState, option, changes) {
+  const select = newState.options[option.path.join('/')];
+  changes.push(select.optionKey + '.selected');
+  const selectedOptions = getSelectedValue(select, newState.options);
+  if (selectedOptions.length > select.max) {
+    const moreChanges = getIntegerValue(
+      {
+        optionKey: selectedOptions[0],
+        subtract: true,
+      },
+      newState
+    );
+    changes.push(...moreChanges);
+    changes = [...new Set(changes)];
+  }
+}
 
 function getIntegerValue(action, newState) {
   const option = newState.options[action.optionKey];
@@ -13,41 +31,11 @@ function getIntegerValue(action, newState) {
   option.timeChanged = new Date().getTime();
   let changes = [option.optionKey + '.selected'];
   if (option.isChoice) {
-    const select = newState.options[option.path.join('/')];
-    changes.push(select.optionKey + '.selected');
-    const selectedOptions = getSelectedValue(select, newState.options);
-    if (selectedOptions.length > select.max) {
-      const moreChanges = getIntegerValue(
-        {
-          optionKey: selectedOptions[0],
-          subtract: true,
-        },
-        newState
-      );
-      changes.push(...moreChanges);
-      changes = [...new Set(changes)];
-    }
+    checkChoiceParent(newState, option, changes);
   }
+  changes = [...new Set(changes)];
   return changes;
 }
-
-// function getSelectValue(action, value) {
-//   if (value === undefined) value = [];
-//   if (action.add !== undefined) {
-//     if (!value.includes(action.add)) {
-//       value.push(action.add);
-//       if (value.length > action.option.max) {
-//         value.shift();
-//       }
-//     }
-//   } else if (action.subtract !== undefined) {
-//     if (value.includes(action.subtract)) {
-//       const index = value.indexOf(action.subtract);
-//       value.splice(index, 1);
-//     }
-//   }
-//   return value;
-// }
 
 function getTextValue(action, newState) {
   const option = newState.options[action.optionKey];
@@ -87,22 +75,22 @@ function getGroupValue(action, newState) {
   const option = newState.options[action.optionKey];
   if (option.isInstance && action.subtract) {
     const instancer = newState.options[option.path.join('/')];
+    const changes = [instancer.optionKey + '.selected'];
+
+    Object.keys(newState.options).forEach(optionKey => {
+      if (
+        optionKey === option.optionKey ||
+        optionKey.startsWith(option.optionKey + '/')
+      ) {
+        removeOption(optionKey, newState, changes);
+      }
+    });
+
     instancer.selected = instancer.selected.filter(
       item => item !== option.optionKey
     );
 
-    const deletedKeys = [];
-    Object.keys(newState.options).filter(optionKey => {
-      if (optionKey.startsWith(option.optionKey)) {
-        deletedKeys.push(optionKey);
-        delete newState.options[optionKey];
-      }
-    });
-
-    clearUserFunctions(option.optionKey);
-    clearUserTexts(option.optionKey);
-
-    return [instancer.optionKey + '.selected'];
+    return changes;
   }
 }
 
@@ -116,28 +104,6 @@ const getOptionValue = {
 };
 
 function selectOptionReducer(newState, action, changes) {
-  // let path;
-  // let actionCopy = deepClone(action);
-  // let type;
-  // if (action.option.isChoice) {
-  //   path = action.option.path.slice(0, -1);
-  //   type = optionTypes.SELECT;
-  //   actionCopy.option = getOption(path, newState.options);
-  //   if (action.add !== undefined) actionCopy.add = action.option.slug;
-  //   if (action.subtract !== undefined) actionCopy.subtract = action.option.slug;
-  // } else {
-  //   path = action.option.path;
-  //   type = action.option.type;
-  // }
-
-  // let value = getOption(path, newState.options).selected;
-  // if (actionCopy.value === undefined) {
-  //   value = getOptionValue[type](actionCopy, value);
-  // } else {
-  //   value = action.value;
-  // }
-  // getOption(path, newState.options).selected = value;
-
   const option = newState.options[action.optionKey];
   const newChanges = getOptionValue[option.type](action, newState);
   changes.push(...newChanges);
