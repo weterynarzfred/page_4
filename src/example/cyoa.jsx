@@ -39,16 +39,22 @@ function userFunction(callback, subscribed = []) {
         option,
         isSelected: _isSelected.bind({ state, option }),
         getSelectedValue: _getSelectedValue.bind({ state, option }),
+        getOption: _getOption.bind({ state, option }),
       });
     },
     subscribed,
   };
 }
 
-const _isSelected = function (path) {
+const _getOption = function (path) {
   const option = (typeof path === 'object') ?
     path :
-    this.state.options[parsePath(path, this.option.optionKey)];
+    this.state.options[parsePath(path, this.option)];
+  return option;
+};
+
+const _isSelected = function (path) {
+  const option = _getOption.call(this, path);
   return isSelected(
     option,
     this.state.options
@@ -56,9 +62,7 @@ const _isSelected = function (path) {
 };
 
 const _getSelectedValue = function (path) {
-  const option = (typeof path === 'object') ?
-    path :
-    this.state.options[parsePath(path, this.option.optionKey)];
+  const option = _getOption.call(this, path);
   return getSelectedValue(
     option,
     this.state.options
@@ -109,6 +113,29 @@ const rawOptions = {
             },
           },
         },
+      },
+      instanceSelector: {
+        type: optionTypes.SELECT,
+        title: 'Instance Selector',
+        choices: userFunction(({ getSelectedValue }) => {
+          const choices = {};
+          const instances = getSelectedValue('root/instancer');
+          for (const instance of instances) {
+            const instanceSlug = instance.split('/').pop();
+            choices[instanceSlug] = {
+              title: userFunction(({ getSelectedValue }) => {
+                return getSelectedValue('root/instancer/CURRENT_SLUG/name') ||
+                  `Instance ${instanceSlug}`;
+              }, [`${instance}/name.selected`, 'CURRENT_KEY/...choices']),
+              text: <>
+                <p>
+                  <PathLink path={instance}>edit</PathLink>
+                </p>
+              </>
+            };
+          }
+          return choices;
+        }, ['root/instancer.selected']),
       },
       select: {
         type: optionTypes.SELECT,

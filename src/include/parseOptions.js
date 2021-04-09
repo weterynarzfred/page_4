@@ -147,6 +147,7 @@ const defaultProps = {
   selected: undefined,
   cost: undefined,
   currencies: undefined,
+  choices: undefined,
 };
 
 function assignProps(option, rawOption, assign) {
@@ -157,7 +158,7 @@ function assignProps(option, rawOption, assign) {
       option[prop] = defaultProps[prop];
     } else if (option[prop].isUserFunction) {
       option[prop].subscribed = option[prop].subscribed.map(key =>
-        parsePath(key, option.optionKey)
+        parsePath(key, option)
       );
       addUserFunction(option[prop], option.optionKey, prop);
       option[prop] = defaultProps[prop];
@@ -217,13 +218,15 @@ function parseOptions(rawOptions, parentPath = [], assign = {}) {
     }
 
     if (rawOption.choices !== undefined) {
-      Object.assign(
-        options,
-        parseOptions(rawOption.choices, fullPath, { isChoice: true })
-      );
-      option.choices = Object.keys(rawOption.choices).map(slug =>
-        [...fullPath, slug].join('/')
-      );
+      if (!rawOption.choices.isUserFunction) {
+        Object.assign(
+          options,
+          parseOptions(rawOption.choices, fullPath, { isChoice: true })
+        );
+        option.choices = Object.keys(rawOption.choices).map(slug =>
+          [...fullPath, slug].join('/')
+        );
+      }
     }
 
     addUserTexts(option);

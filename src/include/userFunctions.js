@@ -1,3 +1,5 @@
+import deepClone from '../functions/deepClone';
+import { isSelected } from '../functions/getSelectedValue';
 import { callables, dataTypes, optionTypes } from './constants';
 import parseOptions from './parseOptions';
 import { addUserText } from './userTexts';
@@ -90,6 +92,43 @@ import { addUserText } from './userTexts';
 
 window.userFunctions = {};
 
+function mergeChoices(state, option, result, newChanges) {
+  const fullPath = [...option.path, option.slug];
+
+  const parsedChoices = parseOptions(result, fullPath, { isChoice: true });
+  if (option.choices !== undefined) {
+    // delete choices that no longer exist
+    for (const choiceKey of option.choices) {
+      if (parsedChoices[choiceKey] === undefined) {
+        if (isSelected(state.options[choiceKey], state.options)) {
+          newChanges.push(choiceKey + '.selected');
+          newChanges.push(option.optionKey + '.selected');
+        }
+        delete state.options[choiceKey];
+      }
+    }
+
+    for (const choiceKey in parsedChoices) {
+      if (state.options[choiceKey] === undefined) {
+        // create new choices
+        state.options[choiceKey] = parsedChoices[choiceKey];
+      } else {
+        // update existing choices
+        Object.assign(
+          state.options[choiceKey],
+          result[choiceKey.split('/').pop()]
+        );
+      }
+    }
+  } else {
+    Object.assign(state.options, parsedChoices);
+  }
+
+  option.choices = Object.keys(result).map(slug =>
+    [...fullPath, slug].join('/')
+  );
+}
+
 function recalculateUserFunctions(state, changes, force = false) {
   const newChanges = [];
   for (const key in userFunctions) {
@@ -101,6 +140,8 @@ function recalculateUserFunctions(state, changes, force = false) {
       const result = userFunction.callback(state, option);
       if (['text', 'title'].includes(userFunction.prop)) {
         addUserText(result, userFunction.optionKey, userFunction.prop);
+      } else if (userFunction.prop === 'choices') {
+        mergeChoices(state, option, result, newChanges);
       } else {
         option[userFunction.prop] = result;
       }

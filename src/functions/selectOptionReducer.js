@@ -11,7 +11,7 @@ function getIntegerValue(action, newState) {
   if (action.add !== undefined) option.selected += action.add;
   else if (action.subtract !== undefined) option.selected -= action.subtract;
   option.timeChanged = new Date().getTime();
-  const changes = [option.optionKey + '.selected'];
+  let changes = [option.optionKey + '.selected'];
   if (option.isChoice) {
     const select = newState.options[option.path.join('/')];
     changes.push(select.optionKey + '.selected');
@@ -25,6 +25,7 @@ function getIntegerValue(action, newState) {
         newState
       );
       changes.push(...moreChanges);
+      changes = [...new Set(changes)];
     }
   }
   return changes;

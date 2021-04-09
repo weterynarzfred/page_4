@@ -3,6 +3,7 @@ import deepClone from './deepClone';
 import getOption from './getOption';
 
 function getSelectedValue(option, options) {
+  if (option === undefined) return undefined;
   // const currentOption = getOption(option, options);
 
   // let value;
@@ -30,6 +31,7 @@ function getSelectedValue(option, options) {
       value = option.selected;
       break;
     case optionTypes.SELECT:
+      if (!Array.isArray(option.choices)) return 0;
       value = option.choices
         .filter(optionKey => getSelectedValue(options[optionKey]) >= 1)
         .sort(
