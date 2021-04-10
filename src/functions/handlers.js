@@ -1,5 +1,8 @@
 import { actions } from 'Include/constants';
 
+/**
+ * Dispatches an action decreasing the option's value by 1.
+ */
 function handleDecrement(value) {
   if (value <= this.min) return;
 
@@ -10,6 +13,9 @@ function handleDecrement(value) {
   });
 }
 
+/**
+ * Dispatches an action increasing the option's value by 1.
+ */
 function handleIncrement(value) {
   if (value >= this.max) return;
 
@@ -20,9 +26,15 @@ function handleIncrement(value) {
   });
 }
 
+/**
+ * Dispatches an action toggling the option's value between 0 and 1.
+ */
 function handleToggle(value) {
-  if (value === 1) handleDecrement.call(this);
-  else handleIncrement.call(this);
+  this.dispatch({
+    type: actions.SELECT_OPTION,
+    optionKey: this.optionKey,
+    value: value >= 1 ? 0 : 1,
+  });
 }
 
 export { handleDecrement, handleIncrement, handleToggle };

@@ -1,5 +1,8 @@
 import { cloneElement } from 'react';
 
+/**
+ * Deep clones a variable. Supports react elements.
+ */
 function deepClone(source, repair = false) {
   if (!source) return source;
   if (typeof source === 'string') return source;

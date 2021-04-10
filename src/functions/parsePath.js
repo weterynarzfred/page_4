@@ -1,3 +1,7 @@
+/**
+ * Replaces path constants and the parent directory symbol with their current
+ * values.
+ */
 function parsePath(path, option) {
   if (option === undefined) return undefined;
 

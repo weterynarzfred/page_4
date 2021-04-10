@@ -2,7 +2,6 @@ import React from 'react';
 import { optionTypes } from './include/constants';
 import { callUserFunction } from 'Include/userFunctions';
 import calculateCosts from 'Functions/calculateCosts';
-import getOption from 'Functions/getOption';
 import PathLink from 'Components/PathLink';
 import { getSelectedValue, isSelected } from 'Functions/getSelectedValue';
 import deepClone from 'Functions/deepClone';
@@ -55,18 +54,12 @@ const _getOption = function (path) {
 
 const _isSelected = function (path) {
   const option = _getOption.call(this, path);
-  return isSelected(
-    option,
-    this.state.options
-  );
+  return isSelected(option, this.state.options);
 };
 
 const _getSelectedValue = function (path) {
   const option = _getOption.call(this, path);
-  return getSelectedValue(
-    option,
-    this.state.options
-  );
+  return getSelectedValue(option, this.state.options);
 };
 
 const rawOptions = {
@@ -81,7 +74,10 @@ const rawOptions = {
       b: {
         title: 'B',
         text: <p>Option B</p>,
-        cost: userFunction(({ isSelected }) => ({ soulPower: isSelected('root/a') ? 10 : 5 }), ['root/a.selected']),
+        cost: userFunction(
+          ({ isSelected }) => ({ soulPower: isSelected('root/a') ? 10 : 5 }),
+          ['root/a.selected']
+        ),
       },
       a: {
         title: 'A',
@@ -95,7 +91,11 @@ const rawOptions = {
           currencies: {
             instanceCurrency: 0,
           },
-          title: userFunction(({ getSelectedValue, option }) => getSelectedValue('CURRENT_KEY/name') || `Instance ${option.slug}`, ['CURRENT_KEY', 'CURRENT_KEY/name.selected']),
+          title: userFunction(
+            ({ getSelectedValue, option }) =>
+              getSelectedValue('CURRENT_KEY/name') || `Instance ${option.slug}`,
+            ['CURRENT_KEY', 'CURRENT_KEY/name.selected']
+          ),
           options: {
             name: {
               type: optionTypes.TEXT,
@@ -103,9 +103,13 @@ const rawOptions = {
             },
             a: {
               cost: { soulPower: 5 },
-              title: userFunction(({ isSelected }) => {
-                return `Option A - ${isSelected('CURRENT_KEY/../b') ? '1' : '0'}`;
-              }, ['CURRENT_KEY/..', 'CURRENT_KEY/../b.selected']),
+              title: userFunction(
+                ({ isSelected }) => {
+                  return `Option A - ${isSelected('CURRENT_KEY/../b') ? '1' : '0'
+                    }`;
+                },
+                ['CURRENT_KEY/..', 'CURRENT_KEY/../b.selected']
+              ),
             },
             b: {
               cost: { instanceCurrency: 5 },
@@ -117,25 +121,31 @@ const rawOptions = {
       instanceSelector: {
         type: optionTypes.SELECT,
         title: 'Instance Selector',
-        choices: userFunction(({ getSelectedValue }) => {
-          const choices = {};
-          const instances = getSelectedValue('root/instancer');
-          for (const instance of instances) {
-            const instanceSlug = instance.split('/').pop();
-            choices[instanceSlug] = {
-              title: userFunction(({ getSelectedValue }) => {
-                return getSelectedValue('root/instancer/CURRENT_SLUG/name') ||
-                  `Instance ${instanceSlug}`;
-              }, [`${instance}/name.selected`, 'CURRENT_KEY/...choices']),
-              text: <>
-                <p>
-                  <PathLink path={instance}>edit</PathLink>
-                </p>
-              </>
-            };
-          }
-          return choices;
-        }, ['root/instancer.selected']),
+        choices: userFunction(
+          ({ getSelectedValue }) => {
+            const choices = {};
+            const instances = getSelectedValue('root/instancer');
+            for (const instance of instances) {
+              const instanceSlug = instance.split('/').pop();
+              choices[instanceSlug] = {
+                title: userFunction(
+                  ({ getSelectedValue }) => {
+                    return (
+                      getSelectedValue('root/instancer/CURRENT_SLUG/name') ||
+                      `Instance ${instanceSlug}`
+                    );
+                  },
+                  [`${instance}/name.selected`, 'CURRENT_KEY/...choices']
+                ),
+                text: <>
+                  <p><PathLink path={instance}>edit</PathLink></p>
+                </>,
+              };
+            }
+            return choices;
+          },
+          ['root/instancer.selected']
+        ),
       },
       select: {
         type: optionTypes.SELECT,

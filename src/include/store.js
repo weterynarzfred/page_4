@@ -9,10 +9,9 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { settings, rawOptions } from 'cyoa';
 import selectOptionReducer from 'Functions/selectOptionReducer';
-import calculateCosts from 'Functions/calculateCosts';
 import { actions } from './constants';
 import parseOptions from './parseOptions';
-import { recalculateUserFunctions } from './userFunctions';
+import recalculateState from '../functions/recalculateState';
 import deepClone from '../functions/deepClone';
 
 const persistConfig = {
@@ -33,15 +32,15 @@ function rootReducer(state = initialState, action = '') {
     return state;
   }
 
-  const producedState = produce(state, newState => {
+  const producedState = produce(state, stateDraft => {
     let changes = [];
 
     switch (action.type) {
       case actions.SELECT_OPTION:
-        selectOptionReducer(newState, action, changes);
+        selectOptionReducer(stateDraft, action, changes);
         break;
       case actions.CHANGE_PATH:
-        newState.path = action.path;
+        stateDraft.path = action.path;
         break;
       //   case actions.RESTART:
       //     newState = deepClone(initialState);
@@ -52,35 +51,10 @@ function rootReducer(state = initialState, action = '') {
     if (
       [PERSIST, actions.SELECT_OPTION, actions.RESTART].includes(action.type)
     ) {
-      let i = 0;
-      console.time('recalculate');
-      while (
-        i < 50 &&
-        (changes.length > 0 || (i === 0 && action.type === PERSIST))
-      ) {
-        recalculateUserFunctions(newState, changes, action.type === PERSIST);
-        const topLevelOptionKeys = Object.keys(state.options).filter(
-          key => key.match('/') === null
-        );
-        const topLevelOptions = {};
-        for (const optionKey of topLevelOptionKeys) {
-          topLevelOptions[optionKey] = newState.options[optionKey];
-        }
-
-        changes = calculateCosts({
-          state: newState,
-          options: topLevelOptions,
-          reset: true,
-          calcChanges: true,
-          optionChanges: changes,
-        });
-        changes = [...new Set(changes)];
-        i++;
-      }
-      console.timeEnd('recalculate');
+      recalculateState(stateDraft, changes, action);
     }
 
-    return newState;
+    return stateDraft;
   });
 
   return producedState;

@@ -1,7 +1,9 @@
 import { optionTypes } from 'Include/constants';
-import deepClone from './deepClone';
-import getOption from './getOption';
 
+/**
+ * Returns the value of an option. Does not check it the values ancestors are
+ * selected.
+ */
 function getSelectedValue(option, options) {
   if (option === undefined) return undefined;
 
@@ -33,6 +35,9 @@ function getSelectedValue(option, options) {
   return value;
 }
 
+/**
+ * Checks if the option as well as all of its ancestors are selected.
+ */
 function isSelected(option, options) {
   if (option.path.length > 0) {
     const parentPath = option.path.join('/');

@@ -1,98 +1,14 @@
-import deepClone from '../functions/deepClone';
-import { isSelected } from '../functions/getSelectedValue';
 import removeOption from '../functions/removeOption';
-import { callables, dataTypes, optionTypes } from './constants';
 import parseOptions from './parseOptions';
-import { addUserText, clearUserTexts } from './userTexts';
-
-// const userFunctions = [];
-
-// function addUserFunction(func, target) {
-//   userFunctions.push(func);
-//   return {
-//     isUserFunction: true,
-//     functionId: userFunctions.length - 1,
-//     target,
-//   };
-// }
-
-// function callOptionFunction(option, state) {
-//   const parentPath = option.path.slice(0, -1);
-//   const value = parseOptions(
-//     {
-//       [option.slug]: userFunctions[option.functionId](state, option),
-//     },
-//     parentPath
-//   )[option.slug];
-//   Object.assign(option, value);
-// }
-
-// function callUserFunction(
-//   target,
-//   state,
-//   userFunction = option,
-//   option = target
-// ) {
-//   const value = userFunctions[userFunction.functionId](state, option);
-
-//   if (userFunction.target !== undefined) {
-//     target[userFunction.target] = value;
-//   } else {
-//     target.value = value;
-//   }
-// }
-
-// function recalculateUserFunctions(options, state) {
-//   for (const slug in options) {
-//     if (options[slug].isUserFunction) {
-//       callOptionFunction(options[slug], state);
-//     }
-
-//     if (options[slug].options !== undefined) {
-//       recalculateUserFunctions(options[slug].options, state);
-//     }
-
-//     if (options[slug].type === optionTypes.INSTANCER) {
-//       recalculateUserFunctions(options[slug].selected, state);
-//     }
-
-//     if (options[slug].type === optionTypes.SELECT) {
-//       recalculateUserFunctions(options[slug].choices, state);
-//     }
-
-//     if (options[slug].valueTransform !== undefined) {
-//       callUserFunction(options[slug], state, options[slug].valueTransform);
-//     }
-//     if (options[slug].displayTransform !== undefined) {
-//       callUserFunction(options[slug], state, options[slug].displayTransform);
-//     }
-
-//     for (const callable in callables) {
-//       if (options[slug][`_${callable}`] !== undefined) {
-//         callUserFunction(options[slug], state, options[slug][`_${callable}`]);
-//       }
-//     }
-
-//     if (options[slug].requirements !== undefined) {
-//       let index = 0;
-//       for (const test of options[slug].requirements) {
-//         callUserFunction(test, state, test.callback, options[slug]);
-//         if (test._text !== undefined) {
-//           callUserFunction(test, state, test._text, options[slug]);
-//           addUserText(
-//             [...options[slug].path, `requirement-${index}`],
-//             test.text
-//           );
-//           test.text = dataTypes.USER_TEXT;
-//         }
-//         index++;
-//       }
-//     }
-//   }
-// }
+import { addUserText } from './userTexts';
+import deepClone from '../functions/deepClone';
 
 window.userFunctions = {};
 
+/**
+ * After an user function generates new options this function removes choces that
+ * no longer exists, add new ones and updates changed ones.
+ */
 function mergeChoices(state, option, result, newChanges) {
   const fullPath = [...option.path, option.slug];
 
@@ -126,6 +42,10 @@ function mergeChoices(state, option, result, newChanges) {
   );
 }
 
+/**
+ * After the state draft was updated this function recalculates user functions
+ * that were subscribed to any of the changes.
+ */
 function recalculateUserFunctions(state, changes, force = false) {
   const newChanges = [];
   for (const key in userFunctions) {
@@ -154,6 +74,10 @@ function recalculateUserFunctions(state, changes, force = false) {
   changes.push(...newChanges);
 }
 
+/**
+ * Adds or updates an object created with userFunction in cyoa.jsx to the
+ * userFunctions array.
+ */
 function addUserFunction(functionObject, optionKey, prop) {
   const key = optionKey + '.' + prop;
   userFunctions[key] = functionObject;
@@ -161,6 +85,10 @@ function addUserFunction(functionObject, optionKey, prop) {
   userFunctions[key].prop = prop;
 }
 
+/**
+ * Removes any user functions created on the key that was deleted or on any of
+ * its suboptions.
+ */
 function clearUserFunctions(deletionKey) {
   Object.keys(userFunctions).filter(optionKey => {
     if (
@@ -172,10 +100,4 @@ function clearUserFunctions(deletionKey) {
   });
 }
 
-export {
-  addUserFunction,
-  // callUserFunction,
-  // callOptionFunction,
-  recalculateUserFunctions,
-  clearUserFunctions,
-};
+export { addUserFunction, recalculateUserFunctions, clearUserFunctions };
