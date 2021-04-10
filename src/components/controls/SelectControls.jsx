@@ -62,7 +62,8 @@ function SelectControls(props) {
   return (
     <div
       className={classNames(
-        'SelectControls'
+        'SelectControls',
+        'option-controls'
       )}
     >
       {choiceElements}

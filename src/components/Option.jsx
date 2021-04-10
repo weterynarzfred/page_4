@@ -6,6 +6,7 @@ import { isSelected } from '../functions/getSelectedValue';
 import deepClone from '../functions/deepClone';
 import ChoiceTable from './optionElements/ChoiceTable';
 import OptionContent from './optionElements/OptionContent';
+import isDisabled from './../functions/isDisabled';
 
 function Option(props) {
   if (props.type === undefined) return null;
@@ -35,17 +36,6 @@ function Option(props) {
   //   optionTypes.SELECT,
   // ].includes(props.option.type);
 
-  // let requirementsWarning = props.option.requirements !== undefined;
-  // if (props.option.requirements !== undefined) {
-  //   requirementsWarning = false;
-  //   for (const test of props.option.requirements) {
-  //     if (!test.value) {
-  //       requirementsWarning = true;
-  //       break;
-  //     }
-  //   }
-  // }
-
   const classes = classNames(
     'Option',
     `option-${props.type}`,
@@ -54,10 +44,9 @@ function Option(props) {
     //   { 'option-is-row': props.displayAsTableRow },
     { 'option-is-selectable': isSelectable },
     { 'option-is-container': isContainer },
-    //   { 'option-disabled': props.option.disabled },
+    { 'option-disabled': props.isDisabled },
     //   { 'option-collapsible': isCollapsible },
     //   { 'option-collapsed': isCollapsible && !opened },
-    //   { 'option-requirements-warning': requirementsWarning },
     //   { 'masonry-cell': props.isMasonryCell }
   );
 
@@ -92,8 +81,10 @@ function Option(props) {
 export default connect((state, props) => {
   const option = state.options[props.optionKey];
   if (option === undefined) return {};
+
   return {
     type: option.type,
     selected: isSelected(option, state.options),
+    isDisabled: isDisabled(option),
   };
 })(Option);

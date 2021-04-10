@@ -59,7 +59,7 @@ function SliderControls(props) {
     displayValue = props.option.transformedDisplay;
   }
   return (
-    <div className="SliderControls">
+    <div className="SliderControls option-controls">
       <div className="slider-value">{displayValue}</div>
       {props.option.useTooltips ? <SliderWithTooltip
         {...props.option.sliderAttributes}

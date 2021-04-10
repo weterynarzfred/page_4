@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 function SpinboxControl(props) {
   return (
-    <div className="integer-spinbox">
+    <div className="SpinboxControl option-controls">
       <div className="integer-spinbox-content">
         <button
           onClick={(event) => {

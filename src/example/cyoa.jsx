@@ -1,12 +1,10 @@
 import React from 'react';
 import { optionTypes } from './include/constants';
-import { callUserFunction } from 'Include/userFunctions';
-import calculateCosts from 'Functions/calculateCosts';
 import PathLink from 'Components/PathLink';
 import { getSelectedValue, isSelected } from 'Functions/getSelectedValue';
+import parsePath from './functions/parsePath';
 import deepClone from 'Functions/deepClone';
 
-import parsePath from './functions/parsePath';
 
 const settings = {
   initialScreen: ['root'],
@@ -74,28 +72,55 @@ const rawOptions = {
       b: {
         title: 'B',
         text: <p>Option B</p>,
-        cost: userFunction(
-          ({ isSelected }) => ({ soulPower: isSelected('root/a') ? 10 : 5 }),
-          ['root/a.selected']
-        ),
+        cost: userFunction(({ isSelected }) => ({ soulPower: isSelected('root/a') ? 10 : 5 }), ['root/a.selected']),
       },
       a: {
         title: 'A',
+        selected: 1,
         text: <p>Option A</p>,
+      },
+      c: {
+        title: 'C',
+        cost: { gold: 1 },
+        text: <p>Option C</p>,
+        requirements: [
+          {
+            text: <>Requires Option A to be selected.</>,
+            value: userFunction(({ isSelected }) => isSelected('root/a'), ['root/a.selected']),
+          },
+          {
+            text: <>Requires Option B to be selected.</>,
+            value: userFunction(({ isSelected }) => isSelected('root/b'), ['root/b.selected']),
+          },
+        ],
+      },
+      d: {
+        title: 'D',
+        max: 3,
+        cost: { gold: 1 },
+        text: <p>Option D</p>,
+        requirements: [
+          {
+            text: <>Requires Option A to be selected.</>,
+            value: userFunction(({ isSelected }) => isSelected('root/a'), ['root/a.selected']),
+          },
+        ],
       },
       instancer: {
         type: optionTypes.INSTANCER,
-        max: 2,
+        requirements: [
+          {
+            text: <>Requires Option A to be selected.</>,
+            value: userFunction(({ isSelected }) => isSelected('root/a'), ['root/a.selected']),
+          },
+        ],
+        max: Infinity,
         title: 'Instancer',
         instanceGroup: {
           currencies: {
             instanceCurrency: 0,
           },
-          title: userFunction(
-            ({ getSelectedValue, option }) =>
-              getSelectedValue('CURRENT_KEY/name') || `Instance ${option.slug}`,
-            ['CURRENT_KEY', 'CURRENT_KEY/name.selected']
-          ),
+          title: userFunction(({ getSelectedValue, option }) => getSelectedValue('CURRENT_KEY/name') || `Instance ${option.slug}`, ['CURRENT_KEY', 'CURRENT_KEY/name.selected']),
           options: {
             name: {
               type: optionTypes.TEXT,
@@ -103,13 +128,9 @@ const rawOptions = {
             },
             a: {
               cost: { soulPower: 5 },
-              title: userFunction(
-                ({ isSelected }) => {
-                  return `Option A - ${isSelected('CURRENT_KEY/../b') ? '1' : '0'
-                    }`;
-                },
-                ['CURRENT_KEY/..', 'CURRENT_KEY/../b.selected']
-              ),
+              title: userFunction(({ isSelected }) => {
+                return `Option A - ${isSelected('CURRENT_KEY/../b') ? '1' : '0'}`;
+              }, ['CURRENT_KEY/..', 'CURRENT_KEY/../b.selected']),
             },
             b: {
               cost: { instanceCurrency: 5 },
@@ -121,34 +142,40 @@ const rawOptions = {
       instanceSelector: {
         type: optionTypes.SELECT,
         title: 'Instance Selector',
-        choices: userFunction(
-          ({ getSelectedValue }) => {
-            const choices = {};
-            const instances = getSelectedValue('root/instancer');
-            for (const instance of instances) {
-              const instanceSlug = instance.split('/').pop();
-              choices[instanceSlug] = {
-                title: userFunction(
-                  ({ getSelectedValue }) => {
-                    return (
-                      getSelectedValue('root/instancer/CURRENT_SLUG/name') ||
-                      `Instance ${instanceSlug}`
-                    );
-                  },
-                  [`${instance}/name.selected`, 'CURRENT_KEY/...choices']
-                ),
-                text: <>
-                  <p><PathLink path={instance}>edit</PathLink></p>
-                </>,
-              };
-            }
-            return choices;
+        requirements: [
+          {
+            text: <>Requires Option A to be selected.</>,
+            value: userFunction(({ isSelected }) => isSelected('root/a'), ['root/a.selected']),
           },
-          ['root/instancer.selected']
-        ),
+        ],
+        choices: userFunction(({ getSelectedValue }) => {
+          const choices = {};
+          const instances = getSelectedValue('root/instancer');
+          for (const instance of instances) {
+            const instanceSlug = instance.split('/').pop();
+            choices[instanceSlug] = {
+              cost: userFunction(({ getOption }) => {
+                return {
+                  soulPower: getOption(`${instance}`).currencies.instanceCurrency,
+                };
+              }, [`currency.instanceCurrency`, 'CURRENT_KEY/...choices']),
+              title: userFunction(({ getSelectedValue }) => {
+                return getSelectedValue(`${instance}/name`) ||
+                  `Instance ${instanceSlug}`;
+              }, [`${instance}/name.selected`, 'CURRENT_KEY/...choices']),
+              text: <>
+                <p>
+                  <PathLink path={instance}>edit</PathLink>
+                </p>
+              </>
+            };
+          }
+          return choices;
+        }, ['root/instancer.selected']),
       },
       select: {
         type: optionTypes.SELECT,
+        min: 1,
         max: 2,
         title: 'Select',
         text: userFunction(({ getSelectedValue, option }) => <>
@@ -163,7 +190,6 @@ const rawOptions = {
           choice2: {
             cost: { soulPower: 2 },
             title: 'Choice 2',
-            selected: 1,
           },
           choice3: {
             cost: { soulPower: 4 },

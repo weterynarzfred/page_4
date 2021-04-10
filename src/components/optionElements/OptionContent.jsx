@@ -77,6 +77,7 @@ function OptionContent(props) {
         <div className="option-text">
           <OptionText optionKey={props.optionKey} />
         </div>
+        <OptionRequirements optionKey={props.optionKey} />
         <OptionControls optionKey={props.optionKey} />
       </div>
     </div>

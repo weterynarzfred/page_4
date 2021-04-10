@@ -70,3 +70,30 @@
     filter: none;
   }
 }
+
+.option-disabled {
+  .option-is-selectable,
+  &.option-is-selectable {
+    .option-content {
+      background-color: $disabledBackground;
+      border-color: $disabledBorderColor;
+      color: $disabledText;
+
+      .option-title {
+        color: $disabledText;
+        border-color: $disabledBorderColor;
+      }
+
+      .option-collapsible-content {
+        .option-text p {
+          color: $disabledText;
+        }
+
+        .OptionCost {
+          filter: grayscale(1);
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}

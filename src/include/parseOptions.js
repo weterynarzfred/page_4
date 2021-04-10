@@ -15,6 +15,7 @@ const defaultProps = {
   cost: undefined,
   currencies: undefined,
   choices: undefined,
+  requirements: undefined,
 };
 
 /**
@@ -32,6 +33,15 @@ function assignProps(option, rawOption, assign) {
       );
       addUserFunction(option[prop], option.optionKey, prop);
       option[prop] = defaultProps[prop];
+    } else if (prop === 'requirements') {
+      let index = 0;
+      for (let test of option.requirements) {
+        const identifier = 'requirements.' + index;
+        addUserText(test.text, option.optionKey, identifier);
+        addUserFunction(test.value, option.optionKey, identifier);
+        test = false;
+        index++;
+      }
     }
   }
 

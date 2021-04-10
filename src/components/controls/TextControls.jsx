@@ -13,7 +13,7 @@ function handleChange(event) {
 
 function TextControls(props) {
   return (
-    <div className="TextControls">
+    <div className="TextControls option-control">
       <input type="text" value={props.selectedValue} onChange={handleChange.bind(props)} />
     </div>
   );

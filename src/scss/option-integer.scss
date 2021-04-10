@@ -1,47 +1,45 @@
-.Option.option-integer {
-  .integer-spinbox {
-    position: absolute;
-    top: -1em;
-    left: 0;
-    right: 0;
-    height: 2em;
-    color: #fff;
+.SpinboxControl {
+  position: absolute;
+  top: -1em;
+  left: 0;
+  right: 0;
+  height: 2em;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+
+  .integer-spinbox-content {
+    position: relative;
+    height: 100%;
+    background-color: #000;
+    border: 2px solid #999;
     display: flex;
+    align-items: center;
     justify-content: center;
+    border-radius: 1em;
+    overflow: hidden;
 
-    .integer-spinbox-content {
-      position: relative;
-      height: 100%;
-      background-color: #000;
-      border: 2px solid #999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 1em;
-      overflow: hidden;
+    .integer-value {
+      padding: 0 2em;
+      font-size: 1.25em;
+      font-weight: 700;
+    }
 
-      .integer-value {
-        padding: 0 2em;
-        font-size: 1.25em;
-        font-weight: 700;
+    button {
+      width: 1em;
+      height: 1em;
+      font-size: 2em;
+      padding: 0;
+      border: 0;
+
+      &:first-child {
+        padding-bottom: 0.17em;
+        margin-left: -2px;
       }
 
-      button {
-        width: 1em;
-        height: 1em;
-        font-size: 2em;
-        padding: 0;
-        border: 0;
-
-        &:first-child {
-          padding-bottom: 0.17em;
-          margin-left: -2px;
-        }
-
-        &:last-child {
-          padding-top: 0.08em;
-          margin-right: -2px;
-        }
+      &:last-child {
+        padding-top: 0.08em;
+        margin-right: -2px;
       }
     }
   }
@@ -55,7 +53,7 @@
   width: 2em;
   height: 2em;
   background-color: #000;
-  color: #fff;
+  color: $enabledText;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,5 +80,22 @@
   &:hover {
     background-color: #555;
     border-color: rgb(151, 217, 255);
+  }
+}
+
+.Option.option-disabled {
+  .CheckboxControl {
+    background-color: $disabledBackground;
+    border-color: $disabledBorderColor;
+    color: $disabledText;
+  }
+
+  .SpinboxControl {
+    .integer-spinbox-content,
+    button {
+      background-color: $disabledBackground;
+      border-color: $disabledBorderColor;
+      color: $disabledText;
+    }
   }
 }

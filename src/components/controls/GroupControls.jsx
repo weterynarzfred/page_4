@@ -48,7 +48,8 @@ function GroupControls(props) {
   return (
     <div
       className={classNames(
-        'GroupControls'
+        'GroupControls',
+        'option-controls'
       )}
     >
       {optionElements}

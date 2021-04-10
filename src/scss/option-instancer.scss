@@ -1,11 +1,5 @@
 .Option.option-instancer {
   > .option-content {
-    .option-title {
-      border-bottom: 1px solid #999;
-      max-width: 70rem;
-      margin: 0 auto;
-    }
-
     .option-cost-wrap {
       position: relative;
       max-width: 70rem;
@@ -98,6 +92,30 @@
 
           &:hover {
             border-color: #333;
+          }
+        }
+      }
+    }
+  }
+}
+
+.option-disabled {
+  .option-instancer,
+  &.option-instancer {
+    .option-content {
+      .add-instance {
+        background-color: $disabledBackground;
+        border-color: $disabledBorderColor;
+        color: $disabledText;
+      }
+      .InstancerControls {
+        .instance-list {
+          background-color: $disabledBackground;
+          border-color: $disabledBorderColor;
+          color: $disabledText;
+
+          .delete-instance {
+            opacity: 0.33;
           }
         }
       }

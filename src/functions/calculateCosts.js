@@ -1,6 +1,7 @@
 import calculateOptionCosts from './calculateOptionCosts';
 import deepClone from './deepClone';
 import { isSelected } from './getSelectedValue';
+import isDisabled from './isDisabled';
 
 /**
  * Subtracts the cost from the currencies object count times.
@@ -55,7 +56,7 @@ function calculateCosts({
       wasOptionUpdated(option.optionKey, optionChanges)
     ) {
       option.lastCurrencyValues = deepClone(emptyCurrencies);
-      if (!option.disabled && isSelected(option, state.options)) {
+      if (!isDisabled(option) && isSelected(option, state.options)) {
         calculateOptionCosts(option, state, changes, optionChanges);
       }
     }

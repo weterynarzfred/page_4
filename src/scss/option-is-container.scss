@@ -6,6 +6,9 @@
     > .option-title {
       justify-content: center;
       font-size: 4.2361em;
+      border-bottom: 1px solid #999;
+      max-width: 70rem;
+      margin: 0 auto;
     }
 
     > .option-collapsible-content {
@@ -122,6 +125,31 @@
       height: 2em;
       pointer-events: all;
       opacity: 0.3;
+    }
+  }
+}
+
+.option-disabled {
+  .option-is-container,
+  &.option-is-container {
+    .option-content {
+      color: $disabledText;
+
+      .option-title {
+        color: $disabledText;
+        border-color: $disabledBorderColor;
+      }
+
+      .option-collapsible-content {
+        .option-text p {
+          color: $disabledText;
+        }
+
+        .OptionCost {
+          filter: grayscale(1);
+          opacity: 0.5;
+        }
+      }
     }
   }
 }

@@ -17,7 +17,7 @@ function Stats(props) {
   return (
     <div className="Stats">
       <Currencies currencies={props.currencies} />
-      {/* <Warnings /> */}
+      <Warnings />
       <Breadcrumbs />
       <div className="stats-links">{linkElements}</div>
     </div>

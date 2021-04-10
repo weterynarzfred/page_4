@@ -38,6 +38,15 @@ if `type === optionTypes.INSTANCER`
 - `currency`
 
 
+## branch todo
+- hidden
+- images
+- masonry
+- suboptions in selectable options
+- select displayAsTable
+- reset button
+- sliders
+
 ## todo
 - generate warnings when currency is below zero
 - add a disclaimer
@@ -46,10 +55,9 @@ if `type === optionTypes.INSTANCER`
 - add better summary to main menu
 - save and load from a json file
 - add blurring to nsfw images
-- add `USER_FUNCTION` to `dataTypes`
 - add option type with order selection
 - display currencies in groups that are not instances
 - add a button to enlarge images
-- calculate `userTexts` only when needed
 - add `logScale` to sliders
 - add `RATIO` `optionType`
+- `INTANCER` `displayAsTable`

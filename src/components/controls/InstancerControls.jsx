@@ -77,7 +77,7 @@ function InstancerControls(props) {
 
   const isAddDisabled = props.instances.length >= props.max;
 
-  return <div className="InstancerControls">
+  return <div className="InstancerControls option-controls">
     <button
       className={classNames('add-instance', { disabled: isAddDisabled })}
       onClick={isAddDisabled ? null : handleAdd.bind(props)}
