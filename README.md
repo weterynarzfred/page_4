@@ -40,8 +40,6 @@ if `type === optionTypes.INSTANCER`
 
 ## branch todo
 - hidden
-- images
-- suboptions in selectable options
 - select displayAsTable
 - reset button
 - sliders

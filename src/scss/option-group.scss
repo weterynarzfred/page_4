@@ -1,13 +1,9 @@
 .Option.option-group {
-  > .option-content {
-    > .option-collapsible-content {
-      > .GroupControls {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-top: 3em;
-        margin-bottom: 3em;
-      }
-    }
+  .GroupControls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 3em;
+    margin-bottom: 3em;
   }
 }

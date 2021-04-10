@@ -96,12 +96,13 @@ function assignDefaults(option) {
  */
 function parseOptions(rawOptions, parentPath = [], assign = {}) {
   const options = {};
+
   for (const slug in rawOptions) {
     const rawOption = rawOptions[slug];
     const option = {};
+    const fullPath = [...parentPath, slug];
     option.slug = slug;
     option.path = [...parentPath];
-    const fullPath = [...option.path, option.slug];
     option.optionKey = fullPath.join('/');
 
     assignProps(option, rawOption, assign);
@@ -110,25 +111,35 @@ function parseOptions(rawOptions, parentPath = [], assign = {}) {
       option.subOptions = Object.keys(rawOption.options).map(slug =>
         [...fullPath, slug].join('/')
       );
-      Object.assign(options, parseOptions(rawOption.options, fullPath));
+      const assign = {};
+      if (
+        [optionTypes.INTEGER, optionTypes.TEXT, optionTypes.SLIDER].includes(
+          option.type
+        )
+      )
+        assign.isSelectablesChild = true;
+      Object.assign(options, parseOptions(rawOption.options, fullPath, assign));
     }
 
-    if (rawOption.choices !== undefined) {
-      if (!rawOption.choices.isUserFunction) {
-        Object.assign(
-          options,
-          parseOptions(rawOption.choices, fullPath, { isChoice: true })
-        );
-        option.choices = Object.keys(rawOption.choices).map(slug =>
-          [...fullPath, slug].join('/')
-        );
-      }
+    if (
+      option.type === optionTypes.SELECT &&
+      rawOption.choices !== undefined &&
+      !rawOption.choices.isUserFunction
+    ) {
+      Object.assign(
+        options,
+        parseOptions(rawOption.choices, fullPath, { isChoice: true })
+      );
+      option.choices = Object.keys(rawOption.choices).map(slug =>
+        [...fullPath, slug].join('/')
+      );
     }
 
     addUserTexts(option);
     assignDefaults(option);
     options[option.optionKey] = option;
   }
+
   return options;
 }
 

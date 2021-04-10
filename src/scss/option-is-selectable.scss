@@ -40,11 +40,34 @@
     min-height: 1em;
   }
 
-  .GroupControls {
-    padding-top: 0.5em;
+  > .option-content > .option-collapsible-content {
+    > .GroupControls {
+      padding-top: 0.5em;
+      margin: 0;
 
-    .Option:last-child {
-      margin-bottom: 0.5rem;
+      .Option:last-child {
+        margin-bottom: 0;
+      }
+
+      > .Option:last-child {
+        margin-bottom: 0.5rem;
+      }
+
+      .option-select,
+      .option-group {
+        > .option-content > .option-collapsible-content > .option-text {
+          min-height: 0;
+        }
+      }
+
+      .SelectControls,
+      .GroupControls {
+        margin: 0;
+      }
+
+      .option-image-placeholder {
+        display: none;
+      }
     }
   }
 

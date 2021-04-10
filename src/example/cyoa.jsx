@@ -64,6 +64,7 @@ const rawOptions = {
   root: {
     type: optionTypes.GROUP,
     title: 'Root',
+    image: 'containers/intro.jpg',
     text: <>
       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea recusandae hic sapiente quibusdam earum veniam dolorum veritatis, minus tenetur laboriosam, aperiam incidunt corporis eligendi itaque. Aliquid molestias quaerat quis similique!</p>
       <p>Laudantium nihil quae necessitatibus nisi delectus. Ducimus, voluptatibus veniam. Error tempora deserunt, reiciendis qui tempore cumque obcaecati voluptatem molestias, veniam ducimus laudantium? Delectus dolorum sapiente adipisci quisquam placeat, numquam quasi.</p>
@@ -74,6 +75,7 @@ const rawOptions = {
         options: {
           b: {
             title: 'B',
+            image: 'healthy.jpg',
             text: <p>Option B</p>,
             cost: userFunction(({ isSelected }) => ({ soulPower: isSelected('root/simple/a') ? 10 : 5 }), ['root/simple/a.selected']),
           },
@@ -108,10 +110,29 @@ const rawOptions = {
                 value: userFunction(({ isSelected }) => isSelected('root/simple/a'), ['root/simple/a.selected']),
               },
             ],
+            options: {
+              d1: {
+                title: 'D1',
+                cost: { gold: 1 },
+              },
+              d2: {
+                title: 'D2',
+                cost: { gold: 1 },
+              },
+            },
           },
           e: {
             title: 'E',
-            text: <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta aliquam incidunt saepe laboriosam nostrum ad totam necessitatibus quisquam accusantium perspiciatis iure alias nisi cum sed impedit, adipisci ipsa ea enim?</p>
+            text: <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta aliquam incidunt saepe laboriosam nostrum ad totam necessitatibus quisquam accusantium perspiciatis iure alias nisi cum sed impedit, adipisci ipsa ea enim?</p>,
+            options: {
+              select: {
+                type: optionTypes.SELECT,
+                choices: {
+                  e1: { title: 'E1' },
+                  e2: { title: 'E2' },
+                },
+              },
+            },
           },
         },
       },
