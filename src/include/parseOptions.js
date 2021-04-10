@@ -16,6 +16,7 @@ const defaultProps = {
   currencies: undefined,
   choices: undefined,
   requirements: undefined,
+  image: undefined,
 };
 
 /**
@@ -34,13 +35,19 @@ function assignProps(option, rawOption, assign) {
       addUserFunction(option[prop], option.optionKey, prop);
       option[prop] = defaultProps[prop];
     } else if (prop === 'requirements') {
-      let index = 0;
-      for (let test of option.requirements) {
+      for (let index = 0; index < option.requirements.length; index++) {
         const identifier = 'requirements.' + index;
-        addUserText(test.text, option.optionKey, identifier);
-        addUserFunction(test.value, option.optionKey, identifier);
-        test = false;
-        index++;
+        addUserText(
+          option.requirements[index].text,
+          option.optionKey,
+          identifier
+        );
+        addUserFunction(
+          option.requirements[index].value,
+          option.optionKey,
+          identifier
+        );
+        option.requirements[index] = false;
       }
     }
   }

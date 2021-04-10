@@ -12,7 +12,7 @@ function Option(props) {
   if (props.type === undefined) return null;
   // if (props.option.hidden) return null;
 
-  // const [opened, setOpened] = useState(true);
+  const [opened, setOpened] = useState(true);
 
   // const currencies = deepClone(props.currencies);
   // if (props.option.currencies !== undefined) {
@@ -75,7 +75,12 @@ function Option(props) {
   // }
 
 
-  return <OptionContent optionKey={props.optionKey} classes={classes} />;
+  return <OptionContent
+    optionKey={props.optionKey}
+    classes={classes}
+    opened={opened}
+    setOpened={setOpened}
+  />;
 }
 
 export default connect((state, props) => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 function OptionImage(props) {
   if (props.image === undefined) return (
@@ -15,4 +16,9 @@ function OptionImage(props) {
   );
 }
 
-export default OptionImage;
+export default connect((state, props) => {
+  const option = state.options[props.optionKey];
+  return {
+    image: option.image
+  };
+})(OptionImage);

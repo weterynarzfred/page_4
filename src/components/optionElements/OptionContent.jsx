@@ -24,7 +24,7 @@ function handleClick(event) {
 }
 
 function OptionContent(props) {
-  // const collapsibleRef = useRef();
+  const collapsibleRef = useRef();
 
   // useEffect(() => {
   //   const openedHeight = collapsibleRef.current.scrollHeight;
@@ -43,43 +43,26 @@ function OptionContent(props) {
   //   }
   // }, [props.opened]);
 
-  // return (
-  //   <div className={props.classes} onClick={handleClick.bind(props)}>
-  //     <div className="option-content">
-  //       <OptionTitle option={props.option} onClick={props.setOpened} />
-  //       <div className="option-collapsible-content" ref={collapsibleRef}>
-  //         <div className="option-cost-wrap">
-  //           <OptionCost cost={props.option.cost} currencies={props.currencies} />
-  //         </div>
-  //         <OptionImage image={props.option.image} />
-  //         {props.topLevel ? null : <Currencies currencies={props.option.currencies} />}
-  //         <div className="option-text">
-  //           <OptionText option={props.option} />
-  //         </div>
-  //         <OptionRequirements option={props.option} />
-  //         <OptionControls option={props.option} currencies={props.currencies} />
-  //       </div>
-  //       {props.isCollapsible ? <div className="option-collapsible-elipsis" onClick={props.setOpened}>
-  //         <div></div>
-  //         <div></div>
-  //         <div></div>
-  //       </div> : null}
-  //     </div>
-  //   </div >
-  // );
   return <div className={props.classes} onClick={handleClick.bind(props)}>
     <div className="option-content">
-      <OptionTitle optionKey={props.optionKey} />
-      <div className="option-collapsible-content">
+      <OptionTitle optionKey={props.optionKey} onClick={props.setOpened} />
+      <div className="option-collapsible-content" ref={collapsibleRef}>
         <div className="option-cost-wrap">
           <OptionCost optionKey={props.optionKey} />
         </div>
+        <OptionImage optionKey={props.optionKey} />
+        {/* {props.topLevel ? null : <Currencies currencies={props.option.currencies} />} */}
         <div className="option-text">
           <OptionText optionKey={props.optionKey} />
         </div>
         <OptionRequirements optionKey={props.optionKey} />
         <OptionControls optionKey={props.optionKey} />
       </div>
+      {props.isCollapsible ? <div className="option-collapsible-elipsis" onClick={props.setOpened}>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div> : null}
     </div>
   </div>;
 }
