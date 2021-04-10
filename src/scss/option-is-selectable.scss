@@ -11,7 +11,7 @@
     padding-top: 1em;
     border: solid #999;
     border-width: 1px 1px 6px 1px;
-    transition: 0.3s;
+    transition: filter 0.3s, border 0.3s, background 0.3s, color 0.3s;
     filter: grayscale(1);
 
     > .option-title {
@@ -41,6 +41,8 @@
   }
 
   > .option-content > .option-collapsible-content {
+    padding-bottom: 1px;
+
     > .GroupControls {
       padding-top: 0.5em;
       margin: 0;

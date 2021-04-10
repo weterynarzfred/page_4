@@ -1,4 +1,5 @@
 import { optionTypes } from 'Include/constants';
+import isDisabled from './isDisabled';
 
 /**
  * Returns the value of an option. Does not check it the values ancestors are
@@ -39,6 +40,8 @@ function getSelectedValue(option, options) {
  * Checks if the option as well as all of its ancestors are selected.
  */
 function isSelected(option, options) {
+  if (isDisabled(option)) return false;
+
   if (option.path.length > 0) {
     const parentPath = option.path.join('/');
     const isParentSelected = isSelected(options[parentPath], options);

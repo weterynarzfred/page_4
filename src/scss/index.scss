@@ -4,11 +4,11 @@ $negative: #ff732d;
 $text: #ffdea0;
 $background: #222;
 $background2: #111;
-$borderColor: #999;
+$borderColor: #777;
 $enabledBackground: #111;
 $enabledText: #fff;
 $selectableBackground: #222;
-$selectableText: #999;
+$selectableText: #ccc;
 $disabledBackground: #111;
 $disabledText: #444;
 $disabledBorderColor: #444;
@@ -32,6 +32,13 @@ body {
   min-height: 100vh;
   background-image: linear-gradient(45deg, $background 0%, $background2 100%);
   box-shadow: 0 0 50em #000 inset;
+
+  #option-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 3em 0;
+  }
 
   #overlay {
     position: absolute;
@@ -79,8 +86,21 @@ body {
   }
 
   &.option-disabled {
-    pointer-events: none;
     filter: grayscale(1);
+
+    &.selected,
+    &:hover {
+      filter: none;
+    }
+
+    .option-controls {
+      pointer-events: none;
+    }
+
+    .OptionCost {
+      opacity: 0.5;
+      filter: grayscale(1);
+    }
   }
 }
 
@@ -92,7 +112,7 @@ p {
   line-height: 1.45;
   text-indent: 1.5em;
   color: $text;
-  transition: 0.3s;
+  transition: color 0.3s;
 
   strong {
     color: $enabledText;

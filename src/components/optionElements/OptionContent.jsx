@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { getSelectedValue } from '../../functions/getSelectedValue';
 import { handleIncrement, handleToggle } from '../../functions/handlers';
+import isDisabled from '../../functions/isDisabled';
 import { optionTypes } from '../../include/constants';
 import Currencies from '../Currencies';
 import OptionControls from './OptionControls';
@@ -12,7 +13,9 @@ import OptionText from './OptionText';
 import OptionTitle from './OptionTitle';
 
 function handleClick(event) {
+  if (this.isDisabled) return;
   event.stopPropagation();
+
   if (this.type === optionTypes.INTEGER) {
     if (this.max === 1 && this.min === 0) {
       handleToggle.call(this, this.value);
@@ -61,7 +64,10 @@ function OptionContent(props) {
         <OptionRequirements optionKey={props.optionKey} />
         <OptionControls optionKey={props.optionKey} topLevel={props.topLevel} />
       </div>
-      {props.isCollapsible ? <div className="option-collapsible-elipsis" onClick={props.setOpened}>
+      {props.isCollapsible ? <div
+        className="option-collapsible-elipsis"
+        onClick={props.setOpened}
+      >
         <div></div>
         <div></div>
         <div></div>
@@ -77,5 +83,6 @@ export default connect((state, props) => {
     value: getSelectedValue(option, state.options),
     min: option.min,
     max: option.max,
+    isDisabled: isDisabled(option),
   };
 })(OptionContent);

@@ -5,17 +5,6 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 
 function SelectControls(props) {
-  // let content;
-  // if (props.option.displayAsTable) {
-  //   content = <table>
-  //     <tbody>
-  //       {choiceElements}
-  //     </tbody>
-  //   </table>;
-  // }
-  // else {
-  //   content = choiceElements;
-  // }
 
   if (props.choices === undefined) return null;
   const [msnry, setMsnry] = useState();
@@ -45,7 +34,21 @@ function SelectControls(props) {
       key={optionKey}
       optionKey={optionKey}
       isMasonryCell={props.useMasonry}
+      displayAsTableRow={props.displayAsTable}
     />);
+  }
+
+
+  let content;
+  if (props.displayAsTable) {
+    content = <table>
+      <tbody>
+        {choiceElements}
+      </tbody>
+    </table>;
+  }
+  else {
+    content = choiceElements;
   }
 
   return (
@@ -57,7 +60,7 @@ function SelectControls(props) {
       )}
       ref={gridRef}
     >
-      {choiceElements}
+      {content}
     </div>
   );
 }
@@ -66,5 +69,6 @@ export default connect((state, props) => {
   const option = state.options[props.optionKey];
   return {
     choices: option.choices,
+    displayAsTable: option.displayAsTable,
   };
 })(SelectControls);

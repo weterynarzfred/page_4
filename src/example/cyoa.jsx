@@ -90,11 +90,11 @@ const rawOptions = {
             text: <p>Option C</p>,
             requirements: [
               {
-                text: <>Requires Option A to be selected.</>,
+                text: <>Requires <PathLink path="root/simple/a">Option A</PathLink> to be selected.</>,
                 value: userFunction(({ isSelected }) => isSelected('root/simple/a'), ['root/simple/a.selected']),
               },
               {
-                text: <>Requires Option B to be selected.</>,
+                text: <>Requires <PathLink path="root/simple/b">Option B</PathLink> to be selected.</>,
                 value: userFunction(({ isSelected }) => isSelected('root/simple/b'), ['root/simple/b.selected']),
               },
             ],
@@ -106,7 +106,7 @@ const rawOptions = {
             text: <p>Option D</p>,
             requirements: [
               {
-                text: <>Requires Option A to be selected.</>,
+                text: <>Requires <PathLink path="root/simple/a">Option A</PathLink> to be selected.</>,
                 value: userFunction(({ isSelected }) => isSelected('root/simple/a'), ['root/simple/a.selected']),
               },
             ],
@@ -140,7 +140,7 @@ const rawOptions = {
         type: optionTypes.INSTANCER,
         requirements: [
           {
-            text: <>Requires Option A to be selected.</>,
+            text: <>Requires <PathLink path="root/simple/a">Option A</PathLink> to be selected.</>,
             value: userFunction(({ isSelected }) => isSelected('root/simple/a'), ['root/simple/a.selected']),
           },
         ],
@@ -174,7 +174,7 @@ const rawOptions = {
         title: 'Instance Selector',
         requirements: [
           {
-            text: <>Requires Option A to be selected.</>,
+            text: <>Requires <PathLink path="root/simple/a">Option A</PathLink> to be selected.</>,
             value: userFunction(({ isSelected }) => isSelected('root/simple/a'), ['root/simple/a.selected']),
           },
         ],
@@ -205,26 +205,54 @@ const rawOptions = {
       },
       select: {
         type: optionTypes.SELECT,
+        displayAsTable: true,
         min: 1,
         max: 2,
         title: 'Select',
-        text: userFunction(({ getSelectedValue, option }) => <>
-          <p><strong>Lorem ipsum dolor sit amet</strong> consectetur adipisicing elit. Sit laborum dolore ipsa non suscipit esse et debitis, inventore maxime assumenda, iure quaerat rerum molestias adipisci neque aspernatur aut quis voluptatibus.</p>
-          <p>Selected: {getSelectedValue(option).join(', ')}</p>
-        </>, ['root/select.selected']),
+        text: userFunction(({ getSelectedValue, state }) => {
+          const value = getSelectedValue('root/select');
+          const selected = value.filter(optionKey => {
+            return !isDisabled(state.options[optionKey]);
+          }).map(optionKey =>
+            getUserText(optionKey, 'title')
+          ).join(', ');
+          return <>
+            <p><strong>Lorem ipsum dolor sit amet</strong> consectetur adipisicing elit. Sit laborum dolore ipsa non suscipit esse et debitis, inventore maxime assumenda, iure quaerat rerum molestias adipisci neque aspernatur aut quis voluptatibus.</p>
+            <p>Selected: {selected}</p>
+          </>;
+        }, ['root/select.selected', 'root/select/choice1.requirements.0']),
         choices: {
           choice1: {
             cost: { soulPower: 1 },
             title: 'Choice 1',
+            text: <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor, consequatur iusto. Saepe commodi ipsa magni atque libero quis architecto cupiditate, dicta, sequi ab, eos expedita molestiae? Eaque exercitationem repellat vel.</p>,
+            requirements: [
+              {
+                text: <>Requires <PathLink path="root/simple/a">Option A</PathLink> to be selected.</>,
+                value: userFunction(({ isSelected }) => isSelected('root/simple/a'), ['root/simple/a.selected']),
+              },
+            ],
           },
           choice2: {
             cost: { soulPower: 2 },
             selected: 1,
             title: 'Choice 2',
+            text: <p>Quidem iure itaque omnis voluptas expedita animi unde praesentium quam accusamus dolore, at autem! Aperiam, corporis fugit beatae odio officiis, facere vero, perferendis placeat corrupti quasi at aliquid itaque ad.</p>,
           },
           choice3: {
             cost: { soulPower: 4 },
             title: 'Choice 3',
+            text: <p>Modi optio laboriosam magni, exercitationem repellat amet non laborum, fuga fugiat obcaecati soluta doloremque assumenda. Eligendi quod quas excepturi, perspiciatis obcaecati ea reiciendis natus nostrum vitae unde beatae in aliquam.</p>,
+          },
+          choice4: {
+            cost: { soulPower: 8 },
+            title: 'Choice 4',
+            text: <p>Laudantium nesciunt, eaque quisquam deleniti ipsa adipisci suscipit perspiciatis vitae qui nemo. Impedit molestiae laudantium voluptatibus aliquid, quae dolorem? Quam tempore, ipsa atque quasi debitis accusamus doloribus excepturi enim delectus!</p>,
+          },
+          choice5: {
+            cost: { soulPower: 16 },
+            title: 'Choice 5',
+            text: <p>Laudantium labore ipsum eligendi, sapiente vero cupiditate earum nam placeat omnis quis ea, consequuntur, optio fugiat facilis nemo sequi perferendis consectetur numquam? Quis corporis animi consectetur magni voluptatibus deserunt fuga.</p>,
           },
         },
       },

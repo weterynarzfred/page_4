@@ -40,7 +40,6 @@ if `type === optionTypes.INSTANCER`
 
 ## branch todo
 - hidden
-- select displayAsTable
 - reset button
 - sliders
 

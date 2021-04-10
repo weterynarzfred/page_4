@@ -17,6 +17,7 @@ const defaultProps = {
   choices: undefined,
   requirements: undefined,
   image: undefined,
+  displayAsTable: undefined,
 };
 
 /**

@@ -10,7 +10,7 @@ function GroupControls(props) {
   const gridRef = useRef(null);
   useEffect(() => {
     if (props.useMasonry) {
-      new Masonry(gridRef.current, {
+      const msnry = new Masonry(gridRef.current, {
         itemSelector: '.masonry-cell',
         fitWidth: true,
         transitionDuration: 0,
