@@ -24,7 +24,9 @@ function OptionTitle(props) {
 
   return (
     <div className="option-title">
-      <div className="option-title-text">
+      <div className="option-title-text" onClick={() => {
+        if (props.onClick !== undefined) props.onClick();
+      }}>
         {props.title}
       </div>
     </div>

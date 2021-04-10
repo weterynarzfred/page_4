@@ -14,11 +14,6 @@ function Option(props) {
 
   const [opened, setOpened] = useState(true);
 
-  // const currencies = deepClone(props.currencies);
-  // if (props.option.currencies !== undefined) {
-  //   Object.assign(currencies, deepClone(props.option.currencies));
-  // }
-
   const isSelectable = [
     optionTypes.INTEGER,
     optionTypes.TEXT,
@@ -31,22 +26,23 @@ function Option(props) {
     optionTypes.INSTANCER,
   ].includes(props.type);
 
-  // const isCollapsible = !props.topLevel && [
-  //   optionTypes.GROUP,
-  //   optionTypes.SELECT,
-  // ].includes(props.option.type);
+  const isCollapsible = !props.topLevel && !props.isSelectablesChild && [
+    optionTypes.GROUP,
+    optionTypes.SELECT,
+    optionTypes.INSTANCER,
+  ].includes(props.type);
 
   const classes = classNames(
     'Option',
     `option-${props.type}`,
     { 'selected': props.selected },
-    //   { 'top-level': props.topLevel },
+    { 'top-level': props.topLevel },
     //   { 'option-is-row': props.displayAsTableRow },
     { 'option-is-selectable': isSelectable },
     { 'option-is-container': isContainer },
     { 'option-disabled': props.isDisabled },
-    //   { 'option-collapsible': isCollapsible },
-    //   { 'option-collapsed': isCollapsible && !opened },
+    { 'option-collapsible': isCollapsible },
+    { 'option-collapsed': isCollapsible && !opened },
     { 'masonry-cell': props.isMasonryCell }
   );
 
@@ -79,7 +75,9 @@ function Option(props) {
     optionKey={props.optionKey}
     classes={classes}
     opened={opened}
-    setOpened={setOpened}
+    setOpened={() => setOpened(!opened)}
+    isCollapsible={isCollapsible}
+    topLevel={props.topLevel}
   />;
 }
 
@@ -91,5 +89,6 @@ export default connect((state, props) => {
     type: option.type,
     selected: isSelected(option, state.options),
     isDisabled: isDisabled(option),
+    isSelectablesChild: option.isSelectablesChild,
   };
 })(Option);

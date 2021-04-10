@@ -43,7 +43,6 @@ if `type === optionTypes.INSTANCER`
 - select displayAsTable
 - reset button
 - sliders
-- collapsing options
 
 ## todo
 - generate warnings when currency is below zero

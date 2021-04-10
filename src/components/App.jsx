@@ -25,7 +25,7 @@ function App(props) {
   return <div className="App">
     <Navigation />
     <Stats />
-    <Option optionKey={props.path.join('/')} />
+    <Option optionKey={props.path.join('/')} topLevel={true} />
     {/* <Dialog /> */}
     <div id="overlay" style={{ backgroundImage: "url('./images/general/001_RV_TEXTURE_DIRT.png')" }}></div>
   </div>;

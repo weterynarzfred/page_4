@@ -71,6 +71,6 @@ export default connect((state, props) => {
   const option = state.options[props.optionKey];
   return {
     type: option.type,
-    useMasonry: checkIfMasonry(option, state.options),
+    useMasonry: props.topLevel ? false : checkIfMasonry(option, state.options),
   };
 })(OptionControls);

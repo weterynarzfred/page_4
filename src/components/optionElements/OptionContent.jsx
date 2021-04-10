@@ -26,26 +26,29 @@ function handleClick(event) {
 function OptionContent(props) {
   const collapsibleRef = useRef();
 
-  // useEffect(() => {
-  //   const openedHeight = collapsibleRef.current.scrollHeight;
-  //   if (props.opened) {
-  //     collapsibleRef.current.style.height = openedHeight + 'px';
-  //     setTimeout(() => {
-  //       if (collapsibleRef.current === null) return;
-  //       collapsibleRef.current.style.height = 'auto';
-  //     }, 500);
-  //   }
-  //   else {
-  //     collapsibleRef.current.style.height = openedHeight + 'px';
-  //     setTimeout(() => {
-  //       collapsibleRef.current.style.height = 0;
-  //     }, 40);
-  //   }
-  // }, [props.opened]);
+  useEffect(() => {
+    const openedHeight = collapsibleRef.current.scrollHeight;
+    if (props.opened) {
+      collapsibleRef.current.style.height = openedHeight + 'px';
+      setTimeout(() => {
+        if (collapsibleRef.current === null) return;
+        collapsibleRef.current.style.height = 'auto';
+      }, 500);
+    }
+    else {
+      collapsibleRef.current.style.height = openedHeight + 'px';
+      setTimeout(() => {
+        collapsibleRef.current.style.height = 0;
+      }, 40);
+    }
+  }, [props.opened]);
 
   return <div className={props.classes} onClick={handleClick.bind(props)}>
     <div className="option-content">
-      <OptionTitle optionKey={props.optionKey} onClick={props.setOpened} />
+      <OptionTitle
+        optionKey={props.optionKey}
+        onClick={props.isCollapsible ? props.setOpened : undefined}
+      />
       <div className="option-collapsible-content" ref={collapsibleRef}>
         <div className="option-cost-wrap">
           <OptionCost optionKey={props.optionKey} />
@@ -56,7 +59,7 @@ function OptionContent(props) {
           <OptionText optionKey={props.optionKey} />
         </div>
         <OptionRequirements optionKey={props.optionKey} />
-        <OptionControls optionKey={props.optionKey} />
+        <OptionControls optionKey={props.optionKey} topLevel={props.topLevel} />
       </div>
       {props.isCollapsible ? <div className="option-collapsible-elipsis" onClick={props.setOpened}>
         <div></div>

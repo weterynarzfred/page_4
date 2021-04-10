@@ -219,6 +219,7 @@ const rawOptions = {
           },
           choice2: {
             cost: { soulPower: 2 },
+            selected: 1,
             title: 'Choice 2',
           },
           choice3: {
