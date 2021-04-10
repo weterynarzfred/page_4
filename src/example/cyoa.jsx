@@ -69,49 +69,58 @@ const rawOptions = {
       <p>Laudantium nihil quae necessitatibus nisi delectus. Ducimus, voluptatibus veniam. Error tempora deserunt, reiciendis qui tempore cumque obcaecati voluptatem molestias, veniam ducimus laudantium? Delectus dolorum sapiente adipisci quisquam placeat, numquam quasi.</p>
     </>,
     options: {
-      b: {
-        title: 'B',
-        text: <p>Option B</p>,
-        cost: userFunction(({ isSelected }) => ({ soulPower: isSelected('root/a') ? 10 : 5 }), ['root/a.selected']),
-      },
-      a: {
-        title: 'A',
-        selected: 1,
-        text: <p>Option A</p>,
-      },
-      c: {
-        title: 'C',
-        cost: { gold: 1 },
-        text: <p>Option C</p>,
-        requirements: [
-          {
-            text: <>Requires Option A to be selected.</>,
-            value: userFunction(({ isSelected }) => isSelected('root/a'), ['root/a.selected']),
+      simple: {
+        type: optionTypes.GROUP,
+        options: {
+          b: {
+            title: 'B',
+            text: <p>Option B</p>,
+            cost: userFunction(({ isSelected }) => ({ soulPower: isSelected('root/simple/a') ? 10 : 5 }), ['root/simple/a.selected']),
           },
-          {
-            text: <>Requires Option B to be selected.</>,
-            value: userFunction(({ isSelected }) => isSelected('root/b'), ['root/b.selected']),
+          a: {
+            title: 'A',
+            selected: 1,
+            text: <p>Option A</p>,
           },
-        ],
-      },
-      d: {
-        title: 'D',
-        max: 3,
-        cost: { gold: 1 },
-        text: <p>Option D</p>,
-        requirements: [
-          {
-            text: <>Requires Option A to be selected.</>,
-            value: userFunction(({ isSelected }) => isSelected('root/a'), ['root/a.selected']),
+          c: {
+            title: 'C',
+            cost: { gold: 1 },
+            text: <p>Option C</p>,
+            requirements: [
+              {
+                text: <>Requires Option A to be selected.</>,
+                value: userFunction(({ isSelected }) => isSelected('root/simple/a'), ['root/simple/a.selected']),
+              },
+              {
+                text: <>Requires Option B to be selected.</>,
+                value: userFunction(({ isSelected }) => isSelected('root/simple/b'), ['root/simple/b.selected']),
+              },
+            ],
           },
-        ],
+          d: {
+            title: 'D',
+            max: 3,
+            cost: { gold: 1 },
+            text: <p>Option D</p>,
+            requirements: [
+              {
+                text: <>Requires Option A to be selected.</>,
+                value: userFunction(({ isSelected }) => isSelected('root/simple/a'), ['root/simple/a.selected']),
+              },
+            ],
+          },
+          e: {
+            title: 'E',
+            text: <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta aliquam incidunt saepe laboriosam nostrum ad totam necessitatibus quisquam accusantium perspiciatis iure alias nisi cum sed impedit, adipisci ipsa ea enim?</p>
+          },
+        },
       },
       instancer: {
         type: optionTypes.INSTANCER,
         requirements: [
           {
             text: <>Requires Option A to be selected.</>,
-            value: userFunction(({ isSelected }) => isSelected('root/a'), ['root/a.selected']),
+            value: userFunction(({ isSelected }) => isSelected('root/simple/a'), ['root/simple/a.selected']),
           },
         ],
         max: Infinity,
@@ -145,7 +154,7 @@ const rawOptions = {
         requirements: [
           {
             text: <>Requires Option A to be selected.</>,
-            value: userFunction(({ isSelected }) => isSelected('root/a'), ['root/a.selected']),
+            value: userFunction(({ isSelected }) => isSelected('root/simple/a'), ['root/simple/a.selected']),
           },
         ],
         choices: userFunction(({ getSelectedValue }) => {

@@ -47,7 +47,7 @@ function Option(props) {
     { 'option-disabled': props.isDisabled },
     //   { 'option-collapsible': isCollapsible },
     //   { 'option-collapsed': isCollapsible && !opened },
-    //   { 'masonry-cell': props.isMasonryCell }
+    { 'masonry-cell': props.isMasonryCell }
   );
 
 

@@ -4,6 +4,7 @@ import { optionTypes } from '../../include/constants';
 import { getUserText } from '../../include/userTexts';
 
 function OptionTitle(props) {
+  if (props.title === '') return null;
   // const showNumbering = [
   //   optionTypes.GROUP,
   //   optionTypes.SELECT,

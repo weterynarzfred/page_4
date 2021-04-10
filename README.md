@@ -41,11 +41,11 @@ if `type === optionTypes.INSTANCER`
 ## branch todo
 - hidden
 - images
-- masonry
 - suboptions in selectable options
 - select displayAsTable
 - reset button
 - sliders
+- collapsing options
 
 ## todo
 - generate warnings when currency is below zero
