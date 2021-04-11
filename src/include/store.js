@@ -7,14 +7,12 @@ import {
   PERSIST,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { settings, options } from 'cyoa';
-import cleanupState from 'Functions/cleanupState';
+import { settings, rawOptions } from 'cyoa';
 import selectOptionReducer from 'Functions/selectOptionReducer';
-import calculateCosts from 'Functions/calculateCosts';
 import { actions } from './constants';
-import { parseOptions } from './parsedOptions';
-import { recalculateUserFunctions } from './userFunctions';
-import deepClone from '../functions/deepClone';
+import parseOptions from './parseOptions';
+import recalculateState from '../functions/recalculateState';
+import { deepClone } from '../functions/deepFunctions';
 
 const persistConfig = {
   key: 'root',
@@ -23,8 +21,9 @@ const persistConfig = {
 };
 
 const initialState = {
-  options: parseOptions(options),
+  options: parseOptions(rawOptions),
   currencies: settings.currencies,
+  currencySettings: settings.currencySettings,
   path: settings.initialScreen,
 };
 
@@ -33,16 +32,18 @@ function rootReducer(state = initialState, action = '') {
     return state;
   }
 
-  return produce(state, newState => {
+  const producedState = produce(state, stateDraft => {
+    let changes = [];
+
     switch (action.type) {
       case actions.SELECT_OPTION:
-        selectOptionReducer(newState, action);
+        selectOptionReducer(stateDraft, action, changes);
         break;
       case actions.CHANGE_PATH:
-        newState.path = action.path;
+        stateDraft.path = action.path;
         break;
       case actions.RESTART:
-        newState = deepClone(initialState);
+        stateDraft = deepClone(initialState);
         break;
       default:
     }
@@ -50,13 +51,13 @@ function rootReducer(state = initialState, action = '') {
     if (
       [PERSIST, actions.SELECT_OPTION, actions.RESTART].includes(action.type)
     ) {
-      recalculateUserFunctions(newState.options, newState);
-      cleanupState(newState.options, newState);
-      calculateCosts(newState.options, newState.currencies, true);
+      recalculateState(stateDraft, changes, action);
     }
 
-    return newState;
+    return stateDraft;
   });
+
+  return producedState;
 }
 
 // skip redux-persist in development

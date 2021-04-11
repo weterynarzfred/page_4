@@ -1,25 +1,35 @@
-const userTexts = {};
+window.userTexts = {};
 
-function addUserText(path, text) {
-  let pathString;
-  if (Array.isArray(path)) pathString = path.join('.');
-  else pathString = path;
-  userTexts[pathString] = text;
+/**
+ * Adds or updates a text to the userTexts array.
+ */
+function addUserText(content, optionKey, prop) {
+  const key = optionKey + '.' + prop;
+  userTexts[key] = content;
 }
 
-function getUserText(path) {
-  let pathString;
-  if (Array.isArray(path)) pathString = path.join('.');
-  else pathString = path;
-  if (userTexts[pathString] !== undefined) return userTexts[pathString];
-
-  pathString = pathString
-    .split('.')
-    .filter(e => isNaN(e))
-    .join('.');
-  if (userTexts[pathString] !== undefined) return userTexts[pathString];
-
-  return 'text undefined';
+/**
+ * Returns text value based on the optionKey.
+ */
+function getUserText(optionKey, prop) {
+  const key = optionKey + '.' + prop;
+  if (userTexts[key] === undefined) return '';
+  return userTexts[key];
 }
 
-export { addUserText, getUserText };
+/**
+ * Removes any texts created on the key that was deleted or on any of its
+ * suboptions.
+ */
+function clearUserTexts(deletionKey) {
+  Object.keys(userTexts).filter(optionKey => {
+    if (
+      optionKey.startsWith(deletionKey + '.') ||
+      optionKey.startsWith(deletionKey + '/')
+    ) {
+      delete userTexts[optionKey];
+    }
+  });
+}
+
+export { addUserText, getUserText, clearUserTexts };

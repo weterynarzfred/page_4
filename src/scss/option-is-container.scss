@@ -6,6 +6,9 @@
     > .option-title {
       justify-content: center;
       font-size: 4.2361em;
+      border-bottom: 1px solid #999;
+      max-width: 70rem;
+      margin: 0 auto;
     }
 
     > .option-collapsible-content {
@@ -76,7 +79,7 @@
       }
     }
 
-    .option-collapsible-content {
+    > .option-collapsible-content {
       padding: 0.1px 0;
       transition: 0.5s;
       overflow: hidden;
@@ -85,7 +88,7 @@
     .option-collapsible-elipsis {
       position: relative;
       margin: 0.5em auto;
-      width: 3em;
+      width: 3.75em;
       height: 0;
       display: flex;
       align-items: center;
@@ -122,6 +125,34 @@
       height: 2em;
       pointer-events: all;
       opacity: 0.3;
+    }
+  }
+}
+
+.option-disabled {
+  .option-is-container,
+  &.option-is-container {
+    .option-content {
+      color: $disabledText;
+
+      .option-title {
+        color: $disabledText;
+        border-color: $disabledBorderColor;
+      }
+
+      .option-collapsible-content {
+        .option-text {
+          p,
+          strong {
+            color: $disabledText;
+          }
+        }
+
+        .OptionCost {
+          filter: grayscale(1);
+          opacity: 0.5;
+        }
+      }
     }
   }
 }

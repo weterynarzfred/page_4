@@ -2,12 +2,18 @@ import React, { useEffect, useRef } from 'react';
 import Masonry from 'masonry-layout';
 import Option from '../Option';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
+import { deepEquals } from '../../functions/deepFunctions';
 
 function SelectControls(props) {
+  if (props.choices === undefined) return null;
+
   const gridRef = useRef(null);
+  const masonryElement = useRef();
+
   useEffect(() => {
-    if (!props.option.displayAsTable) {
-      new Masonry(gridRef.current, {
+    if (props.useMasonry) {
+      masonryElement.current = new Masonry(gridRef.current, {
         itemSelector: '.masonry-cell',
         fitWidth: true,
         transitionDuration: 0,
@@ -15,19 +21,26 @@ function SelectControls(props) {
     }
   }, []);
 
+  useEffect(() => {
+    if (props.useMasonry) {
+      masonryElement.current.reloadItems();
+      masonryElement.current.layout();
+    }
+  }, [props.choices]);
+
   const choiceElements = [];
-  for (const slug in props.option.choices) {
+  for (const optionKey of props.choices) {
     choiceElements.push(<Option
-      key={slug}
-      isMasonryCell={!props.option.displayAsTable}
-      option={props.option.choices[slug]}
-      currencies={props.currencies}
-      displayAsTableRow={props.option.displayAsTable}
+      key={optionKey}
+      optionKey={optionKey}
+      isMasonryCell={props.useMasonry}
+      displayAsTableRow={props.displayAsTable}
     />);
   }
 
+
   let content;
-  if (props.option.displayAsTable) {
+  if (props.displayAsTable) {
     content = <table>
       <tbody>
         {choiceElements}
@@ -42,7 +55,8 @@ function SelectControls(props) {
     <div
       className={classNames(
         'SelectControls',
-        { 'masonry-grid': !props.option.displayAsTable }
+        'option-controls',
+        { 'masonry-grid': props.useMasonry }
       )}
       ref={gridRef}
     >
@@ -51,4 +65,14 @@ function SelectControls(props) {
   );
 }
 
-export default SelectControls;
+export default connect((state, props) => {
+  const option = state.options[props.optionKey];
+  if (option.choices === undefined) return {};
+  const choices = option.choices.filter(optionKey =>
+    !state.options[optionKey].hidden
+  );
+  return {
+    choices: option.choices,
+    displayAsTable: option.displayAsTable,
+  };
+}, null, null, { areStatePropsEqual: deepEquals })(SelectControls);

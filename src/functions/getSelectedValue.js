@@ -1,76 +1,55 @@
 import { optionTypes } from 'Include/constants';
-import getOption from './getOption';
+import isDisabled from './isDisabled';
 
+/**
+ * Returns the value of an option. Does not check it the values ancestors are
+ * selected.
+ */
 function getSelectedValue(option, options) {
-  const currentOption = getOption(option, options);
+  if (option === undefined) return undefined;
 
   let value;
-  if (currentOption.isChoice) {
-    return getSelectedValue(currentOption.path.slice(0, -1), options).includes(
-      currentOption.slug
-    )
-      ? 1
-      : 0;
-  } else if (currentOption.type === optionTypes.INSTANCER) {
-    value = {};
-    for (const slug in currentOption.selected) {
-      if (!isNaN(slug)) value[slug] = currentOption.selected[slug];
-    }
-  } else if (currentOption.transformedValue !== undefined) {
-    value = currentOption.transformedValue;
-  } else {
-    value = currentOption.selected;
-  }
-  if (value === undefined) {
-    switch (currentOption.type) {
-      case optionTypes.INTEGER:
-        return 0;
-      case optionTypes.SELECT:
-        return [];
-      case optionTypes.TEXT:
-        return '';
-      case optionTypes.SLIDER:
-        return currentOption.min;
-      case optionTypes.INSTANCER:
-        return {};
-    }
-  }
-  return value;
-}
-
-function getSelectedCount(option, options) {
-  let currentOption = getOption(option, options);
-
-  if (!isSelected(option, options)) return 0;
-
-  const value = getSelectedValue(currentOption, options);
-  switch (currentOption.type) {
-    case optionTypes.GROUP:
-      return 1;
+  switch (option.type) {
     case optionTypes.INTEGER:
-      return value;
+      value = option.selected;
+      break;
     case optionTypes.SELECT:
-      return value.length;
+      if (!Array.isArray(option.choices)) return 0;
+      value = option.choices
+        .filter(optionKey => getSelectedValue(options[optionKey]) >= 1)
+        .sort(
+          (a, b) =>
+            (options[a].timeChanged || 0) - (options[b].timeChanged || 0)
+        );
+      break;
     case optionTypes.TEXT:
-      return value.length;
+      value = option.selected;
+      break;
     case optionTypes.SLIDER:
-      return value;
+      value = option.selected;
+      break;
     case optionTypes.INSTANCER:
-      return Object.keys(value).length;
+      value = option.selected;
+      break;
   }
+
   return value;
 }
 
-function isSelected(option, options, checkedParents = 0) {
-  let currentOption = getOption(option, options);
+/**
+ * Checks if the option as well as all of its ancestors are selected.
+ */
+function isSelected(option, options) {
+  if (isDisabled(option)) return false;
 
-  if (currentOption.path.length > checkedParents + 1) {
-    const parentPath = currentOption.path.slice(0, checkedParents + 1);
-    if (!isSelected(parentPath, options, checkedParents + 1)) return false;
+  if (option.path.length > 0) {
+    const parentPath = option.path.join('/');
+    const isParentSelected = isSelected(options[parentPath], options);
+    if (!isParentSelected) return false;
   }
-  const value = getSelectedValue(currentOption, options);
 
-  switch (currentOption.type) {
+  const value = getSelectedValue(option, options);
+  switch (option.type) {
     case optionTypes.GROUP:
       return true;
     case optionTypes.INTEGER:
@@ -82,9 +61,9 @@ function isSelected(option, options, checkedParents = 0) {
     case optionTypes.SLIDER:
       return value > 0;
     case optionTypes.INSTANCER:
-      return Object.keys(value).length > 0;
+      return value.length > 0;
   }
   return value;
 }
 
-export { getSelectedValue, getSelectedCount, isSelected };
+export { getSelectedValue, isSelected };

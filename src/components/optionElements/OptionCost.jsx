@@ -1,13 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
+import { deepEquals } from '../../functions/deepFunctions';
 
 function OptionCost(props) {
-  if (props.cost === undefined) return null;
+  if (props.costs === undefined) return null;
 
-  let costs = [];
-  for (const costSlug in props.cost) {
+  let costElements = [];
+  for (const costSlug in props.costs) {
     let color = false;
-    let displayValue = -props.cost[costSlug];
+    let displayValue = -props.costs[costSlug].value;
     if (displayValue > 0) {
       displayValue = `+ ${displayValue}`;
       color = 1;
@@ -19,18 +21,14 @@ function OptionCost(props) {
       displayValue = `- ${-displayValue}`;
     }
 
-    if (props.currencies[costSlug] === undefined) {
-      console.error(`Currency ${costSlug} not found`);
-      return null;
-    }
-    if (props.currencies[costSlug].inverted) color *= -1;
+    if (props.costs[costSlug].inverted) color *= -1;
 
-    costs.push(<tr className={classNames(
+    costElements.push(<tr className={classNames(
       'cost',
       { positive: color > 0 },
       { negative: color < 0 }
     )} key={costSlug}>
-      <td className="cost-title">{props.currencies[costSlug].title}</td>
+      <td className="cost-title">{props.costs[costSlug].title}</td>
       <td className="cost-value">{displayValue}</td>
     </tr>);
   }
@@ -38,10 +36,29 @@ function OptionCost(props) {
   return (
     <table className="OptionCost">
       <tbody>
-        {costs}
+        {costElements}
       </tbody>
     </table>
   );
 }
 
-export default OptionCost;
+function mapStateToProps(state, props) {
+  const option = state.options[props.optionKey];
+  if (option.cost === undefined) return {};
+
+  const costs = {};
+  for (const costSlug in option.cost) {
+    costs[costSlug] = {
+      value: option.cost[costSlug],
+      title: state.currencySettings[costSlug].title,
+      inverted: state.currencySettings[costSlug].inverted,
+    };
+  }
+  return {
+    costs
+  };
+}
+
+export default connect(mapStateToProps, null, null, {
+  areStatePropsEqual: deepEquals,
+})(OptionCost);

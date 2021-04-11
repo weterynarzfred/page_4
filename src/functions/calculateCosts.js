@@ -1,58 +1,78 @@
-import { optionTypes } from 'Include/constants';
-import { getSelectedValue, isSelected } from './getSelectedValue';
+import calculateOptionCosts from './calculateOptionCosts';
+import { deepClone } from './deepFunctions';
+import { isSelected } from './getSelectedValue';
+import isDisabled from './isDisabled';
 
-function applyCost(cost, costs, count) {
-  if (cost === undefined) return;
+/**
+ * Subtracts the cost from the currencies object count times.
+ */
+function applyCost(cost, currencies, count) {
   for (const costSlug in cost) {
-    if (costs[costSlug] !== undefined) {
-      costs[costSlug].value -= cost[costSlug] * count;
-    }
+    if (currencies[costSlug] === undefined) continue;
+    currencies[costSlug] -= cost[costSlug] * count;
   }
 }
 
-function calculateCosts(options, costs, reset, allOptions = options) {
-  if (reset) {
-    for (const costSlug in costs) {
-      if (costs[costSlug].start === undefined) costs[costSlug].value = 0;
-      else costs[costSlug].value = costs[costSlug].start;
-    }
-  }
-
-  for (const slug in options) {
-    if (slug === 'nextId') continue;
-
-    const option = options[slug];
-    if (option.disabled || !isSelected(option, allOptions, Infinity)) continue;
-
-    if (option.type === optionTypes.INTEGER) {
-      applyCost(option.cost, costs, getSelectedValue(option, allOptions));
-    }
-
-    if (option.type === optionTypes.SLIDER) {
-      applyCost(option.cost, costs, getSelectedValue(option, allOptions));
-    }
-
-    if (option.type === optionTypes.INSTANCER) {
-      const keys = Object.keys(getSelectedValue(option, allOptions));
-      applyCost(option.cost, costs, keys.length);
-    }
-
-    if (option.options !== undefined) {
-      calculateCosts(option.options, costs, false, allOptions);
-    }
-
-    if (option.type === optionTypes.INSTANCER) {
-      calculateCosts(option.selected, costs, false, allOptions);
-    }
-
-    if (option.type === optionTypes.SELECT) {
-      calculateCosts(option.choices, costs, false, allOptions);
-    }
-
-    if (option.currencies !== undefined) {
-      calculateCosts(option.options, option.currencies, true, allOptions);
-    }
+/**
+ * Resets all currency values to their initial state.
+ */
+function resetCurrencies(currencies, currencySettings) {
+  for (const costSlug in currencies) {
+    currencies[costSlug] = currencySettings[costSlug].start ?? 0;
   }
 }
 
+/**
+ * Checks if the option with optionKey was updated.
+ */
+function wasOptionUpdated(optionKey, optionChanges) {
+  return optionChanges.some(changedKey => changedKey.startsWith(optionKey));
+}
+
+/**
+ * Calculates costs of all changed options and saves the result in the
+ * currencies object and each option's object. Options that do not need
+ * recalculation are read from option's object last value.
+ */
+function calculateCosts({
+  optionChanges,
+  state,
+  currencies = state.currencies,
+  options = state.options,
+  reset = false,
+  calcChanges = false,
+}) {
+  const previousValues = calcChanges ? deepClone(currencies) : null;
+  if (reset) resetCurrencies(currencies, state.currencySettings);
+  const emptyCurrencies = deepClone(currencies);
+  if (!reset) resetCurrencies(emptyCurrencies, state.currencySettings);
+
+  const changes = [];
+  for (const optionKey in options) {
+    const option = options[optionKey];
+
+    if (
+      option.lastCurrencyValues === undefined ||
+      wasOptionUpdated(option.optionKey, optionChanges)
+    ) {
+      option.lastCurrencyValues = deepClone(emptyCurrencies);
+      if (!isDisabled(option) && isSelected(option, state.options)) {
+        calculateOptionCosts(option, state, changes, optionChanges);
+      }
+    }
+
+    applyCost(option.lastCurrencyValues, currencies, -1);
+  }
+
+  if (calcChanges) {
+    for (const costSlug in currencies) {
+      if (currencies[costSlug] === previousValues[costSlug]) continue;
+      changes.push('currency.' + costSlug);
+    }
+  }
+
+  return changes;
+}
+
+export { applyCost };
 export default calculateCosts;

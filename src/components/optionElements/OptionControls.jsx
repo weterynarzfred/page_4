@@ -6,66 +6,40 @@ import IntegerControls from '../controls/IntegerControls';
 import SelectControls from '../controls/SelectControls';
 import TextControls from '../controls/TextControls';
 import SliderControls from '../controls/SliderControls';
-
-function checkIfMasonry(option) {
-  if (option.type !== optionTypes.GROUP || option.options === undefined) {
-    return false;
-  }
-
-  for (const slug in option.options) {
-    const type = option.options[slug].type;
-    if (![
-      optionTypes.INTEGER,
-      optionTypes.TEXT,
-      optionTypes.SLIDER,
-    ].includes(type)) return false;
-  }
-  return true;
-}
-
+import { connect } from 'react-redux';
 
 function OptionControls(props) {
-  const useMasonry = checkIfMasonry(props.option);
 
   let controls;
-  switch (props.option.type) {
+  switch (props.type) {
     case optionTypes.INTEGER:
       controls = <>
-        <IntegerControls option={props.option} />
+        <IntegerControls optionKey={props.optionKey} />
         <GroupControls
-          option={props.option}
-          options={props.option.options}
-          useMasonry={useMasonry}
-          currencies={props.currencies}
+          optionKey={props.optionKey}
         />
       </>;
       break;
     case optionTypes.SELECT:
       controls = <SelectControls
-        option={props.option}
-        useMasonry={useMasonry}
-        currencies={props.currencies}
+        optionKey={props.optionKey}
+        useMasonry={props.useMasonry}
       />;
       break;
     case optionTypes.INSTANCER:
-      controls = <InstancerControls
-        option={props.option}
-        currencies={props.currencies}
-      />;
+      controls = <InstancerControls optionKey={props.optionKey} />;
       break;
     case optionTypes.GROUP:
       controls = <GroupControls
-        option={props.option}
-        options={props.option.options}
-        useMasonry={useMasonry}
-        currencies={props.currencies}
+        optionKey={props.optionKey}
+        useMasonry={props.useMasonry}
       />;
       break;
     case optionTypes.TEXT:
-      controls = <TextControls option={props.option} />;
+      controls = <TextControls optionKey={props.optionKey} />;
       break;
     case optionTypes.SLIDER:
-      controls = <SliderControls option={props.option} />;
+      controls = <SliderControls optionKey={props.optionKey} />;
       break;
     default:
       controls = null;
@@ -74,4 +48,29 @@ function OptionControls(props) {
   return controls;
 }
 
-export default OptionControls;
+function checkIfMasonry(option, options) {
+  let subOptions;
+  if (option.type === optionTypes.GROUP) subOptions = option.subOptions;
+  if (option.type === optionTypes.SELECT) {
+    if (option.displayAsTable || option.isSelectablesChild) return false;
+    subOptions = option.choices;
+  }
+  if (subOptions === undefined) return false;
+
+  for (const optionKey of subOptions) {
+    if (![
+      optionTypes.INTEGER,
+      optionTypes.TEXT,
+      optionTypes.SLIDER,
+    ].includes(options[optionKey].type)) return false;
+  }
+  return true;
+}
+
+export default connect((state, props) => {
+  const option = state.options[props.optionKey];
+  return {
+    type: option.type,
+    useMasonry: props.topLevel ? false : checkIfMasonry(option, state.options),
+  };
+})(OptionControls);

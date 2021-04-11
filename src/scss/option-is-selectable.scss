@@ -11,7 +11,7 @@
     padding-top: 1em;
     border: solid #999;
     border-width: 1px 1px 6px 1px;
-    transition: 0.3s;
+    transition: filter 0.3s, border 0.3s, background 0.3s, color 0.3s;
     filter: grayscale(1);
 
     > .option-title {
@@ -27,7 +27,6 @@
 
     .option-image-content {
       padding-bottom: 162%;
-      transition: 0.3s;
     }
   }
 
@@ -40,11 +39,36 @@
     min-height: 1em;
   }
 
-  .GroupControls {
-    padding-top: 0.5em;
+  > .option-content > .option-collapsible-content {
+    padding-bottom: 1px;
 
-    .Option:last-child {
-      margin-bottom: 0.5rem;
+    > .GroupControls {
+      padding-top: 0.5em;
+      margin: 0;
+
+      .Option:last-child {
+        margin-bottom: 0;
+      }
+
+      > .Option:last-child {
+        margin-bottom: 0.5rem;
+      }
+
+      .option-select,
+      .option-group {
+        > .option-content > .option-collapsible-content > .option-text {
+          min-height: 0;
+        }
+      }
+
+      .SelectControls,
+      .GroupControls {
+        margin: 0;
+      }
+
+      .option-image-placeholder {
+        display: none;
+      }
     }
   }
 
@@ -68,5 +92,32 @@
   > .option-content:hover {
     background-color: $enabledBackground;
     filter: none;
+  }
+}
+
+.option-disabled {
+  .option-is-selectable,
+  &.option-is-selectable {
+    .option-content {
+      background-color: $disabledBackground;
+      border-color: $disabledBorderColor;
+      color: $disabledText;
+
+      .option-title {
+        color: $disabledText;
+        border-color: $disabledBorderColor;
+      }
+
+      .option-collapsible-content {
+        .option-text p {
+          color: $disabledText;
+        }
+
+        .OptionCost {
+          filter: grayscale(1);
+          opacity: 0.5;
+        }
+      }
+    }
   }
 }

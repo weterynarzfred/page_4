@@ -2,67 +2,34 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { optionTypes } from 'Include/constants';
 import PathLink from './PathLink';
-import {
-  getSelectedCount,
-  getSelectedValue
-} from '../functions/getSelectedValue';
-import getProp from '../functions/getProp';
+import { getSelectedValue } from '../functions/getSelectedValue';
 import { getUserText } from '../include/userTexts';
+import isDisabled from './../functions/isDisabled';
 
-function findWarnings(options, allOptions = options) {
+function findWarnings(state) {
   const warnings = [];
 
-  for (const slug in options) {
-    const option = options[slug];
-    if (option.disabled) continue;
+  for (const optionKey in state.options) {
+    const option = state.options[optionKey];
+    if (isDisabled(option)) continue;
 
-    const selectedCount = getSelectedCount(option, allOptions);
-    if (option.requirements !== undefined) {
-      if (option.type === optionTypes.INTEGER || option.type === optionTypes.SELECT) {
-        if (selectedCount > 0) {
-          let index = 0;
-          for (const test of option.requirements) {
-            if (!test.value) {
-              warnings.push({
-                id: option.path.join('.') + '-' + index,
-                path: option.path,
-                text: <>{getProp('title', option)} &ndash; {getUserText([...option.path, `requirement-${index}`])}</>,
-              });
-            }
-            index++;
-          }
-        }
-      }
-    }
-    if ([optionTypes.INTEGER, optionTypes.SELECT].includes(option.type)) {
+    const value = getSelectedValue(option, state.options);
+    const selectedCount = Array.isArray(value) ? value.length : value;
+    if ([optionTypes.INTEGER, optionTypes.SELECT, optionTypes.SLIDER].includes(option.type)) {
       if (selectedCount < option.min) {
         warnings.push({
-          id: option.path.join('.') + '-lessThanMin',
-          path: option.path,
-          text: `${getProp('title', option)} cannot have less than ${option.min} selected.`,
+          id: option.optionKey + '.lessThanMin',
+          optionKey: option.optionKey,
+          text: `${getUserText(optionKey, 'title')} cannot have less than ${option.min} selected.`,
         });
       }
       if (selectedCount > option.max) {
         warnings.push({
-          id: option.path.join('.') + '-moreThanMax',
-          path: option.path,
-          text: `${getProp('title', option)} cannot have more than ${option.max} selected.`,
+          id: option.optionKey + '.moreThanMax',
+          optionKey: option.optionKey,
+          text: `${getUserText(optionKey, 'title')} cannot have more than ${option.max} selected.`,
         });
       }
-    }
-
-    if (option.options !== undefined) {
-      warnings.push(...findWarnings(option.options, allOptions));
-    }
-
-    if (option.type === optionTypes.SELECT) {
-      warnings.push(...findWarnings(option.choices, allOptions));
-    }
-
-    if (option.type === optionTypes.INSTANCER) {
-      warnings.push(
-        ...findWarnings(getSelectedValue(option, allOptions), allOptions)
-      );
     }
   }
 
@@ -73,19 +40,18 @@ function Warnings(props) {
   const [opened, setOpened] = useState(false);
 
   const warningElements = [];
-  const warnings = findWarnings(props.options);
-  for (const warning of warnings) {
-    const parentPath = warning.path.length > 1 ?
-      warning.path.slice(0, -1) :
-      warning.path;
-    warningElements.push(<div className="warning" key={warning.id}>
-      <div className="warning-path">
-        <PathLink path={parentPath.join('.')} onClick={() => setOpened(false)}>
-          {parentPath.join('.')}
-        </PathLink>
+  for (const warning of props.warnings) {
+
+    warningElements.push(
+      <div className="warning" key={warning.id}>
+        <div className="warning-path">
+          <PathLink path={warning.optionKey} onClick={() => setOpened(false)}>
+            {warning.optionKey}
+          </PathLink>
+        </div>
+        <div className="warning-text">{warning.text}</div>
       </div>
-      <div className="warning-text">{warning.text}</div>
-    </div>);
+    );
   }
 
   if (warningElements.length === 0) return null;
@@ -100,7 +66,9 @@ function Warnings(props) {
   );
 }
 
-export default connect(state => ({
-  options: state.options,
-  currencies: state.currencies,
-}))(Warnings);
+export default connect(state => {
+  const warnings = findWarnings(state);
+  return {
+    warnings,
+  };
+})(Warnings);
