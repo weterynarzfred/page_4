@@ -14,18 +14,19 @@ function GroupControls(props) {
 
   useEffect(() => {
     if (props.useMasonry) {
-      masonryElement.current = new Masonry(gridRef.current, {
-        itemSelector: '.masonry-cell',
-        fitWidth: true,
-        transitionDuration: 0,
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    if (props.useMasonry) {
-      masonryElement.current.reloadItems();
-      masonryElement.current.layout();
+      if (masonryElement.current === undefined) {
+        masonryElement.current = new Masonry(gridRef.current, {
+          itemSelector: '.masonry-cell',
+          fitWidth: true,
+          transitionDuration: 0,
+        });
+      } else {
+        masonryElement.current.reloadItems();
+        masonryElement.current.layout();
+      }
+    } else if (masonryElement.current !== undefined) {
+      masonryElement.current.destroy();
+      masonryElement.current = undefined;
     }
   }, [props.subOptions]);
 
@@ -35,9 +36,22 @@ function GroupControls(props) {
       key={optionKey}
       optionKey={optionKey}
       isMasonryCell={props.useMasonry}
+      displayAsTableRow={props.displayAsTable}
     />);
   }
   if (optionElements.length === 0) return null;
+
+  let content;
+  if (props.displayAsTable) {
+    content = <table>
+      <tbody>
+        {optionElements}
+      </tbody>
+    </table>;
+  }
+  else {
+    content = optionElements;
+  }
 
   return (
     <div
@@ -48,7 +62,7 @@ function GroupControls(props) {
       )}
       ref={gridRef}
     >
-      {optionElements}
+      {content}
     </div>
   );
 }
@@ -57,7 +71,7 @@ export default connect((state, props) => {
   const option = state.options[props.optionKey];
   let subOptions;
   if (option.type === optionTypes.GROUP || option.type === optionTypes.INTEGER) subOptions = option.subOptions;
-  else if (option.type === optionTypes.RATIO) subOptions = option.choices;
+  else if (option.type === optionTypes.RATIO || option.type === optionTypes.SELECT) subOptions = option.choices;
 
   if (subOptions === undefined) return {};
 
@@ -66,5 +80,6 @@ export default connect((state, props) => {
   );
   return {
     subOptions,
+    displayAsTable: option.displayAsTable,
   };
 }, null, null, { areStatePropsEqual: deepEquals })(GroupControls);

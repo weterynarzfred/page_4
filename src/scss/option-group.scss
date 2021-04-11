@@ -1,9 +1,89 @@
-.Option.option-group {
-  .GroupControls {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 3em;
-    margin-bottom: 3em;
+.GroupControls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 3em;
+  margin-bottom: 3em;
+
+  > table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 70em;
+    margin: 0 2em;
+
+    > tbody > tr {
+      &:first-child td {
+        border-top-width: 0;
+      }
+      &:last-child td {
+        border-bottom-width: 0;
+      }
+
+      &.selected,
+      &:hover {
+        > td {
+          background-color: $enabledBackground;
+        }
+      }
+
+      > td {
+        position: relative;
+        border: 1px solid $borderColor;
+        padding: 0.5em 1em;
+        height: 3em;
+        transition: 0.3s;
+
+        &:first-child {
+          border-left-width: 0;
+        }
+        &:last-child {
+          border-right-width: 0;
+        }
+
+        &.choice-control-cell {
+          width: 3em;
+
+          .CheckboxControl {
+            top: 50%;
+            margin-top: -1em;
+          }
+        }
+
+        &.option-text {
+          width: 37em;
+
+          p {
+            margin: 0.25em 0;
+          }
+
+          .OptionRequirements {
+            align-items: flex-start;
+
+            .requirements-title {
+              display: none;
+            }
+          }
+        }
+
+        &.choice-cost-cell {
+          .OptionCost {
+            border: none;
+            position: static;
+
+            .cost {
+              background-color: transparent;
+            }
+          }
+        }
+      }
+
+      &.option-disabled {
+        color: $disabledText;
+
+        .option-text p {
+          color: $disabledText;
+        }
+      }
+    }
   }
 }

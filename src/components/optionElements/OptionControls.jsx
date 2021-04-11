@@ -3,7 +3,6 @@ import { optionTypes } from 'Include/constants';
 import GroupControls from '../controls/GroupControls';
 import InstancerControls from '../controls/InstancerControls';
 import IntegerControls from '../controls/IntegerControls';
-import SelectControls from '../controls/SelectControls';
 import TextControls from '../controls/TextControls';
 import SliderControls from '../controls/SliderControls';
 import RatioControls from '../controls/RatioControls';
@@ -21,12 +20,6 @@ function OptionControls(props) {
         />
       </>;
       break;
-    case optionTypes.SELECT:
-      controls = <SelectControls
-        optionKey={props.optionKey}
-        useMasonry={props.useMasonry}
-      />;
-      break;
     case optionTypes.INSTANCER:
       controls = <InstancerControls optionKey={props.optionKey} />;
       break;
@@ -39,6 +32,7 @@ function OptionControls(props) {
         />
       </>;
       break;
+    case optionTypes.SELECT:
     case optionTypes.GROUP:
       controls = <GroupControls
         optionKey={props.optionKey}
@@ -84,6 +78,6 @@ export default connect((state, props) => {
   const option = state.options[props.optionKey];
   return {
     type: option.type,
-    useMasonry: props.topLevel ? false : checkIfMasonry(option, state.options),
+    useMasonry: checkIfMasonry(option, state.options),
   };
 })(OptionControls);
