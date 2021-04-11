@@ -57,3 +57,4 @@ if `type === optionTypes.INSTANCER`
 - add `logScale` to sliders
 - add `RATIO` `optionType`
 - `INSTANCER` `displayAsTable`
+- 
