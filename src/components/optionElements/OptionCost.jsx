@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
+import { deepEquals } from '../../functions/deepFunctions';
 
 function OptionCost(props) {
   if (props.costs === undefined) return null;
@@ -59,5 +60,5 @@ function mapStateToProps(state, props) {
 }
 
 export default connect(mapStateToProps, null, null, {
-  areStatePropsEqual: (next, prev) => JSON.stringify(next) === JSON.stringify(prev),
+  areStatePropsEqual: deepEquals,
 })(OptionCost);

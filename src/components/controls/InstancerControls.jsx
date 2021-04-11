@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { actions } from 'Include/constants';
-import deepClone from '../../functions/deepClone';
+import { deepClone } from '../../functions/deepFunctions';
 import InstanceControl from './InstanceControl';
 import classNames from 'classnames';
 import { getSelectedValue } from '../../functions/getSelectedValue';

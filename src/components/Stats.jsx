@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Currencies from './Currencies';
 import Warnings from './Warnings';
 import PathLink from './PathLink';
-import deepClone from '../functions/deepClone';
+import { deepClone, deepEquals } from '../functions/deepFunctions';
 import { getUserText } from '../include/userTexts';
 import Breadcrumbs from './Breadcrumbs';
 
@@ -48,6 +48,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, null, null, {
-  areStatePropsEqual: (next, prev) =>
-    JSON.stringify(next) === JSON.stringify(prev),
+  areStatePropsEqual: deepEquals,
 })(Stats);

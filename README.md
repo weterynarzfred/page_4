@@ -24,6 +24,7 @@ Option object structure
 - `cost` {object|function}
 - `min` {number|function}
 - `max` {number|function}
+- `hidden` {bool}
 - `currencies` {object}
 - `options` {object}
 - `selected` {any}
@@ -45,7 +46,6 @@ if `type === optionTypes.INSTANCER`
 
 
 ## branch todo
-- hidden
 - reset button
 
 ## todo

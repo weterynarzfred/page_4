@@ -3,7 +3,7 @@ import { optionTypes } from './include/constants';
 import PathLink from 'Components/PathLink';
 import { getSelectedValue, isSelected } from 'Functions/getSelectedValue';
 import parsePath from './functions/parsePath';
-import deepClone from 'Functions/deepClone';
+import { deepClone } from 'Functions/deepFuncitons';
 
 
 const settings = {
@@ -74,6 +74,25 @@ const rawOptions = {
         type: optionTypes.GROUP,
         options: {
           b: {
+            type: optionTypes.SLIDER,
+            sliderAttributes: {
+              step: 0.01,
+              marks: {
+                0: '0%',
+                0.09999999999999999: '0.001%',
+                0.251188643150958: '0.1%',
+                0.3981071705534972: '1%',
+                0.5492802716530588: '5%',
+                0.6309573444801932: '10%',
+                0.757858283255199: '25%',
+                0.8705505632961241: '50%',
+                1: '100%',
+              },
+            },
+            useTooltips: true,
+            logSlider: 5,
+            displayAsPercent: true,
+            selected: 1,
             title: 'B',
             image: 'healthy.jpg',
             text: <p>Option B</p>,
@@ -88,6 +107,7 @@ const rawOptions = {
             title: 'C',
             cost: { gold: 1 },
             text: <p>Option C</p>,
+            hidden: userFunction(({ isSelected }) => !isSelected('root/simple/a'), ['root/simple/a.selected']),
             requirements: [
               {
                 text: <>Requires <PathLink path="root/simple/a">Option A</PathLink> to be selected.</>,
@@ -208,6 +228,12 @@ const rawOptions = {
         displayAsTable: true,
         min: 1,
         max: 2,
+        requirements: [
+          {
+            text: <>Requires <PathLink path="root/simple/a">Option A</PathLink> to be selected.</>,
+            value: userFunction(({ isSelected }) => isSelected('root/simple/a'), ['root/simple/a.selected']),
+          },
+        ],
         title: 'Select',
         text: userFunction(({ getSelectedValue, state }) => {
           const value = getSelectedValue('root/select');
@@ -226,12 +252,6 @@ const rawOptions = {
             cost: { soulPower: 1 },
             title: 'Choice 1',
             text: <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor, consequatur iusto. Saepe commodi ipsa magni atque libero quis architecto cupiditate, dicta, sequi ab, eos expedita molestiae? Eaque exercitationem repellat vel.</p>,
-            requirements: [
-              {
-                text: <>Requires <PathLink path="root/simple/a">Option A</PathLink> to be selected.</>,
-                value: userFunction(({ isSelected }) => isSelected('root/simple/a'), ['root/simple/a.selected']),
-              },
-            ],
           },
           choice2: {
             cost: { soulPower: 2 },

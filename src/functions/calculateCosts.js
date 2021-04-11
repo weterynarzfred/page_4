@@ -1,5 +1,5 @@
 import calculateOptionCosts from './calculateOptionCosts';
-import deepClone from './deepClone';
+import { deepClone } from './deepFunctions';
 import { isSelected } from './getSelectedValue';
 import isDisabled from './isDisabled';
 

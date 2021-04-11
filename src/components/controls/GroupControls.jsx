@@ -3,20 +3,30 @@ import Masonry from 'masonry-layout';
 import Option from 'Components/Option';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
+import { deepEquals } from '../../functions/deepFunctions';
 
 function GroupControls(props) {
   if (props.subOptions === undefined) return null;
 
-  const gridRef = useRef(null);
+  const gridRef = useRef();
+  const masonryElement = useRef();
+
   useEffect(() => {
     if (props.useMasonry) {
-      const msnry = new Masonry(gridRef.current, {
+      masonryElement.current = new Masonry(gridRef.current, {
         itemSelector: '.masonry-cell',
         fitWidth: true,
         transitionDuration: 0,
       });
     }
   }, []);
+
+  useEffect(() => {
+    if (props.useMasonry) {
+      masonryElement.current.reloadItems();
+      masonryElement.current.layout();
+    }
+  }, [props.subOptions]);
 
   const optionElements = [];
   for (const optionKey of props.subOptions) {
@@ -44,7 +54,11 @@ function GroupControls(props) {
 
 export default connect((state, props) => {
   const option = state.options[props.optionKey];
+  if (option.subOptions === undefined) return {};
+  const subOptions = option.subOptions.filter(optionKey =>
+    !state.options[optionKey].hidden
+  );
   return {
-    subOptions: option.subOptions,
+    subOptions,
   };
-})(GroupControls);
+}, null, null, { areStatePropsEqual: deepEquals })(GroupControls);

@@ -1,7 +1,7 @@
 import removeOption from '../functions/removeOption';
 import parseOptions from './parseOptions';
 import { addUserText } from './userTexts';
-import deepClone from '../functions/deepClone';
+import { deepClone } from '../functions/deepFunctions';
 
 window.userFunctions = {};
 

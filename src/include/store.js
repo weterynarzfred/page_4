@@ -12,7 +12,7 @@ import selectOptionReducer from 'Functions/selectOptionReducer';
 import { actions } from './constants';
 import parseOptions from './parseOptions';
 import recalculateState from '../functions/recalculateState';
-import deepClone from '../functions/deepClone';
+import { deepClone } from '../functions/deepFunctions';
 
 const persistConfig = {
   key: 'root',

@@ -5,7 +5,7 @@ import 'rc-slider/assets/index.css';
 import { actions } from 'Include/constants';
 import { getSelectedValue } from '../../functions/getSelectedValue';
 import formatNumber from '../../functions/formatNumber';
-import deepClone from '../../functions/deepClone';
+import { deepClone } from '../../functions/deepFunctions';
 
 const { createSliderWithTooltip } = Slider;
 const SliderWithTooltip = createSliderWithTooltip(Slider);

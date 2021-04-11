@@ -6,11 +6,10 @@ import { isSelected } from '../functions/getSelectedValue';
 import ChoiceTable from './optionElements/ChoiceTable';
 import OptionContent from './optionElements/OptionContent';
 import isDisabled from './../functions/isDisabled';
-import deepClone from '../functions/deepClone';
+import { deepClone } from '../functions/deepFunctions';
 
 function Option(props) {
   if (props.type === undefined) return null;
-  // if (props.option.hidden) return null;
 
   const [opened, setOpened] = useState(true);
 
@@ -72,7 +71,10 @@ function Option(props) {
 
 export default connect((state, props) => {
   const option = state.options[props.optionKey];
-  if (option === undefined) return {};
+  if (
+    option === undefined ||
+    option.hidden
+  ) return {};
 
   return {
     type: option.type,

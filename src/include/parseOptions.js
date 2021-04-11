@@ -2,7 +2,7 @@ import parsePath from '../functions/parsePath';
 import { optionTypes } from './constants';
 import { addUserFunction } from './userFunctions';
 import { addUserText } from './userTexts';
-import deepClone from '../functions/deepClone';
+import { deepClone } from '../functions/deepFunctions';
 
 const defaultProps = {
   type: optionTypes.INTEGER,
@@ -11,6 +11,7 @@ const defaultProps = {
   min: 0,
   max: 1,
   instanceGroup: {},
+  hidden: undefined,
   selected: undefined,
   cost: undefined,
   currencies: undefined,

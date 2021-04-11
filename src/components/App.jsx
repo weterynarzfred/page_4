@@ -4,7 +4,7 @@ import 'Src/scss/index.scss';
 import Navigation from './Navigation';
 import Stats from './Stats';
 import { actions } from '../include/constants';
-import deepClone from '../functions/deepClone';
+import { deepClone } from '../functions/deepFunctions';
 // import Dialog from './Dialog';
 import Option from './Option';
 
