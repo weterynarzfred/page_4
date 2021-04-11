@@ -12,7 +12,10 @@ window.userFunctions = {};
 function mergeChoices(state, option, result, newChanges) {
   const fullPath = [...option.path, option.slug];
 
-  const parsedChoices = parseOptions(result, fullPath, { isChoice: true });
+  const parsedChoices = parseOptions(result, fullPath, {
+    isChoice: true,
+    numbering: option.numbering,
+  });
   if (option.choices !== undefined) {
     // delete choices that no longer exist
     for (const choiceKey of option.choices) {
@@ -31,6 +34,7 @@ function mergeChoices(state, option, result, newChanges) {
           state.options[choiceKey],
           result[choiceKey.split('/').pop()]
         );
+        state.options[choiceKey].numbering = parsedChoices[choiceKey].numbering;
       }
     }
   } else {

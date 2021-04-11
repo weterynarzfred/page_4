@@ -103,7 +103,13 @@ function assignDefaults(option) {
 function parseOptions(rawOptions, parentPath = [], assign = {}) {
   const options = {};
 
+  const currentAssign = deepClone(assign);
+  if (currentAssign.numbering === undefined) currentAssign.numbering = [];
+  currentAssign.numbering.push(0);
+
   for (const slug in rawOptions) {
+    currentAssign.numbering[currentAssign.numbering.length - 1]++;
+
     const rawOption = rawOptions[slug];
     const option = {};
     const fullPath = [...parentPath, slug];
@@ -111,20 +117,22 @@ function parseOptions(rawOptions, parentPath = [], assign = {}) {
     option.path = [...parentPath];
     option.optionKey = fullPath.join('/');
 
-    assignProps(option, rawOption, assign);
+    assignProps(option, rawOption, deepClone(currentAssign));
 
     if (rawOption.options !== undefined) {
       option.subOptions = Object.keys(rawOption.options).map(slug =>
         [...fullPath, slug].join('/')
       );
-      const assign = {};
       if (
         [optionTypes.INTEGER, optionTypes.TEXT, optionTypes.SLIDER].includes(
           option.type
         )
       )
-        assign.isSelectablesChild = true;
-      Object.assign(options, parseOptions(rawOption.options, fullPath, assign));
+        currentAssign.isSelectablesChild = true;
+      Object.assign(
+        options,
+        parseOptions(rawOption.options, fullPath, currentAssign)
+      );
     }
 
     if (
@@ -132,9 +140,10 @@ function parseOptions(rawOptions, parentPath = [], assign = {}) {
       rawOption.choices !== undefined &&
       !rawOption.choices.isUserFunction
     ) {
+      currentAssign.isChoice = true;
       Object.assign(
         options,
-        parseOptions(rawOption.choices, fullPath, { isChoice: true })
+        parseOptions(rawOption.choices, fullPath, currentAssign)
       );
       option.choices = Object.keys(rawOption.choices).map(slug =>
         [...fullPath, slug].join('/')

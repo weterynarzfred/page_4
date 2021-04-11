@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { settings } from 'cyoa';
 import { getUserText } from '../include/userTexts';
 import PathLink from './PathLink';
 

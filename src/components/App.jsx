@@ -6,10 +6,8 @@ import Navigation from './Navigation';
 import Stats from './Stats';
 import Dialog from './Dialog';
 import Option from './Option';
-import { deepClone } from '../functions/deepFunctions';
 
 function App(props) {
-  // TODO: add an event listener
   useEffect(() => {
     const currentPath = props.location.pathname.split('/')
       .filter(e => e !== '');
@@ -20,7 +18,7 @@ function App(props) {
         path: currentPath,
       });
     }
-  });
+  }, [props.location.pathname]);
 
   return <div className="App">
     <Navigation />

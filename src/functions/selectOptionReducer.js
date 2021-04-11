@@ -78,6 +78,11 @@ function setInstancerValue(action, newState) {
     Object.assign(newState.options, parsedIntance);
     option.selected.push([...instancerPath, option.nextId].join('/'));
 
+    let index = 1;
+    for (const optionKey of option.selected) {
+      newState.options[optionKey].numbering = [...option.numbering, index++];
+    }
+
     return [
       option.optionKey + '.selected',
       option.optionKey + '/' + option.nextId++,
@@ -99,6 +104,11 @@ function setGroupValue(action, newState) {
     instancer.selected = instancer.selected.filter(
       item => item !== option.optionKey
     );
+
+    let index = 1;
+    for (const optionKey of instancer.selected) {
+      newState.options[optionKey].numbering = [...instancer.numbering, index++];
+    }
 
     return changes;
   }

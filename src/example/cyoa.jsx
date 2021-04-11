@@ -163,7 +163,7 @@ const rawOptions = {
             value: userFunction(({ isSelected }) => isSelected('root/simple/a'), ['root/simple/a.selected']),
           },
         ],
-        max: Infinity,
+        max: 2,
         title: 'Instancer',
         instanceGroup: {
           currencies: {
