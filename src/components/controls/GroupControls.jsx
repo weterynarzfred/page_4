@@ -4,6 +4,7 @@ import Option from 'Components/Option';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { deepEquals } from '../../functions/deepFunctions';
+import { optionTypes } from '../../include/constants';
 
 function GroupControls(props) {
   if (props.subOptions === undefined) return null;
@@ -54,8 +55,13 @@ function GroupControls(props) {
 
 export default connect((state, props) => {
   const option = state.options[props.optionKey];
-  if (option.subOptions === undefined) return {};
-  const subOptions = option.subOptions.filter(optionKey =>
+  let subOptions;
+  if (option.type === optionTypes.GROUP || option.type === optionTypes.INTEGER) subOptions = option.subOptions;
+  else if (option.type === optionTypes.RATIO) subOptions = option.choices;
+
+  if (subOptions === undefined) return {};
+
+  subOptions = subOptions.filter(optionKey =>
     !state.options[optionKey].hidden
   );
   return {

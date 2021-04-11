@@ -6,6 +6,7 @@ import IntegerControls from '../controls/IntegerControls';
 import SelectControls from '../controls/SelectControls';
 import TextControls from '../controls/TextControls';
 import SliderControls from '../controls/SliderControls';
+import RatioControls from '../controls/RatioControls';
 import { connect } from 'react-redux';
 
 function OptionControls(props) {
@@ -29,6 +30,15 @@ function OptionControls(props) {
     case optionTypes.INSTANCER:
       controls = <InstancerControls optionKey={props.optionKey} />;
       break;
+    case optionTypes.RATIO:
+      controls = <>
+        <RatioControls optionKey={props.optionKey} />
+        <GroupControls
+          optionKey={props.optionKey}
+          useMasonry={props.useMasonry}
+        />
+      </>;
+      break;
     case optionTypes.GROUP:
       controls = <GroupControls
         optionKey={props.optionKey}
@@ -51,8 +61,11 @@ function OptionControls(props) {
 function checkIfMasonry(option, options) {
   let subOptions;
   if (option.type === optionTypes.GROUP) subOptions = option.subOptions;
-  if (option.type === optionTypes.SELECT) {
+  else if (option.type === optionTypes.SELECT) {
     if (option.displayAsTable || option.isSelectablesChild) return false;
+    subOptions = option.choices;
+  }
+  else if (option.type === optionTypes.RATIO) {
     subOptions = option.choices;
   }
   if (subOptions === undefined) return false;

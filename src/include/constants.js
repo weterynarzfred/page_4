@@ -3,6 +3,7 @@ const optionTypes = {
   TEXT: 'text',
   SLIDER: 'slider',
   SELECT: 'select',
+  RATIO: 'ratio',
   INSTANCER: 'instancer',
   GROUP: 'group',
 };

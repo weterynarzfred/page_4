@@ -22,12 +22,14 @@ function Option(props) {
   const isContainer = [
     optionTypes.GROUP,
     optionTypes.SELECT,
+    optionTypes.RATIO,
     optionTypes.INSTANCER,
   ].includes(props.type);
 
   const isCollapsible = !props.topLevel && !props.isSelectablesChild && [
     optionTypes.GROUP,
     optionTypes.SELECT,
+    optionTypes.RATIO,
     optionTypes.INSTANCER,
   ].includes(props.type);
 

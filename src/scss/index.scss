@@ -3,15 +3,14 @@ $positive: #a1ff49;
 $negative: #ff732d;
 $text: #ffdea0;
 $background: #222;
-$background2: #111;
-$borderColor: #777;
+$borderColor: #555;
 $enabledBackground: #111;
 $enabledText: #fff;
 $selectableBackground: #222;
 $selectableText: #ccc;
 $disabledBackground: #111;
 $disabledText: #444;
-$disabledBorderColor: #444;
+$disabledBorderColor: #222;
 $titleFont: 'Piazzolla', serif;
 
 body {
@@ -30,8 +29,9 @@ body {
   padding-top: 3em;
   padding-bottom: 20vh;
   min-height: 100vh;
-  background-image: linear-gradient(45deg, $background 0%, $background2 100%);
-  box-shadow: 0 0 50em #000 inset;
+  background-color: $background;
+  // background-image: linear-gradient(45deg, $background 0%, $background2 100%);
+  // box-shadow: 0 0 50em #000 inset;
 
   #option-list {
     display: flex;
@@ -162,11 +162,27 @@ button {
 
 .recharts-wrapper {
   margin: 0 auto;
+  font-weight: 700;
 
   .recharts-pie-sector {
     path {
       stroke: $background;
-      stroke-width: 5;
+      stroke: #fff;
+      stroke-width: 1;
+      fill: none;
+    }
+
+    &:nth-child(1) path {
+      stroke: #0088fe;
+    }
+    &:nth-child(2) path {
+      stroke: #00c49f;
+    }
+    &:nth-child(3) path {
+      stroke: #ffbb28;
+    }
+    &:nth-child(4) path {
+      stroke: #ff8042;
     }
   }
 }

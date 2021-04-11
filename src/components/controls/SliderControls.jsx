@@ -61,7 +61,7 @@ function SliderControls(props) {
   });
 
   const attributes = deepClone(props.sliderAttributes);
-  if (attributes.marks === 'auto') {
+  if (attributes?.marks === 'auto') {
     attributes.marks = {};
     for (let i = 0; i <= 8; i++) {
       let val = i * props.max / 8;

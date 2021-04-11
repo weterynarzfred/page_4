@@ -119,6 +119,7 @@ function parseOptions(rawOptions, parentPath = [], assign = {}) {
 
     assignProps(option, rawOption, deepClone(currentAssign));
 
+    // suboptions
     if (rawOption.options !== undefined) {
       option.subOptions = Object.keys(rawOption.options).map(slug =>
         [...fullPath, slug].join('/')
@@ -135,12 +136,29 @@ function parseOptions(rawOptions, parentPath = [], assign = {}) {
       );
     }
 
+    // select choices
     if (
       option.type === optionTypes.SELECT &&
       rawOption.choices !== undefined &&
       !rawOption.choices.isUserFunction
     ) {
       currentAssign.isChoice = true;
+      Object.assign(
+        options,
+        parseOptions(rawOption.choices, fullPath, currentAssign)
+      );
+      option.choices = Object.keys(rawOption.choices).map(slug =>
+        [...fullPath, slug].join('/')
+      );
+    }
+
+    // ratio choices
+    if (
+      option.type === optionTypes.RATIO &&
+      rawOption.choices !== undefined &&
+      !rawOption.choices.isUserFunction
+    ) {
+      currentAssign.isRatioChoice = true;
       Object.assign(
         options,
         parseOptions(rawOption.choices, fullPath, currentAssign)

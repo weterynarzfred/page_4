@@ -1,4 +1,5 @@
 import { optionTypes } from 'Include/constants';
+import { getUserText } from '../include/userTexts';
 import isDisabled from './isDisabled';
 
 /**
@@ -11,6 +12,9 @@ function getSelectedValue(option, options) {
   let value;
   switch (option.type) {
     case optionTypes.INTEGER:
+    case optionTypes.TEXT:
+    case optionTypes.SLIDER:
+    case optionTypes.INSTANCER:
       value = option.selected;
       break;
     case optionTypes.SELECT:
@@ -22,14 +26,19 @@ function getSelectedValue(option, options) {
             (options[a].timeChanged || 0) - (options[b].timeChanged || 0)
         );
       break;
-    case optionTypes.TEXT:
-      value = option.selected;
-      break;
-    case optionTypes.SLIDER:
-      value = option.selected;
-      break;
-    case optionTypes.INSTANCER:
-      value = option.selected;
+    case optionTypes.RATIO:
+      if (!Array.isArray(option.choices)) return 0;
+      value = option.choices
+        .map(choiceKey => {
+          const choice = options[choiceKey];
+          return {
+            name: choice.slug,
+            optionKey: choiceKey,
+            title: getUserText(choiceKey, 'title'),
+            value: getSelectedValue(choice, options),
+          };
+        })
+        .filter(item => item.value > 0);
       break;
   }
 
@@ -53,13 +62,11 @@ function isSelected(option, options) {
     case optionTypes.GROUP:
       return true;
     case optionTypes.INTEGER:
-      return value > 0;
-    case optionTypes.SELECT:
-      return value.length > 0;
-    case optionTypes.TEXT:
-      return value.length > 0;
     case optionTypes.SLIDER:
       return value > 0;
+    case optionTypes.SELECT:
+    case optionTypes.RATIO:
+    case optionTypes.TEXT:
     case optionTypes.INSTANCER:
       return value.length > 0;
   }

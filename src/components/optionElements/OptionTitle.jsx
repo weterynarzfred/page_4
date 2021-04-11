@@ -8,6 +8,7 @@ function OptionTitle(props) {
   const showNumbering = [
     optionTypes.GROUP,
     optionTypes.SELECT,
+    optionTypes.RATIO,
     optionTypes.INSTANCER,
   ].includes(props.type) && props.numbering !== undefined;
 
