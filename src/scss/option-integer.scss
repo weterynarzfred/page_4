@@ -21,7 +21,7 @@
     box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset;
 
     .integer-value {
-      padding: 0 2em;
+      padding: 0 1em;
       font-size: 1.25em;
       font-weight: 700;
     }
@@ -48,11 +48,10 @@
 
 .CheckboxControl {
   position: absolute;
-  top: -1em;
-  left: 50%;
-  margin-left: -1em;
-  width: 2em;
-  height: 2em;
+  top: -2.7rem;
+  right: 0.5rem;
+  width: 2rem;
+  height: 2rem;
   background-color: $selectableBackground;
   color: $enabledText;
   border: 1px solid $borderColor;

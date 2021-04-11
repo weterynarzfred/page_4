@@ -8,17 +8,25 @@
     position: relative;
     background-color: $selectableBackground;
     color: $selectableText;
-    padding-top: 1em;
-    border: solid $borderColor;
-    border-width: 1px 1px 6px 1px;
-    transition: filter 0.3s, border 0.3s, background 0.3s, color 0.3s;
+    border: solid transparent;
+    border-width: 1px;
+    transition: filter 0.3s, border 0.3s, background 0.3s, color 0.3s,
+      box-shadow 0.3s;
     filter: grayscale(1);
     box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset;
+    border-radius: 0.5em;
 
     > .option-title {
-      border-bottom: 1px solid #555;
-      padding: 0 0.5em;
-      height: 2rem;
+      border-bottom: 1px solid $borderColor;
+      padding: 0.5rem 1rem 0.5rem 1rem;
+      font-size: 1.25em;
+
+      .option-title-text:after {
+        content: '';
+        display: inline-block;
+        width: 3rem;
+        height: 1rem;
+      }
     }
   }
 
@@ -36,12 +44,13 @@
   }
 
   .option-text {
-    padding: 0 2em;
+    padding: 0 1.5em;
     min-height: 1em;
   }
 
   > .option-content > .option-collapsible-content {
-    padding-bottom: 1px;
+    position: relative;
+    padding: 1px 0;
 
     > .GroupControls {
       padding-top: 0.5em;
@@ -84,7 +93,7 @@
       border-color: $selected;
 
       > .option-title {
-        color: #fff;
+        color: $enabledText;
       }
     }
   }

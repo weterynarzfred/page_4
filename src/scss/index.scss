@@ -101,6 +101,12 @@ body {
       opacity: 0.5;
       filter: grayscale(1);
     }
+
+    .OptionImage {
+      opacity: 0.5;
+      filter: grayscale(1);
+      transition: opacity 0.3s;
+    }
   }
 }
 
