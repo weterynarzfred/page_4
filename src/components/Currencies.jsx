@@ -22,6 +22,14 @@ function Currencies(props) {
   );
 }
 
-export default connect(state => ({
-  currencySettings: state.currencySettings,
-}))(Currencies);
+export default connect((state, props) => {
+  let currencies = props.currencies;
+  if (props.optionKey !== undefined) {
+    currencies = state.options[props.optionKey].currencies;
+  }
+
+  return {
+    currencies,
+    currencySettings: state.currencySettings,
+  };
+})(Currencies);

@@ -14,27 +14,10 @@ function handleDelete() {
 }
 
 function InstanceControl(props) {
-  // return (
-  //   <div className="InstanceControl">
-  //     <PathLink path={props.instance.path.join('/')}>
-  //       <div className="instance-link-title">{getProp('title', props.instance)}</div>
-  //       <Currencies currencies={props.instance.currencies} />
-  //     </PathLink>
-  //     <button
-  //       className="delete-instance"
-  //       onClick={handleDelete.bind(props)}
-  //     >
-  //       <svg viewBox="0 0 100 100">
-  //         <path d="M10 10L90 90" />
-  //         <path d="M10 90L90 10" />
-  //       </svg>
-  //     </button>
-  //   </div>
-  // );
-
   return <div className="InstanceControl">
     <PathLink path={props.instanceKey}>
       <div className="instance-link-title">{getUserText(props.instanceKey, 'title')}</div>
+      <Currencies optionKey={props.instanceKey} />
     </PathLink>
     <button
       className="delete-instance"
