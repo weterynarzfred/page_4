@@ -8,7 +8,6 @@ import { deepClone } from 'Functions/deepFuncitons';
 
 const settings = {
   initialScreen: ['root'],
-  showRoot: false,
   currencySettings: {
     soulPower: {
       title: 'Soul Power',
@@ -63,7 +62,6 @@ const _getSelectedValue = function (path) {
 const rawOptions = {
   root: {
     type: optionTypes.GROUP,
-    title: 'Root',
     image: 'containers/intro.jpg',
     text: <>
       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea recusandae hic sapiente quibusdam earum veniam dolorum veritatis, minus tenetur laboriosam, aperiam incidunt corporis eligendi itaque. Aliquid molestias quaerat quis similique!</p>

@@ -1,47 +1,49 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import getProp from '../functions/getProp';
 import { getSelectedValue, isSelected } from '../functions/getSelectedValue';
+import isDisabled from '../functions/isDisabled';
 import { optionTypes } from '../include/constants';
+import { getUserText } from '../include/userTexts';
 import PathLink from './PathLink';
 import SummaryList from './SummaryList';
 
 function SummaryItem(props) {
   if (
-    props.option.hidden ||
-    !isSelected(props.option, props.options)
+    props.optionKey === undefined ||
+    props.title === undefined
   ) return null;
 
-  let suboptions = {};
-  if (
-    props.option.type === optionTypes.GROUP ||
-    props.option.type === optionTypes.INTEGER
-  ) {
-    suboptions = props.option.options;
-  }
-  else if (props.option.type === optionTypes.SELECT) {
-    suboptions = props.option.choices;
-  }
-  else if (props.option.type === optionTypes.INSTANCER) {
-    suboptions = getSelectedValue(props.option, props.options);
-  }
+
+
+  const content = <>
+    <div className="summary-item-title">
+      <PathLink
+        path={props.optionKey}
+        onClick={props.onClick}
+      >{props.title}</PathLink>
+    </div>
+    <SummaryList
+      optionKey={props.optionKey}
+      onClick={props.onClick}
+      skipListWrap={props.title === ''}
+    />
+  </>;
+
+  if (props.title === '') return content;
 
   return (
     <li className="SummaryItem">
-      <span className="summary-item-title">
-        <PathLink
-          path={props.option.path.join('/')}
-          onClick={props.onClick}
-        >{getProp('title', props.option)}</PathLink>
-      </span>
-      <SummaryList
-        options={suboptions}
-        onClick={props.onClick}
-      />
+      {content}
     </li>
   );
 }
 
-export default connect(state => ({
-  options: state.options,
-}))(SummaryItem);
+export default connect((state, props) => {
+  if (
+    state.options[props.optionKey].hidden ||
+    isDisabled(state.options[props.optionKey])
+  ) return {};
+  return {
+    title: getUserText(props.optionKey, 'title'),
+  };
+})(SummaryItem);

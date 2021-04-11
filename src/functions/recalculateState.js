@@ -1,4 +1,5 @@
 import { PERSIST } from 'redux-persist';
+import { actions } from '../include/constants';
 import { recalculateUserFunctions } from '../include/userFunctions';
 import calculateCosts from './calculateCosts';
 
@@ -17,9 +18,14 @@ function recalculateState(stateDraft, changes, action) {
 
   while (
     i < 50 &&
-    (changes.length > 0 || (i === 0 && action.type === PERSIST))
+    (changes.length > 0 ||
+      (i === 0 && [actions.RESTART, PERSIST].includes(action.type)))
   ) {
-    recalculateUserFunctions(stateDraft, changes, action.type === PERSIST);
+    recalculateUserFunctions(
+      stateDraft,
+      changes,
+      [actions.RESTART, PERSIST].includes(action.type)
+    );
     changes = calculateCosts({
       state: stateDraft,
       options: topLevelOptions,

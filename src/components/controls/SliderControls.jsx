@@ -56,7 +56,8 @@ function SliderControls(props) {
   }, [_value]);
 
   let displayValue = formatNumber(props.selectedValue, 2, {
-    usePercent: props.displayAsPercent
+    usePercent: props.displayAsPercent,
+    onlySignificant: true,
   });
 
   const attributes = deepClone(props.sliderAttributes);
@@ -86,7 +87,10 @@ function SliderControls(props) {
       attributes.marks[val] = formatNumber(
         logVal,
         2,
-        { usePercent: props.displayAsPercent }
+        {
+          usePercent: props.displayAsPercent,
+          onlySignificant: true,
+        }
       );
     }
   }

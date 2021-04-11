@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import 'Src/scss/index.scss';
+import { actions } from '../include/constants';
 import Navigation from './Navigation';
 import Stats from './Stats';
-import { actions } from '../include/constants';
-import { deepClone } from '../functions/deepFunctions';
-// import Dialog from './Dialog';
+import Dialog from './Dialog';
 import Option from './Option';
+import { deepClone } from '../functions/deepFunctions';
 
 function App(props) {
   // TODO: add an event listener
@@ -28,7 +28,7 @@ function App(props) {
     <div id="option-list">
       <Option optionKey={props.path.join('/')} topLevel={true} />
     </div>
-    {/* <Dialog /> */}
+    <Dialog />
     <div id="overlay" style={{ backgroundImage: "url('./images/general/001_RV_TEXTURE_DIRT.png')" }}></div>
   </div>;
 }

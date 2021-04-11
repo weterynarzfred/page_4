@@ -7,7 +7,7 @@ import App from 'Components/App';
 import createStore from 'Include/store';
 import { settings } from 'cyoa';
 
-const redirect = settings.showRoot ? null : (
+const redirect = (
   <Redirect exact from="/" to={'/' + settings.initialScreen.join('/')} />
 );
 

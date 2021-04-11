@@ -42,10 +42,10 @@ function rootReducer(state = initialState, action = '') {
       case actions.CHANGE_PATH:
         stateDraft.path = action.path;
         break;
-      //   case actions.RESTART:
-      //     newState = deepClone(initialState);
-      //     break;
-      //   default:
+      case actions.RESTART:
+        stateDraft = deepClone(initialState);
+        break;
+      default:
     }
 
     if (

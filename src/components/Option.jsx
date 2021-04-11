@@ -64,9 +64,6 @@ function Option(props) {
       topLevel={props.topLevel}
     />;
   }
-
-
-
 }
 
 export default connect((state, props) => {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import formatNumber from '../functions/formatNumber';
 
 function Currencies(props) {
   if (props.currencies === undefined) return null;
@@ -10,7 +11,7 @@ function Currencies(props) {
     const value = props.currencies[costSlug] || 0;
     currencyElements.push(<div className="currency" key={costSlug}>
       <div className="currency-name">{title}</div>
-      <div className="currency-value">{value.toFixed(2)}</div>
+      <div className="currency-value">{formatNumber(value, 2)}</div>
     </div>);
   }
 

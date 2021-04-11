@@ -11,7 +11,6 @@ All configuration is done through objects `settings` and `options` in `src/cyoa.
   - `start` {number} - starting value of the currency.
   - `inverted` {bool} - inverts positive and negative cost colors.
 - `currencies` {object} - an object with main currencies as keys. For now each value should be set to 0.
-- `showRoot` {bool}
 - initialScreen {array}
 
 ### `options`
@@ -43,10 +42,6 @@ if `type === optionTypes.INSTANCER`
 
 ### restricted keys
 - `currency`
-
-
-## branch todo
-- reset button
 
 ## todo
 - generate warnings when currency is below zero
