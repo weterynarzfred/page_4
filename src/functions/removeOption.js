@@ -1,5 +1,5 @@
 import { clearUserFunctions } from '../include/userFunctions';
-import { clearUserTexts } from '../include/userTexts';
+import { clearUserValues } from '../include/userValues';
 import { isSelected } from './getSelectedValue';
 
 /**
@@ -23,7 +23,7 @@ function removeOption(sourceKey, state, changes) {
   }
 
   clearUserFunctions(sourceKey);
-  clearUserTexts(sourceKey);
+  clearUserValues(sourceKey);
 }
 
 export default removeOption;

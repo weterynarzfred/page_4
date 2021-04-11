@@ -1,7 +1,7 @@
 import parsePath from '../functions/parsePath';
 import { optionTypes } from './constants';
 import { addUserFunction } from './userFunctions';
-import { addUserText } from './userTexts';
+import { addUserValue } from './userValues';
 import { deepClone } from '../functions/deepFunctions';
 
 const defaultProps = {
@@ -10,7 +10,7 @@ const defaultProps = {
   text: '',
   min: 0,
   max: 1,
-  instanceGroup: {},
+  instanceGroup: undefined,
   hidden: undefined,
   selected: undefined,
   cost: undefined,
@@ -40,10 +40,12 @@ function assignProps(option, rawOption, assign) {
       );
       addUserFunction(option[prop], option.optionKey, prop);
       option[prop] = defaultProps[prop];
+    } else if (prop === 'instanceGroup') {
+      addUserValue(option.instanceGroup, option.optionKey, 'instanceGroup');
     } else if (prop === 'requirements') {
       for (let index = 0; index < option.requirements.length; index++) {
         const identifier = 'requirements.' + index;
-        addUserText(
+        addUserValue(
           option.requirements[index].text,
           option.optionKey,
           identifier
@@ -62,16 +64,16 @@ function assignProps(option, rawOption, assign) {
 }
 
 /**
- * Moves texts from the option to the userTexts array.
+ * Moves texts from the option to the UserValues array.
  */
-function addUserTexts(option) {
+function addUserValues(option) {
   if (option.title !== undefined) {
-    addUserText(option.title, option.optionKey, 'title');
+    addUserValue(option.title, option.optionKey, 'title');
     delete option.title;
   }
 
   if (option.text !== undefined) {
-    addUserText(option.text, option.optionKey, 'text');
+    addUserValue(option.text, option.optionKey, 'text');
     delete option.text;
   }
 }
@@ -88,8 +90,10 @@ function assignDefaults(option) {
   }
 
   if (option.type === optionTypes.INSTANCER) {
+    if (option.max === Infinity) option.max = Number.MAX_SAFE_INTEGER;
     if (option.nextId === undefined) option.nextId = 0;
     if (option.selected === undefined) option.selected = [];
+    if (option.instanceGroup === undefined) option.instanceGroup = {};
   }
 
   if (option.type === optionTypes.TEXT) {
@@ -168,7 +172,7 @@ function parseOptions(rawOptions, parentPath = [], assign = {}) {
       );
     }
 
-    addUserTexts(option);
+    addUserValues(option);
     assignDefaults(option);
     options[option.optionKey] = option;
   }

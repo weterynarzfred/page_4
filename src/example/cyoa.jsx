@@ -239,7 +239,7 @@ const rawOptions = {
           const selected = value.filter(optionKey => {
             return !isDisabled(state.options[optionKey]);
           }).map(optionKey =>
-            getUserText(optionKey, 'title')
+            getUserValue(optionKey, 'title')
           ).join(', ');
           return <>
             <p><strong>Lorem ipsum dolor sit amet</strong> consectetur adipisicing elit. Sit laborum dolore ipsa non suscipit esse et debitis, inventore maxime assumenda, iure quaerat rerum molestias adipisci neque aspernatur aut quis voluptatibus.</p>

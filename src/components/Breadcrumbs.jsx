@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getUserText } from '../include/userTexts';
+import { getUserValue } from '../include/userValues';
 import PathLink from './PathLink';
 
 function Breadcrumbs(props) {
@@ -11,7 +11,7 @@ function Breadcrumbs(props) {
     currentTarget.push(part);
     const currentKey = currentTarget.join('/');
 
-    const title = getUserText(currentKey, 'title');
+    const title = getUserValue(currentKey, 'title');
 
     if (title !== '') {
       if (pathElements.length > 0) {

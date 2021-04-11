@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { getUserText } from '../../include/userTexts';
+import { getUserValue } from '../../include/userValues';
 import { connect } from 'react-redux';
 
 function OptionRequirements(props) {
@@ -8,7 +8,7 @@ function OptionRequirements(props) {
 
   const requirementElements = props.requirements.map((test, index) =>
     <div className={classNames('requirement', { met: test })} key={index}>
-      {getUserText(props.optionKey, 'requirements.' + index)}
+      {getUserValue(props.optionKey, 'requirements.' + index)}
     </div>
   );
 

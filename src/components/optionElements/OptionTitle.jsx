@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { optionTypes } from '../../include/constants';
-import { getUserText } from '../../include/userTexts';
+import { getUserValue } from '../../include/userValues';
 
 function OptionTitle(props) {
   if (props.title === '') return null;
@@ -27,7 +27,7 @@ function OptionTitle(props) {
 }
 
 export default connect((state, props) => ({
-  title: getUserText(props.optionKey, 'title'),
+  title: getUserValue(props.optionKey, 'title'),
   type: state.options[props.optionKey].type,
   numbering: state.options[props.optionKey].numbering,
 }))(OptionTitle);

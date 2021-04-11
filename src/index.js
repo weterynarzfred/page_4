@@ -13,7 +13,8 @@ const redirect = (
 
 const { store, persistor } = createStore();
 
-if (process.env.NODE_ENV === 'development') {
+// skip until fixed
+if (true && process.env.NODE_ENV === 'development') {
   ReactDOM.render(
     <Provider store={store}>
       <Router>

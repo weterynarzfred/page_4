@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getSelectedValue, isSelected } from '../functions/getSelectedValue';
 import isDisabled from '../functions/isDisabled';
 import { optionTypes } from '../include/constants';
-import { getUserText } from '../include/userTexts';
+import { getUserValue } from '../include/userValues';
 import PathLink from './PathLink';
 import SummaryList from './SummaryList';
 
@@ -44,6 +44,6 @@ export default connect((state, props) => {
     isDisabled(state.options[props.optionKey])
   ) return {};
   return {
-    title: getUserText(props.optionKey, 'title'),
+    title: getUserValue(props.optionKey, 'title'),
   };
 })(SummaryItem);

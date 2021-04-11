@@ -4,13 +4,13 @@ import Currencies from './Currencies';
 import Warnings from './Warnings';
 import PathLink from './PathLink';
 import { deepClone, deepEquals } from '../functions/deepFunctions';
-import { getUserText } from '../include/userTexts';
+import { getUserValue } from '../include/userValues';
 import Breadcrumbs from './Breadcrumbs';
 
 function Stats(props) {
   const linkElements = props.topLevelOptionKeys.map(optionKey => (
     <div className="stats-link" key={optionKey}>
-      <PathLink path={optionKey}>{getUserText(optionKey, 'title')}</PathLink>
+      <PathLink path={optionKey}>{getUserValue(optionKey, 'title')}</PathLink>
     </div>
   ));
 

@@ -1,6 +1,6 @@
 import removeOption from '../functions/removeOption';
 import parseOptions from './parseOptions';
-import { addUserText } from './userTexts';
+import { addUserValue } from './userValues';
 import { deepClone } from '../functions/deepFunctions';
 
 window.userFunctions = {};
@@ -61,7 +61,7 @@ function recalculateUserFunctions(state, changes, force = false) {
       const result = userFunction.callback(state, option);
 
       if (['text', 'title'].includes(userFunction.prop)) {
-        addUserText(result, userFunction.optionKey, userFunction.prop);
+        addUserValue(result, userFunction.optionKey, userFunction.prop);
       } else if (userFunction.prop === 'choices') {
         mergeChoices(state, option, result, newChanges);
       } else if (userFunction.prop === 'cost') {

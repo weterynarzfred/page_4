@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { optionTypes } from 'Include/constants';
 import PathLink from './PathLink';
 import { getSelectedValue } from '../functions/getSelectedValue';
-import { getUserText } from '../include/userTexts';
+import { getUserValue } from '../include/userValues';
 import isDisabled from './../functions/isDisabled';
 
 function findWarnings(state) {
@@ -20,14 +20,14 @@ function findWarnings(state) {
         warnings.push({
           id: option.optionKey + '.lessThanMin',
           optionKey: option.optionKey,
-          text: `${getUserText(optionKey, 'title')} cannot have less than ${option.min} selected.`,
+          text: `${getUserValue(optionKey, 'title')} cannot have less than ${option.min} selected.`,
         });
       }
       if (selectedCount > option.max) {
         warnings.push({
           id: option.optionKey + '.moreThanMax',
           optionKey: option.optionKey,
-          text: `${getUserText(optionKey, 'title')} cannot have more than ${option.max} selected.`,
+          text: `${getUserValue(optionKey, 'title')} cannot have more than ${option.max} selected.`,
         });
       }
     }

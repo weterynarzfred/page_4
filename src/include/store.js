@@ -61,8 +61,9 @@ function rootReducer(state = initialState, action = '') {
 }
 
 // skip redux-persist in development
+// skip until fixed
 let persistedReducer;
-if (process.env.NODE_ENV === 'development') {
+if (true && process.env.NODE_ENV === 'development') {
   persistedReducer = rootReducer;
 } else {
   persistedReducer = persistReducer(persistConfig, rootReducer);

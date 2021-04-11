@@ -3,6 +3,7 @@ import { deepClone } from './deepFunctions';
 import parseOptions from '../include/parseOptions';
 import { getSelectedValue } from './getSelectedValue';
 import removeOption from './removeOption';
+import { getUserValue } from '../include/userValues';
 
 /**
  * Applies changes to the parent of the selected option that is a choice.
@@ -65,7 +66,7 @@ function setSliderValue(action, newState) {
 function setInstancerValue(action, newState) {
   const option = newState.options[action.optionKey];
   if (action.add) {
-    const instance = deepClone(option.instanceGroup);
+    const instance = deepClone(getUserValue(option.optionKey, 'instanceGroup'));
     const instancerPath = [...option.path, option.slug];
     instance.type = optionTypes.GROUP;
     const parsedIntance = parseOptions(

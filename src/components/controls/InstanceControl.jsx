@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PathLink from 'Components/PathLink';
 import Currencies from '../Currencies';
 import { actions } from '../../include/constants';
-import { getUserText } from '../../include/userTexts';
+import { getUserValue } from '../../include/userValues';
 
 function handleDelete() {
   this.dispatch({
@@ -16,7 +16,7 @@ function handleDelete() {
 function InstanceControl(props) {
   return <div className="InstanceControl">
     <PathLink path={props.instanceKey}>
-      <div className="instance-link-title">{getUserText(props.instanceKey, 'title')}</div>
+      <div className="instance-link-title">{getUserValue(props.instanceKey, 'title')}</div>
       <Currencies optionKey={props.instanceKey} />
     </PathLink>
     <button

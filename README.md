@@ -55,3 +55,4 @@ if `type === optionTypes.INSTANCER`
 - display currencies in groups that are not instances
 - add a button to enlarge images
 - `INSTANCER` `displayAsTable`
+- fix persisting instance data

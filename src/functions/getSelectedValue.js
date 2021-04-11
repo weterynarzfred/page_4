@@ -1,5 +1,5 @@
 import { optionTypes } from 'Include/constants';
-import { getUserText } from '../include/userTexts';
+import { getUserValue } from '../include/userValues';
 import formatNumber from './formatNumber';
 import isDisabled from './isDisabled';
 
@@ -40,7 +40,7 @@ function getSelectedValue(option, options) {
           return {
             name: choice.slug,
             optionKey: choiceKey,
-            title: getUserText(choiceKey, 'title'),
+            title: getUserValue(choiceKey, 'title'),
             value,
           };
         })
