@@ -122,21 +122,24 @@ function parseOptions(rawOptions, parentPath = [], assign = {}) {
     option.optionKey = fullPath.join('/');
 
     assignProps(option, rawOption, deepClone(currentAssign));
+    delete currentAssign.isInstance;
 
     // suboptions
     if (rawOption.options !== undefined) {
       option.subOptions = Object.keys(rawOption.options).map(slug =>
         [...fullPath, slug].join('/')
       );
+      const subAssign = deepClone(currentAssign);
       if (
         [optionTypes.INTEGER, optionTypes.TEXT, optionTypes.SLIDER].includes(
           option.type
         )
-      )
-        currentAssign.isSelectablesChild = true;
+      ) {
+        subAssign.isSelectablesChild = true;
+      }
       Object.assign(
         options,
-        parseOptions(rawOption.options, fullPath, currentAssign)
+        parseOptions(rawOption.options, fullPath, subAssign)
       );
     }
 
@@ -146,10 +149,11 @@ function parseOptions(rawOptions, parentPath = [], assign = {}) {
       rawOption.choices !== undefined &&
       !rawOption.choices.isUserFunction
     ) {
-      currentAssign.isChoice = true;
+      const subAssign = deepClone(currentAssign);
+      subAssign.isChoice = true;
       Object.assign(
         options,
-        parseOptions(rawOption.choices, fullPath, currentAssign)
+        parseOptions(rawOption.choices, fullPath, subAssign)
       );
       option.choices = Object.keys(rawOption.choices).map(slug =>
         [...fullPath, slug].join('/')
@@ -162,10 +166,11 @@ function parseOptions(rawOptions, parentPath = [], assign = {}) {
       rawOption.choices !== undefined &&
       !rawOption.choices.isUserFunction
     ) {
-      currentAssign.isRatioChoice = true;
+      const subAssign = deepClone(currentAssign);
+      subAssign.isRatioChoice = true;
       Object.assign(
         options,
-        parseOptions(rawOption.choices, fullPath, currentAssign)
+        parseOptions(rawOption.choices, fullPath, subAssign)
       );
       option.choices = Object.keys(rawOption.choices).map(slug =>
         [...fullPath, slug].join('/')

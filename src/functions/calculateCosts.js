@@ -50,18 +50,18 @@ function calculateCosts({
   const changes = [];
   for (const optionKey in options) {
     const option = options[optionKey];
+    if (!isDisabled(option) && isSelected(option, state.options)) {
+      if (
+        option.lastCurrencyValues === undefined ||
+        wasOptionUpdated(option.optionKey, optionChanges)
+      ) {
+        option.lastCurrencyValues = deepClone(emptyCurrencies);
 
-    if (
-      option.lastCurrencyValues === undefined ||
-      wasOptionUpdated(option.optionKey, optionChanges)
-    ) {
-      option.lastCurrencyValues = deepClone(emptyCurrencies);
-      if (!isDisabled(option) && isSelected(option, state.options)) {
         calculateOptionCosts(option, state, changes, optionChanges);
       }
-    }
 
-    applyCost(option.lastCurrencyValues, currencies, -1);
+      applyCost(option.lastCurrencyValues, currencies, -1);
+    }
   }
 
   if (calcChanges) {

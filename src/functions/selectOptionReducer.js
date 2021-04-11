@@ -1,7 +1,7 @@
 import { optionTypes } from 'Include/constants';
 import { deepClone } from './deepFunctions';
 import parseOptions from '../include/parseOptions';
-import { getSelectedValue } from './getSelectedValue';
+import { getSelectedValue, isSelected } from './getSelectedValue';
 import removeOption from './removeOption';
 import { getUserValue } from '../include/userValues';
 
@@ -66,6 +66,8 @@ function setSliderValue(action, newState) {
 function setInstancerValue(action, newState) {
   const option = newState.options[action.optionKey];
   if (action.add) {
+    const changes = [];
+
     const instance = deepClone(getUserValue(option.optionKey, 'instanceGroup'));
     const instancerPath = [...option.path, option.slug];
     instance.type = optionTypes.GROUP;
@@ -84,10 +86,16 @@ function setInstancerValue(action, newState) {
       newState.options[optionKey].numbering = [...option.numbering, index++];
     }
 
-    return [
-      option.optionKey + '.selected',
-      option.optionKey + '/' + option.nextId++,
-    ];
+    for (const optionKey in parsedIntance) {
+      if (isSelected(newState.options[optionKey], newState.options)) {
+        changes.push(optionKey);
+      }
+    }
+
+    option.nextId++;
+
+    changes.push(option.optionKey + '.selected');
+    return changes;
   }
 }
 

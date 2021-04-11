@@ -1,5 +1,6 @@
 import { optionTypes } from 'Include/constants';
 import calculateCosts, { applyCost } from './calculateCosts';
+import { deepEquals } from './deepFunctions';
 import { getSelectedValue } from './getSelectedValue';
 
 const subOptionContainers = {
@@ -52,13 +53,21 @@ function calculateOptionCosts(option, state, changes, optionChanges) {
       subOptions[optionKey] = state.options[optionKey];
     }
 
-    const subChanges = calculateCosts({
-      state,
-      currencies: option.lastCurrencyValues,
-      options: subOptions,
-      optionChanges,
-    });
-    changes.push(...subChanges);
+    // skip currencies that are not from the root
+    if (
+      deepEquals(
+        Object.keys(option.lastCurrencyValues),
+        Object.keys(state.currencies)
+      )
+    ) {
+      const subChanges = calculateCosts({
+        state,
+        currencies: option.lastCurrencyValues,
+        options: subOptions,
+        optionChanges,
+      });
+      changes.push(...subChanges);
+    }
   }
 
   if (option.currencies !== undefined) {
