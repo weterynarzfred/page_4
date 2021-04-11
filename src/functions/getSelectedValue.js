@@ -26,7 +26,7 @@ function getSelectedValue(option, options) {
       value = option.selected;
       break;
     case optionTypes.SLIDER:
-      //
+      value = option.selected;
       break;
     case optionTypes.INSTANCER:
       value = option.selected;

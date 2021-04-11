@@ -38,9 +38,9 @@ function OptionControls(props) {
     case optionTypes.TEXT:
       controls = <TextControls optionKey={props.optionKey} />;
       break;
-    //   case optionTypes.SLIDER:
-    //     controls = <SliderControls option={props.option} />;
-    //     break;
+    case optionTypes.SLIDER:
+      controls = <SliderControls optionKey={props.optionKey} />;
+      break;
     default:
       controls = null;
   }

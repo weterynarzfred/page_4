@@ -4,15 +4,6 @@ import parseOptions from '../include/parseOptions';
 import { getSelectedValue } from './getSelectedValue';
 import removeOption from './removeOption';
 
-const getOptionValue = {
-  [optionTypes.INTEGER]: setIntegerValue,
-  // [optionTypes.SELECT]: getSelectValue,
-  [optionTypes.TEXT]: setTextValue,
-  // [optionTypes.SLIDER]: getSliderValue,
-  [optionTypes.INSTANCER]: setInstancerValue,
-  [optionTypes.GROUP]: setGroupValue,
-};
-
 /**
  * Applies changes to the parent of the selected option that is a choice.
  */
@@ -59,10 +50,14 @@ function setTextValue(action, newState) {
   return [option.optionKey + '.selected'];
 }
 
-// function getSliderValue(action, value) {
-//   if (value === undefined) value = 0;
-//   return value;
-// }
+/**
+ * Sets the value of slider options/
+ */
+function setSliderValue(action, newState) {
+  const option = newState.options[action.optionKey];
+  if (action.value !== undefined) option.selected = action.value;
+  return [option.optionKey + '.selected'];
+}
 
 /**
  * Creates new instances
@@ -108,6 +103,14 @@ function setGroupValue(action, newState) {
     return changes;
   }
 }
+
+const getOptionValue = {
+  [optionTypes.INTEGER]: setIntegerValue,
+  [optionTypes.TEXT]: setTextValue,
+  [optionTypes.SLIDER]: setSliderValue,
+  [optionTypes.INSTANCER]: setInstancerValue,
+  [optionTypes.GROUP]: setGroupValue,
+};
 
 /**
  * Applies changes from the action to the selected option in the state draft.

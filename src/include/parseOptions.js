@@ -18,6 +18,10 @@ const defaultProps = {
   requirements: undefined,
   image: undefined,
   displayAsTable: undefined,
+  sliderAttributes: undefined,
+  useTooltips: undefined,
+  logSlider: undefined,
+  displayAsPercent: undefined,
 };
 
 /**

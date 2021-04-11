@@ -27,6 +27,12 @@ Option object structure
 - `currencies` {object}
 - `options` {object}
 - `selected` {any}
+- `requirements` {array}
+
+if `type === optionTypes.SLIDER`
+- `sliderAttributes` {object}
+- `logSlider` {number}
+- `displayAsPercent` {bool}
 
 if `type === optionTypes.SELECT`
 - `choices` {object|function}
@@ -41,7 +47,6 @@ if `type === optionTypes.INSTANCER`
 ## branch todo
 - hidden
 - reset button
-- sliders
 
 ## todo
 - generate warnings when currency is below zero
@@ -56,4 +61,4 @@ if `type === optionTypes.INSTANCER`
 - add a button to enlarge images
 - add `logScale` to sliders
 - add `RATIO` `optionType`
-- `INTANCER` `displayAsTable`
+- `INSTANCER` `displayAsTable`

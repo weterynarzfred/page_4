@@ -15,7 +15,7 @@ function findWarnings(state) {
 
     const value = getSelectedValue(option, state.options);
     const selectedCount = Array.isArray(value) ? value.length : value;
-    if ([optionTypes.INTEGER, optionTypes.SELECT].includes(option.type)) {
+    if ([optionTypes.INTEGER, optionTypes.SELECT, optionTypes.SLIDER].includes(option.type)) {
       if (selectedCount < option.min) {
         warnings.push({
           id: option.optionKey + '.lessThanMin',

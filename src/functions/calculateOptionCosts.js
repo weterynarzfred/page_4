@@ -3,7 +3,7 @@ import calculateCosts, { applyCost } from './calculateCosts';
 import { getSelectedValue } from './getSelectedValue';
 
 const subOptionContainers = {
-  subOptions: [optionTypes.INTEGER, optionTypes.GROUP],
+  subOptions: [optionTypes.INTEGER, optionTypes.SLIDER, optionTypes.GROUP],
   choices: [optionTypes.SELECT],
   selected: [optionTypes.INSTANCER],
 };
@@ -13,7 +13,7 @@ const subOptionContainers = {
  */
 function calculateOptionCosts(option, state, changes, optionChanges) {
   if (option.cost !== undefined) {
-    if (option.type === optionTypes.INTEGER) {
+    if ([optionTypes.INTEGER, optionTypes.SLIDER].includes(option.type)) {
       applyCost(
         option.cost,
         option.lastCurrencyValues,
