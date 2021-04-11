@@ -1,8 +1,20 @@
+.option-integer {
+  > .option-content {
+    > .option-title {
+      .option-title-text:after {
+        content: '';
+        display: inline-block;
+        width: 5rem;
+        height: 1rem;
+      }
+    }
+  }
+}
+
 .SpinboxControl {
   position: absolute;
-  top: -1em;
-  left: 0;
-  right: 0;
+  top: -2.7rem;
+  right: 0.5rem;
   height: 2em;
   color: #fff;
   display: flex;
@@ -21,7 +33,7 @@
     box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset;
 
     .integer-value {
-      padding: 0 1em;
+      padding: 0 0.5em;
       font-size: 1.25em;
       font-weight: 700;
     }

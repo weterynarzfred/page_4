@@ -15,12 +15,16 @@ function GroupControls(props) {
   useEffect(() => {
     if (props.useMasonry) {
       if (masonryElement.current === undefined) {
+        masonryElement.current = new Masonry(gridRef.current, {
+          itemSelector: '.masonry-cell',
+          fitWidth: true,
+          transitionDuration: 0,
+          initLayout: false,
+        });
         setTimeout(() => {
-          masonryElement.current = new Masonry(gridRef.current, {
-            itemSelector: '.masonry-cell',
-            fitWidth: true,
-            transitionDuration: 0,
-          });
+          if (masonryElement.current !== undefined) {
+            masonryElement.current.layout();
+          }
         }, 0);
       } else {
         masonryElement.current.reloadItems();

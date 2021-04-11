@@ -46,8 +46,8 @@ function OptionContent(props) {
     }
   }, [props.opened]);
 
-  return <div className={props.classes} onClick={handleClick.bind(props)}>
-    <div className="option-content">
+  return <div className={props.classes}>
+    <div className="option-content" onClick={handleClick.bind(props)}>
       <OptionTitle
         optionKey={props.optionKey}
         onClick={props.isCollapsible ? props.setOpened : undefined}

@@ -20,13 +20,6 @@
       border-bottom: 1px solid $borderColor;
       padding: 0.5rem 1rem 0.5rem 1rem;
       font-size: 1.25em;
-
-      .option-title-text:after {
-        content: '';
-        display: inline-block;
-        width: 3rem;
-        height: 1rem;
-      }
     }
   }
 
