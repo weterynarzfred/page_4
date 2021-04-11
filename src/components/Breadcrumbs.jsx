@@ -12,19 +12,23 @@ function Breadcrumbs(props) {
     currentTarget.push(part);
     const currentKey = currentTarget.join('/');
 
-    if (currentTarget.length > 1) {
+    const title = getUserText(currentKey, 'title');
+
+    if (title !== '') {
+      if (pathElements.length > 0) {
+        pathElements.push(
+          <div className="path-separator" key={currentKey + '-separator'}>/</div>
+        );
+      }
+
       pathElements.push(
-        <div className="path-separator" key={currentKey + '-separator'}>/</div>
+        <PathLink
+          key={currentKey}
+          text={title}
+          path={currentKey}
+        />
       );
     }
-
-    pathElements.push(
-      <PathLink
-        key={currentKey}
-        text={getUserText(currentKey, 'title')}
-        path={currentKey}
-      />
-    );
   }
 
   return <div className="Breadcrumbs">{pathElements}</div>;

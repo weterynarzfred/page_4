@@ -63,6 +63,7 @@ const rawOptions = {
   root: {
     type: optionTypes.GROUP,
     image: 'containers/intro.jpg',
+    title: 'Root',
     text: <>
       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea recusandae hic sapiente quibusdam earum veniam dolorum veritatis, minus tenetur laboriosam, aperiam incidunt corporis eligendi itaque. Aliquid molestias quaerat quis similique!</p>
       <p>Laudantium nihil quae necessitatibus nisi delectus. Ducimus, voluptatibus veniam. Error tempora deserunt, reiciendis qui tempore cumque obcaecati voluptatem molestias, veniam ducimus laudantium? Delectus dolorum sapiente adipisci quisquam placeat, numquam quasi.</p>

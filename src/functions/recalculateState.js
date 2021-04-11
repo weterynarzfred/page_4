@@ -7,7 +7,6 @@ import calculateCosts from './calculateCosts';
  * Handles all changes to the state that are a result of options being selected.
  */
 function recalculateState(stateDraft, changes, action) {
-  console.time('recalculate');
   let i = 0;
 
   const topLevelOptions = {};
@@ -36,7 +35,6 @@ function recalculateState(stateDraft, changes, action) {
     changes = [...new Set(changes)];
     i++;
   }
-  console.timeEnd('recalculate');
 }
 
 export default recalculateState;
