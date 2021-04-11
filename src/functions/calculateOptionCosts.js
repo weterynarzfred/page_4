@@ -12,14 +12,32 @@ const subOptionContainers = {
  * Calculates the cost of a single option and its suboptions.
  */
 function calculateOptionCosts(option, state, changes, optionChanges) {
-  if (option.cost !== undefined) {
-    if ([optionTypes.INTEGER, optionTypes.SLIDER].includes(option.type)) {
-      applyCost(
-        option.cost,
-        option.lastCurrencyValues,
-        getSelectedValue(option, state.options)
-      );
-    }
+  switch (option.type) {
+    case optionTypes.INTEGER:
+    case optionTypes.SLIDER:
+      if (option.cost !== undefined) {
+        if (!option.isRatioChoice) {
+          applyCost(
+            option.cost,
+            option.lastCurrencyValues,
+            getSelectedValue(option, state.options)
+          );
+        }
+      }
+      break;
+    case optionTypes.RATIO:
+      let ratioValue = getSelectedValue(option, state.options);
+      for (const item of ratioValue) {
+        const ratioChoice = state.options[item.optionKey];
+        if (ratioChoice.cost !== undefined) {
+          applyCost(
+            ratioChoice.cost,
+            option.lastCurrencyValues,
+            item.percentage
+          );
+        }
+      }
+      break;
   }
 
   for (const subOptionContainer in subOptionContainers) {

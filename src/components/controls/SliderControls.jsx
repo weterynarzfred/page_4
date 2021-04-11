@@ -10,6 +10,22 @@ import { deepClone } from '../../functions/deepFunctions';
 const { createSliderWithTooltip } = Slider;
 const SliderWithTooltip = createSliderWithTooltip(Slider);
 
+function toLogScale(value) {
+  if (this.logSlider === undefined) return value;
+  let logValue = value / this.max;
+  logValue = Math.pow(logValue, this.logSlider);
+  logValue *= this.max;
+  return isNaN(logValue) ? 0 : logValue;
+}
+
+function toLinearScale(logValue) {
+  if (this.logSlider === undefined) return logValue;
+  let value = logValue / this.max;
+  value = Math.pow(value, 1 / this.logSlider);
+  value *= this.max;
+  return isNaN(value) ? 0 : value;
+}
+
 function handleChange(value) {
   if (
     value === undefined ||
@@ -24,36 +40,22 @@ function handleChange(value) {
 }
 
 function SliderControls(props) {
-  const [_value, set_value] = useState();
+  const [sliderValue, setSliderValue] = useState(0);
+  const [inputValue, setInputValue] = useState(0);
   const updateTimeout = useRef();
 
   useEffect(() => {
     const value = props.selectedValue || 0;
-
-    if (props.logSlider !== undefined) {
-      let logValue = value / props.max;
-      logValue = Math.pow(logValue, 1 / props.logSlider);
-      logValue *= props.max;
-      set_value(logValue);
-    } else {
-      set_value(value);
-    }
+    setSliderValue(toLinearScale.call(props, value));
+    setInputValue(value);
   }, []);
 
   useEffect(() => {
     clearTimeout(updateTimeout.current);
     updateTimeout.current = setTimeout(() => {
-      if (props.logSlider !== undefined) {
-        let logValue = _value / props.max;
-        logValue = Math.pow(logValue, props.logSlider);
-        logValue *= props.max;
-        handleChange.call(props, logValue);
-      }
-      else {
-        handleChange.call(props, _value);
-      }
+      handleChange.call(props, toLogScale.call(props, sliderValue));
     }, 200);
-  }, [_value]);
+  }, [sliderValue]);
 
   let displayValue = formatNumber(props.selectedValue, 2, {
     usePercent: props.displayAsPercent,
@@ -97,20 +99,32 @@ function SliderControls(props) {
 
   return (
     <div className="SliderControls option-controls">
-      <div className="slider-value">{displayValue}</div>
+      <input
+        type="text"
+        className="slider-value"
+        value={inputValue}
+        onChange={event => {
+          const value = event.target.value;
+          setInputValue(value);
+          setSliderValue(toLinearScale.call(props, parseFloat(value)));
+        }}
+      />
       {props.useTooltips ? <SliderWithTooltip
         {...attributes}
         min={props.min}
         max={props.max}
-        value={_value}
+        value={sliderValue}
         tipFormatter={() => displayValue}
-        onChange={value => set_value(value)}
+        onChange={value => setSliderValue(value)}
       /> : <Slider
         {...attributes}
         min={props.min}
         max={props.max}
-        value={_value}
-        onChange={value => set_value(value)}
+        value={sliderValue}
+        onChange={value => {
+          setInputValue(formatNumber(toLogScale.call(props, value), 2, { onlySignificant: true }));
+          setSliderValue(value);
+        }}
       />}
     </div>
   );

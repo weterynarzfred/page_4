@@ -6,6 +6,8 @@ import formatNumber from '../../functions/formatNumber';
 import { getSelectedValue } from '../../functions/getSelectedValue';
 
 function RatioControls(props) {
+  if (props.selectedValue.length === 0) return null;
+
   return <div className="RatioControls">
     <PieChart width={600} height={300}>
       <Pie
@@ -19,8 +21,8 @@ function RatioControls(props) {
         animationBegin={0}
         animationDuration={200}
         labelLine={false}
-        minAngle={5}
-        paddingAngle={5}
+        minAngle={10}
+        paddingAngle={10}
         label={({
           cx,
           cy,
@@ -42,7 +44,7 @@ function RatioControls(props) {
           >
             <tspan fontSize="12">{title}</tspan>
             <tspan x={x} dy={16} fontSize="16">
-              {formatNumber(percent, 3, { usePercent: true, onlySignificant: true })}
+              {formatNumber(percent, 5, { usePercent: true, onlySignificant: true })}
             </tspan>
           </text>;
         }}

@@ -54,5 +54,4 @@ if `type === optionTypes.INSTANCER`
 - add option type with order selection
 - display currencies in groups that are not instances
 - add a button to enlarge images
-- add costs to `RATIO` `optionType`
 - `INSTANCER` `displayAsTable`

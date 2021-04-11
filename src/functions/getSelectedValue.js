@@ -1,5 +1,6 @@
 import { optionTypes } from 'Include/constants';
 import { getUserText } from '../include/userTexts';
+import formatNumber from './formatNumber';
 import isDisabled from './isDisabled';
 
 /**
@@ -13,9 +14,11 @@ function getSelectedValue(option, options) {
   switch (option.type) {
     case optionTypes.INTEGER:
     case optionTypes.TEXT:
-    case optionTypes.SLIDER:
     case optionTypes.INSTANCER:
       value = option.selected;
+      break;
+    case optionTypes.SLIDER:
+      value = Math.round(option.selected * 1e9) / 1e9;
       break;
     case optionTypes.SELECT:
       if (!Array.isArray(option.choices)) return 0;
@@ -28,17 +31,23 @@ function getSelectedValue(option, options) {
       break;
     case optionTypes.RATIO:
       if (!Array.isArray(option.choices)) return 0;
+      let ratioSum = 0;
       value = option.choices
         .map(choiceKey => {
           const choice = options[choiceKey];
+          const value = getSelectedValue(choice, options);
+          ratioSum += value;
           return {
             name: choice.slug,
             optionKey: choiceKey,
             title: getUserText(choiceKey, 'title'),
-            value: getSelectedValue(choice, options),
+            value,
           };
         })
         .filter(item => item.value > 0);
+      for (const item of value) {
+        item.percentage = item.value / ratioSum;
+      }
       break;
   }
 
