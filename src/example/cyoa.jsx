@@ -78,7 +78,7 @@ const rawOptions = {
               step: 0.01,
               marks: {
                 0: '0%',
-                0.09999999999999999: '0.001%',
+                0.1: '0.001%',
                 0.251188643150958: '0.1%',
                 0.3981071705534972: '1%',
                 0.5492802716530588: '5%',
@@ -272,6 +272,46 @@ const rawOptions = {
             cost: { soulPower: 16 },
             title: 'Choice 5',
             text: <p>Laudantium labore ipsum eligendi, sapiente vero cupiditate earum nam placeat omnis quis ea, consequuntur, optio fugiat facilis nemo sequi perferendis consectetur numquam? Quis corporis animi consectetur magni voluptatibus deserunt fuga.</p>,
+          },
+        },
+      },
+    },
+  },
+  ratios: {
+    type: optionTypes.GROUP,
+    title: 'Ratios',
+    options: {
+      ratio: {
+        type: optionTypes.RATIO,
+        title: 'Ratio',
+        choices: {
+          option1: {
+            type: optionTypes.SLIDER,
+            ...ratioWeightAttributes,
+            cost: { gold: 1 },
+            selected: 1,
+            title: 'Option 1'
+          },
+          option2: {
+            type: optionTypes.SLIDER,
+            ...ratioWeightAttributes,
+            cost: { gold: 2 },
+            selected: 1,
+            title: 'Option 2'
+          },
+          option3: {
+            type: optionTypes.SLIDER,
+            ...ratioWeightAttributes,
+            cost: { gold: 4 },
+            selected: 1,
+            title: 'Option 3'
+          },
+          option4: {
+            type: optionTypes.SLIDER,
+            ...ratioWeightAttributes,
+            cost: { gold: 8 },
+            selected: 1,
+            title: 'Option 4'
           },
         },
       },
