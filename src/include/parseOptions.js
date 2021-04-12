@@ -50,6 +50,9 @@ function assignProps(option, rawOption, assign) {
           option.optionKey,
           identifier
         );
+        option.requirements[index].value.subscribed = option.requirements[
+          index
+        ].value.subscribed.map(key => parsePath(key, option));
         addUserFunction(
           option.requirements[index].value,
           option.optionKey,

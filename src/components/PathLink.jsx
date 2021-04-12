@@ -1,20 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getUserValue } from '../include/userValues';
 
 function PathLink(props) {
-  const path = Array.isArray(props.path) ?
-    props.path :
-    props.path.split('.').filter(e => e !== '');
-
   return (
-    <Link to={'/' + path.join('/')} className="Link" onClick={event => {
+    <Link to={'/' + props.path} className="Link" onClick={event => {
       event.stopPropagation();
       if (props.onClick !== undefined) props.onClick();
     }}>
-      {props.children === undefined ? props.text : props.children}
+      {props.children ?? props.text}
     </Link>
   );
 }
 
-export default connect()(PathLink);
+export default connect((state, props) => {
+  if (props.optionKey === undefined) return {};
+
+  return {
+    text: getUserValue(props.optionKey, 'title'),
+  };
+})(PathLink);

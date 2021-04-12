@@ -1,12 +1,10 @@
 .option-is-selectable {
   width: 25em;
   max-width: 100%;
-  margin: 0.5em 0 1em 0;
-  padding: 0 0.5em;
+  padding: 0.25em;
 
   > .option-content {
     position: relative;
-    background-color: $selectableBackground;
     color: $selectableText;
     border: solid transparent;
     border-width: 1px;
@@ -14,7 +12,7 @@
       box-shadow 0.3s;
     filter: grayscale(1);
     box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset;
-    border-radius: 0.5em;
+    // border: 1px solid $borderColor;
 
     > .option-title {
       border-bottom: 1px solid $borderColor;
@@ -84,9 +82,11 @@
   &.selected {
     > .option-content {
       border-color: $selected;
+      box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset,
+        0 0 5px $selected;
 
       > .option-title {
-        color: $enabledText;
+        color: $selected;
       }
     }
   }

@@ -20,7 +20,7 @@ function App(props) {
     }
   }, [props.location.pathname]);
 
-  return <div className="App">
+  return <div className="App" style={{ backgroundImage: "url('./images/general/pattern.png')" }}>
     <Navigation />
     <Stats />
     <div id="option-list">

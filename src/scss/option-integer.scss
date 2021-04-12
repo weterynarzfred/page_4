@@ -116,10 +116,14 @@
   &.option-is-row {
     .integer-spinbox-content {
       border-color: $selected;
+      box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset,
+        0 0 5px $selected;
     }
 
     .CheckboxControl {
       border-color: $selected;
+      box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset,
+        0 0 5px $selected;
     }
   }
 }

@@ -56,3 +56,4 @@ if `type === optionTypes.INSTANCER`
 - add a button to enlarge images
 - `INSTANCER` `displayAsTable`
 - fix persisting instance data
+- fix `displayAsPercent` in sliders

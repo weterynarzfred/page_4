@@ -23,7 +23,7 @@ function Breadcrumbs(props) {
       pathElements.push(
         <PathLink
           key={currentKey}
-          text={title}
+          optionKey={currentKey}
           path={currentKey}
         />
       );

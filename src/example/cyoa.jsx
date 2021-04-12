@@ -288,6 +288,7 @@ const rawOptions = {
           option1: {
             type: optionTypes.SLIDER,
             ...ratioWeightAttributes,
+            included: false,
             cost: { gold: 1 },
             selected: 1,
             title: 'Option 1'
@@ -295,6 +296,7 @@ const rawOptions = {
           option2: {
             type: optionTypes.SLIDER,
             ...ratioWeightAttributes,
+            included: false,
             cost: { gold: 2 },
             selected: 1,
             title: 'Option 2'
@@ -302,6 +304,7 @@ const rawOptions = {
           option3: {
             type: optionTypes.SLIDER,
             ...ratioWeightAttributes,
+            included: false,
             cost: { gold: 4 },
             selected: 1,
             title: 'Option 3'
@@ -309,6 +312,7 @@ const rawOptions = {
           option4: {
             type: optionTypes.SLIDER,
             ...ratioWeightAttributes,
+            included: false,
             cost: { gold: 8 },
             selected: 1,
             title: 'Option 4'

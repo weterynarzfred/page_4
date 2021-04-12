@@ -76,7 +76,7 @@ function GroupControls(props) {
 export default connect((state, props) => {
   const option = state.options[props.optionKey];
   let subOptions;
-  if (option.type === optionTypes.GROUP || option.type === optionTypes.INTEGER) subOptions = option.subOptions;
+  if (option.type === optionTypes.GROUP || option.type === optionTypes.INTEGER || option.type === optionTypes.SLIDER) subOptions = option.subOptions;
   else if (option.type === optionTypes.RATIO || option.type === optionTypes.SELECT) subOptions = option.choices;
 
   if (subOptions === undefined) return {};

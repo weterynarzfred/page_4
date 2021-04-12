@@ -30,7 +30,6 @@ const callables = {
 const ratioWeightAttributes = {
   logSlider: 5,
   sliderAttributes: {
-    included: false,
     step: 0.01,
     marks: {
       0: '0',

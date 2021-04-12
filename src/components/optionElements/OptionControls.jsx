@@ -15,9 +15,7 @@ function OptionControls(props) {
     case optionTypes.INTEGER:
       controls = <>
         <IntegerControls optionKey={props.optionKey} />
-        <GroupControls
-          optionKey={props.optionKey}
-        />
+        <GroupControls optionKey={props.optionKey} />
       </>;
       break;
     case optionTypes.INSTANCER:
@@ -43,7 +41,10 @@ function OptionControls(props) {
       controls = <TextControls optionKey={props.optionKey} />;
       break;
     case optionTypes.SLIDER:
-      controls = <SliderControls optionKey={props.optionKey} />;
+      controls = <>
+        <SliderControls optionKey={props.optionKey} />
+        <GroupControls optionKey={props.optionKey} />
+      </>;
       break;
     default:
       controls = null;
