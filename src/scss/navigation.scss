@@ -50,6 +50,12 @@
     z-index: 20;
     transition: 0.3s;
     overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     .navigation-menu-content {
       display: flex;

@@ -11,7 +11,7 @@ function handleRestart(history, setOpened) {
     history.push('/');
   }
   else {
-    history.push(settings.initialScreen.join('/'));
+    history.push('/' + settings.initialScreen.join('/'));
   }
   setOpened(false);
 

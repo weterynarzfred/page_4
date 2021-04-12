@@ -44,6 +44,9 @@ function rootReducer(state = initialState, action = '') {
         break;
       case actions.RESTART:
         stateDraft = deepClone(initialState);
+        // TODO: add a function to handle these
+        window.userFunctions = {};
+        window.userValues = {};
         break;
       default:
     }
