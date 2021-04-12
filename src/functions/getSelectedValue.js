@@ -1,5 +1,6 @@
 import { optionTypes } from 'Include/constants';
 import { getUserValue } from '../include/userValues';
+import { deepClone } from './deepFunctions';
 import formatNumber from './formatNumber';
 import isDisabled from './isDisabled';
 
@@ -30,11 +31,12 @@ function getSelectedValue(option, options) {
         );
       break;
     case optionTypes.RATIO:
-      if (!Array.isArray(option.choices)) return 0;
+      if (!Array.isArray(option.choices)) return [];
       let ratioSum = 0;
       value = option.choices
         .map(choiceKey => {
           const choice = options[choiceKey];
+          if (choice === undefined) return { value: 0 };
           const value = getSelectedValue(choice, options);
           ratioSum += value;
           return {
