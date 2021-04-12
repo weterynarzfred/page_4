@@ -18,10 +18,10 @@ function getSelectedValue(option, options) {
       value = option.selected;
       break;
     case optionTypes.SLIDER:
-      value = Math.round(option.selected * 1e9) / 1e9;
+      value = Math.round(option.selected * 1e10) / 1e10;
       break;
     case optionTypes.SELECT:
-      if (!Array.isArray(option.choices)) return 0;
+      if (!Array.isArray(option.choices)) return [];
       value = option.choices
         .filter(optionKey => getSelectedValue(options[optionKey]) >= 1)
         .sort(

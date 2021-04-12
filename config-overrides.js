@@ -7,6 +7,6 @@ module.exports = function override(config, env) {
     Functions: path.resolve(__dirname, 'src/functions/'),
     Include: path.resolve(__dirname, 'src/include/'),
   });
-  config.resolve.modules.push('src', 'src/example');
+  config.resolve.modules.push('src/content', 'src/example');
   return config;
 };
