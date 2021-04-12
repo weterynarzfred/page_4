@@ -62,7 +62,7 @@ const _getSelectedValue = function (path) {
 const rawOptions = {
   root: {
     type: optionTypes.GROUP,
-    image: 'containers/intro.jpg',
+    image: 'containers/intro.webp',
     title: 'Root',
     text: <>
       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea recusandae hic sapiente quibusdam earum veniam dolorum veritatis, minus tenetur laboriosam, aperiam incidunt corporis eligendi itaque. Aliquid molestias quaerat quis similique!</p>
@@ -93,7 +93,7 @@ const rawOptions = {
             displayAsPercent: true,
             selected: 1,
             title: 'B',
-            image: 'healthy.jpg',
+            image: 'healthy.webp',
             text: <p>Option B</p>,
             cost: userFunction(({ isSelected }) => ({ soulPower: isSelected('root/simple/a') ? 10 : 5 }), ['root/simple/a.selected']),
           },
