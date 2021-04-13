@@ -56,7 +56,9 @@ function OptionControls(props) {
 
 function checkIfMasonry(option, options) {
   let subOptions;
-  if (option.type === optionTypes.GROUP) subOptions = option.subOptions;
+  if (option.type === optionTypes.GROUP) {
+    subOptions = option.subOptions;
+  }
   else if (option.type === optionTypes.SELECT) {
     if (option.displayAsTable || option.isSelectablesChild) return false;
     subOptions = option.choices;

@@ -6,7 +6,7 @@ import { optionTypes } from '../include/constants';
 import SummaryItem from './SummaryItem';
 
 function SummaryList(props) {
-  if (props.optionKeys === undefined) return null;
+  if (props.optionKeys === undefined || props.optionKeys.length === 0) return null;
 
   const items = [];
   for (const optionKey of props.optionKeys) {
@@ -20,9 +20,18 @@ function SummaryList(props) {
   if (props.skipListWrap) return items;
 
   return (
-    <ul className="SummaryList">
-      {items}
-    </ul>
+    <>
+      {props.optionKey === undefined ? null : <svg
+        className="summary-item-close"
+        viewBox="0 0 100 100"
+        onClick={props.setOpened}
+      >
+        <path d="M10 30L50 70L90 30" />
+      </svg>}
+      {(props.opened || props.optionKey === undefined) ? <ul className="SummaryList">
+        {items}
+      </ul> : null}
+    </>
   );
 }
 
@@ -37,11 +46,15 @@ export default connect((state, props) => {
     const option = state.options[props.optionKey];
     if (
       option.type === optionTypes.GROUP ||
+      option.type === optionTypes.SLIDER ||
       option.type === optionTypes.INTEGER
     ) {
       optionKeys = option.subOptions;
     }
-    else if (option.type === optionTypes.SELECT) {
+    else if (
+      option.type === optionTypes.SELECT ||
+      option.type === optionTypes.RATIO
+    ) {
       optionKeys = option.choices;
     }
     else if (option.type === optionTypes.INSTANCER) {

@@ -10,8 +10,6 @@ import isDisabled from './../functions/isDisabled';
 function Option(props) {
   if (props.type === undefined) return null;
 
-  const [opened, setOpened] = useState(!props.isDisabled);
-
   const isSelectable = [
     optionTypes.INTEGER,
     optionTypes.TEXT,
@@ -31,6 +29,8 @@ function Option(props) {
     optionTypes.RATIO,
     optionTypes.INSTANCER,
   ].includes(props.type);
+
+  const [opened, setOpened] = useState(!(isContainer && props.isDisabled));
 
   const classes = classNames(
     'Option',

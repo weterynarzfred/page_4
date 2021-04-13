@@ -50,7 +50,6 @@ if `type === optionTypes.INSTANCER`
 - add a disclaimer
 - add tooltips explaining gui
 - make a working preview
-- add better summary to main menu
 - save and load from a json file
 - add blurring to nsfw images
 - add option type with order selection

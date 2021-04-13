@@ -5,7 +5,7 @@ import { getUserValue } from '../include/userValues';
 
 function PathLink(props) {
   return (
-    <Link to={'/' + props.path} className={`Link ${props.className}`} onClick={event => {
+    <Link to={'/' + props.path} className={`Link ${props.className || ''}`} onClick={event => {
       event.stopPropagation();
       if (props.onClick !== undefined) props.onClick();
     }}>
