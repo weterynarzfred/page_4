@@ -17,9 +17,9 @@ function GroupControls(props) {
       if (masonryElement.current === undefined) {
         masonryElement.current = new Masonry(gridRef.current, {
           itemSelector: '.masonry-cell',
-          fitWidth: true,
           transitionDuration: 0,
           initLayout: false,
+          percentPosition: true,
         });
         setTimeout(() => {
           if (masonryElement.current !== undefined) {
@@ -64,7 +64,8 @@ function GroupControls(props) {
       className={classNames(
         'GroupControls',
         'option-controls',
-        { 'masonry-grid': props.useMasonry }
+        { 'masonry-grid': props.useMasonry },
+        { [`masonry-${props.subOptions.length}`]: props.useMasonry }
       )}
       ref={gridRef}
     >

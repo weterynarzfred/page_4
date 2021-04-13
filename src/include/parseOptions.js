@@ -23,6 +23,7 @@ const defaultProps = {
   useTooltips: undefined,
   logSlider: undefined,
   displayAsPercent: undefined,
+  openInNew: undefined,
 };
 
 /**

@@ -28,14 +28,16 @@ Option object structure
 - `options` {object}
 - `selected` {any}
 - `requirements` {array}
+- `openInNew` {bool}
 
 if `type === optionTypes.SLIDER`
 - `sliderAttributes` {object}
 - `logSlider` {number}
-- `displayAsPercent` {bool}
+- `displayAsPercent` {bool} *not working right now*
 
 if `type === optionTypes.SELECT`
 - `choices` {object|function}
+- `displayAsTable` {bool}
 
 if `type === optionTypes.INSTANCER`
 - `instanceGroup` {object}
@@ -57,3 +59,4 @@ if `type === optionTypes.INSTANCER`
 - `INSTANCER` `displayAsTable`
 - fix persisting instance data
 - fix `displayAsPercent` in sliders
+- remember collapsed options between subpages

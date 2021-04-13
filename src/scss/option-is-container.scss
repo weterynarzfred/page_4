@@ -22,45 +22,25 @@
           padding-bottom: 33%;
         }
       }
-
-      > .option-text {
-        font-size: 1.25em;
-      }
     }
   }
 
   .Option.option-is-container {
     > .option-content {
       > .option-title {
-        font-size: 3.3302em;
+        font-size: 2.618em;
       }
 
       .Option.option-is-container {
         > .option-content {
           > .option-title {
-            font-size: 2.618em;
+            font-size: 1.618em;
           }
 
           .Option.option-is-container {
             > .option-content {
               > .option-title {
-                font-size: 2.0582em;
-              }
-
-              .Option.option-is-container {
-                > .option-content {
-                  > .option-title {
-                    font-size: 1.618em;
-                  }
-
-                  .Option.option-is-container {
-                    > .option-content {
-                      > .option-title {
-                        font-size: 1.272em;
-                      }
-                    }
-                  }
-                }
+                font-size: 1em;
               }
             }
           }

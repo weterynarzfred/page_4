@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { optionTypes } from 'Include/constants';
 import GroupControls from '../controls/GroupControls';
 import InstancerControls from '../controls/InstancerControls';
@@ -6,51 +7,51 @@ import IntegerControls from '../controls/IntegerControls';
 import TextControls from '../controls/TextControls';
 import SliderControls from '../controls/SliderControls';
 import RatioControls from '../controls/RatioControls';
-import { connect } from 'react-redux';
+import PathLink from '../PathLink';
 
 function OptionControls(props) {
 
-  let controls;
+  if (props.openInNew) {
+    return <div className="button-container">
+      <PathLink path={props.optionKey} className="button-open-in-new">
+        <button >
+          open
+      </button>
+      </PathLink>
+    </div>;
+  }
   switch (props.type) {
     case optionTypes.INTEGER:
-      controls = <>
+      return <>
         <IntegerControls optionKey={props.optionKey} />
         <GroupControls optionKey={props.optionKey} />
       </>;
-      break;
     case optionTypes.INSTANCER:
-      controls = <InstancerControls optionKey={props.optionKey} />;
-      break;
+      return <InstancerControls optionKey={props.optionKey} />;
     case optionTypes.RATIO:
-      controls = <>
+      return <>
         <RatioControls optionKey={props.optionKey} />
         <GroupControls
           optionKey={props.optionKey}
           useMasonry={props.useMasonry}
         />
       </>;
-      break;
     case optionTypes.SELECT:
     case optionTypes.GROUP:
-      controls = <GroupControls
+      return <GroupControls
         optionKey={props.optionKey}
         useMasonry={props.useMasonry}
       />;
-      break;
     case optionTypes.TEXT:
-      controls = <TextControls optionKey={props.optionKey} />;
-      break;
+      return <TextControls optionKey={props.optionKey} />;
     case optionTypes.SLIDER:
-      controls = <>
+      return <>
         <SliderControls optionKey={props.optionKey} />
         <GroupControls optionKey={props.optionKey} />
       </>;
-      break;
     default:
-      controls = null;
+      return null;
   }
-
-  return controls;
 }
 
 function checkIfMasonry(option, options) {
@@ -80,5 +81,6 @@ export default connect((state, props) => {
   return {
     type: option.type,
     useMasonry: checkIfMasonry(option, state.options),
+    openInNew: option.openInNew && option.optionKey !== state.path.join('/'),
   };
 })(OptionControls);

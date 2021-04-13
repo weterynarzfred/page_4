@@ -1,6 +1,61 @@
+.masonry-grid {
+  max-width: 100em;
+
+  .option-is-selectable {
+    width: 25%;
+  }
+}
+
+.masonry-3 {
+  max-width: 75em;
+
+  .option-is-selectable {
+    width: 33.3333%;
+  }
+}
+
+.masonry-2 {
+  max-width: 50em;
+
+  .option-is-selectable {
+    width: 50%;
+  }
+}
+
+.masonry-1 {
+  max-width: 25em;
+
+  .option-is-selectable {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .masonry-grid .option-is-selectable {
+    width: 33.3333%;
+  }
+}
+
+@media (max-width: 800px) {
+  .masonry-grid,
+  .masonry-3 {
+    .option-is-selectable {
+      width: 50%;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .masonry-grid,
+  .masonry-3,
+  .masonry-2 {
+    .option-is-selectable {
+      width: 100%;
+    }
+  }
+}
+
 .option-is-selectable {
-  width: 25em;
-  max-width: 100%;
   padding: 0.25em;
 
   > .option-content {
@@ -12,12 +67,14 @@
       box-shadow 0.3s;
     filter: grayscale(1);
     box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset;
-    // border: 1px solid $borderColor;
 
     > .option-title {
       border-bottom: 1px solid $borderColor;
       padding: 0.5rem 1rem 0.5rem 1rem;
       font-size: 1.25em;
+      min-height: 2.6em;
+      display: flex;
+      align-items: flex-end;
     }
   }
 
@@ -35,8 +92,9 @@
   }
 
   .option-text {
-    padding: 0 1.5em;
-    min-height: 1em;
+    padding: 0 1.5rem;
+    min-height: 1rem;
+    font-size: 0.9rem;
   }
 
   > .option-content > .option-collapsible-content {
