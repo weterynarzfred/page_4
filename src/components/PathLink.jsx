@@ -4,8 +4,15 @@ import { Link } from 'react-router-dom';
 import { getUserValue } from '../include/userValues';
 
 function PathLink(props) {
+  let path = props.path;
+  if (props.relative) {
+    path = window.location.pathname + '/' + path;
+  }
+  else {
+    path = '/' + path;
+  }
   return (
-    <Link to={'/' + props.path} className={`Link ${props.className || ''}`} onClick={event => {
+    <Link to={path} className={`Link ${props.className || ''}`} onClick={event => {
       event.stopPropagation();
       if (props.onClick !== undefined) props.onClick();
     }}>

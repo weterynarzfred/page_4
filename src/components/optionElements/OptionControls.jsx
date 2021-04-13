@@ -10,16 +10,6 @@ import RatioControls from '../controls/RatioControls';
 import PathLink from '../PathLink';
 
 function OptionControls(props) {
-
-  if (props.openInNew) {
-    return <div className="button-container">
-      <PathLink path={props.optionKey} className="button-open-in-new">
-        <button >
-          open
-      </button>
-      </PathLink>
-    </div>;
-  }
   switch (props.type) {
     case optionTypes.INTEGER:
       return <>
@@ -83,6 +73,5 @@ export default connect((state, props) => {
   return {
     type: option.type,
     useMasonry: checkIfMasonry(option, state.options),
-    openInNew: option.openInNew && option.optionKey !== state.path.join('/'),
   };
 })(OptionControls);

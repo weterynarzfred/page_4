@@ -71,7 +71,8 @@ export default connect((state, props) => {
   const option = state.options[props.optionKey];
   if (
     option === undefined ||
-    option.hidden
+    option.hidden ||
+    (!props.topLevel && option.hiddenInParent)
   ) return {};
 
   return {

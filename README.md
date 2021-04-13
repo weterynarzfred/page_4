@@ -28,7 +28,7 @@ Option object structure
 - `options` {object}
 - `selected` {any}
 - `requirements` {array}
-- `openInNew` {bool}
+- `hiddenInParent` {bool}
 
 if `type === optionTypes.SLIDER`
 - `sliderAttributes` {object}

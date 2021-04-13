@@ -102,6 +102,10 @@ body {
       filter: grayscale(1);
       transition: opacity 0.3s;
     }
+
+    .button-container {
+      pointer-events: none;
+    }
   }
 }
 
@@ -127,6 +131,7 @@ button {
   color: $enabledText;
   border: 1px solid $borderColor;
   padding: 0.5em 2em;
+  margin: 0 0.5em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -146,26 +151,30 @@ button {
     color: $selected;
     border-color: $selected;
   }
+}
 
-  &.disabled {
-    border-color: $disabledBorderColor;
-    background-color: $disabledBackground;
-    color: $disabledText;
-    cursor: auto;
-  }
+button.disabled,
+.option-disabled button {
+  border-color: $disabledBorderColor;
+  background-color: $disabledBackground;
+  color: $disabledText;
+  cursor: auto;
 }
 
 .button-container {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 60em;
+  margin: 2em auto 0 auto;
 }
 
 a.button-open-in-new {
   text-decoration: none;
-  margin: 2em auto 0 auto;
+}
 
-  button {
-    height: 3em;
-  }
+button.large {
+  height: 3em;
 }
 
 .masonry-grid {
