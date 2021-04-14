@@ -7,6 +7,7 @@ import { deepClone } from '../functions/deepFunctions';
 const defaultProps = {
   type: optionTypes.INTEGER,
   title: '',
+  displayTitle: undefined,
   text: '',
   min: 0,
   max: 1,
@@ -79,6 +80,11 @@ function addUserValues(option) {
   if (option.text !== undefined) {
     addUserValue(option.text, option.optionKey, 'text');
     delete option.text;
+  }
+
+  if (option.displayTitle !== undefined) {
+    addUserValue(option.displayTitle, option.optionKey, 'displayTitle');
+    delete option.displayTitle;
   }
 }
 

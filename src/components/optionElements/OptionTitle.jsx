@@ -17,6 +17,6 @@ function OptionTitle(props) {
 }
 
 export default connect((state, props) => ({
-  title: getUserValue(props.optionKey, 'title'),
+  title: getUserValue(props.optionKey, 'displayTitle'),
   type: state.options[props.optionKey].type,
 }))(OptionTitle);

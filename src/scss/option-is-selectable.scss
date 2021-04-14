@@ -58,75 +58,77 @@
 .option-is-selectable {
   padding: 0.25em;
 
-  > .option-content {
-    position: relative;
-    color: $selectableText;
-    border: solid transparent;
-    border-width: 1px;
-    transition: filter 0.3s, border 0.3s, background 0.3s, color 0.3s,
-      box-shadow 0.3s;
-    filter: grayscale(1);
-    box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset;
+  &:not(.option-is-row) {
+    > .option-content {
+      position: relative;
+      color: $selectableText;
+      border: solid transparent;
+      border-width: 1px;
+      transition: filter 0.3s, border 0.3s, background 0.3s, color 0.3s,
+        box-shadow 0.3s;
+      filter: grayscale(1);
+      box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset;
 
-    > .option-title {
-      border-bottom: 1px solid $borderColor;
-      padding: 0.5rem 1rem 0.5rem 1rem;
-      font-size: 1.25em;
-      min-height: 2.6em;
-      display: flex;
-      align-items: flex-end;
+      > .option-title {
+        border-bottom: 1px solid $borderColor;
+        padding: 0.5rem 1rem 0.5rem 1rem;
+        font-size: 1.25em;
+        min-height: 2.6em;
+        display: flex;
+        align-items: flex-end;
+      }
     }
-  }
 
-  .OptionImage {
-    max-width: 10em;
-    margin: 1em auto;
+    .OptionImage {
+      max-width: 10em;
+      margin: 1em auto;
 
-    .option-image-content {
-      padding-bottom: 162%;
+      .option-image-content {
+        padding-bottom: 162%;
+      }
     }
-  }
 
-  .option-image-placeholder {
-    height: 1em;
-  }
+    .option-image-placeholder {
+      height: 1em;
+    }
 
-  .option-text {
-    padding: 0 1.5rem;
-    min-height: 1rem;
-    font-size: 0.9rem;
-  }
+    .option-text {
+      padding: 0 1.5rem;
+      min-height: 1rem;
+      font-size: 0.9rem;
+    }
 
-  > .option-content > .option-collapsible-content {
-    position: relative;
-    padding: 1px 0;
+    > .option-content > .option-collapsible-content {
+      position: relative;
+      padding: 1px 0;
 
-    > .GroupControls {
-      padding-top: 0.5em;
-      margin: 0;
-
-      .Option:last-child {
-        margin-bottom: 0;
-      }
-
-      > .Option:last-child {
-        margin-bottom: 0.5rem;
-      }
-
-      .option-select,
-      .option-group {
-        > .option-content > .option-collapsible-content > .option-text {
-          min-height: 0;
-        }
-      }
-
-      .SelectControls,
-      .GroupControls {
+      > .GroupControls {
+        padding-top: 0.5em;
         margin: 0;
-      }
 
-      .option-image-placeholder {
-        display: none;
+        .Option:last-child {
+          margin-bottom: 0;
+        }
+
+        > .Option:last-child {
+          margin-bottom: 0.5rem;
+        }
+
+        .option-select,
+        .option-group {
+          > .option-content > .option-collapsible-content > .option-text {
+            min-height: 0;
+          }
+        }
+
+        .SelectControls,
+        .GroupControls {
+          margin: 0;
+        }
+
+        .option-image-placeholder {
+          display: none;
+        }
       }
     }
   }

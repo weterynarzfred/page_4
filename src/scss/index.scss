@@ -60,18 +60,6 @@ body {
     font-family: $titleFont;
     display: flex;
     align-items: baseline;
-
-    .version {
-      position: absolute;
-      top: 100%;
-      right: 0;
-      font-size: 1.25rem;
-      text-shadow: none;
-      color: $selectableText;
-      padding-left: 0.5em;
-      margin-left: auto;
-      display: inline-block;
-    }
   }
 
   .option-image-content {
@@ -254,3 +242,4 @@ button.large {
 @import 'option-is-container';
 @import 'option-group';
 @import 'option-instancer';
+@import 'user-styles';

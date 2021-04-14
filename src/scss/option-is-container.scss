@@ -42,14 +42,17 @@
           margin: 0.5em auto;
 
           > tbody > tr {
-            &:first-child td {
+            &:first-child td,
+            &:first-child th {
               border-top-width: 0;
             }
-            &:last-child td {
+            &:last-child td,
+            &:last-child th {
               border-bottom-width: 0;
             }
 
-            > td {
+            > td,
+            > th {
               position: relative;
               border: 1px solid $borderColor;
               padding: 0.5em 1em;
@@ -62,6 +65,11 @@
               &:last-child {
                 border-right-width: 0;
               }
+            }
+
+            > th {
+              font-weight: 400;
+              border-bottom-color: $text;
             }
           }
         }

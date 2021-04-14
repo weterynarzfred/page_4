@@ -19,6 +19,7 @@ All configuration is done through objects `settings` and `options` in `src/cyoa.
 Option object structure
 - `type` {optionTypes}
 - `title` {string|jsx|function}
+- `displayTitle` {string|jsx|function}
 - `text` {string|jsx|function}
 - `cost` {object|function}
 - `min` {number|function}

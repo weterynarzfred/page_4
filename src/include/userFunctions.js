@@ -58,7 +58,7 @@ function recalculateUserFunctions(state, changes, force = false) {
       const option = state.options[userFunction.optionKey];
       const result = userFunction.callback(state, option);
 
-      if (['text', 'title'].includes(userFunction.prop)) {
+      if (['text', 'title', 'displayTitle'].includes(userFunction.prop)) {
         addUserValue(result, userFunction.optionKey, userFunction.prop);
       } else if (userFunction.prop === 'choices') {
         mergeChoices(state, option, result, newChanges);

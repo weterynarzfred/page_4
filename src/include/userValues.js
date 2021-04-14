@@ -14,7 +14,10 @@ function addUserValue(content, optionKey, prop) {
  * Returns text value based on the optionKey.
  */
 function getUserValue(optionKey, prop) {
-  const key = optionKey + '.' + prop;
+  let key = optionKey + '.' + prop;
+  if (prop === 'displayTitle' && UserValues[key] === undefined) {
+    key = optionKey + '.title';
+  }
   if (UserValues[key] === undefined) return '';
   return UserValues[key];
 }
