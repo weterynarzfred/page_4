@@ -4,13 +4,23 @@
 
   > .option-content {
     > .option-title {
+      position: relative;
       font-size: 4.2361em;
-      border-bottom: 3px solid $text;
       max-width: 70rem;
       margin: 0 auto;
       text-shadow: 0 0 0.05em $text, 0 0 0.05em $text;
-      padding: 0 0.5em;
       color: $text;
+
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        height: 3px;
+        background-color: $text;
+      }
     }
 
     > .option-collapsible-content {
@@ -22,6 +32,40 @@
           padding-bottom: 33%;
         }
       }
+
+      > .option-text {
+        font-size: 1.25rem;
+
+        > table {
+          border-collapse: collapse;
+          max-width: 70em;
+          margin: 0.5em auto;
+
+          > tbody > tr {
+            &:first-child td {
+              border-top-width: 0;
+            }
+            &:last-child td {
+              border-bottom-width: 0;
+            }
+
+            > td {
+              position: relative;
+              border: 1px solid $borderColor;
+              padding: 0.5em 1em;
+              height: 3em;
+              transition: 0.3s;
+
+              &:first-child {
+                border-left-width: 0;
+              }
+              &:last-child {
+                border-right-width: 0;
+              }
+            }
+          }
+        }
+      }
     }
   }
 
@@ -29,18 +73,33 @@
     > .option-content {
       > .option-title {
         font-size: 2.618em;
+        padding-left: 3rem;
+
+        &:after {
+          left: 3rem;
+        }
       }
 
       .Option.option-is-container {
         > .option-content {
           > .option-title {
             font-size: 1.618em;
+            padding-left: 6rem;
+
+            &:after {
+              left: 6rem;
+            }
           }
 
           .Option.option-is-container {
             > .option-content {
               > .option-title {
                 font-size: 1em;
+                padding-left: 9rem;
+
+                &:after {
+                  left: 9rem;
+                }
               }
             }
           }

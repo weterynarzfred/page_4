@@ -14,7 +14,6 @@ function mergeChoices(state, option, result, newChanges) {
 
   const parsedChoices = parseOptions(result, fullPath, {
     isChoice: true,
-    numbering: option.numbering,
   });
   if (option.choices !== undefined) {
     // delete choices that no longer exist
@@ -34,7 +33,6 @@ function mergeChoices(state, option, result, newChanges) {
           state.options[choiceKey],
           result[choiceKey.split('/').pop()]
         );
-        state.options[choiceKey].numbering = parsedChoices[choiceKey].numbering;
       }
     }
   } else {

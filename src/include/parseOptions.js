@@ -112,12 +112,8 @@ function parseOptions(rawOptions, parentPath = [], assign = {}) {
   const options = {};
 
   const currentAssign = deepClone(assign);
-  if (currentAssign.numbering === undefined) currentAssign.numbering = [];
-  currentAssign.numbering.push(0);
 
   for (const slug in rawOptions) {
-    currentAssign.numbering[currentAssign.numbering.length - 1]++;
-
     const rawOption = rawOptions[slug];
     const option = {};
     const fullPath = [...parentPath, slug];

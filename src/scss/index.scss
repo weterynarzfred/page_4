@@ -56,15 +56,21 @@ body {
   transition: filter 0.3s, opacity 0.3s;
 
   .option-title {
+    position: relative;
     font-family: $titleFont;
     display: flex;
     align-items: baseline;
 
-    .option-numbering {
-      display: none;
-      padding-right: 0.5em;
-      font-size: 0.75em;
-      opacity: 0.5;
+    .version {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      font-size: 1.25rem;
+      text-shadow: none;
+      color: $selectableText;
+      padding-left: 0.5em;
+      margin-left: auto;
+      display: inline-block;
     }
   }
 
@@ -110,9 +116,8 @@ body {
 }
 
 p {
-  max-width: 35em;
-  margin-right: auto;
-  margin-left: auto;
+  max-width: 40rem;
+  margin: 0.5em auto;
   text-align: justify;
   line-height: 1.5;
   text-indent: 1.5em;
@@ -122,6 +127,16 @@ p {
   strong {
     color: $enabledText;
   }
+}
+
+h2 {
+  font-weight: 400;
+  color: $text;
+  text-transform: uppercase;
+  font-size: 1em;
+  letter-spacing: 0.1em;
+  word-spacing: 0.2em;
+  text-align: center;
 }
 
 button {
@@ -208,6 +223,10 @@ button.large {
       stroke: #ff8042;
     }
   }
+}
+
+.mathdefault {
+  font-style: italic;
 }
 
 @media (max-width: 1200px) {

@@ -1,22 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { optionTypes } from '../../include/constants';
 import { getUserValue } from '../../include/userValues';
 
 function OptionTitle(props) {
   if (props.title === '') return null;
-  const showNumbering = [
-    optionTypes.GROUP,
-    optionTypes.SELECT,
-    optionTypes.RATIO,
-    optionTypes.INSTANCER,
-  ].includes(props.type) && props.numbering !== undefined;
-
-  const numbering = showNumbering ? <div className="option-numbering">{props.numbering.join('.')}.</div> : null;
 
   return (
     <div className="option-title">
-      {numbering}
       <div className="option-title-text" onClick={() => {
         if (props.onClick !== undefined) props.onClick();
       }}>
@@ -29,5 +19,4 @@ function OptionTitle(props) {
 export default connect((state, props) => ({
   title: getUserValue(props.optionKey, 'title'),
   type: state.options[props.optionKey].type,
-  numbering: state.options[props.optionKey].numbering,
 }))(OptionTitle);
