@@ -89,7 +89,7 @@
     }
 
     .option-image-placeholder {
-      height: 1em;
+      height: 1.5em;
     }
 
     .option-text {
@@ -110,10 +110,6 @@
           margin-bottom: 0;
         }
 
-        > .Option:last-child {
-          margin-bottom: 0.5rem;
-        }
-
         .option-select,
         .option-group {
           > .option-content > .option-collapsible-content > .option-text {
@@ -124,10 +120,6 @@
         .SelectControls,
         .GroupControls {
           margin: 0;
-        }
-
-        .option-image-placeholder {
-          display: none;
         }
       }
     }

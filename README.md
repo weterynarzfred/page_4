@@ -54,7 +54,6 @@ if `type === optionTypes.INSTANCER`
 - save and load from a json file
 - add blurring to nsfw images
 - add option type with order selection
-- display currencies in groups that are not instances
 - add a button to enlarge images
 - `INSTANCER` `displayAsTable`
 - fix persisting instance data

@@ -4,7 +4,7 @@
   right: 0;
   left: 0;
   height: 32px;
-  background-color: #000;
+  background-color: $statsBackground;
   padding: 0 4em 0 2em;
   z-index: 19;
   display: flex;
@@ -15,8 +15,8 @@
 
     .warning-icon {
       background-color: $negative;
-      color: #fff;
-      border: 2px solid #fff;
+      color: $enabledText;
+      border: 2px solid $enabledText;
       transform: rotate(45deg) rotateX(0deg);
       width: 1em;
       height: 1em;
@@ -34,10 +34,10 @@
     .warning-list {
       position: absolute;
       top: 100%;
-      background-color: #000;
+      background-color: $statsBackground;
       padding: 0.5rem;
       font-size: 0.8em;
-      border: 1px solid #555;
+      border: 1px solid $borderColor;
 
       .warning {
         display: flex;
@@ -47,7 +47,7 @@
         .warning-path {
           padding-right: 0.5rem;
           font-family: monospace;
-          color: #ccc;
+          color: $selectableText;
         }
       }
     }
@@ -91,4 +91,12 @@
       font-weight: 700;
     }
   }
+}
+
+.Option .Currencies {
+  color: $enabledText;
+  max-width: 70rem;
+  margin: 0 auto 0 auto;
+  padding: 0.5em 1em;
+  justify-content: flex-end;
 }

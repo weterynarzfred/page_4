@@ -30,7 +30,7 @@ function Option(props) {
     optionTypes.INSTANCER,
   ].includes(props.type);
 
-  const [opened, setOpened] = useState(!(isContainer && props.isDisabled));
+  const [opened, setOpened] = useState(true);
 
   const classes = classNames(
     'Option',

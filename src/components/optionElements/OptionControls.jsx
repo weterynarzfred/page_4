@@ -7,7 +7,6 @@ import IntegerControls from '../controls/IntegerControls';
 import TextControls from '../controls/TextControls';
 import SliderControls from '../controls/SliderControls';
 import RatioControls from '../controls/RatioControls';
-import PathLink from '../PathLink';
 
 function OptionControls(props) {
   switch (props.type) {
@@ -17,7 +16,13 @@ function OptionControls(props) {
         <GroupControls optionKey={props.optionKey} />
       </>;
     case optionTypes.INSTANCER:
-      return <InstancerControls optionKey={props.optionKey} />;
+      return <>
+        <InstancerControls optionKey={props.optionKey} />
+        <GroupControls
+          optionKey={props.optionKey}
+          useMasonry={props.useMasonry}
+        />
+      </>;
     case optionTypes.RATIO:
       return <>
         <RatioControls optionKey={props.optionKey} />
@@ -46,7 +51,7 @@ function OptionControls(props) {
 
 function checkIfMasonry(option, options) {
   let subOptions;
-  if (option.type === optionTypes.GROUP) {
+  if (option.type === optionTypes.GROUP || option.type === optionTypes.INSTANCER) {
     subOptions = option.subOptions;
   }
   else if (option.type === optionTypes.SELECT) {
