@@ -18,12 +18,13 @@ function recalculateState(stateDraft, changes, action) {
   while (
     i < 50 &&
     (changes.length > 0 ||
-      (i === 0 && [actions.RESTART, PERSIST].includes(action.type)))
+      (i === 0 &&
+        [actions.RESTART, actions.RECALCULATE, PERSIST].includes(action.type)))
   ) {
     recalculateUserFunctions(
       stateDraft,
       changes,
-      [actions.RESTART, PERSIST].includes(action.type)
+      [actions.RESTART, actions.RECALCULATE, PERSIST].includes(action.type)
     );
     changes = calculateCosts({
       state: stateDraft,

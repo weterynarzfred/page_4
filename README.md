@@ -56,6 +56,5 @@ if `type === optionTypes.INSTANCER`
 - add option type with order selection
 - add a button to enlarge images
 - `INSTANCER` `displayAsTable`
-- fix persisting instance data
 - fix `displayAsPercent` in sliders
 - remember collapsed options between subpages

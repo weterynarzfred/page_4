@@ -7,14 +7,18 @@ import App from 'Components/App';
 import createStore from 'Include/store';
 import { settings } from 'cyoa';
 
+const persisted = JSON.parse(localStorage.getItem('persist:root'));
+if (persisted.cyoaId !== `"${settings.cyoaId}"`) {
+  localStorage.clear('persist:root');
+}
+
 const redirect = (
   <Redirect exact from="/" to={'/' + settings.initialScreen.join('/')} />
 );
 
 const { store, persistor } = createStore();
 
-// skip until fixed
-if (true && process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
   ReactDOM.render(
     <Provider store={store}>
       <Router>

@@ -16,7 +16,7 @@ function handleDelete() {
 function InstanceControl(props) {
   return <div className="InstanceControl">
     <PathLink path={props.instanceKey}>
-      <div className="instance-link-title">{getUserValue(props.instanceKey, 'title')}</div>
+      <div className="instance-link-title">{props.title}</div>
       <Currencies optionKey={props.instanceKey} />
     </PathLink>
     <button
@@ -31,4 +31,6 @@ function InstanceControl(props) {
   </div>;
 }
 
-export default connect()(InstanceControl);
+export default connect((state, props) => ({
+  title: getUserValue(props.instanceKey, 'title'),
+}))(InstanceControl);

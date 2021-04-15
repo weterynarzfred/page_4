@@ -78,6 +78,7 @@ function setInstancerValue(action, newState) {
       instancerPath,
       { isInstance: true }
     );
+    console.log(instancerPath);
     Object.assign(newState.options, parsedIntance);
     option.selected.push([...instancerPath, option.nextId].join('/'));
 

@@ -12,16 +12,19 @@ import selectOptionReducer from 'Functions/selectOptionReducer';
 import { actions } from './constants';
 import parseOptions from './parseOptions';
 import recalculateState from '../functions/recalculateState';
+import rehydrateUserData from '../functions/rehydrateUserData';
 import { deepClone } from '../functions/deepFunctions';
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['options'],
+  whitelist: ['options', 'cyoaId'],
 };
 
 const initialState = {
+  cyoaId: settings.cyoaId,
   options: parseOptions(rawOptions),
+  toggles: {},
   currencies: settings.currencies,
   currencySettings: settings.currencySettings,
   path: settings.initialScreen,
@@ -52,7 +55,12 @@ function rootReducer(state = initialState, action = '') {
     }
 
     if (
-      [PERSIST, actions.SELECT_OPTION, actions.RESTART].includes(action.type)
+      [
+        PERSIST,
+        actions.SELECT_OPTION,
+        actions.RESTART,
+        actions.RECALCULATE,
+      ].includes(action.type)
     ) {
       recalculateState(stateDraft, changes, action);
     }
@@ -64,9 +72,8 @@ function rootReducer(state = initialState, action = '') {
 }
 
 // skip redux-persist in development
-// skip until fixed
 let persistedReducer;
-if (true && process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
   persistedReducer = rootReducer;
 } else {
   persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -77,6 +84,8 @@ export default () => {
     persistedReducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
-  let persistor = persistStore(store);
+  let persistor = persistStore(store, undefined, () => {
+    rehydrateUserData(store);
+  });
   return { store, persistor };
 };
