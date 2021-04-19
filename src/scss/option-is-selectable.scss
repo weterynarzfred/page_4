@@ -164,8 +164,11 @@
       }
 
       .option-collapsible-content {
-        .option-text p {
-          color: $disabledText;
+        .option-text {
+          p,
+          strong {
+            color: $disabledText;
+          }
         }
 
         .OptionCost {

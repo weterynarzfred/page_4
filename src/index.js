@@ -8,7 +8,7 @@ import createStore from 'Include/store';
 import { settings } from 'cyoa';
 
 const persisted = JSON.parse(localStorage.getItem('persist:root'));
-if (persisted.cyoaId !== `"${settings.cyoaId}"`) {
+if (persisted !== null && persisted.cyoaId !== `"${settings.cyoaId}"`) {
   localStorage.clear('persist:root');
 }
 
