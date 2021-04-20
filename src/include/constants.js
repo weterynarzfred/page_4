@@ -43,7 +43,22 @@ const ratioWeightAttributes = {
       0.8705505632961241: '0.5',
       1: '1',
     },
+    included: false,
   },
 };
 
-export { optionTypes, actions, dataTypes, callables, ratioWeightAttributes };
+const percentageSlider = {
+  usePercent: true,
+  sliderAttributes: {
+    step: 0.01,
+  },
+};
+
+export {
+  optionTypes,
+  actions,
+  dataTypes,
+  callables,
+  ratioWeightAttributes,
+  percentageSlider,
+};

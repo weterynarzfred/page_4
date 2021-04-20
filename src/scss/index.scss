@@ -196,21 +196,38 @@ button.large {
     path {
       stroke: $background;
       stroke: #fff;
-      stroke-width: 2;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
       fill: none;
     }
 
     &:nth-child(1) path {
-      stroke: #0088fe;
+      fill: #ffbb28;
     }
     &:nth-child(2) path {
-      stroke: #00c49f;
+      fill: #0088fe;
     }
     &:nth-child(3) path {
-      stroke: #ffbb28;
+      fill: #00c49f;
     }
     &:nth-child(4) path {
-      stroke: #ff8042;
+      fill: #ff8042;
+    }
+    &:nth-child(5) path {
+      fill: #d579ff;
+    }
+    &:nth-child(6) path {
+      fill: #999;
+    }
+  }
+
+  .recharts-pie-labels {
+    .recharts-pie-label-line {
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke: #fff;
     }
   }
 }

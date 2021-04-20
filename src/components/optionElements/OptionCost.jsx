@@ -2,6 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { deepEquals } from '../../functions/deepFunctions';
+import { getSelectedValue } from '../../functions/getSelectedValue';
+import formatNumber from '../../functions/formatNumber';
 
 function OptionCost(props) {
   if (props.costs === undefined) return null;
@@ -23,13 +25,26 @@ function OptionCost(props) {
 
     if (props.costs[costSlug].inverted) color *= -1;
 
+    let currentCost = null;
+    if (
+      props.selected !== 0 &&
+      props.selected !== 1 &&
+      props.selected !== undefined &&
+      !isNaN(props.selected)
+    ) {
+      currentCost = ' (' + formatNumber(-props.selected * props.costs[costSlug].value, 2) + ')';
+    }
+
     costElements.push(<tr className={classNames(
       'cost',
       { positive: color > 0 },
       { negative: color < 0 }
     )} key={costSlug}>
       <td className="cost-title">{props.costs[costSlug].title}</td>
-      <td className="cost-value">{displayValue}</td>
+      <td className="cost-value">
+        {displayValue}
+        {currentCost}
+      </td>
     </tr>);
   }
 
@@ -54,8 +69,26 @@ function mapStateToProps(state, props) {
       inverted: state.currencySettings[costSlug].inverted,
     };
   }
+
+  let selected;
+  if (option.isRatioChoice) {
+    const items = getSelectedValue(
+      state.options[option.path.join('/')],
+      state.options
+    );
+    for (const item of items) {
+      if (item.optionKey === props.optionKey) {
+        selected = item.percentage;
+        break;
+      }
+    }
+  } else {
+    selected = getSelectedValue(option, state.options);
+  }
   return {
-    costs
+    costs,
+    selected,
+
   };
 }
 

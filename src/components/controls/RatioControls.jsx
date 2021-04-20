@@ -15,12 +15,11 @@ function RatioControls(props) {
         dataKey="value"
         cx="50%"
         cy="50%"
-        innerRadius={60}
+        innerRadius={65}
         outerRadius={80}
         animationEasing="linear"
         animationBegin={0}
         animationDuration={200}
-        labelLine={false}
         minAngle={10}
         paddingAngle={10}
         label={({
@@ -33,7 +32,8 @@ function RatioControls(props) {
         }) => {
           if (percent === 0) return null;
           const radius = outerRadius * 1.3;
-          const x = cx + radius * Math.cos(-midAngle * Math.PI / 180);
+          let x = cx + radius * Math.cos(-midAngle * Math.PI / 180);
+          x += x > cx ? 5 : - 5;
           const y = cy + radius * Math.sin(-midAngle * Math.PI / 180);
           return <text
             x={x}
