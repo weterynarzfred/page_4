@@ -96,7 +96,7 @@ function assignDefaults(option) {
 
   if (option.type === optionTypes.INTEGER) {
     if (option.max === Infinity) option.max = Number.MAX_SAFE_INTEGER;
-    if (option.selected === undefined) option.selected = 0;
+    if (option.selected === undefined) option.selected = option.min;
   }
 
   if (option.type === optionTypes.INSTANCER) {

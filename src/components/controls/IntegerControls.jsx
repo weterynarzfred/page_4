@@ -6,6 +6,7 @@ import { getSelectedValue } from '../../functions/getSelectedValue';
 import { handleDecrement, handleIncrement, handleToggle } from '../../functions/handlers';
 
 function IntegerControls(props) {
+  if (props.max === props.min) return null;
   const useSpinbox = (props.max !== 1 || props.min !== 0);
 
   return <div className="IntegerControls">
