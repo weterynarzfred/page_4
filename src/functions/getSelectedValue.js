@@ -20,6 +20,7 @@ function getSelectedValue(option, options) {
       break;
     case optionTypes.SLIDER:
       value = Math.round(option.selected * 1e10) / 1e10;
+      if (isNaN(value)) value = 0;
       break;
     case optionTypes.SELECT:
       if (!Array.isArray(option.choices)) return [];
