@@ -19,6 +19,7 @@ const defaultProps = {
   choices: undefined,
   requirements: undefined,
   image: undefined,
+  imageNSFW: undefined,
   displayAsTable: undefined,
   sliderAttributes: undefined,
   useTooltips: undefined,

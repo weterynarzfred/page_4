@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 
 function OptionImage(props) {
   if (props.image === undefined) return (
@@ -7,7 +8,7 @@ function OptionImage(props) {
   );
 
   return (
-    <div className="OptionImage">
+    <div className={classNames('OptionImage', { 'option-image-nsfw': props.nsfw })}>
       <div
         className="option-image-content"
         style={{ backgroundImage: `url(/images/${props.image})` }}
@@ -19,6 +20,7 @@ function OptionImage(props) {
 export default connect((state, props) => {
   const option = state.options[props.optionKey];
   return {
-    image: option.image
+    image: option.image,
+    nsfw: option.imageNSFW,
   };
 })(OptionImage);

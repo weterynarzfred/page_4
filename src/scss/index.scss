@@ -6,7 +6,7 @@ $background: #222;
 $borderColor: #555;
 $enabledBackground: #111;
 $enabledText: #fff;
-$selectableBackground: #222;
+$selectableBackground: #191919;
 $selectableText: #ccc;
 $disabledBackground: #111;
 $disabledText: #555;
@@ -64,12 +64,30 @@ body {
     align-items: baseline;
   }
 
-  .option-image-content {
-    background-position: center;
-    background-size: cover;
+  .OptionImage {
+    position: relative;
     border: solid $text;
     border-width: 1px 1px 6px 1px;
-    box-shadow: 0 0 5em 0 rgba(255, 178, 34, 0.2) inset;
+    overflow: hidden;
+
+    .option-image-content {
+      background-position: center;
+      background-size: cover;
+      box-shadow: 0 0 5em 0 rgba(255, 178, 34, 0.2) inset;
+      transition: filter 0.3s;
+    }
+
+    &.option-image-nsfw {
+      .option-image-content {
+        filter: blur(10px);
+      }
+
+      &:hover {
+        .option-image-content {
+          filter: none;
+        }
+      }
+    }
   }
 
   .SelectControls {
@@ -113,6 +131,7 @@ p {
   text-indent: 1.5em;
   color: $text;
   transition: color 0.3s;
+  clear: both;
 
   strong {
     color: $enabledText;
@@ -252,6 +271,7 @@ button.large {
 @import 'navigation';
 @import 'stats';
 @import 'path-link';
+@import 'icons';
 @import 'option-cost';
 @import 'option-requirements';
 @import 'option-is-selectable';

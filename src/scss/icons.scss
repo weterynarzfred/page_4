@@ -1,0 +1,28 @@
+.icon {
+  height: 3em;
+  width: 3em;
+  float: left;
+  background-size: contain;
+  background-position: center;
+  margin: 0 1em 0 0;
+}
+
+.icon-inline {
+  height: 1.5em;
+  width: 1.5em;
+  display: inline-block;
+  vertical-align: -0.45em;
+  background-size: contain;
+  background-position: center;
+  margin: 0 0.5em;
+}
+
+.icon-mana {
+  background-image: url(./../icons/mana.svg);
+}
+.icon-internal-mana {
+  background-image: url(./../icons/blood.svg);
+}
+.icon-external-mana {
+  background-image: url(./../icons/crystals.svg);
+}

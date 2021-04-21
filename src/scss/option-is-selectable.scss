@@ -63,8 +63,9 @@
   &:not(.option-is-row) {
     > .option-content {
       position: relative;
+      background: $selectableBackground;
       color: $selectableText;
-      border: solid transparent;
+      border: solid $borderColor;
       border-width: 1px;
       transition: filter 0.3s, border 0.3s, background 0.3s, color 0.3s,
         box-shadow 0.3s;
