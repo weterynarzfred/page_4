@@ -27,6 +27,7 @@ module.exports = function override(config, env) {
           options: {
             width: 878,
             height: 290,
+            scaleUp: true,
           },
         },
       ],
@@ -43,6 +44,7 @@ module.exports = function override(config, env) {
           options: {
             width: 158,
             height: 256,
+            scaleUp: true,
           },
         },
       ],
@@ -54,6 +56,10 @@ module.exports = function override(config, env) {
     loader: 'file-loader',
     options: { name: '[name]' },
   });
+
+  config.plugins = config.plugins.filter(
+    plugin => plugin.constructor.name !== 'ManifestPlugin'
+  );
 
   return config;
 };

@@ -49,7 +49,7 @@ export default connect((state, props) => {
       option.type === optionTypes.SLIDER ||
       option.type === optionTypes.INTEGER
     ) {
-      optionKeys = option.subOptions;
+      optionKeys = option.options;
     }
     else if (
       option.type === optionTypes.SELECT ||

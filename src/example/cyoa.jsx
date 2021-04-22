@@ -88,7 +88,6 @@ const rawOptions = {
                 1: '100%',
               },
             },
-            useTooltips: true,
             logSlider: 5,
             displayAsPercent: true,
             selected: 1,

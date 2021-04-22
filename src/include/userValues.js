@@ -1,5 +1,3 @@
-import { deepClone } from '../functions/deepFunctions';
-
 window.userValues = {};
 
 /**

@@ -1,13 +1,12 @@
 import removeOption from '../functions/removeOption';
 import parseOptions from './parseOptions';
 import { addUserValue } from './userValues';
-import { deepClone } from '../functions/deepFunctions';
 
 window.userFunctions = {};
 
 /**
- * After an user function generates new options this function removes choces that
- * no longer exists, add new ones and updates changed ones.
+ * After an user function generates new options this function removes choices
+ * that no longer exists, adds new ones and updates changed ones.
  */
 function mergeChoices(state, option, result, newChanges) {
   const fullPath = [...option.path, option.slug];

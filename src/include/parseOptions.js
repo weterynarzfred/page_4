@@ -1,114 +1,143 @@
-import parsePath from '../functions/parsePath';
+import { parsePaths } from '../functions/parsePath';
 import { optionTypes } from './constants';
 import { addUserFunction } from './userFunctions';
 import { addUserValue } from './userValues';
 import { deepClone } from '../functions/deepFunctions';
 
+const optionProps = [
+  'type',
+  'title',
+  'displayTitle',
+  'text',
+  'min',
+  'max',
+  'choices',
+  'instanceGroup',
+  'hidden',
+  'selected',
+  'cost',
+  'currencies',
+  'requirements',
+  'image',
+  'imageNSFW',
+  'displayAsTable',
+  'sliderAttributes',
+  'logSlider',
+  'displayAsPercent',
+  'hiddenInParent',
+];
+
+const userValueProps = [
+  'title',
+  'displayTitle',
+  'text',
+  'instanceGroup',
+  'requirements',
+];
+
 const defaultProps = {
   type: optionTypes.INTEGER,
-  title: '',
-  displayTitle: undefined,
-  text: '',
   min: 0,
   max: 1,
-  instanceGroup: undefined,
-  hidden: undefined,
-  selected: undefined,
-  cost: undefined,
-  currencies: undefined,
-  choices: undefined,
-  requirements: undefined,
-  image: undefined,
-  imageNSFW: undefined,
-  displayAsTable: undefined,
-  sliderAttributes: undefined,
-  useTooltips: undefined,
-  logSlider: undefined,
-  displayAsPercent: undefined,
-  hiddenInParent: undefined,
 };
 
 /**
- * Assigns default prop values and moves function to the userFunctions array.
+ * Moves texts and functions from requirements to user arrays.
+ */
+function parseRequirements(option) {
+  for (let index = 0; index < option.requirements.length; index++) {
+    const value = option.requirements[index].value;
+    const identifier = 'requirements.' + index;
+
+    parsePaths(value.subscribed, option);
+    addUserValue(option.requirements[index].text, option.optionKey, identifier);
+    addUserFunction(value, option.optionKey, identifier);
+
+    option.requirements[index] = false;
+  }
+}
+
+/**
+ * Assigns raw prop values and moves user values to user arrays.
  */
 function assignProps(option, rawOption, assign) {
-  for (const prop in defaultProps) {
-    option[prop] = rawOption[prop];
+  for (const prop of optionProps) {
+    if (rawOption[prop] === undefined) continue;
 
-    if (option[prop] === undefined) {
-      option[prop] = defaultProps[prop];
-    } else if (option[prop].isUserFunction) {
-      option[prop].subscribed = option[prop].subscribed.map(key =>
-        parsePath(key, option)
-      );
+    option[prop] = rawOption[prop];
+    if (option[prop].isUserFunction) {
+      parsePaths(option[prop].subscribed, option);
       addUserFunction(option[prop], option.optionKey, prop);
-      option[prop] = defaultProps[prop];
-    } else if (prop === 'instanceGroup') {
-      addUserValue(option.instanceGroup, option.optionKey, 'instanceGroup');
-    } else if (prop === 'requirements') {
-      for (let index = 0; index < option.requirements.length; index++) {
-        const identifier = 'requirements.' + index;
-        addUserValue(
-          option.requirements[index].text,
-          option.optionKey,
-          identifier
-        );
-        option.requirements[index].value.subscribed = option.requirements[
-          index
-        ].value.subscribed.map(key => parsePath(key, option));
-        addUserFunction(
-          option.requirements[index].value,
-          option.optionKey,
-          identifier
-        );
-        option.requirements[index] = false;
-      }
+      delete option[prop];
     }
   }
 
   Object.assign(option, assign);
-}
 
-/**
- * Moves texts from the option to the userValues array.
- */
-function addUserValues(option) {
-  if (option.title !== undefined) {
-    addUserValue(option.title, option.optionKey, 'title');
-    delete option.title;
-  }
-
-  if (option.text !== undefined) {
-    addUserValue(option.text, option.optionKey, 'text');
-    delete option.text;
-  }
-
-  if (option.displayTitle !== undefined) {
-    addUserValue(option.displayTitle, option.optionKey, 'displayTitle');
-    delete option.displayTitle;
+  for (const prop of userValueProps) {
+    if (option[prop] === undefined) continue;
+    if (prop === 'requirements') {
+      parseRequirements(option);
+      continue;
+    }
+    addUserValue(option[prop], option.optionKey, prop);
+    delete option[prop];
   }
 }
 
 /**
- * Assigns default prop values in the option based on its type.
+ * Assigns default prop values to the option based on its type.
  */
 function assignDefaults(option) {
-  if (option.type === undefined) option.type = optionTypes.INTEGER;
+  for (const prop in defaultProps) {
+    if (option[prop] === undefined) option[prop] = defaultProps[prop];
+  }
+
   if (option.max === Infinity) option.max = Number.MAX_SAFE_INTEGER;
 
-  if (option.type === optionTypes.INTEGER) {
-    if (option.selected === undefined) option.selected = option.min;
+  switch (option.type) {
+    case optionTypes.INTEGER:
+    case optionTypes.SLIDER:
+      option.selected = option.selected ?? option.min;
+      break;
+    case optionTypes.INSTANCER:
+      option.nextId = option.nextId ?? 0;
+      option.selected = option.selected ?? [];
+      option.instanceGroup = option.instanceGroup ?? {};
+      break;
+    case optionTypes.TEXT:
+      option.selected = option.selected ?? '';
+  }
+}
+
+/**
+ * Parses suboptions and choices of the option
+ */
+function parseSuboptions(option, options, rawOption, prop, currentAssign) {
+  if (rawOption[prop] === undefined || rawOption[prop].isUserFunction) return;
+
+  const subAssign = deepClone(currentAssign);
+  switch (option.type) {
+    case optionTypes.INTEGER:
+    case optionTypes.TEXT:
+    case optionTypes.SLIDER:
+      subAssign.isSelectablesChild = true;
+      break;
+    case optionTypes.SELECT:
+      subAssign.isChoice = true;
+      break;
+    case optionTypes.RATIO:
+      subAssign.isRatioChoice = true;
   }
 
-  if (option.type === optionTypes.INSTANCER) {
-    if (option.nextId === undefined) option.nextId = 0;
-    if (option.selected === undefined) option.selected = [];
-    if (option.instanceGroup === undefined) option.instanceGroup = {};
-  }
+  const parentPath = option.optionKey.split('/');
+  const parsedOptions = parseOptions(rawOption[prop], parentPath, subAssign);
+  Object.assign(options, parsedOptions);
 
-  if (option.type === optionTypes.TEXT) {
-    if (option.selected === undefined) option.selected = '';
-  }
+  const subOptionKeys = Object.keys(rawOption[prop]).map(
+    slug => option.optionKey + '/' + slug
+  );
+  option[prop] = subOptionKeys;
 }
 
 /**
@@ -128,63 +157,12 @@ function parseOptions(rawOptions, parentPath = [], assign = {}) {
     option.optionKey = fullPath.join('/');
 
     assignProps(option, rawOption, deepClone(currentAssign));
-    delete currentAssign.isInstance;
-
-    // suboptions
-    if (rawOption.options !== undefined) {
-      option.subOptions = Object.keys(rawOption.options).map(slug =>
-        [...fullPath, slug].join('/')
-      );
-      const subAssign = deepClone(currentAssign);
-      if (
-        [optionTypes.INTEGER, optionTypes.TEXT, optionTypes.SLIDER].includes(
-          option.type
-        )
-      ) {
-        subAssign.isSelectablesChild = true;
-      }
-      Object.assign(
-        options,
-        parseOptions(rawOption.options, fullPath, subAssign)
-      );
-    }
-
-    // select choices
-    if (
-      option.type === optionTypes.SELECT &&
-      rawOption.choices !== undefined &&
-      !rawOption.choices.isUserFunction
-    ) {
-      const subAssign = deepClone(currentAssign);
-      subAssign.isChoice = true;
-      Object.assign(
-        options,
-        parseOptions(rawOption.choices, fullPath, subAssign)
-      );
-      option.choices = Object.keys(rawOption.choices).map(slug =>
-        [...fullPath, slug].join('/')
-      );
-    }
-
-    // ratio choices
-    if (
-      option.type === optionTypes.RATIO &&
-      rawOption.choices !== undefined &&
-      !rawOption.choices.isUserFunction
-    ) {
-      const subAssign = deepClone(currentAssign);
-      subAssign.isRatioChoice = true;
-      Object.assign(
-        options,
-        parseOptions(rawOption.choices, fullPath, subAssign)
-      );
-      option.choices = Object.keys(rawOption.choices).map(slug =>
-        [...fullPath, slug].join('/')
-      );
-    }
-
-    addUserValues(option);
     assignDefaults(option);
+
+    delete currentAssign.isInstance;
+    parseSuboptions(option, options, rawOption, 'options', currentAssign);
+    parseSuboptions(option, options, rawOption, 'choices', currentAssign);
+
     options[option.optionKey] = option;
   }
 

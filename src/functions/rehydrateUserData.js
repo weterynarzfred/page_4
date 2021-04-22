@@ -16,10 +16,8 @@ function rehydrateUserData(store) {
         'instanceGroup'
       );
       parseOptions(
-        {
-          [option.slug]: deepClone(instanceGroup),
-        },
-        [...option.path],
+        { [option.slug]: deepClone(instanceGroup) },
+        deepClone(option.path),
         { isInstance: true }
       );
     }

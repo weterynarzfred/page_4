@@ -7,9 +7,6 @@ import { getSelectedValue } from '../../functions/getSelectedValue';
 import formatNumber from '../../functions/formatNumber';
 import { deepClone } from '../../functions/deepFunctions';
 
-const { createSliderWithTooltip } = Slider;
-const SliderWithTooltip = createSliderWithTooltip(Slider);
-
 function toLogScale(value) {
   if (this.logSlider === undefined) return value;
   let logValue = value / this.max;
@@ -39,6 +36,42 @@ function handleChange(value) {
   });
 }
 
+function generateMarks(props) {
+  const NUMBER_OF_SPACES = 8;
+
+  const marks = {};
+  for (let i = 0; i <= NUMBER_OF_SPACES; i++) {
+    let val = i * props.max / NUMBER_OF_SPACES;
+    let logVal = val;
+    if (props.logSlider !== undefined) {
+      logVal = toLogScale.call(props, logVal);
+
+      const power = Math.floor(Math.log10(logVal) - 1);
+      let adjustedLogVal = logVal * Math.pow(10, -power) || 0;
+      adjustedLogVal = Math.round(adjustedLogVal / 10) * 10;
+      adjustedLogVal = adjustedLogVal * Math.pow(10, power);
+
+      let adjustedVal = adjustedLogVal / props.max;
+      adjustedVal = Math.pow(adjustedVal, 1 / props.logSlider);
+      adjustedVal *= props.max;
+
+      val = adjustedVal;
+      logVal = adjustedLogVal;
+    }
+
+    marks[val] = formatNumber(
+      logVal,
+      2,
+      {
+        usePercent: props.displayAsPercent,
+        onlySignificant: true,
+      }
+    );
+  }
+
+  return marks;
+}
+
 function SliderControls(props) {
   const [sliderValue, setSliderValue] = useState(0);
   const [inputValue, setInputValue] = useState(0);
@@ -57,44 +90,9 @@ function SliderControls(props) {
     }, 200);
   }, [sliderValue]);
 
-  let displayValue = formatNumber(props.selectedValue, 2, {
-    usePercent: props.displayAsPercent,
-    onlySignificant: true,
-  });
-
   const attributes = deepClone(props.sliderAttributes);
   if (attributes?.marks === 'auto') {
-    attributes.marks = {};
-    for (let i = 0; i <= 8; i++) {
-      let val = i * props.max / 8;
-      let logVal = val;
-      if (props.logSlider !== undefined) {
-        logVal /= props.max;
-        logVal = Math.pow(logVal, props.logSlider);
-        logVal *= props.max;
-
-        const power = Math.floor(Math.log10(logVal) - 1);
-        let adjustedLogVal = logVal * Math.pow(10, -power) || 0;
-        adjustedLogVal = Math.round(adjustedLogVal / 10) * 10;
-        adjustedLogVal = adjustedLogVal * Math.pow(10, power);
-
-        let adjustedVal = adjustedLogVal / props.max;
-        adjustedVal = Math.pow(adjustedVal, 1 / props.logSlider);
-        adjustedVal *= props.max;
-
-        val = adjustedVal;
-        logVal = adjustedLogVal;
-      }
-
-      attributes.marks[val] = formatNumber(
-        logVal,
-        2,
-        {
-          usePercent: props.displayAsPercent,
-          onlySignificant: true,
-        }
-      );
-    }
+    attributes.marks = generateMarks(props);
   }
 
   return (
@@ -109,14 +107,7 @@ function SliderControls(props) {
           setSliderValue(toLinearScale.call(props, parseFloat(value)));
         }}
       />
-      {props.useTooltips ? <SliderWithTooltip
-        {...attributes}
-        min={props.min}
-        max={props.max}
-        value={sliderValue}
-        tipFormatter={() => displayValue}
-        onChange={value => setSliderValue(value)}
-      /> : <Slider
+      <Slider
         {...attributes}
         min={props.min}
         max={props.max}
@@ -125,7 +116,7 @@ function SliderControls(props) {
           setInputValue(formatNumber(toLogScale.call(props, value), 2, { onlySignificant: true }));
           setSliderValue(value);
         }}
-      />}
+      />
     </div>
   );
 }
@@ -137,7 +128,6 @@ export default connect((state, props) => {
     min: option.min,
     max: option.max,
     sliderAttributes: option.sliderAttributes,
-    useTooltips: option.useTooltips,
     logSlider: option.logSlider,
     displayAsPercent: option.displayAsPercent,
   };

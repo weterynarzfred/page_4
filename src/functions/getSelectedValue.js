@@ -1,8 +1,32 @@
 import { optionTypes } from 'Include/constants';
 import { getUserValue } from '../include/userValues';
-import { deepClone } from './deepFunctions';
-import formatNumber from './formatNumber';
 import isDisabled from './isDisabled';
+
+/**
+ * Prepare an array of objects representing selected choices of a ratio option.
+ */
+function prepareRatioValue(option, options) {
+  let ratioSum = 0;
+  const value = option.choices
+    .map(choiceKey => {
+      const choice = options[choiceKey];
+      if (choice === undefined) return { value: 0 };
+      const choiceValue = getSelectedValue(choice, options);
+      ratioSum += choiceValue;
+      return {
+        name: choice.slug,
+        optionKey: choiceKey,
+        title: getUserValue(choiceKey, 'title'),
+        value: choiceValue,
+      };
+    })
+    .filter(item => item.value > 0);
+  for (const item of value) {
+    item.percentage = item.value / ratioSum;
+  }
+
+  return value;
+}
 
 /**
  * Returns the value of an option. Does not check it the values ancestors are
@@ -33,24 +57,7 @@ function getSelectedValue(option, options) {
       break;
     case optionTypes.RATIO:
       if (!Array.isArray(option.choices)) return [];
-      let ratioSum = 0;
-      value = option.choices
-        .map(choiceKey => {
-          const choice = options[choiceKey];
-          if (choice === undefined) return { value: 0 };
-          const value = getSelectedValue(choice, options);
-          ratioSum += value;
-          return {
-            name: choice.slug,
-            optionKey: choiceKey,
-            title: getUserValue(choiceKey, 'title'),
-            value,
-          };
-        })
-        .filter(item => item.value > 0);
-      for (const item of value) {
-        item.percentage = item.value / ratioSum;
-      }
+      value = prepareRatioValue(option, options);
       break;
   }
 

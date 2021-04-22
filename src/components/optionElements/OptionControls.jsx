@@ -52,7 +52,7 @@ function OptionControls(props) {
 function checkIfMasonry(option, options) {
   let subOptions;
   if (option.type === optionTypes.GROUP || option.type === optionTypes.INSTANCER) {
-    subOptions = option.subOptions;
+    subOptions = option.options;
   }
   else if (option.type === optionTypes.SELECT) {
     if (option.displayAsTable || option.isSelectablesChild) return false;

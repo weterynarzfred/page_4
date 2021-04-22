@@ -4,42 +4,38 @@ import { deepEquals } from './deepFunctions';
 import { getSelectedValue } from './getSelectedValue';
 
 const subOptionContainers = {
-  subOptions: [optionTypes.INTEGER, optionTypes.SLIDER, optionTypes.GROUP],
+  options: [optionTypes.INTEGER, optionTypes.SLIDER, optionTypes.GROUP],
   choices: [optionTypes.SELECT],
   selected: [optionTypes.INSTANCER],
 };
 
 /**
- * Calculates the cost of a single option and its suboptions.
+ * Subtract the cost of the option from the currency value based on its type
  */
-function calculateOptionCosts(option, state, changes, optionChanges) {
+function applyOptionCosts(option, state) {
   switch (option.type) {
     case optionTypes.INTEGER:
     case optionTypes.SLIDER:
-      if (option.cost !== undefined) {
-        if (!option.isRatioChoice) {
-          applyCost(
-            option.cost,
-            option.lastCurrencyValues,
-            getSelectedValue(option, state.options)
-          );
-        }
-      }
+      if (option.cost === undefined || option.isRatioChoice) break;
+      const selected = getSelectedValue(option, state.options);
+      applyCost(option.cost, option.lastCurrencyValues, selected);
       break;
     case optionTypes.RATIO:
       let ratioValue = getSelectedValue(option, state.options);
       for (const item of ratioValue) {
         const ratioChoice = state.options[item.optionKey];
-        if (ratioChoice.cost !== undefined) {
-          applyCost(
-            ratioChoice.cost,
-            option.lastCurrencyValues,
-            item.percentage
-          );
-        }
+        if (ratioChoice.cost === undefined) continue;
+        applyCost(ratioChoice.cost, option.lastCurrencyValues, item.percentage);
       }
       break;
   }
+}
+
+/**
+ * Calculates the cost of a single option and its suboptions.
+ */
+function calculateOptionCosts(option, state, changes, optionChanges) {
+  applyOptionCosts(option, state);
 
   for (const subOptionContainer in subOptionContainers) {
     if (
@@ -53,7 +49,7 @@ function calculateOptionCosts(option, state, changes, optionChanges) {
       subOptions[optionKey] = state.options[optionKey];
     }
 
-    // skip currencies that are not from the root
+    // calculate root currencies
     if (
       deepEquals(
         Object.keys(option.lastCurrencyValues),
@@ -70,6 +66,7 @@ function calculateOptionCosts(option, state, changes, optionChanges) {
     }
   }
 
+  // calculate suboption currencies
   if (option.currencies !== undefined) {
     const subOptions = {};
     for (const optionKey in state.options) {

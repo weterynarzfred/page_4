@@ -82,7 +82,7 @@ export default connect((state, props) => {
     optionTypes.INTEGER,
     optionTypes.SLIDER,
     optionTypes.INSTANCER,
-  ].includes(option.type)) subOptions = option.subOptions;
+  ].includes(option.type)) subOptions = option.options;
   else if (option.type === optionTypes.RATIO || option.type === optionTypes.SELECT) subOptions = option.choices;
 
   if (subOptions === undefined) return {};

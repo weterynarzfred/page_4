@@ -54,15 +54,16 @@ function rootReducer(state = initialState, action = '') {
       default:
     }
 
-    if (
-      [
-        PERSIST,
-        actions.SELECT_OPTION,
-        actions.RESTART,
-        actions.RECALCULATE,
-      ].includes(action.type)
-    ) {
-      recalculateState(stateDraft, changes, action);
+    const stateNeedsRecalculation = [
+      PERSIST,
+      actions.SELECT_OPTION,
+      actions.RESTART,
+      actions.RECALCULATE,
+    ].includes(action.type);
+
+    if (stateNeedsRecalculation) {
+      const forceRecalculation = action.type !== actions.SELECT_OPTION;
+      recalculateState(stateDraft, changes, forceRecalculation);
     }
 
     return stateDraft;

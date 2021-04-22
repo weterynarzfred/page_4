@@ -128,7 +128,6 @@ function selectOptionReducer(newState, action, changes) {
   const option = newState.options[action.optionKey];
   const newChanges = getOptionValue[option.type](action, newState);
   changes.push(...newChanges);
-  // console.log(changes);
 }
 
 export default selectOptionReducer;

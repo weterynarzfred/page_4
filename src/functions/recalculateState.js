@@ -1,31 +1,19 @@
-import { PERSIST } from 'redux-persist';
-import { actions } from '../include/constants';
 import { recalculateUserFunctions } from '../include/userFunctions';
 import calculateCosts from './calculateCosts';
 
 /**
  * Handles all changes to the state that are a result of options being selected.
  */
-function recalculateState(stateDraft, changes, action) {
-  let i = 0;
-
+function recalculateState(stateDraft, changes, forceRecalculate) {
   const topLevelOptions = {};
   for (const optionKey of Object.keys(stateDraft.options)) {
     if (optionKey.match('/') !== null) continue;
     topLevelOptions[optionKey] = stateDraft.options[optionKey];
   }
 
-  while (
-    i < 50 &&
-    (changes.length > 0 ||
-      (i === 0 &&
-        [actions.RESTART, actions.RECALCULATE, PERSIST].includes(action.type)))
-  ) {
-    recalculateUserFunctions(
-      stateDraft,
-      changes,
-      [actions.RESTART, actions.RECALCULATE, PERSIST].includes(action.type)
-    );
+  let i = 0;
+  while (i < 50 && (changes.length > 0 || (i === 0 && forceRecalculate))) {
+    recalculateUserFunctions(stateDraft, changes, forceRecalculate);
     changes = calculateCosts({
       state: stateDraft,
       options: topLevelOptions,
