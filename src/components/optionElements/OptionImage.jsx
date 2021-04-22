@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 const requestImageFile = require.context('./../../media', true, /.jpe?g$/);
+const images = name => requestImageFile(name).default.replace(/^\./, '');
 
 function OptionImage(props) {
   if (props.image === undefined) return (
@@ -11,10 +12,9 @@ function OptionImage(props) {
 
   return (
     <div className={classNames('OptionImage', { 'option-image-nsfw': props.nsfw })}>
-      <div
-        className="option-image-content"
-        style={{ backgroundImage: `url(${requestImageFile(`./${props.image}`).default})` }}
-      ></div>
+      <div className="option-image-content">
+        <img src={images(`./${props.image}`)} alt="" />
+      </div>
     </div>
   );
 }
