@@ -38,7 +38,8 @@
     "recharts": "^2.0.9",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
-    "sass": "^1.32.8"
+    "sass": "^1.32.8",
+    "webpack-image-resize-loader": "^4.0.2"
   },
   "devDependencies": {
     "react-app-rewired": "^2.1.8"
