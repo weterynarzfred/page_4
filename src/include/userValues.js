@@ -1,13 +1,13 @@
 import { deepClone } from '../functions/deepFunctions';
 
-window.UserValues = {};
+window.userValues = {};
 
 /**
- * Adds or updates a text to the UserValues array.
+ * Adds or updates a text to the userValues array.
  */
 function addUserValue(content, optionKey, prop) {
   const key = optionKey + '.' + prop;
-  UserValues[key] = content;
+  userValues[key] = content;
 }
 
 /**
@@ -15,11 +15,11 @@ function addUserValue(content, optionKey, prop) {
  */
 function getUserValue(optionKey, prop) {
   let key = optionKey + '.' + prop;
-  if (prop === 'displayTitle' && UserValues[key] === undefined) {
+  if (prop === 'displayTitle' && userValues[key] === undefined) {
     key = optionKey + '.title';
   }
-  if (UserValues[key] === undefined) return '';
-  return UserValues[key];
+  if (userValues[key] === undefined) return '';
+  return userValues[key];
 }
 
 /**
@@ -27,12 +27,12 @@ function getUserValue(optionKey, prop) {
  * suboptions.
  */
 function clearUserValues(deletionKey) {
-  Object.keys(UserValues).filter(optionKey => {
+  Object.keys(userValues).filter(optionKey => {
     if (
       optionKey.startsWith(deletionKey + '.') ||
       optionKey.startsWith(deletionKey + '/')
     ) {
-      delete UserValues[optionKey];
+      delete userValues[optionKey];
     }
   });
 }

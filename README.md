@@ -57,5 +57,3 @@ if `type === optionTypes.INSTANCER`
 - `INSTANCER` `displayAsTable`
 - fix `displayAsPercent` in sliders
 - remember collapsed options between subpages
-- restart breaks option requirements
-- Infinity breaks after reload

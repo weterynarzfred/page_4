@@ -70,7 +70,7 @@ function assignProps(option, rawOption, assign) {
 }
 
 /**
- * Moves texts from the option to the UserValues array.
+ * Moves texts from the option to the userValues array.
  */
 function addUserValues(option) {
   if (option.title !== undefined) {
@@ -94,14 +94,13 @@ function addUserValues(option) {
  */
 function assignDefaults(option) {
   if (option.type === undefined) option.type = optionTypes.INTEGER;
+  if (option.max === Infinity) option.max = Number.MAX_SAFE_INTEGER;
 
   if (option.type === optionTypes.INTEGER) {
-    if (option.max === Infinity) option.max = Number.MAX_SAFE_INTEGER;
     if (option.selected === undefined) option.selected = option.min;
   }
 
   if (option.type === optionTypes.INSTANCER) {
-    if (option.max === Infinity) option.max = Number.MAX_SAFE_INTEGER;
     if (option.nextId === undefined) option.nextId = 0;
     if (option.selected === undefined) option.selected = [];
     if (option.instanceGroup === undefined) option.instanceGroup = {};

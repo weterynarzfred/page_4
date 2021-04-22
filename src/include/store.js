@@ -23,7 +23,7 @@ const persistConfig = {
 
 const initialState = {
   cyoaId: settings.cyoaId,
-  options: parseOptions(rawOptions),
+  options: parseOptions(deepClone(rawOptions)),
   toggles: {},
   currencies: settings.currencies,
   currencySettings: settings.currencySettings,
@@ -47,9 +47,9 @@ function rootReducer(state = initialState, action = '') {
         break;
       case actions.RESTART:
         stateDraft = deepClone(initialState);
-        // TODO: add a function to handle these
         window.userFunctions = {};
         window.userValues = {};
+        stateDraft.options = parseOptions(deepClone(rawOptions));
         break;
       default:
     }
