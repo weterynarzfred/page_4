@@ -7,13 +7,19 @@ import App from 'Components/App';
 import createStore from 'Include/store';
 import { settings } from 'cyoa';
 
+require('./_redirects');
+
 const persisted = JSON.parse(localStorage.getItem('persist:root'));
 if (persisted !== null && persisted.cyoaId !== `"${settings.cyoaId}"`) {
   localStorage.clear('persist:root');
 }
 
 const redirect = (
-  <Redirect exact from="/" to={'/' + settings.initialScreen.join('/')} />
+  <Route
+    exact
+    path="/"
+    render={() => <Redirect to={'/' + settings.initialScreen.join('/')} />}
+  />
 );
 
 const { store, persistor } = createStore();

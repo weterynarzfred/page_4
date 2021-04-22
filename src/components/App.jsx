@@ -6,6 +6,7 @@ import Navigation from './Navigation';
 import Stats from './Stats';
 import Dialog from './Dialog';
 import Option from './Option';
+import { useHistory } from 'react-router';
 
 function App(props) {
   useEffect(() => {
@@ -20,6 +21,11 @@ function App(props) {
     }
   }, [props.location.pathname]);
 
+  const history = useHistory();
+  if (!props.exists) {
+    history.push('/');
+  }
+
   return <div className="App" style={{ backgroundImage: "url('/images/general/pattern.png')" }}>
     <Navigation />
     <Stats />
@@ -31,6 +37,10 @@ function App(props) {
   </div>;
 }
 
-export default connect(state => ({
-  path: state.path
-}))(App);
+export default connect(state => {
+  const exists = state.path.length === 0 || state.options[state.path.join('/')] !== undefined;
+  return {
+    path: state.path,
+    exists,
+  };
+})(App);

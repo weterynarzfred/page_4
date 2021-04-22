@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 const requestImageFile = require.context('./../../media', true, /.jpe?g$/);
-const images = name => requestImageFile(name).default.replace(/^\./, '');
+const images = name => requestImageFile(name).default;
 
 function OptionImage(props) {
   if (props.image === undefined) return (

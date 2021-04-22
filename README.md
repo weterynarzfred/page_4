@@ -52,9 +52,10 @@ if `type === optionTypes.INSTANCER`
 - add tooltips explaining gui
 - make a working preview
 - save and load from a json file
-- add blurring to nsfw images
 - add option type with order selection
 - add a button to enlarge images
 - `INSTANCER` `displayAsTable`
 - fix `displayAsPercent` in sliders
 - remember collapsed options between subpages
+- restart breaks option requirements
+- Infinity breaks after reload
