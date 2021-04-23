@@ -30,6 +30,18 @@ function wasOptionUpdated(optionKey, optionChanges) {
 }
 
 /**
+ * Checks if the lastCurrencyValue has a value for all currecies currently being
+ * checked
+ */
+function isLastCurrencyValueDefined(lastCurrencyValues, currencies) {
+  if (lastCurrencyValues === undefined) return false;
+  for (const currencySlug in currencies) {
+    if (lastCurrencyValues[currencySlug] === undefined) return false;
+  }
+  return true;
+}
+
+/**
  * Calculates costs of all changed options and saves the result in the
  * currencies object and each option's object. Options that do not need
  * recalculation are read from option's object last value.
@@ -52,7 +64,7 @@ function calculateCosts({
     const option = options[optionKey];
     if (isDisabled(option) || !isSelected(option, state.options)) continue;
     if (
-      option.lastCurrencyValues === undefined ||
+      !isLastCurrencyValueDefined(option.lastCurrencyValues, currencies) ||
       wasOptionUpdated(option.optionKey, optionChanges)
     ) {
       option.lastCurrencyValues = deepClone(emptyCurrencies);

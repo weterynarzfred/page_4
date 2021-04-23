@@ -23,7 +23,9 @@ function App(props) {
 
   const history = useHistory();
   if (!props.exists) {
-    history.push('/');
+    setTimeout(() => {
+      history.push('/');
+    }, 0);
   }
 
   return <div className="App" style={{ backgroundImage: "url('/images/general/pattern.png')" }}>

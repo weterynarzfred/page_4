@@ -26,3 +26,21 @@
 .icon-external-mana {
   background-image: url(./../media/icons/crystals.svg);
 }
+.icon-circle {
+  background-image: url(./../media/icons/circle.svg);
+}
+.icon-book {
+  background-image: url(./../media/icons/book.svg);
+}
+
+.centered-icons {
+  display: flex;
+  justify-content: center;
+
+  .icon {
+    width: 4em;
+    height: 4em;
+    float: none;
+    margin: 0;
+  }
+}

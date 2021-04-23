@@ -28,11 +28,52 @@
   }
 }
 
+.mana-cost {
+  text-align: center;
+  margin: 1em 0;
+
+  &.positive {
+    color: $positive;
+  }
+
+  &.negative {
+    color: $negative;
+  }
+
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 1.5em;
+    width: 1.5em;
+    vertical-align: -0.45em;
+    margin-right: 0.5em;
+    background-image: url(./../media/icons/mana.svg);
+    background-size: contain;
+    background-position: center;
+  }
+}
+
 .magic-icon-option {
   .option-image-content {
     background-image: linear-gradient(15deg, #424242 0%, #1f1f1f 100%);
     img {
       object-fit: contain !important;
     }
+  }
+}
+
+.tags {
+  margin: 0.5em 0;
+  display: flex;
+  flex-wrap: wrap;
+
+  .tag {
+    color: $text;
+    border: 1px solid $borderColor;
+    padding: 0.2em 1em 0.2em 0.5em;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75em;
+    border-radius: 0 1em 1em 0;
   }
 }
