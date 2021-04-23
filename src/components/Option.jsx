@@ -43,7 +43,8 @@ function Option(props) {
     { 'option-disabled': props.isDisabled },
     { 'option-collapsible': isCollapsible },
     { 'option-collapsed': isCollapsible && !opened },
-    { 'masonry-cell': props.isMasonryCell }
+    { 'masonry-cell': props.isMasonryCell },
+    props.userClasses
   );
 
 
@@ -80,5 +81,6 @@ export default connect((state, props) => {
     selected: isSelected(option, state.options),
     isDisabled: isDisabled(option, state.options),
     isSelectablesChild: option.isSelectablesChild,
+    userClasses: option.classes,
   };
 })(Option);

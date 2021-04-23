@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-const requestImageFile = require.context('./../../media', true, /.jpe?g$/);
+const requestImageFile = require.context('./../../media', true, /.(jpe?g|png|svg)$/);
 const images = name => requestImageFile(name).default;
 
 function OptionImage(props) {

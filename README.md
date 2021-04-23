@@ -30,6 +30,7 @@ Option object structure
 - `selected` {any}
 - `requirements` {array}
 - `hiddenInParent` {bool}
+- `classes` {string}
 
 if `type === optionTypes.SLIDER`
 - `sliderAttributes` {object}

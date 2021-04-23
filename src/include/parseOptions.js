@@ -25,6 +25,7 @@ const optionProps = [
   'logSlider',
   'displayAsPercent',
   'hiddenInParent',
+  'classes',
 ];
 
 const userValueProps = [

@@ -27,7 +27,7 @@ module.exports = function override(config, env) {
           options: {
             width: 878,
             height: 290,
-            scaleUp: true,
+            format: 'webp',
           },
         },
       ],
@@ -44,7 +44,7 @@ module.exports = function override(config, env) {
           options: {
             width: 158,
             height: 256,
-            scaleUp: true,
+            format: 'webp',
           },
         },
       ],
