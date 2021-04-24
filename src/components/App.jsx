@@ -7,6 +7,7 @@ import Stats from './Stats';
 import Dialog from './Dialog';
 import Option from './Option';
 import { useHistory } from 'react-router';
+import { settings } from 'cyoa';
 
 function App(props) {
   useEffect(() => {
@@ -20,6 +21,31 @@ function App(props) {
       });
     }
   }, [props.location.pathname]);
+
+  // skip the displaimer in development
+  if (process.env.NODE_ENV !== 'development') {
+    useEffect(() => {
+      if (!props.disclaimerClosed && settings.disclaimer !== undefined) {
+        window.dispatchEvent(new CustomEvent('dialogOpen', {
+          detail: {
+            title: 'Disclaimer',
+            text: settings.disclaimer,
+            buttons: [
+              {
+                onClick: () => {
+                  props.dispatch({
+                    type: actions.TOGGLE,
+                    key: 'disclaimerClosed',
+                  });
+                },
+                text: 'ok',
+              }
+            ],
+          }
+        }));
+      }
+    }, []);
+  }
 
   const history = useHistory();
   if (!props.exists) {
@@ -44,5 +70,6 @@ export default connect(state => {
   return {
     path: state.path,
     exists,
+    disclaimerClosed: state.toggles.disclaimerClosed,
   };
 })(App);

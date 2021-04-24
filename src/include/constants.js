@@ -13,6 +13,7 @@ const actions = {
   CHANGE_PATH: 'CHANGE_PATH',
   RESTART: 'RESTART',
   RECALCULATE: 'RECALCULATE',
+  TOGGLE: 'TOGGLE',
 };
 
 const dataTypes = {

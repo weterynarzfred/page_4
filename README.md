@@ -49,7 +49,6 @@ if `type === optionTypes.INSTANCER`
 
 ## todo
 - generate warnings when currency is below zero
-- add a disclaimer
 - add tooltips explaining gui
 - make a working preview
 - save and load from a json file

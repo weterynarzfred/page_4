@@ -18,13 +18,15 @@ import { deepClone } from '../functions/deepFunctions';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['options', 'cyoaId'],
+  whitelist: ['cyoaId', 'options', 'toggles'],
 };
 
 const initialState = {
   cyoaId: settings.cyoaId,
   options: parseOptions(deepClone(rawOptions)),
-  toggles: {},
+  toggles: {
+    disclaimerClosed: false,
+  },
   currencies: settings.currencies,
   currencySettings: settings.currencySettings,
   path: settings.initialScreen,
@@ -39,6 +41,9 @@ function rootReducer(state = initialState, action = '') {
     let changes = [];
 
     switch (action.type) {
+      case actions.TOGGLE:
+        stateDraft.toggles[action.key] = !stateDraft.toggles[action.key];
+        break;
       case actions.SELECT_OPTION:
         selectOptionReducer(stateDraft, action, changes);
         break;
