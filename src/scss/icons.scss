@@ -11,10 +11,10 @@
   height: 1.5em;
   width: 1.5em;
   display: inline-block;
-  vertical-align: -0.45em;
+  vertical-align: -0.4em;
   background-size: contain;
   background-position: center;
-  margin: 0 0.5em;
+  margin: 0 0.3em;
 }
 
 .icon-mana {
@@ -31,6 +31,12 @@
 }
 .icon-book {
   background-image: url(./../media/icons/book.svg);
+}
+.icon-rune {
+  background-image: url(./../media/icons/rune.svg);
+}
+.icon-potion {
+  background-image: url(./../media/icons/potion.svg);
 }
 
 .centered-icons {

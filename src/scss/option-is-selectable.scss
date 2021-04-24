@@ -6,32 +6,16 @@
   }
 }
 
-.masonry-3 {
-  max-width: 75em;
-
-  > .option-is-selectable {
+@media (max-width: 1200px) {
+  .masonry-grid > .option-is-selectable {
     width: 33.3333%;
   }
 }
 
-.masonry-2 {
-  max-width: 50em;
+.masonry-3 {
+  max-width: 75em;
 
   > .option-is-selectable {
-    width: 50%;
-  }
-}
-
-.masonry-1 {
-  max-width: 25em;
-
-  > .option-is-selectable {
-    width: 100%;
-  }
-}
-
-@media (max-width: 1200px) {
-  .masonry-grid > .option-is-selectable {
     width: 33.3333%;
   }
 }
@@ -45,6 +29,14 @@
   }
 }
 
+.masonry-2 {
+  max-width: 50em;
+
+  > .option-is-selectable {
+    width: 50%;
+  }
+}
+
 @media (max-width: 400px) {
   .masonry-grid,
   .masonry-3,
@@ -55,10 +47,18 @@
   }
 }
 
+.masonry-1 {
+  max-width: 25em;
+
+  > .option-is-selectable {
+    width: 100%;
+  }
+}
+
 .option-is-selectable {
   width: 100%;
   max-width: 100em;
-  padding: 0.25em;
+  padding: 0.5em;
 
   &:not(.option-is-row) {
     > .option-content {

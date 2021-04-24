@@ -7,18 +7,13 @@
 
   > table {
     border-collapse: collapse;
+    background-color: $selectableBackground;
+    box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset;
     width: 100%;
     max-width: 70em;
     margin: 0 2em;
 
     > tbody > tr {
-      &:first-child td {
-        border-top-width: 0;
-      }
-      &:last-child td {
-        border-bottom-width: 0;
-      }
-
       &.selected,
       &:hover {
         > td {
@@ -32,13 +27,6 @@
         padding: 0.5em 1em;
         height: 3em;
         transition: 0.3s;
-
-        &:first-child {
-          border-left-width: 0;
-        }
-        &:last-child {
-          border-right-width: 0;
-        }
 
         &.choice-control-cell {
           width: 3em;

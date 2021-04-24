@@ -6,8 +6,8 @@ $background: #222;
 $borderColor: #555;
 $enabledBackground: #111;
 $enabledText: #fff;
-$selectableBackground: #191919;
-$selectableText: #ccc;
+$selectableBackground: #2229;
+$selectableText: #fec;
 $disabledBackground: #111;
 $disabledText: #555;
 $disabledBorderColor: #222;
@@ -28,7 +28,7 @@ body {
 
 .App {
   position: relative;
-  padding: 3em 1em 20vh 1em;
+  padding: 3em 1em 6em 1em;
   min-height: 100vh;
   background-color: $background;
   background-size: 50px auto;
@@ -134,11 +134,16 @@ body {
 }
 
 p {
+  text-indent: 1.5em;
+}
+
+p,
+ul,
+ol {
   max-width: 40rem;
   margin: 0.5em auto;
   text-align: justify;
   line-height: 1.5;
-  text-indent: 1.5em;
   color: $text;
   transition: color 0.3s;
   clear: both;
@@ -146,6 +151,10 @@ p {
   strong {
     color: $enabledText;
   }
+}
+
+li {
+  margin: 0.5em 0;
 }
 
 h2 {
@@ -200,11 +209,11 @@ button.disabled,
   align-items: center;
   justify-content: center;
   max-width: 60em;
-  margin: 2em auto 0 auto;
-}
+  margin: 2em auto 1em auto;
 
-a.button-open-in-new {
-  text-decoration: none;
+  a {
+    text-decoration: none;
+  }
 }
 
 button.large {
