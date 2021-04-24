@@ -54,6 +54,44 @@ const percentageSlider = {
   },
 };
 
+const optionProps = [
+  'type',
+  'title',
+  'displayTitle',
+  'text',
+  'min',
+  'max',
+  'choices',
+  'instanceGroup',
+  'hidden',
+  'selected',
+  'cost',
+  'currencies',
+  'requirements',
+  'image',
+  'imageNSFW',
+  'displayAsTable',
+  'sliderAttributes',
+  'logSlider',
+  'displayAsPercent',
+  'hiddenInParent',
+  'classes',
+];
+
+const userValueProps = [
+  'title',
+  'displayTitle',
+  'text',
+  'instanceGroup',
+  'requirements',
+];
+
+const defaultProps = {
+  type: optionTypes.INTEGER,
+  min: 0,
+  max: 1,
+};
+
 export {
   optionTypes,
   actions,
@@ -61,4 +99,7 @@ export {
   callables,
   ratioWeightAttributes,
   percentageSlider,
+  optionProps,
+  userValueProps,
+  defaultProps,
 };

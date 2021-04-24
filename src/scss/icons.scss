@@ -1,4 +1,5 @@
 .icon {
+  position: relative;
   height: 3em;
   width: 3em;
   float: left;
@@ -14,6 +15,7 @@
   vertical-align: -0.4em;
   background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
   margin: 0 0.3em;
 }
 
@@ -37,6 +39,20 @@
 }
 .icon-potion {
   background-image: url(./../media/icons/potion.svg);
+}
+
+.icon-negation {
+  &:after {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -10%;
+    bottom: -10%;
+    left: -10%;
+    background-image: url(./../media/icons/negation.svg);
+    background-size: contain;
+    background-position: center;
+  }
 }
 
 .centered-icons {

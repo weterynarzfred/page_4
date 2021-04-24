@@ -1,46 +1,13 @@
 import { parsePaths } from '../functions/parsePath';
-import { optionTypes } from './constants';
+import {
+  optionTypes,
+  optionProps,
+  userValueProps,
+  defaultProps,
+} from './constants';
 import { addUserFunction } from './userFunctions';
 import { addUserValue } from './userValues';
 import { deepClone } from '../functions/deepFunctions';
-
-const optionProps = [
-  'type',
-  'title',
-  'displayTitle',
-  'text',
-  'min',
-  'max',
-  'choices',
-  'instanceGroup',
-  'hidden',
-  'selected',
-  'cost',
-  'currencies',
-  'requirements',
-  'image',
-  'imageNSFW',
-  'displayAsTable',
-  'sliderAttributes',
-  'logSlider',
-  'displayAsPercent',
-  'hiddenInParent',
-  'classes',
-];
-
-const userValueProps = [
-  'title',
-  'displayTitle',
-  'text',
-  'instanceGroup',
-  'requirements',
-];
-
-const defaultProps = {
-  type: optionTypes.INTEGER,
-  min: 0,
-  max: 1,
-};
 
 /**
  * Moves texts and functions from requirements to user arrays.
