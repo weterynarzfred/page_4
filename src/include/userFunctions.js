@@ -63,9 +63,11 @@ function recalculateUserFunctions(state, changes, force = false) {
         mergeChoices(state, option, result, newChanges);
       } else if (userFunction.prop === 'cost') {
         option.cost = result;
-      } else if (userFunction.prop.match(/requirements\.[0-9+]/)) {
+      } else if (userFunction.prop.match(/requirements\.[0-9]+$/)) {
         const index = userFunction.prop.split('.').pop();
         option.requirements[index] = result;
+      } else if (userFunction.prop.match(/requirements\.[0-9]+\.text$/)) {
+        addUserValue(result, userFunction.optionKey, userFunction.prop);
       } else {
         option[userFunction.prop] = result;
       }

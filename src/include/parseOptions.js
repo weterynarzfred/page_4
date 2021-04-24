@@ -47,12 +47,18 @@ const defaultProps = {
  */
 function parseRequirements(option) {
   for (let index = 0; index < option.requirements.length; index++) {
-    const value = option.requirements[index].value;
+    const requirement = option.requirements[index];
     const identifier = 'requirements.' + index;
 
-    parsePaths(value.subscribed, option);
-    addUserValue(option.requirements[index].text, option.optionKey, identifier);
-    addUserFunction(value, option.optionKey, identifier);
+    if (requirement.text.isUserFunction) {
+      parsePaths(requirement.text.subscribed, option);
+      addUserFunction(requirement.text, option.optionKey, identifier + '.text');
+      delete requirement.text;
+    } else {
+      addUserValue(requirement.text, option.optionKey, identifier + '.text');
+    }
+    parsePaths(requirement.value.subscribed, option);
+    addUserFunction(requirement.value, option.optionKey, identifier);
 
     option.requirements[index] = false;
   }

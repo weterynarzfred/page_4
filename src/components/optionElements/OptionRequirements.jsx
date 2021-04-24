@@ -8,7 +8,7 @@ function OptionRequirements(props) {
 
   const requirementElements = props.requirements.map((test, index) =>
     <div className={classNames('requirement', { met: test })} key={index}>
-      {getUserValue(props.optionKey, 'requirements.' + index)}
+      {getUserValue(props.optionKey, 'requirements.' + index + '.text')}
     </div>
   );
 
