@@ -15,6 +15,8 @@ import { deepClone } from '../functions/deepFunctions';
 function parseRequirements(option) {
   for (let index = 0; index < option.requirements.length; index++) {
     const requirement = option.requirements[index];
+    if (requirement.value === undefined) continue;
+
     const identifier = 'requirements.' + index;
 
     if (requirement.text.isUserFunction) {
