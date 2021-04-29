@@ -23,25 +23,23 @@
     ]
   },
   "dependencies": {
-    "cash-dom": "^8.1.0",
-    "classnames": "^2.2.6",
-    "immer": "^9.0.1",
+    "classnames": "^2.3.1",
+    "immer": "^9.0.2",
     "masonry-layout": "^4.2.2",
     "rc-slider": "^9.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hyphen": "^1.4.0",
     "react-latex": "^2.0.0",
-    "react-redux": "^7.2.3",
+    "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
     "recharts": "^2.0.9",
-    "redux": "^4.0.5",
-    "redux-persist": "^6.0.0",
-    "sass": "^1.32.8",
-    "webpack-image-resize-loader": "^4.0.2"
+    "redux": "^4.1.0",
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
-    "react-app-rewired": "^2.1.8"
+    "react-app-rewired": "^2.1.8",
+    "webpack-image-resize-loader": "^4.0.2"
   }
 }
