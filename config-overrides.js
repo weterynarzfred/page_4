@@ -42,8 +42,8 @@ module.exports = function override(config, env) {
         {
           loader: 'webpack-image-resize-loader',
           options: {
-            width: 158,
-            height: 256,
+            width: 190,
+            height: 308,
             format: 'webp',
           },
         },

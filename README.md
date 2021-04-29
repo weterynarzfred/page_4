@@ -48,7 +48,6 @@ if `type === optionTypes.INSTANCER`
 - `currency`
 
 ## todo
-- generate warnings when currency is below zero
 - add tooltips explaining gui
 - make a working preview
 - save and load from a json file
@@ -57,3 +56,4 @@ if `type === optionTypes.INSTANCER`
 - `INSTANCER` `displayAsTable`
 - fix `displayAsPercent` in sliders
 - remember collapsed options between subpages
+- filter columns in `displayAsTable`

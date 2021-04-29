@@ -47,6 +47,10 @@ function App(props) {
     }, []);
   }
 
+  useEffect(() => {
+    document.title = settings.cyoaId;
+  }, []);
+
   const history = useHistory();
   if (!props.exists) {
     setTimeout(() => {
