@@ -1,21 +1,23 @@
 .GroupControls {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   margin-top: 3em;
   margin-bottom: 3em;
+  overflow: auto;
+
+  &.masonry-grid {
+    overflow: visible;
+  }
 
   > table {
     border-collapse: collapse;
     background-color: $selectableBackground;
     box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset;
-    width: 100%;
-    max-width: 70em;
-    margin: 0 2em;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: min(70em, calc(100% - 2px));
+    min-width: 40em;
 
     > tbody > tr {
-      &.selected,
-      &:hover {
+      &.selected {
         > td {
           background-color: $enabledBackground;
         }
@@ -24,7 +26,7 @@
       > td {
         position: relative;
         border: 1px solid $borderColor;
-        padding: 0.5em 1em;
+        padding: 0.25em 0.5em;
         height: 3em;
         transition: 0.3s;
 
@@ -32,9 +34,14 @@
           width: 3em;
 
           .CheckboxControl {
-            top: 50%;
-            margin-top: -1em;
+            position: relative;
+            top: 0;
+            right: 0;
           }
+        }
+
+        &.choice-title-cell {
+          min-width: 6em;
         }
 
         &.option-text {
@@ -54,6 +61,8 @@
         }
 
         &.choice-cost-cell {
+          min-width: 9em;
+
           .OptionCost {
             border: none;
             position: static;
@@ -70,6 +79,20 @@
 
         .option-text p {
           color: $disabledText;
+        }
+      }
+    }
+  }
+}
+
+body.has-hover {
+  .GroupControls {
+    > table {
+      > tbody > tr {
+        &:hover {
+          > td {
+            background-color: $enabledBackground;
+          }
         }
       }
     }

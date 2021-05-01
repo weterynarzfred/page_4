@@ -3,12 +3,16 @@
   top: 0;
   right: 0;
   left: 0;
-  height: 32px;
+  min-height: 32px;
   background-color: $statsBackground;
   padding: 0 4em 0 2em;
   z-index: 19;
   display: flex;
   align-items: center;
+
+  @media (max-width: 900px) {
+    padding: 0 4em 0 0.5em;
+  }
 
   .Warnings {
     padding-left: 0.5rem;
@@ -25,10 +29,6 @@
       font-weight: 700;
       cursor: pointer;
       transition: 0.3s;
-
-      &:hover {
-        opacity: 0.75;
-      }
     }
 
     .warning-list {
@@ -59,11 +59,29 @@
     margin-left: auto;
 
     .stats-link {
+      padding-top: 0.1rem;
+      padding-bottom: 0.1rem;
       padding-left: 0.5rem;
       font-family: $titleFont;
 
       a {
         text-decoration: none;
+      }
+    }
+
+    @media (max-width: 900px) {
+      display: none;
+    }
+  }
+}
+
+body.has-hover {
+  .Stats {
+    .Warnings {
+      .warning-icon {
+        &:hover {
+          opacity: 0.75;
+        }
       }
     }
   }

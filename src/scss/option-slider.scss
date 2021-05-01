@@ -30,10 +30,6 @@
     border-color: $selectableText;
     transition: border-color 0.2s;
 
-    &:hover {
-      border-color: $selected;
-    }
-
     &:active {
       box-shadow: none;
     }
@@ -52,9 +48,20 @@
   .rc-slider-mark-text {
     transition: color 0.2s;
     color: $selectableText;
+    font-size: 0.8em;
 
     &.rc-slider-mark-text-active {
       color: $selectableText;
+    }
+  }
+}
+
+body.has-hover {
+  .SliderControls {
+    .rc-slider-handle {
+      &:hover {
+        border-color: $selected;
+      }
     }
   }
 }

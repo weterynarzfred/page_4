@@ -9,6 +9,18 @@ import Option from './Option';
 import { useHistory } from 'react-router';
 import { settings } from 'cyoa';
 
+let lastTouchTime = 0;
+
+document.addEventListener('touchstart', () => {
+  lastTouchTime = new Date();
+  document.body.classList.remove('has-hover');
+}, true);
+
+document.addEventListener('mousemove', () => {
+  if (new Date() - lastTouchTime < 500) return;
+  document.body.classList.add('has-hover');
+}, true);
+
 function App(props) {
   useEffect(() => {
     const currentPath = props.location.pathname.split('/')

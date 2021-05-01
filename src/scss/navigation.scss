@@ -29,14 +29,6 @@
         top: 20px;
       }
     }
-
-    &:hover {
-      > div {
-        &:nth-child(2) {
-          width: 80%;
-        }
-      }
-    }
   }
 
   #navigation-menu {
@@ -68,11 +60,6 @@
         top: 1rem;
         left: 2rem;
         font-size: 0.75em;
-
-        &:hover {
-          border-color: $negative;
-          color: $negative;
-        }
       }
 
       #summary-menu {
@@ -112,10 +99,6 @@
                 stroke: $selected;
                 stroke-width: 10;
                 fill: none;
-              }
-
-              &:hover {
-                top: 0.1rem;
               }
             }
 
@@ -170,6 +153,43 @@
 
     #navigation-menu {
       left: 0;
+    }
+  }
+}
+
+body.has-hover {
+  .Navigation {
+    #burger {
+      &:hover {
+        > div {
+          &:nth-child(2) {
+            width: 80%;
+          }
+        }
+      }
+    }
+
+    #navigation-menu {
+      .navigation-menu-content {
+        #restart-button {
+          &:hover {
+            border-color: $negative;
+            color: $negative;
+          }
+        }
+
+        #summary-menu {
+          .SummaryList {
+            .SummaryItem {
+              .summary-item-close {
+                &:hover {
+                  top: 0.1rem;
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

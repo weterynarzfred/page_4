@@ -9,7 +9,7 @@ function RatioControls(props) {
   if (props.selectedValue.length === 0) return null;
 
   return <div className="RatioControls">
-    <PieChart width={600} height={250}>
+    <PieChart width={400} height={250}>
       <Pie
         data={props.selectedValue}
         dataKey="value"

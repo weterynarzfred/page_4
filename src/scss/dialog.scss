@@ -39,14 +39,6 @@
         stroke-width: 10;
         transition: 0.2s;
       }
-
-      &:hover {
-        border-color: $negative;
-
-        path {
-          stroke: $negative;
-        }
-      }
     }
 
     .dialog-title {
@@ -62,6 +54,20 @@
       button {
         margin: 0 0.25rem;
         font-size: 0.75em;
+      }
+    }
+  }
+}
+
+body.has-hover {
+  .Dialog {
+    .dialog-content {
+      .dialog-close:hover {
+        border-color: $negative;
+
+        path {
+          stroke: $negative;
+        }
       }
     }
   }

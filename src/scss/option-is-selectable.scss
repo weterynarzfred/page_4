@@ -20,7 +20,7 @@
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   .masonry-grid,
   .masonry-3 {
     > .option-is-selectable {
@@ -37,7 +37,7 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 600px) {
   .masonry-grid,
   .masonry-3,
   .masonry-2 {
@@ -67,8 +67,7 @@
       color: $selectableText;
       border: solid $selectableBorderColor;
       border-width: 1px 1px 5px 1px;
-      transition: filter 0.3s, border 0.3s, background 0.3s, color 0.3s,
-        box-shadow 0.3s;
+      transition: filter 0.3s, border 0.3s, background 0.3s, color 0.3s, box-shadow 0.3s;
       filter: grayscale(1);
       box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset;
 
@@ -140,8 +139,7 @@
   &.selected {
     > .option-content {
       border-color: $selected !important;
-      box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset,
-        0 0 5px $selected;
+      box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset, 0 0 5px $selected;
 
       > .option-title {
         color: $selected;
@@ -149,10 +147,18 @@
     }
   }
 
-  &.selected > .option-content,
-  > .option-content:hover {
+  &.selected > .option-content {
     background-color: $enabledBackground;
     filter: none;
+  }
+}
+
+body.has-hover {
+  .option-is-selectable {
+    > .option-content:hover {
+      background-color: $enabledBackground;
+      filter: none;
+    }
   }
 }
 

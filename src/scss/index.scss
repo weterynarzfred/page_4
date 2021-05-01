@@ -29,7 +29,7 @@ body {
 
 .App {
   position: relative;
-  padding: 3em 1em 6em 1em;
+  padding: 3em 2em 6em 2em;
   min-height: 100vh;
   background-color: $background;
   background-size: 50px auto;
@@ -92,12 +92,6 @@ body {
       .option-image-content {
         filter: blur(10px);
       }
-
-      &:hover {
-        .option-image-content {
-          filter: none;
-        }
-      }
     }
   }
 
@@ -108,8 +102,7 @@ body {
   &.option-disabled {
     filter: grayscale(1);
 
-    &.selected,
-    &:hover {
+    &.selected {
       filter: none;
     }
 
@@ -130,6 +123,25 @@ body {
 
     .button-container {
       pointer-events: none;
+    }
+  }
+}
+
+body.has-hover {
+  .Option {
+    .OptionImage {
+      &.option-image-nsfw {
+        &:hover {
+          .option-image-content {
+            filter: none;
+          }
+        }
+      }
+    }
+    &.option-disabled {
+      &:hover {
+        filter: none;
+      }
     }
   }
 }
@@ -190,10 +202,14 @@ button {
   &:focus {
     outline: none;
   }
+}
 
-  &:hover {
-    color: $selected;
-    border-color: $selected;
+body.has-hover {
+  button {
+    &:hover {
+      color: $selected;
+      border-color: $selected;
+    }
   }
 }
 
@@ -230,6 +246,11 @@ button.large {
 .recharts-wrapper {
   margin: 0 auto;
   font-weight: 700;
+  max-width: 100%;
+
+  svg {
+    width: 100%;
+  }
 
   .recharts-pie-sector {
     path {
@@ -275,13 +296,13 @@ button.large {
   font-style: italic;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1600px) {
   html {
     font-size: 14px;
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1200px) {
   html {
     font-size: 12px;
   }

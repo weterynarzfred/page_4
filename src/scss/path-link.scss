@@ -1,5 +1,6 @@
 .Breadcrumbs {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   font-family: monospace;
   padding-left: 1em;
@@ -18,8 +19,12 @@
   transition: 0.2s;
   text-decoration: underline;
   color: inherit;
+}
 
-  &:hover {
-    color: $selected;
+body.has-hover {
+  .Link {
+    &:hover {
+      color: $selected;
+    }
   }
 }

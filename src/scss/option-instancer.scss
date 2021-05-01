@@ -80,18 +80,32 @@
                 transition: 0.2s;
               }
             }
+          }
+        }
+      }
+    }
+  }
+}
 
-            &:hover {
-              border-color: $negative;
+body.has-hover {
+  .Option.option-instancer {
+    > .option-content {
+      .InstancerControls {
+        .instance-list {
+          .InstanceControl {
+            .delete-instance {
+              &:hover {
+                border-color: $negative;
 
-              svg path {
-                stroke: $negative;
+                svg path {
+                  stroke: $negative;
+                }
               }
             }
-          }
 
-          &:hover {
-            border-color: #333;
+            &:hover {
+              border-color: #333;
+            }
           }
         }
       }
