@@ -7,6 +7,12 @@
     overflow: visible;
   }
 
+  &:not(.masonry-grid) {
+    .option-is-selectable {
+      margin: 0 auto;
+    }
+  }
+
   > table {
     border-collapse: collapse;
     background-color: $selectableBackground;
