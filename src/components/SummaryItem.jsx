@@ -17,14 +17,21 @@ function SummaryItem(props) {
 
   const [opened, setOpened] = useState(false);
 
-  const showList = [optionTypes.GROUP, optionTypes.INSTANCER].includes(props.type);
+  const showList = [
+    optionTypes.GROUP,
+    optionTypes.INSTANCER
+  ].includes(props.type);
 
   let value = props.value;
   if (Array.isArray(value)) {
     if (props.type === optionTypes.RATIO) {
       value = value.map((item, index) => (
         <span key={item.optionKey}>
-          {index === 0 ? '' : ', '}{item.title}: {formatNumber(item.percentage, 1, { usePercent: true, onlySignificant: true })}
+          {index === 0 ? '' : ', '}{item.title}:
+          {formatNumber(item.percentage, 1, {
+            usePercent: true,
+            onlySignificant: true
+          })}
         </span>
       ));
     } else {
@@ -35,8 +42,6 @@ function SummaryItem(props) {
       ));
     }
   }
-
-
 
   const content = <>
     <div className="summary-item-title">
@@ -70,7 +75,7 @@ export default connect((state, props) => {
     option.type === optionTypes.TEXT ||
     option.hidden ||
     isDisabled(option) ||
-    !isSelected(option, state.options)
+    (props.optionKey.match('/') !== null && !isSelected(option, state.options))
   ) return {};
 
   let value = '';

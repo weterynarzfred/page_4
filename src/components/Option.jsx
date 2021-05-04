@@ -47,7 +47,6 @@ function Option(props) {
     props.userClasses
   );
 
-
   if (props.displayAsTableRow) {
     return (
       <ChoiceTable

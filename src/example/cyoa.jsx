@@ -5,7 +5,6 @@ import { getSelectedValue, isSelected } from 'Functions/getSelectedValue';
 import parsePath from './functions/parsePath';
 import { deepClone } from 'Functions/deepFuncitons';
 
-
 const settings = {
   initialScreen: ['root'],
   currencySettings: {
