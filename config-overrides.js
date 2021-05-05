@@ -16,7 +16,7 @@ module.exports = function override(config, env) {
     1,
     {
       test: /\.(bmp|jpe?g|gif|png)$/i,
-      include: resolve(__dirname, './src/media/containers'),
+      include: resolve(__dirname, './src/content/media/containers'),
       use: [
         {
           loader: 'file-loader',
@@ -29,6 +29,16 @@ module.exports = function override(config, env) {
             height: 290,
             format: 'webp',
           },
+        },
+      ],
+    },
+    {
+      test: /\.(bmp|jpe?g|gif|png)$/i,
+      include: resolve(__dirname, './src/content/media/general'),
+      use: [
+        {
+          loader: 'file-loader',
+          options: config.module.rules[1].oneOf[1].options,
         },
       ],
     },

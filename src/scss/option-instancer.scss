@@ -40,6 +40,7 @@
             margin-right: 0.5rem;
             padding: 0.25rem 1rem;
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             text-decoration: none;
 
@@ -47,6 +48,11 @@
               font-size: 1.5em;
               font-family: $titleFont;
               margin-right: 0.5rem;
+            }
+
+            .Currencies {
+              padding-right: 0;
+              padding-left: 0;
             }
           }
 
