@@ -31,6 +31,7 @@ Option object structure
 - `requirements` {array}
 - `hiddenInParent` {bool}
 - `classes` {string}
+- `details` {object} *useless right now*
 
 if `type === optionTypes.SLIDER`
 - `sliderAttributes` {object}
@@ -40,6 +41,7 @@ if `type === optionTypes.SLIDER`
 if `type === optionTypes.SELECT`
 - `choices` {object|function}
 - `displayAsTable` {bool}
+- `tableColumns` {array}
 
 if `type === optionTypes.INSTANCER`
 - `instanceGroup` {object}
@@ -49,11 +51,9 @@ if `type === optionTypes.INSTANCER`
 
 ## todo
 - add tooltips explaining gui
-- make a working preview
 - save and load from a json file
 - add option type with order selection
 - add a button to enlarge images
 - `INSTANCER` `displayAsTable`
 - fix `displayAsPercent` in sliders
 - remember collapsed options between subpages
-- filter columns in `displayAsTable`

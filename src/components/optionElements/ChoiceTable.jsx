@@ -15,30 +15,51 @@ function handleClick(event) {
   handleToggle.call(this, this.selectedValue);
 }
 
+function Cell(props) {
+  if (!props.tableColumns.includes(props.column)) return null;
+
+  switch (props.column) {
+    case 'control':
+      return <td className="choice-control-cell">
+        <OptionControls optionKey={props.optionKey} />
+      </td>;
+    case 'title':
+      return <td className="choice-title-cell">
+        <OptionTitle optionKey={props.optionKey} />
+      </td>;
+    case 'text':
+      return <td className="choice-text">
+        <OptionText optionKey={props.optionKey} />
+        <OptionRequirements optionKey={props.optionKey} />
+      </td>;
+    case 'cost':
+      return <td className="choice-cost-cell">
+        <OptionCost optionKey={props.optionKey} />
+      </td>;
+    default:
+      return <td className={`choice-${props.column}-cell`}></td>;
+  }
+}
+
 function ChoiceTable(props) {
   return (
     <tr className={props.classes} onClick={handleClick.bind(props)}>
-      <td className="choice-control-cell">
-        <OptionControls optionKey={props.optionKey} />
-      </td>
-      <td className="choice-title-cell">
-        <OptionTitle optionKey={props.optionKey} />
-      </td>
-      <td className="option-text">
-        <OptionText optionKey={props.optionKey} />
-        <OptionRequirements optionKey={props.optionKey} />
-      </td>
-      <td className="choice-cost-cell">
-        <OptionCost optionKey={props.optionKey} />
-      </td>
+      {props.tableColumns.map(column => <Cell
+        key={column}
+        optionKey={props.optionKey}
+        column={column}
+        tableColumns={props.tableColumns}
+      />)}
     </tr>
   );
 }
 
 export default connect((state, props) => {
   const option = state.options[props.optionKey];
+  const parent = state.options[option.path.join('/')];
   return {
     selectedValue: getSelectedValue(option, state.options),
     isDisabled: isDisabled(option),
+    tableColumns: parent.tableColumns || ['control', 'title', 'text', 'cost'],
   };
 })(ChoiceTable);

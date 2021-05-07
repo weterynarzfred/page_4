@@ -72,11 +72,13 @@ const optionProps = [
   'image',
   'imageNSFW',
   'displayAsTable',
+  'tableColumns',
   'sliderAttributes',
   'logSlider',
   'displayAsPercent',
   'hiddenInParent',
   'classes',
+  'detail',
 ];
 
 const userValueProps = [
