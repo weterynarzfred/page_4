@@ -87,6 +87,7 @@ const userValueProps = [
   'text',
   'instanceGroup',
   'requirements',
+  'detail',
 ];
 
 const defaultProps = {

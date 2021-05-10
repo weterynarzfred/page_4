@@ -239,6 +239,13 @@ button.large {
   height: 3em;
 }
 
+.text-positive {
+  color: $positive;
+}
+.text-negative {
+  color: $negative;
+}
+
 .masonry-grid {
   margin-right: auto;
   margin-left: auto;

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getSelectedValue } from '../../functions/getSelectedValue';
 import { handleToggle } from '../../functions/handlers';
 import isDisabled from '../../functions/isDisabled';
+import { getUserValue } from '../../include/userValues';
 import OptionControls from './OptionControls';
 import OptionCost from './OptionCost';
 import OptionRequirements from './OptionRequirements';
@@ -37,7 +38,11 @@ function Cell(props) {
         <OptionCost optionKey={props.optionKey} />
       </td>;
     default:
-      return <td className={`choice-${props.column}-cell`}></td>;
+      const detail = getUserValue(props.optionKey, 'detail');
+      if (detail === undefined || detail[props.column] === undefined) return null;
+      return <td className={`choice-${props.column}-cell`}>
+        {detail[props.column].text}
+      </td>;
   }
 }
 

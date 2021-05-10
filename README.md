@@ -31,7 +31,7 @@ Option object structure
 - `requirements` {array}
 - `hiddenInParent` {bool}
 - `classes` {string}
-- `details` {object} *useless right now*
+- `detail` {object}
 
 if `type === optionTypes.SLIDER`
 - `sliderAttributes` {object}
