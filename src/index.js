@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
-import App from 'Components/App';
-import createStore from 'Include/store';
+import App from './components/App';
+import createStore from './include/store';
 import { settings } from 'cyoa';
 
 require('./_redirects');

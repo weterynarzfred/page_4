@@ -1,4 +1,4 @@
-import { actions } from 'Include/constants';
+import { actions } from '../include/constants';
 
 /**
  * Dispatches an action decreasing the option's value by 1.

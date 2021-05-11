@@ -1,4 +1,4 @@
-import { optionTypes } from 'Include/constants';
+import { optionTypes } from '../include/constants';
 import calculateCosts, { applyCost } from './calculateCosts';
 import { deepEquals } from './deepFunctions';
 import { getSelectedValue } from './getSelectedValue';

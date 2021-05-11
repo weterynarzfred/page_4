@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { actions } from 'Include/constants';
-import InstanceControl from './InstanceControl';
 import classNames from 'classnames';
+import { actions } from '../../include/constants';
+import InstanceControl from './InstanceControl';
 import { getSelectedValue } from '../../functions/getSelectedValue';
 
 function handleAdd() {

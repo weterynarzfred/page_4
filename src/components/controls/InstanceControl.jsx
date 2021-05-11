@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PathLink from 'Components/PathLink';
+import PathLink from '../../components/PathLink';
 import Currencies from '../Currencies';
 import { actions } from '../../include/constants';
 import { getUserValue } from '../../include/userValues';

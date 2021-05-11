@@ -1,9 +1,9 @@
 import React from 'react';
-import { optionTypes } from './include/constants';
-import PathLink from 'Components/PathLink';
-import { getSelectedValue, isSelected } from 'Functions/getSelectedValue';
-import parsePath from './functions/parsePath';
-import { deepClone } from 'Functions/deepFuncitons';
+import { optionTypes } from '../include/constants';
+import PathLink from '../components/PathLink';
+import { getSelectedValue, isSelected } from '../functions/getSelectedValue';
+import parsePath from '../functions/parsePath';
+import { deepClone } from '../functions/deepFuncitons';
 
 const settings = {
   initialScreen: ['root'],

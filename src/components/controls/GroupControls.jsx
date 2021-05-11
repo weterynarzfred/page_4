@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import Masonry from 'masonry-layout';
-import Option from 'Components/Option';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
+import Masonry from 'masonry-layout';
+import classNames from 'classnames';
+import Option from '../../components/Option';
 import { deepEquals } from '../../functions/deepFunctions';
 import { optionTypes } from '../../include/constants';
 

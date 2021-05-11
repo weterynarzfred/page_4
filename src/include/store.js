@@ -7,13 +7,13 @@ import {
   PERSIST,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { settings, rawOptions } from 'cyoa';
-import selectOptionReducer from 'Functions/selectOptionReducer';
 import { actions } from './constants';
 import parseOptions from './parseOptions';
+import selectOptionReducer from '../functions/selectOptionReducer';
 import recalculateState from '../functions/recalculateState';
 import rehydrateUserData from '../functions/rehydrateUserData';
 import { deepClone } from '../functions/deepFunctions';
+import { settings, rawOptions } from 'cyoa';
 
 const persistConfig = {
   key: 'root',

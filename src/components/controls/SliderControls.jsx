@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import { actions } from 'Include/constants';
+import { actions } from '../../include/constants';
 import { getSelectedValue } from '../../functions/getSelectedValue';
 import formatNumber from '../../functions/formatNumber';
 import { deepClone } from '../../functions/deepFunctions';

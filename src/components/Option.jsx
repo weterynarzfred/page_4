@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import { optionTypes } from 'Include/constants';
+import { optionTypes } from '../include/constants';
 import { isSelected } from '../functions/getSelectedValue';
+import isDisabled from '../functions/isDisabled';
 import ChoiceTable from './optionElements/ChoiceTable';
 import OptionContent from './optionElements/OptionContent';
-import isDisabled from './../functions/isDisabled';
 
 function Option(props) {
   if (props.type === undefined) return null;

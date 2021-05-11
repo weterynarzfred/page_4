@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import 'Src/scss/index.scss';
+import { useHistory } from 'react-router';
+import '../scss/index.scss';
 import { actions } from '../include/constants';
 import Navigation from './Navigation';
 import Stats from './Stats';
 import Dialog from './Dialog';
 import Option from './Option';
-import { useHistory } from 'react-router';
 import { settings } from 'cyoa';
 
 let lastTouchTime = 0;
@@ -34,7 +34,7 @@ function App(props) {
     }
   }, [props.location.pathname]);
 
-  // skip the displaimer in development
+  // skip the disclaimer in development
   if (process.env.NODE_ENV !== 'development') {
     useEffect(() => {
       if (!props.disclaimerClosed && settings.disclaimer !== undefined) {

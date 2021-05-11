@@ -1,4 +1,4 @@
-import { optionTypes } from 'Include/constants';
+import { optionTypes } from '../include/constants';
 import { getUserValue } from '../include/userValues';
 import isDisabled from './isDisabled';
 

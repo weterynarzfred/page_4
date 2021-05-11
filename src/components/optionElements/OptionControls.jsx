@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { optionTypes } from 'Include/constants';
+import { optionTypes } from '../../include/constants';
 import GroupControls from '../controls/GroupControls';
 import InstancerControls from '../controls/InstancerControls';
 import IntegerControls from '../controls/IntegerControls';

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { optionTypes } from 'Include/constants';
+import { optionTypes } from '../include/constants';
 import PathLink from './PathLink';
 import { getSelectedValue } from '../functions/getSelectedValue';
 import { getUserValue } from '../include/userValues';
-import isDisabled from './../functions/isDisabled';
+import isDisabled from '../functions/isDisabled';
 
 function findWarnings(state) {
   const warnings = [];

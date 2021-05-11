@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { actions } from 'Include/constants';
+import { actions } from '../../include/constants';
 import { getSelectedValue } from '../../functions/getSelectedValue';
 
 function handleChange(event) {

@@ -1,4 +1,4 @@
-import { optionTypes } from 'Include/constants';
+import { optionTypes } from '../include/constants';
 import { deepClone } from './deepFunctions';
 import parseOptions from '../include/parseOptions';
 import { getSelectedValue, isSelected } from './getSelectedValue';
