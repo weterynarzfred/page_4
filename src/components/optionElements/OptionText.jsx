@@ -1,14 +1,8 @@
-import React from 'react';
-import Hyphenated from 'react-hyphen';
 import { connect } from 'react-redux';
 import { getUserValue } from '../../include/userValues';
 
 function OptionText(props) {
-  return (
-    <Hyphenated>
-      {props.text}
-    </Hyphenated>
-  );
+  return props.text;
 }
 
 export default connect((state, props) => ({
