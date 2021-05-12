@@ -67,7 +67,8 @@
       color: $selectableText;
       border: solid $selectableBorderColor;
       border-width: 1px 1px 5px 1px;
-      transition: filter 0.3s, border 0.3s, background 0.3s, color 0.3s, box-shadow 0.3s;
+      transition: filter 0.3s, border 0.3s, background 0.3s, color 0.3s,
+        box-shadow 0.3s;
       filter: grayscale(1);
       box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset;
 
@@ -104,6 +105,7 @@
       padding: 1px 0;
 
       > .GroupControls {
+        font-size: 0.9em;
         padding-top: 0.5em;
         margin: 0;
 
@@ -139,7 +141,8 @@
   &.selected {
     > .option-content {
       border-color: $selected !important;
-      box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset, 0 0 5px $selected;
+      box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset,
+        0 0 5px $selected;
 
       > .option-title {
         color: $selected;

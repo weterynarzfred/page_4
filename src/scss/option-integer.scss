@@ -60,10 +60,10 @@
 
 .CheckboxControl {
   position: absolute;
-  top: -2.6rem;
-  right: 0.5rem;
-  width: 2rem;
-  height: 2rem;
+  top: -2.6em;
+  right: 0.5em;
+  width: 2em;
+  height: 2em;
   background-color: $selectableBackground;
   color: $enabledText;
   border: 1px solid $borderColor;
@@ -73,7 +73,7 @@
   transition: 0.2s;
   cursor: pointer;
   border-radius: 1em;
-  box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset;
+  box-shadow: 0.1em 0.1em 0.5em #000, 0.1em 0.1em 0.2em #fff1 inset;
 
   &:after {
     content: '✔';
@@ -120,12 +120,14 @@ body.has-hover {
   &.option-is-row {
     .integer-spinbox-content {
       border-color: $selected;
-      box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset, 0 0 5px $selected;
+      box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset,
+        0 0 5px $selected;
     }
 
     .CheckboxControl {
       border-color: $selected;
-      box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset, 0 0 5px $selected;
+      box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset,
+        0 0 5px $selected;
     }
   }
 }
