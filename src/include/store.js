@@ -78,19 +78,15 @@ function rootReducer(state = initialState, action = '') {
 }
 
 // skip redux-persist in development
-let persistedReducer;
-if (process.env.NODE_ENV === 'development') {
-  persistedReducer = rootReducer;
-} else {
-  persistedReducer = persistReducer(persistConfig, rootReducer);
-}
+const persistedReducer = process.env.NODE_ENV === 'development' ? rootReducer :
+  persistReducer(persistConfig, rootReducer);
 
 export default () => {
-  let store = createStore(
+  const store = createStore(
     persistedReducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
-  let persistor = persistStore(store, undefined, () => {
+  const persistor = persistStore(store, undefined, () => {
     rehydrateUserData(store);
   });
   return { store, persistor };

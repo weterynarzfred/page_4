@@ -25,39 +25,38 @@ function App(props) {
   useEffect(() => {
     const currentPath = props.location.pathname.split('/')
       .filter(e => e !== '');
-    if (currentPath.join('/') !== props.path.join('/')) {
-      window.scrollTo(0, 0);
-      props.dispatch({
-        type: actions.CHANGE_PATH,
-        path: currentPath,
-      });
-    }
+    if (currentPath.join('/') === props.path.join('/')) return;
+
+    window.scrollTo(0, 0);
+    props.dispatch({
+      type: actions.CHANGE_PATH,
+      path: currentPath,
+    });
   }, [props.location.pathname]);
 
   // skip the disclaimer in development
-  if (process.env.NODE_ENV !== 'development') {
-    useEffect(() => {
-      if (!props.disclaimerClosed && settings.disclaimer !== undefined) {
-        window.dispatchEvent(new CustomEvent('dialogOpen', {
-          detail: {
-            title: 'Disclaimer',
-            text: settings.disclaimer,
-            buttons: [
-              {
-                onClick: () => {
-                  props.dispatch({
-                    type: actions.TOGGLE,
-                    key: 'disclaimerClosed',
-                  });
-                },
-                text: 'ok',
-              }
-            ],
-          }
-        }));
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development') return;
+    if (props.disclaimerClosed || settings.disclaimer === undefined) return;
+
+    const acceptButton = {
+      onClick: () => {
+        props.dispatch({
+          type: actions.TOGGLE,
+          key: 'disclaimerClosed',
+        });
+      },
+      text: 'ok',
+    };
+
+    window.dispatchEvent(new CustomEvent('dialogOpen', {
+      detail: {
+        title: 'Disclaimer',
+        text: settings.disclaimer,
+        buttons: [acceptButton],
       }
-    }, []);
-  }
+    }));
+  }, []);
 
   useEffect(() => {
     document.title = settings.cyoaId;

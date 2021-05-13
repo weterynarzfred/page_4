@@ -14,36 +14,18 @@ if (persisted !== null && persisted.cyoaId !== `"${settings.cyoaId}"`) {
   localStorage.clear('persist:root');
 }
 
-const redirect = (
-  <Route
-    exact
-    path="/"
-    render={() => <Redirect to={'/' + settings.initialScreen.join('/')} />}
-  />
-);
-
 const { store, persistor } = createStore();
 
-if (process.env.NODE_ENV === 'development') {
-  ReactDOM.render(
-    <Provider store={store}>
-      <Router>
-        {redirect}
-        <Route path="/" component={App} />
-      </Router>
-    </Provider>,
-    document.getElementById('root')
-  );
-} else {
-  ReactDOM.render(
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Router>
-          {redirect}
-          <Route path="/" component={App} />
-        </Router>
-      </PersistGate>
-    </Provider>,
-    document.getElementById('root')
-  );
-}
+const initialPath = '/' + settings.initialScreen.join('/');
+const router = <Router>
+  <Route exact path="/" render={() => <Redirect to={initialPath} />} />
+  <Route path="/" component={App} />
+</Router>;
+
+ReactDOM.render(
+  <Provider store={store}>
+    {process.env.NODE_ENV === 'development' ? router :
+      <PersistGate loading={null} persistor={persistor}>{router}</PersistGate>}
+  </Provider>,
+  document.getElementById('root')
+);
