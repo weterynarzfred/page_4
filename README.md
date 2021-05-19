@@ -48,12 +48,3 @@ if `type === optionTypes.INSTANCER`
 
 ### restricted keys
 - `currency`
-
-## todo
-- add tooltips explaining gui
-- save and load from a json file
-- add option type with order selection
-- add a button to enlarge images
-- `INSTANCER` `displayAsTable`
-- fix `displayAsPercent` in sliders
-- remember collapsed options between subpages

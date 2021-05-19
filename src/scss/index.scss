@@ -12,14 +12,14 @@ $selectableText: #fec;
 $disabledBackground: #111;
 $disabledText: #555;
 $disabledBorderColor: #222;
-$titleFont: 'Piazzolla', serif;
+$titleFont: "Piazzolla", serif;
 
 $statsBackground: #000;
 
 body {
   background-color: $background;
   color: #eee;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   margin: 0;
 }
 
@@ -32,7 +32,7 @@ body {
   padding: 3em 2em 6em 2em;
   min-height: 100vh;
   background-color: $background;
-  background-image: url('../content/media/general/pattern.png');
+  background-image: url("../content/media/general/pattern.png");
   background-size: 50px auto;
 
   #option-list {
@@ -49,7 +49,7 @@ body {
     bottom: 0;
     left: 0;
     z-index: 101;
-    background-image: url('../content/media/general/001_RV_TEXTURE_DIRT.png');
+    background-image: url("../content/media/general/001_RV_TEXTURE_DIRT.png");
     background-size: 100% auto;
     pointer-events: none;
     opacity: 0.04;
@@ -306,6 +306,10 @@ button.large {
   font-style: italic;
 }
 
+.frac-line {
+  border-bottom-style: solid;
+}
+
 @media (max-width: 1600px) {
   html {
     font-size: 14px;
@@ -318,18 +322,18 @@ button.large {
   }
 }
 
-@import 'dialog';
-@import 'navigation';
-@import 'stats';
-@import 'path-link';
-@import 'icons';
-@import 'option-cost';
-@import 'option-requirements';
-@import 'option-is-selectable';
-@import 'option-integer';
-@import 'option-text';
-@import 'option-slider';
-@import 'option-is-container';
-@import 'option-group';
-@import 'option-instancer';
-@import 'user-styles';
+@import "dialog";
+@import "navigation";
+@import "stats";
+@import "path-link";
+@import "icons";
+@import "option-cost";
+@import "option-requirements";
+@import "option-is-selectable";
+@import "option-integer";
+@import "option-text";
+@import "option-slider";
+@import "option-is-container";
+@import "option-group";
+@import "option-instancer";
+@import "user-styles";

@@ -2,7 +2,7 @@
   > .option-content {
     > .option-title {
       .option-title-text:after {
-        content: '';
+        content: "";
         display: inline-block;
         width: 5rem;
         height: 1rem;
@@ -76,7 +76,7 @@
   box-shadow: 0.1em 0.1em 0.5em #000, 0.1em 0.1em 0.2em #fff1 inset;
 
   &:after {
-    content: '✔';
+    content: "✔";
     opacity: 0;
     transition: 0.3s;
     font-size: 1.5em;
