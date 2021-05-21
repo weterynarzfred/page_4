@@ -69,7 +69,7 @@
       border-width: 1px 1px 5px 1px;
       transition: filter 0.3s, border 0.3s, background 0.3s, color 0.3s,
         box-shadow 0.3s;
-      filter: grayscale(1);
+      filter: grayscale(0.75);
       box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset;
 
       > .option-title {
