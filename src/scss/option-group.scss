@@ -7,10 +7,8 @@
     overflow: visible;
   }
 
-  &:not(.masonry-grid) {
-    .option-is-selectable {
-      margin: 0 auto;
-    }
+  &:not(.masonry-grid) .option-is-selectable {
+    margin: 0 auto;
   }
 
   > table {
@@ -23,10 +21,8 @@
     min-width: 40em;
 
     > tbody > tr {
-      &.selected {
-        > td {
-          background-color: $enabledBackground;
-        }
+      &.selected > td {
+        background-color: $enabledBackground;
       }
 
       > td {
@@ -87,19 +83,9 @@
           color: $disabledText;
         }
       }
-    }
-  }
-}
 
-body.has-hover {
-  .GroupControls {
-    > table {
-      > tbody > tr {
-        &:hover {
-          > td {
-            background-color: $enabledBackground;
-          }
-        }
+      @at-root body.has-hover &:hover > td {
+        background-color: $enabledBackground;
       }
     }
   }

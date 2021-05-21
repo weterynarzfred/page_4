@@ -41,18 +41,16 @@
   background-image: url(./../content/media/icons/potion.svg);
 }
 
-.icon-negation {
-  &:after {
-    content: "";
-    position: absolute;
-    top: -10%;
-    right: -10%;
-    bottom: -10%;
-    left: -10%;
-    background-image: url(./../content/media/icons/negation.svg);
-    background-size: contain;
-    background-position: center;
-  }
+.icon-negation:after {
+  content: "";
+  position: absolute;
+  top: -10%;
+  right: -10%;
+  bottom: -10%;
+  left: -10%;
+  background-image: url(./../content/media/icons/negation.svg);
+  background-size: contain;
+  background-position: center;
 }
 
 .centered-icons {

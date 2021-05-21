@@ -16,6 +16,16 @@ $titleFont: "Piazzolla", serif;
 
 $statsBackground: #000;
 
+html {
+  @media (max-width: 1600px) {
+    font-size: 14px;
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 12px;
+  }
+}
+
 body {
   background-color: $background;
   color: #eee;
@@ -94,6 +104,12 @@ body {
       .option-image-content {
         filter: blur(10px);
       }
+
+      @at-root body.has-hover &:hover {
+        .option-image-content {
+          filter: none;
+        }
+      }
     }
   }
 
@@ -126,24 +142,9 @@ body {
     .button-container {
       pointer-events: none;
     }
-  }
-}
 
-body.has-hover {
-  .Option {
-    .OptionImage {
-      &.option-image-nsfw {
-        &:hover {
-          .option-image-content {
-            filter: none;
-          }
-        }
-      }
-    }
-    &.option-disabled {
-      &:hover {
-        filter: none;
-      }
+    @at-root body.has-hover &:hover {
+      filter: none;
     }
   }
 }
@@ -202,17 +203,17 @@ button {
   letter-spacing: 0.1em;
   word-spacing: 0.2em;
 
+  &.large {
+    height: 3em;
+  }
+
   &:focus {
     outline: none;
   }
-}
 
-body.has-hover {
-  button {
-    &:hover {
-      color: $selected;
-      border-color: $selected;
-    }
+  @at-root body.has-hover &:hover {
+    color: $selected;
+    border-color: $selected;
   }
 }
 
@@ -236,13 +237,10 @@ button.disabled,
   }
 }
 
-button.large {
-  height: 3em;
-}
-
 .text-positive {
   color: $positive;
 }
+
 .text-negative {
   color: $negative;
 }
@@ -292,13 +290,11 @@ button.large {
     }
   }
 
-  .recharts-pie-labels {
-    .recharts-pie-label-line {
-      stroke-width: 3;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke: #fff;
-    }
+  .recharts-pie-labels .recharts-pie-label-line {
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke: #fff;
   }
 }
 
@@ -308,18 +304,6 @@ button.large {
 
 .frac-line {
   border-bottom-style: solid;
-}
-
-@media (max-width: 1600px) {
-  html {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 1200px) {
-  html {
-    font-size: 12px;
-  }
 }
 
 @import "dialog";

@@ -1,14 +1,8 @@
-.option-integer {
-  > .option-content {
-    > .option-title {
-      .option-title-text:after {
-        content: "";
-        display: inline-block;
-        width: 5rem;
-        height: 1rem;
-      }
-    }
-  }
+.option-integer > .option-content > .option-title .option-title-text:after {
+  content: "";
+  display: inline-block;
+  width: 5rem;
+  height: 1rem;
 }
 
 .SpinboxControl {
@@ -82,19 +76,13 @@
     font-size: 1.5em;
   }
 
-  &.checked {
-    &:after {
-      opacity: 1;
-    }
+  &.checked:after {
+    opacity: 1;
   }
-}
 
-body.has-hover {
-  .CheckboxControl {
-    &:hover {
-      background-color: $enabledBackground;
-      border-color: $selected;
-    }
+  @at-root body.has-hover &:hover {
+    background-color: $enabledBackground;
+    border-color: $selected;
   }
 }
 

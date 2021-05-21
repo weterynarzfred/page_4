@@ -23,14 +23,13 @@
     &.positive .cost-value {
       color: $positive;
     }
+
     &.negative .cost-value {
       color: $negative;
     }
   }
 }
 
-.option-is-selectable {
-  .OptionCost {
-    top: 0;
-  }
+.option-is-selectable .OptionCost {
+  top: 0;
 }

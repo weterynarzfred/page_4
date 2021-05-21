@@ -9,17 +9,24 @@ import Dialog from './Dialog';
 import Option from './Option';
 import { settings } from 'cyoa';
 
-let lastTouchTime = 0;
+function startHoverDetection() {
+  let hasHover = false;
+  let lastTouchTime = 0;
 
-document.addEventListener('touchstart', () => {
-  lastTouchTime = new Date();
-  document.body.classList.remove('has-hover');
-}, true);
+  document.addEventListener('touchstart', () => {
+    lastTouchTime = new Date();
+    if (!hasHover) return;
+    document.body.classList.remove('has-hover');
+    hasHover = false;
+  });
 
-document.addEventListener('mousemove', () => {
-  if (new Date() - lastTouchTime < 500) return;
-  document.body.classList.add('has-hover');
-}, true);
+  document.addEventListener('mousemove', () => {
+    if (hasHover) return;
+    if (new Date() - lastTouchTime < 500) return;
+    document.body.classList.add('has-hover');
+    hasHover = true;
+  });
+}
 
 function App(props) {
   useEffect(() => {
@@ -60,6 +67,7 @@ function App(props) {
 
   useEffect(() => {
     document.title = settings.cyoaId;
+    startHoverDetection();
   }, []);
 
   const history = useHistory();

@@ -1,118 +1,102 @@
-.Option.option-instancer {
-  > .option-content {
-    .option-cost-wrap {
-      position: relative;
-      max-width: 70rem;
-      margin: 0 auto;
+.Option.option-instancer > .option-content {
+  .option-cost-wrap {
+    position: relative;
+    max-width: 70rem;
+    margin: 0 auto;
 
-      .OptionCost {
-        top: 0;
-        border-width: 0 1px 1px 1px;
-      }
+    .OptionCost {
+      top: 0;
+      border-width: 0 1px 1px 1px;
+    }
+  }
+
+  .InstancerControls {
+    margin: 0 0.5em;
+
+    .add-instance {
+      height: 3em;
+      margin: 2em auto 0 auto;
     }
 
-    .InstancerControls {
-      margin: 0 0.5em;
+    .instance-list {
+      max-width: 50em;
+      margin: 2rem auto;
+      padding: 0.5rem 0.5rem;
+      background-color: #000;
+      border: 1px solid #999;
+      min-height: 12em;
 
-      .add-instance {
-        height: 3em;
-        margin: 2em auto 0 auto;
-      }
+      .InstanceControl {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid transparent;
+        transition: 0.2s;
 
-      .instance-list {
-        max-width: 50em;
-        margin: 2rem auto;
-        padding: 0.5rem 0.5rem;
-        background-color: #000;
-        border: 1px solid #999;
-        min-height: 12em;
-
-        .InstanceControl {
-          position: relative;
+        .Link {
           width: 100%;
+          margin-right: 0.5rem;
+          padding: 0.25rem 1rem;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          text-decoration: none;
+
+          .instance-link-title {
+            font-size: 1.5em;
+            font-family: $titleFont;
+            margin-right: 0.5rem;
+          }
+
+          .Currencies {
+            padding-right: 0;
+            padding-left: 0;
+          }
+        }
+
+        .delete-instance {
+          background: none;
+          border: none;
+          background-color: #000;
+          border: 2px solid #999;
+          height: 1.2rem;
+          width: 1.2rem;
+          padding: 0;
+          margin-left: auto;
+          margin-right: 1rem;
           display: flex;
           align-items: center;
-          border-bottom: 1px solid transparent;
+          justify-content: center;
+          font-weight: 700;
+          border-radius: 0.6rem;
+          cursor: pointer;
           transition: 0.2s;
+          z-index: 1;
 
-          .Link {
-            width: 100%;
-            margin-right: 0.5rem;
-            padding: 0.25rem 1rem;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            text-decoration: none;
+          svg {
+            display: block;
+            width: 65%;
 
-            .instance-link-title {
-              font-size: 1.5em;
-              font-family: $titleFont;
-              margin-right: 0.5rem;
-            }
-
-            .Currencies {
-              padding-right: 0;
-              padding-left: 0;
+            path {
+              stroke: #fff;
+              stroke-width: 25;
+              stroke-linecap: round;
+              transition: 0.2s;
             }
           }
 
-          .delete-instance {
-            background: none;
-            border: none;
-            background-color: #000;
-            border: 2px solid #999;
-            height: 1.2rem;
-            width: 1.2rem;
-            padding: 0;
-            margin-left: auto;
-            margin-right: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            border-radius: 0.6rem;
-            cursor: pointer;
-            transition: 0.2s;
-            z-index: 1;
+          @at-root body.has-hover &:hover {
+            border-color: $negative;
 
-            svg {
-              display: block;
-              width: 65%;
-
-              path {
-                stroke: #fff;
-                stroke-width: 25;
-                stroke-linecap: round;
-                transition: 0.2s;
-              }
+            svg path {
+              stroke: $negative;
             }
           }
         }
-      }
-    }
-  }
-}
 
-body.has-hover {
-  .Option.option-instancer {
-    > .option-content {
-      .InstancerControls {
-        .instance-list {
-          .InstanceControl {
-            .delete-instance {
-              &:hover {
-                border-color: $negative;
-
-                svg path {
-                  stroke: $negative;
-                }
-              }
-            }
-
-            &:hover {
-              border-color: #333;
-            }
-          }
+        @at-root body.has-hover &:hover {
+          border-color: #333;
         }
       }
     }
@@ -121,23 +105,19 @@ body.has-hover {
 
 .option-disabled {
   .option-instancer,
-  &.option-instancer {
-    .option-content {
-      .add-instance {
-        background-color: $disabledBackground;
-        border-color: $disabledBorderColor;
-        color: $disabledText;
-      }
-      .InstancerControls {
-        .instance-list {
-          background-color: $disabledBackground;
-          border-color: $disabledBorderColor;
-          color: $disabledText;
+  &.option-instancer .option-content {
+    .add-instance {
+      background-color: $disabledBackground;
+      border-color: $disabledBorderColor;
+      color: $disabledText;
+    }
+    .InstancerControls .instance-list {
+      background-color: $disabledBackground;
+      border-color: $disabledBorderColor;
+      color: $disabledText;
 
-          .delete-instance {
-            opacity: 0.33;
-          }
-        }
+      .delete-instance {
+        opacity: 0.33;
       }
     }
   }

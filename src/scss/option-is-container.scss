@@ -81,40 +81,32 @@
     }
   }
 
-  .Option.option-is-container {
-    > .option-content {
+  .Option.option-is-container > .option-content {
+    > .option-title {
+      font-size: 2.618em;
+      padding-left: 3rem;
+
+      &:after {
+        left: 3rem;
+      }
+    }
+
+    .Option.option-is-container > .option-content {
       > .option-title {
-        font-size: 2.618em;
-        padding-left: 3rem;
+        font-size: 1.618em;
+        padding-left: 6rem;
 
         &:after {
-          left: 3rem;
+          left: 6rem;
         }
       }
 
-      .Option.option-is-container {
-        > .option-content {
-          > .option-title {
-            font-size: 1.618em;
-            padding-left: 6rem;
+      .Option.option-is-container > .option-content > .option-title {
+        font-size: 1em;
+        padding-left: 9rem;
 
-            &:after {
-              left: 6rem;
-            }
-          }
-
-          .Option.option-is-container {
-            > .option-content {
-              > .option-title {
-                font-size: 1em;
-                padding-left: 9rem;
-
-                &:after {
-                  left: 9rem;
-                }
-              }
-            }
-          }
+        &:after {
+          left: 9rem;
         }
       }
     }
@@ -126,6 +118,10 @@
     > .option-title .option-title-text {
       cursor: pointer;
       transition: 0.2s;
+
+      @at-root body.has-hover &:hover {
+        opacity: 0.7;
+      }
     }
 
     > .option-collapsible-content {
@@ -157,38 +153,23 @@
         border-radius: 50%;
         transition: 0.2s;
       }
-    }
-  }
 
-  &.option-collapsed {
-    .option-collapsible-elipsis {
-      height: 2em;
-      pointer-events: all;
-      opacity: 0.3;
-    }
-  }
-}
+      @at-root body.has-hover &:hover {
+        background-color: $selectableBackground;
+        opacity: 1;
+        border-color: $borderColor;
 
-body.has-hover {
-  .option-collapsible {
-    > .option-content {
-      > .option-title .option-title-text {
-        &:hover {
-          opacity: 0.7;
-        }
-      }
-      .option-collapsible-elipsis {
-        &:hover {
-          background-color: $selectableBackground;
-          opacity: 1;
-          border-color: $borderColor;
-
-          > div {
-            margin: 0 0.16em;
-          }
+        > div {
+          margin: 0 0.16em;
         }
       }
     }
+  }
+
+  &.option-collapsed .option-collapsible-elipsis {
+    height: 2em;
+    pointer-events: all;
+    opacity: 0.3;
   }
 }
 

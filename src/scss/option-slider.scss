@@ -37,12 +37,14 @@
     &.rc-slider-handle-click-focused {
       border-color: $selectableText;
     }
-  }
 
-  .rc-slider-dot {
-    &.rc-slider-dot-active {
+    @at-root body.has-hover &:hover {
       border-color: $selected;
     }
+  }
+
+  .rc-slider-dot.rc-slider-dot-active {
+    border-color: $selected;
   }
 
   .rc-slider-mark-text {
@@ -52,16 +54,6 @@
 
     &.rc-slider-mark-text-active {
       color: $selectableText;
-    }
-  }
-}
-
-body.has-hover {
-  .SliderControls {
-    .rc-slider-handle {
-      &:hover {
-        border-color: $selected;
-      }
     }
   }
 }

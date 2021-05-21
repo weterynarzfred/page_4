@@ -100,67 +100,58 @@
       min-height: 1rem;
     }
 
-    > .option-content > .option-collapsible-content {
-      position: relative;
-      padding: 1px 0;
+    > .option-content {
+      > .option-collapsible-content {
+        position: relative;
+        padding: 1px 0;
 
-      > .GroupControls {
-        font-size: 0.9em;
-        padding-top: 0.5em;
-        margin: 0;
+        > .GroupControls {
+          font-size: 0.9em;
+          padding-top: 0.5em;
+          margin: 0;
 
-        .option-is-selectable > .option-content {
-          border-color: $borderColor;
-        }
+          .option-is-selectable > .option-content {
+            border-color: $borderColor;
+          }
 
-        .Option:last-child {
-          margin-bottom: 0;
-        }
+          .Option:last-child {
+            margin-bottom: 0;
+          }
 
-        .option-select,
-        .option-group {
-          > .option-content > .option-collapsible-content > .option-text {
-            min-height: 0;
+          .option-select,
+          .option-group {
+            > .option-content > .option-collapsible-content > .option-text {
+              min-height: 0;
+            }
+          }
+
+          .SelectControls,
+          .GroupControls {
+            margin: 0;
           }
         }
+      }
 
-        .SelectControls,
-        .GroupControls {
-          margin: 0;
-        }
+      @at-root body.has-hover &:hover {
+        background-color: $enabledBackground;
+        filter: none;
       }
     }
   }
 
-  &:not(.selected) {
-    p {
-      color: $selectableText;
-    }
-  }
-
-  &.selected {
-    > .option-content {
-      border-color: $selected !important;
-      box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset,
-        0 0 5px $selected;
-
-      > .option-title {
-        color: $selected;
-      }
-    }
+  &:not(.selected) p {
+    color: $selectableText;
   }
 
   &.selected > .option-content {
     background-color: $enabledBackground;
     filter: none;
-  }
-}
+    border-color: $selected !important;
+    box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset,
+      0 0 5px $selected;
 
-body.has-hover {
-  .option-is-selectable {
-    > .option-content:hover {
-      background-color: $enabledBackground;
-      filter: none;
+    > .option-title {
+      color: $selected;
     }
   }
 }

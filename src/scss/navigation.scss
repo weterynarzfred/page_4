@@ -29,6 +29,12 @@
         top: 20px;
       }
     }
+
+    @at-root body.has-hover &:hover > div {
+      &:nth-child(2) {
+        width: 80%;
+      }
+    }
   }
 
   #navigation-menu {
@@ -60,6 +66,11 @@
         top: 1rem;
         left: 2rem;
         font-size: 0.75em;
+
+        @at-root body.has-hover &:hover {
+          border-color: $negative;
+          color: $negative;
+        }
       }
 
       #summary-menu {
@@ -100,12 +111,14 @@
                 stroke-width: 10;
                 fill: none;
               }
+
+              @at-root body.has-hover &:hover {
+                top: 0.1rem;
+              }
             }
 
-            &.opened {
-              > .summary-item-close {
-                transform: rotate(0deg);
-              }
+            &.opened > .summary-item-close {
+              transform: rotate(0deg);
             }
 
             .summary-item-title {
@@ -125,71 +138,31 @@
           }
         }
 
-        > .SummaryList {
-          &:before {
-            display: none;
-          }
+        > .SummaryList:before {
+          display: none;
         }
       }
     }
   }
 
   &.opened {
-    #burger {
-      > div {
-        top: 50%;
-        &:nth-child(1) {
-          transform: rotate(45deg);
-        }
-        &:nth-child(2) {
-          transform: rotate(-45deg);
-          width: 80%;
-        }
-        &:nth-child(3) {
-          transform: rotate(45deg);
-        }
+    #burger > div {
+      top: 50%;
+
+      &:nth-child(1) {
+        transform: rotate(45deg);
+      }
+      &:nth-child(2) {
+        transform: rotate(-45deg);
+        width: 80%;
+      }
+      &:nth-child(3) {
+        transform: rotate(45deg);
       }
     }
 
     #navigation-menu {
       left: 0;
-    }
-  }
-}
-
-body.has-hover {
-  .Navigation {
-    #burger {
-      &:hover {
-        > div {
-          &:nth-child(2) {
-            width: 80%;
-          }
-        }
-      }
-    }
-
-    #navigation-menu {
-      .navigation-menu-content {
-        #restart-button {
-          &:hover {
-            border-color: $negative;
-            color: $negative;
-          }
-        }
-
-        #summary-menu {
-          .SummaryList {
-            .SummaryItem {
-              .summary-item-close {
-                &:hover {
-                  top: 0.1rem;
-                }
-              }
-            }
-          }
-        }
-      }
     }
   }
 }

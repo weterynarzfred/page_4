@@ -29,6 +29,10 @@
       font-weight: 700;
       cursor: pointer;
       transition: 0.3s;
+
+      @at-root body.has-hover &:hover {
+        opacity: 0.75;
+      }
     }
 
     .warning-list {
@@ -71,18 +75,6 @@
 
     @media (max-width: 900px) {
       display: none;
-    }
-  }
-}
-
-body.has-hover {
-  .Stats {
-    .Warnings {
-      .warning-icon {
-        &:hover {
-          opacity: 0.75;
-        }
-      }
     }
   }
 }
