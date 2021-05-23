@@ -13,14 +13,14 @@ function OptionCost(props) {
     let color = false;
     let displayValue = -props.costs[costSlug].value;
     if (displayValue > 0) {
-      displayValue = `+ ${displayValue}`;
+      displayValue = `+ ${formatNumber(displayValue, 2)}`;
       color = 1;
     }
     else {
       if (displayValue < 0) {
         color = -1;
       }
-      displayValue = `- ${-displayValue}`;
+      displayValue = `- ${formatNumber(-displayValue, 2)}`;
     }
 
     if (props.costs[costSlug].inverted) color *= -1;
@@ -88,7 +88,6 @@ function mapStateToProps(state, props) {
   return {
     costs,
     selected,
-
   };
 }
 

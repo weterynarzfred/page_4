@@ -67,7 +67,8 @@ function calculateCosts({
       !isLastCurrencyValueDefined(option.lastCurrencyValues, currencies) ||
       wasOptionUpdated(option.optionKey, optionChanges)
     ) {
-      option.lastCurrencyValues = deepClone(emptyCurrencies);
+      if (option.lastCurrencyValues === undefined) option.lastCurrencyValues = {};
+      Object.assign(option.lastCurrencyValues, deepClone(emptyCurrencies));
       calculateOptionCosts(option, state, changes, optionChanges);
     }
 

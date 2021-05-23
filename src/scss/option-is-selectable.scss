@@ -58,7 +58,7 @@
 .option-is-selectable {
   width: 100%;
   max-width: 100em;
-  padding: 0.5em;
+  padding: 0.5em 0.5em 1em 0.5em;
 
   &:not(.option-is-row) {
     > .option-content {
@@ -70,7 +70,7 @@
       transition: filter 0.3s, border 0.3s, background 0.3s, color 0.3s,
         box-shadow 0.3s;
       filter: grayscale(0.75);
-      box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset;
+      box-shadow: 0.1rem 0.1rem 0.2rem #000, 0.1rem 0.1rem 0.2rem #fff3 inset;
 
       > .option-title {
         border-bottom: 1px solid $borderColor;
