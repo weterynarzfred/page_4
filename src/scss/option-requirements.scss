@@ -33,6 +33,14 @@
   }
 }
 
+.choice-text-cell .OptionRequirements {
+  margin-bottom: 0.5rem;
+
+  .requirements-title {
+    display: none;
+  }
+}
+
 .option-requirements-warning {
   &.option-is-selectable,
   &.option-is-selectable.selected {

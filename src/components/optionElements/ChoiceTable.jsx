@@ -29,7 +29,7 @@ function Cell(props) {
         <OptionTitle optionKey={props.optionKey} />
       </td>;
     case 'text':
-      return <td className="choice-text">
+      return <td className="choice-text-cell">
         <OptionText optionKey={props.optionKey} />
         <OptionRequirements optionKey={props.optionKey} />
       </td>;

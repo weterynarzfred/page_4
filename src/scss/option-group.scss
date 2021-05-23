@@ -44,6 +44,11 @@
 
         &.choice-title-cell {
           min-width: 6em;
+
+          .option-title {
+            display: block;
+            text-align: center;
+          }
         }
 
         &.option-text {

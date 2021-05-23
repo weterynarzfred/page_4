@@ -7,7 +7,7 @@ $borderColor: #555;
 $enabledBackground: #111;
 $enabledText: #fff;
 $selectableBorderColor: #ccc;
-$selectableBackground: #2229;
+$selectableBackground: #1119;
 $selectableText: #fec;
 $disabledBackground: #111;
 $disabledText: #555;
@@ -87,8 +87,17 @@ body {
       position: relative;
       background-position: center;
       background-size: cover;
-      box-shadow: 0 0 5em 0 rgba(255, 178, 34, 0.2) inset;
       transition: filter 0.3s;
+
+      &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        box-shadow: 0 0 5em 1em rgba(255, 178, 34, 0.2) inset;
+      }
 
       img {
         position: absolute;
