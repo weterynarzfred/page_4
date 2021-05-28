@@ -14,6 +14,7 @@ const actions = {
   RESTART: 'RESTART',
   RECALCULATE: 'RECALCULATE',
   TOGGLE: 'TOGGLE',
+  SET: 'SET',
 };
 
 const dataTypes = {
@@ -79,6 +80,7 @@ const optionProps = [
   'hiddenInParent',
   'classes',
   'detail',
+  'opened',
 ];
 
 const userValueProps = [

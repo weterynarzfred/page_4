@@ -86,5 +86,6 @@ export default connect((state, props) => {
     min: option.min,
     max: option.max,
     isDisabled: isDisabled(option),
+    opened: option.opened ?? true,
   };
 })(OptionContent);

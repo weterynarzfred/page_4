@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import { optionTypes } from '../include/constants';
+import { actions, optionTypes } from '../include/constants';
 import { isSelected } from '../functions/getSelectedValue';
 import isDisabled from '../functions/isDisabled';
 import ChoiceTable from './optionElements/ChoiceTable';
 import OptionContent from './optionElements/OptionContent';
+
+function toggleOpened() {
+  this.dispatch({
+    type: actions.SET,
+    optionKey: this.optionKey,
+    key: 'opened',
+    value: !this.opened,
+  });
+}
 
 function Option(props) {
   if (props.type === undefined) return null;
@@ -30,8 +39,6 @@ function Option(props) {
     optionTypes.INSTANCER,
   ].includes(props.type);
 
-  const [opened, setOpened] = useState(true);
-
   const classes = classNames(
     'Option',
     `option-${props.type}`,
@@ -42,7 +49,7 @@ function Option(props) {
     { 'option-is-container': isContainer },
     { 'option-disabled': props.isDisabled },
     { 'option-collapsible': isCollapsible },
-    { 'option-collapsed': isCollapsible && !opened },
+    { 'option-collapsed': isCollapsible && !props.opened },
     { 'masonry-cell': props.isMasonryCell },
     props.userClasses
   );
@@ -59,8 +66,7 @@ function Option(props) {
     return <OptionContent
       optionKey={props.optionKey}
       classes={classes}
-      opened={opened}
-      setOpened={() => setOpened(!opened)}
+      setOpened={toggleOpened.bind(props)}
       isCollapsible={isCollapsible}
       topLevel={props.topLevel}
     />;
@@ -81,5 +87,6 @@ export default connect((state, props) => {
     isDisabled: isDisabled(option, state.options),
     isSelectablesChild: option.isSelectablesChild,
     userClasses: option.classes,
+    opened: option.opened ?? true,
   };
 })(Option);

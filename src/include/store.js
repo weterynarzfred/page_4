@@ -44,6 +44,9 @@ function rootReducer(state = initialState, action = '') {
       case actions.TOGGLE:
         stateDraft.toggles[action.key] = !stateDraft.toggles[action.key];
         break;
+      case actions.SET:
+        stateDraft.options[action.optionKey][action.key] = action.value;
+        break;
       case actions.SELECT_OPTION:
         selectOptionReducer(stateDraft, action, changes);
         break;
