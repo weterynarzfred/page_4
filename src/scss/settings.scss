@@ -1,0 +1,15 @@
+.Settings {
+  .setting-row {
+    display: flex;
+
+    .setting-name {
+      padding-right: 0.5em;
+    }
+  }
+
+  select {
+    &:focus {
+      outline: none;
+    }
+  }
+}

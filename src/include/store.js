@@ -26,6 +26,7 @@ const initialState = {
   options: parseOptions(deepClone(rawOptions)),
   toggles: {
     disclaimerClosed: false,
+    NSFWDisplay: 'blur',
   },
   currencies: settings.currencies,
   currencySettings: settings.currencySettings,
@@ -42,7 +43,11 @@ function rootReducer(state = initialState, action = '') {
 
     switch (action.type) {
       case actions.TOGGLE:
-        stateDraft.toggles[action.key] = !stateDraft.toggles[action.key];
+        if (action.value === undefined) {
+          stateDraft.toggles[action.key] = !stateDraft.toggles[action.key];
+        } else {
+          stateDraft.toggles[action.key] = action.value;
+        }
         break;
       case actions.SET:
         stateDraft.options[action.optionKey][action.key] = action.value;

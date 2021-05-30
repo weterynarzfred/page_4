@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import { settings } from 'cyoa';
 import SummaryList from './SummaryList';
 import { actions } from '../include/constants';
 import { useHistory } from 'react-router';
+import Settings from './Settings';
 
 function handleRestart(history, setOpened) {
   if (settings.initialScreen === undefined) {
@@ -51,6 +52,7 @@ function Navigation(props) {
             onClick={() => setOpened(false)}
           />
         </div>
+        <Settings />
       </div>
     </nav>
   </div>;
