@@ -48,6 +48,7 @@ function Navigation(props) {
           }));
         }}>restart</button>
         <div id="summary-menu">
+          <div className="navigation-title">Table of Contents</div>
           <SummaryList
             onClick={() => setOpened(false)}
           />

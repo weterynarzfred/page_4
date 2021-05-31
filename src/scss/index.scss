@@ -220,7 +220,7 @@ button {
     outline: none;
   }
 
-  @at-root body.has-hover &:hover {
+  @at-root body.has-hover &:not(.disabled):hover {
     color: $selected;
     border-color: $selected;
   }

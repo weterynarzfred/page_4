@@ -20,7 +20,7 @@ function handleChange(event) {
 function Settings(props) {
 
   return <div className="Settings">
-    <div className="settings-title">Settings</div>
+    <div className="navigation-title">Settings</div>
     <div className="setting-row">
       <div className="setting-name">NSFW display:</div>
       <select
