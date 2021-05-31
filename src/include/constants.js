@@ -63,6 +63,7 @@ const optionProps = [
   'text',
   'min',
   'max',
+  'options',
   'choices',
   'instanceGroup',
   'hidden',

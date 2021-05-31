@@ -96,6 +96,8 @@ export default connect((state, props) => {
     );
   }
 
+  if (subOptions.length === 0) return {};
+
   return {
     subOptions,
     displayAsTable: option.displayAsTable,

@@ -5,40 +5,42 @@ import { addUserValue } from './userValues';
 window.userFunctions = {};
 
 /**
- * After an user function generates new options this function removes choices
+ * After an user function generates new options this function removes options
  * that no longer exists, adds new ones and updates changed ones.
  */
-function mergeChoices(state, option, result, newChanges) {
+function mergeChoices(state, option, result, newChanges, prop) {
   const fullPath = [...option.path, option.slug];
 
-  const parsedChoices = parseOptions(result, fullPath, {
-    isChoice: true,
+  const parsedSuboptions = parseOptions(result, fullPath, {
+    isChoice: prop === 'choices',
   });
-  if (option.choices !== undefined) {
-    // delete choices that no longer exist
-    for (const choiceKey of option.choices) {
-      if (parsedChoices[choiceKey] === undefined) {
-        removeOption(choiceKey, state, newChanges);
+
+  if (option[prop] !== undefined) {
+    // delete options that no longer exist
+    for (const suboptionKey of option[prop]) {
+      if (parsedSuboptions[suboptionKey] === undefined) {
+        removeOption(suboptionKey, state, newChanges);
       }
     }
 
-    for (const choiceKey in parsedChoices) {
-      if (state.options[choiceKey] === undefined) {
-        // create new choices
-        state.options[choiceKey] = parsedChoices[choiceKey];
+    for (const suboptionKey in parsedSuboptions) {
+      if (state.options[suboptionKey] === undefined) {
+        // create new options
+        state.options[suboptionKey] = parsedSuboptions[suboptionKey];
       } else {
-        // update existing choices
+        // update existing options
+        delete parsedSuboptions[suboptionKey].selected;
         Object.assign(
-          state.options[choiceKey],
-          result[choiceKey.split('/').pop()]
+          state.options[suboptionKey],
+          parsedSuboptions[suboptionKey]
         );
       }
     }
   } else {
-    Object.assign(state.options, parsedChoices);
+    Object.assign(state.options, parsedSuboptions);
   }
 
-  option.choices = Object.keys(result).map(slug =>
+  option[prop] = Object.keys(result).map(slug =>
     [...fullPath, slug].join('/')
   );
 }
@@ -59,8 +61,8 @@ function recalculateUserFunctions(state, changes, force = false) {
 
       if (['text', 'title', 'displayTitle'].includes(userFunction.prop)) {
         addUserValue(result, userFunction.optionKey, userFunction.prop);
-      } else if (userFunction.prop === 'choices') {
-        mergeChoices(state, option, result, newChanges);
+      } else if (['choices', 'options'].includes(userFunction.prop)) {
+        mergeChoices(state, option, result, newChanges, userFunction.prop);
       } else if (userFunction.prop === 'cost') {
         option.cost = result;
       } else if (userFunction.prop.match(/requirements\.[0-9]+$/)) {

@@ -62,6 +62,7 @@ function checkIfMasonry(option, options) {
     subOptions = option.choices;
   }
   if (subOptions === undefined) return false;
+  if (subOptions.lenght === 0) return false;
 
   for (const optionKey of subOptions) {
     if (![
