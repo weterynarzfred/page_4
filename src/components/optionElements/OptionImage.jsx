@@ -21,8 +21,11 @@ function OptionImage(props) {
 
 export default connect((state, props) => {
   const option = state.options[props.optionKey];
+  if (state.toggles.NSFWDisplay === 'hide_image' && option.imageNSFW) {
+    return {};
+  }
   return {
     image: option.image,
-    nsfw: option.imageNSFW,
+    nsfw: state.toggles.NSFWDisplay === 'blur' && option.imageNSFW,
   };
 })(OptionImage);
