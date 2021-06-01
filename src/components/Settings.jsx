@@ -9,10 +9,15 @@ const NSFWDisplayOptions = [
   { value: 'show', text: 'show' },
 ];
 
-function handleChange(event) {
+const unitsOptions = [
+  { value: 'metric', text: 'metric' },
+  { value: 'imperial', text: 'imperial' },
+];
+
+function handleChange(key, event) {
   this.dispatch({
     type: actions.TOGGLE,
-    key: 'NSFWDisplay',
+    key,
     value: event.currentTarget.value,
   });
 }
@@ -24,10 +29,24 @@ function Settings(props) {
     <div className="setting-row">
       <div className="setting-name">NSFW display:</div>
       <select
-        onChange={handleChange.bind(props)}
+        onChange={handleChange.bind(props, 'NSFWDisplay')}
         value={props.NSFWDisplay}
       >
         {NSFWDisplayOptions.map(element => <option
+          key={element.value}
+          value={element.value}
+        >
+          {element.text}
+        </option>)}
+      </select>
+    </div>
+    <div className="setting-row">
+      <div className="setting-name">units:</div>
+      <select
+        onChange={handleChange.bind(props, 'units')}
+        value={props.units}
+      >
+        {unitsOptions.map(element => <option
           key={element.value}
           value={element.value}
         >
@@ -41,5 +60,6 @@ function Settings(props) {
 export default connect(function (state) {
   return {
     NSFWDisplay: state.toggles.NSFWDisplay,
+    units: state.toggles.units,
   };
 })(Settings);

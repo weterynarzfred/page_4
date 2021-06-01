@@ -64,7 +64,7 @@ function generateMarks(props) {
       2,
       {
         usePercent: props.displayAsPercent,
-        onlySignificant: true,
+        showSignificant: true,
       }
     );
   }
@@ -113,7 +113,7 @@ function SliderControls(props) {
         max={props.max}
         value={sliderValue}
         onChange={value => {
-          setInputValue(formatNumber(toLogScale.call(props, value), 2, { onlySignificant: true }));
+          setInputValue(formatNumber(toLogScale.call(props, value), 2, { showSignificant: true }));
           setSliderValue(value);
         }}
       />

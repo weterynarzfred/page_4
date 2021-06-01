@@ -44,7 +44,7 @@ function RatioControls(props) {
           >
             <tspan fontSize="12">{title}</tspan>
             <tspan x={x} dy={16} fontSize="16">
-              {formatNumber(percent, 5, { usePercent: true, onlySignificant: true })}
+              {formatNumber(percent, 5, { usePercent: true, showSignificant: true })}
             </tspan>
           </text>;
         }}

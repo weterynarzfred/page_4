@@ -3,13 +3,19 @@
 
   .setting-row {
     display: flex;
+    align-items: center;
+    margin: 0.5em 0;
 
     .setting-name {
       padding-right: 0.5em;
+      min-width: 10em;
+      font-size: 0.8em;
     }
   }
 
   select {
+    min-width: 12em;
+
     &:focus {
       outline: none;
     }

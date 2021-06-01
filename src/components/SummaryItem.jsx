@@ -30,7 +30,7 @@ function SummaryItem(props) {
           {index === 0 ? '' : ', '}{item.title}:
           {formatNumber(item.percentage, 1, {
             usePercent: true,
-            onlySignificant: true
+            showSignificant: true
           })}
         </span>
       ));

@@ -27,6 +27,7 @@ const initialState = {
   toggles: {
     disclaimerClosed: false,
     NSFWDisplay: 'blur',
+    units: 'metric',
   },
   currencies: settings.currencies,
   currencySettings: settings.currencySettings,
