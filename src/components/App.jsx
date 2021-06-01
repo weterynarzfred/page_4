@@ -63,7 +63,7 @@ function App(props) {
         buttons: [acceptButton],
       }
     }));
-  }, []);
+  }, [props.disclaimerClosed]);
 
   useEffect(() => {
     document.title = settings.cyoaId;
