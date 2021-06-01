@@ -73,6 +73,7 @@ const optionProps = [
   'requirements',
   'image',
   'imageNSFW',
+  'displayAsTextarea',
   'displayAsTable',
   'tableColumns',
   'sliderAttributes',

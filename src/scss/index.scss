@@ -271,39 +271,42 @@ button.disabled,
 
   .recharts-pie-sector {
     path {
-      stroke: $background;
-      stroke: #fff;
-      stroke-width: 3;
+      stroke: $text;
+      stroke-width: 1;
       stroke-linecap: round;
       stroke-linejoin: round;
-      fill: none;
+      fill: #6669;
     }
 
     &:nth-child(1) path {
-      fill: #ffbb28;
+      fill: #0009;
     }
     &:nth-child(2) path {
-      fill: #0088fe;
+      fill: #5559;
     }
     &:nth-child(3) path {
-      fill: #00c49f;
+      fill: #2229;
     }
     &:nth-child(4) path {
-      fill: #ff8042;
+      fill: #4449;
     }
     &:nth-child(5) path {
-      fill: #d579ff;
+      fill: #3339;
     }
     &:nth-child(6) path {
-      fill: #999;
+      fill: #1119;
     }
   }
 
   .recharts-pie-labels .recharts-pie-label-line {
-    stroke-width: 3;
+    stroke-width: 1;
     stroke-linecap: round;
     stroke-linejoin: round;
-    stroke: #fff;
+    stroke: $text;
+  }
+
+  text {
+    fill: $text;
   }
 }
 

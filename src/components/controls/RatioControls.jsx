@@ -9,19 +9,18 @@ function RatioControls(props) {
   if (props.selectedValue.length === 0) return null;
 
   return <div className="RatioControls">
-    <PieChart width={400} height={250}>
+    <PieChart width={450} height={250}>
       <Pie
         data={props.selectedValue}
         dataKey="value"
         cx="50%"
         cy="50%"
-        innerRadius={65}
+        innerRadius={0}
         outerRadius={80}
         animationEasing="linear"
         animationBegin={0}
         animationDuration={200}
         minAngle={10}
-        paddingAngle={10}
         label={({
           cx,
           cy,
@@ -44,7 +43,7 @@ function RatioControls(props) {
           >
             <tspan fontSize="12">{title}</tspan>
             <tspan x={x} dy={16} fontSize="16">
-              {formatNumber(percent, 5, { usePercent: true, showSignificant: true })}
+              {formatNumber(percent, 3, { usePercent: true, showSignificant: true })}
             </tspan>
           </text>;
         }}

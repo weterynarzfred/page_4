@@ -12,9 +12,21 @@ function handleChange(event) {
 }
 
 function TextControls(props) {
+  const inputProps = {
+    value: props.selectedValue,
+    onChange: handleChange.bind(props),
+  };
+
+  let inputElement;
+  if (props.displayAsTextarea) {
+    inputElement = <textarea {...inputProps}></textarea>;
+  }
+  else {
+    inputElement = <input type="text" {...inputProps} />;
+  }
   return (
     <div className="TextControls option-control">
-      <input type="text" value={props.selectedValue} onChange={handleChange.bind(props)} />
+      {inputElement}
     </div>
   );
 }
@@ -23,5 +35,6 @@ export default connect((state, props) => {
   const option = state.options[props.optionKey];
   return {
     selectedValue: getSelectedValue(option, state.options),
+    displayAsTextarea: option.displayAsTextarea
   };
 })(TextControls);

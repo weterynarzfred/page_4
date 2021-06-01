@@ -33,6 +33,9 @@ Option object structure
 - `classes` {string}
 - `detail` {object}
 
+if `type === optionTypes.TEXT`
+- `displayAsTextarea` {bool}
+
 if `type === optionTypes.SLIDER`
 - `sliderAttributes` {object}
 - `logSlider` {number}
