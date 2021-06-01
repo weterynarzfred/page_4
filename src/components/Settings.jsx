@@ -11,7 +11,7 @@ const NSFWDisplayOptions = [
 
 const unitsOptions = [
   { value: 'metric', text: 'metric' },
-  { value: 'imperial', text: 'imperial' },
+  { value: 'imperial', text: 'imperial (in progress)' },
 ];
 
 function handleChange(key, event) {

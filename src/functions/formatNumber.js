@@ -12,6 +12,8 @@
 function formatNumber(number, maxLength, options = {}) {
   if (isNaN(number)) number = 0;
   if (options.usePercent) number *= 100;
+  const isNegative = number < 0;
+  if (isNegative) number *= -1;
 
   let result = '';
 
@@ -39,6 +41,7 @@ function formatNumber(number, maxLength, options = {}) {
   }
 
   if (options.usePercent) result += '%';
+  if (isNegative) result = '-' + result;
   return result;
 }
 

@@ -53,32 +53,49 @@ function Unit(props) {
   const unitType = useSelector(state => state.toggles.units);
   let unit = props.unit;
   let value = props.value;
+  let exponent = props.exponent ?? 1;
   if (unitType === 'imperial') {
     switch (unit) {
+      case 'mm':
+      case 'milimeter':
+      case 'milimeters':
+        value *= 0.03937008 ** exponent;
+        unit = 'inches';
+        break;
       case 'm':
+      case 'meter':
       case 'meters':
-        value *= 3.28084;
+        value *= 3.28084 ** exponent;
         unit = 'ft';
         break;
       case 'km':
+      case 'kilometer':
       case 'kilometers':
-        value *= 0.6213712;
+        value *= 0.6213712 ** exponent;
         unit = 'miles';
         break;
       case 'l':
+      case 'liter':
       case 'liters':
         value *= 0.2199692;
         unit = 'gallons';
         break;
       case 'kg':
+      case 'kilogram':
       case 'kilograms':
-        value *= 2.204623;
         unit = 'pounds';
+        value *= 2.204623;
         break;
       case 'g':
+      case 'gram':
       case 'grams':
         value *= 0.03527396;
         unit = 'ounces';
+        break;
+      case '°C':
+      case 'celcius':
+        value = value * 1.8 + 32;
+        unit = '°F';
         break;
     }
   }
@@ -86,7 +103,7 @@ function Unit(props) {
     useSpaces: true,
     showSignificant: true,
   });
-  return <>{value}&nbsp;{unit}</>;
+  return <>{value}&nbsp;{unit}{exponent === 1 ? null : <sup>{exponent}</sup>}</>;
 }
 
 export { userFunction, Mth, Unit };
