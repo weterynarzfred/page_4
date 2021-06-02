@@ -57,13 +57,6 @@ module.exports = function override(config) {
     );
   }
 
-  // add redirects
-  config.module.rules[1].oneOf.splice(-1, 0, {
-    test: /_redirects/,
-    loader: 'file-loader',
-    options: { name: '[name]' },
-  });
-
   // disable manifest
   config.plugins = config.plugins.filter(
     plugin => plugin.constructor.name !== 'ManifestPlugin'
