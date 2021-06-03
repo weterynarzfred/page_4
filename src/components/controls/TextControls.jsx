@@ -19,10 +19,17 @@ function TextControls(props) {
 
   let inputElement;
   if (props.displayAsTextarea) {
-    inputElement = <textarea {...inputProps}></textarea>;
+    inputElement = <textarea
+      placeholder="Enter your custom description here."
+      {...inputProps}
+    ></textarea>;
   }
   else {
-    inputElement = <input type="text" {...inputProps} />;
+    inputElement = <input
+      type="text"
+      placeholder="Enter your custom title here"
+      {...inputProps}
+    />;
   }
   return (
     <div className="TextControls option-control">

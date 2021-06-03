@@ -45,6 +45,10 @@ body {
   background-image: url("../content/media/general/pattern.png");
   background-size: 50px auto;
 
+  @media (max-width: 500px) {
+    padding: 3em 1em 6em 1em;
+  }
+
   #option-list {
     display: flex;
     flex-wrap: wrap;
