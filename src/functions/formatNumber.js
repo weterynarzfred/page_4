@@ -20,10 +20,11 @@ function formatNumber(number, maxLength, options = {}) {
   if (options.showSignificant) {
     let length = Math.floor(Math.log10(number) + 1);
     length = maxLength - length;
+    length = Math.min(Math.max(length, 0), 100);
     const roundNumber =
       Math.round(number * Math.pow(10, length)) / Math.pow(10, length);
 
-    length = Math.max(length, 0);
+    if (isNaN(length)) length = 0;
     result = roundNumber.toFixed(length);
     if (result.search(/\./) > -1) {
       result = result.replace(/\.?0*$/, '');

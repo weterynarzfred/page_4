@@ -80,7 +80,7 @@ function SliderControls(props) {
   useEffect(() => {
     const value = props.selectedValue || 0;
     setSliderValue(toLinearScale.call(props, value));
-    setInputValue(value);
+    setInputValue(formatNumber(value, 2, { showSignificant: true }));
   }, []);
 
   useEffect(() => {
