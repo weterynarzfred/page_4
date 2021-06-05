@@ -33,7 +33,6 @@
         align-items: center;
         flex-wrap: wrap;
         justify-content: space-between;
-        border-bottom: 1px solid transparent;
         transition: 0.2s;
 
         .Link.instance-link-button {
@@ -111,10 +110,6 @@
               stroke: $negative;
             }
           }
-        }
-
-        @at-root body.has-hover &:hover {
-          border-color: #333;
         }
 
         @media (max-width: 768px) {

@@ -3,6 +3,7 @@
  * @property {boolean} usePercent - displays the number as a percentage
  * @property {boolean} showSignificant - changes maxLength to be the number of significant digits
  * @property {boolean} useSpaces - adds spaces as thousand separators
+ * @property {boolean} useScientificHTML - adds spaces as thousand separators
  * 
  * formats a number to be displayed with a certain number of non-zero digits.
  * @param {number} number - number to be formatted
@@ -11,9 +12,17 @@
  */
 function formatNumber(number, maxLength, options = {}) {
   if (isNaN(number)) number = 0;
+
   if (options.usePercent) number *= 100;
+
   const isNegative = number < 0;
   if (isNegative) number *= -1;
+
+  let exponent = false;
+  if (options.useScientificHTML && number >= 1e7) {
+    exponent = Math.floor(Math.log10(number));
+    number /= 10 ** exponent;
+  }
 
   let result = '';
 
@@ -39,6 +48,10 @@ function formatNumber(number, maxLength, options = {}) {
     const parts = result.split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, String.fromCharCode(160));
     result = parts.join(".");
+  }
+
+  if (exponent !== false) {
+    result = <>{result === '1' ? '' : result + '×'}10<sup>{exponent}</sup></>;
   }
 
   if (options.usePercent) result += '%';

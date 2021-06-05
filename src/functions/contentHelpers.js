@@ -102,6 +102,7 @@ function Unit(props) {
   value = formatNumber(value, props.precision ?? 2, {
     useSpaces: true,
     showSignificant: true,
+    useScientificHTML: true,
   });
   return <>{value}&nbsp;{unit}{exponent === 1 ? null : <sup>{exponent}</sup>}</>;
 }
