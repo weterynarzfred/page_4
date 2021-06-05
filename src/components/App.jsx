@@ -8,6 +8,7 @@ import Stats from './Stats';
 import Dialog from './Dialog';
 import Option from './Option';
 import { settings } from 'cyoa';
+import Results from './Results';
 
 function startHoverDetection() {
   let hasHover = false;
@@ -77,19 +78,30 @@ function App(props) {
     }, 0);
   }
 
+  let content = null;
+  if (props.path.length > 0 && props.path[0] === '__results') {
+    content = <Results />;
+  }
+  else {
+    content = <div id="option-list">
+      <Option optionKey={props.path.join('/')} topLevel={true} />
+    </div>;
+  }
+
   return <div className="App">
     <Navigation />
     <Stats />
-    <div id="option-list">
-      <Option optionKey={props.path.join('/')} topLevel={true} />
-    </div>
+    {content}
     <Dialog />
     <div id="overlay"></div>
   </div>;
 }
 
 export default connect(state => {
-  const exists = state.path.length === 0 || state.options[state.path.join('/')] !== undefined;
+  const pages = [
+    '__results',
+  ];
+  const exists = state.path.length === 0 || pages.includes(state.path[0]) || state.options[state.path.join('/')] !== undefined;
   return {
     path: state.path,
     exists,
