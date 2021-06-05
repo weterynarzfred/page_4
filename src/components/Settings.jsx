@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { actions } from '../include/constants';
 
 const NSFWDisplayOptions = [
-  { value: 'hide_option', text: 'hide option' },
+  { value: 'hide_option', text: 'hide option (problematic)' },
   { value: 'hide_image', text: 'hide image' },
   { value: 'blur', text: 'unblur image on hover' },
   { value: 'show', text: 'show' },
@@ -11,7 +11,7 @@ const NSFWDisplayOptions = [
 
 const unitsOptions = [
   { value: 'metric', text: 'metric' },
-  { value: 'imperial', text: 'imperial (in progress)' },
+  { value: 'imperial', text: 'imperial' },
 ];
 
 function handleChange(key, event) {

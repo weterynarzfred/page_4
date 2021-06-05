@@ -20,7 +20,7 @@ function RatioControls(props) {
         animationEasing="linear"
         animationBegin={0}
         animationDuration={200}
-        minAngle={10}
+        minAngle={15}
         label={({
           cx,
           cy,
