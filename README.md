@@ -30,6 +30,7 @@ Option object structure
 - `selected` {any}
 - `requirements` {array}
 - `hiddenInParent` {bool}
+- `hiddenInSummary` {bool}
 - `classes` {string}
 - `detail` {object}
 

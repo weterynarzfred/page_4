@@ -80,6 +80,7 @@ const optionProps = [
   'logSlider',
   'displayAsPercent',
   'hiddenInParent',
+  'hiddenInSummary',
   'classes',
   'detail',
   'opened',

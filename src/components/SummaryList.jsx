@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { deepEquals } from '../functions/deepFunctions';
-import { getSelectedValue } from '../functions/getSelectedValue';
+import { getSelectedValue, isSelected } from '../functions/getSelectedValue';
+import isDisabled from '../functions/isDisabled';
 import { optionTypes } from '../include/constants';
 import SummaryItem from './SummaryItem';
 
@@ -21,16 +22,15 @@ function SummaryList(props) {
 
   return (
     <>
-      {props.optionKey === undefined ? null : <svg
+      {props.opened === undefined ? null : <svg
         className="summary-item-close"
         viewBox="0 0 100 100"
         onClick={props.setOpened}
       >
         <path d="M10 30L50 70L90 30" />
       </svg>}
-      {(props.opened || props.optionKey === undefined) ? <ul className="SummaryList">
-        {items}
-      </ul> : null}
+      {(props.opened === undefined || props.opened) ?
+        <ul className="SummaryList">{items}</ul> : null}
     </>
   );
 }
@@ -44,23 +44,33 @@ export default connect((state, props) => {
     );
   } else {
     const option = state.options[props.optionKey];
-    if (
-      option.type === optionTypes.GROUP ||
-      option.type === optionTypes.SLIDER ||
-      option.type === optionTypes.INTEGER
-    ) {
-      optionKeys = option.options;
-    }
-    else if (
-      option.type === optionTypes.SELECT ||
-      option.type === optionTypes.RATIO
-    ) {
-      optionKeys = option.choices;
-    }
-    else if (option.type === optionTypes.INSTANCER) {
-      optionKeys = getSelectedValue(option, state.options);
+    switch (option.type) {
+      case optionTypes.GROUP:
+      case optionTypes.SLIDER:
+      case optionTypes.INTEGER:
+        optionKeys = option.options;
+        break;
+      case optionTypes.SELECT:
+      case optionTypes.RATIO:
+        optionKeys = option.choices;
+        break;
+      case optionTypes.INSTANCER:
+        optionKeys = getSelectedValue(option, state.options);
     }
   }
+
+  if (optionKeys === undefined) return {};
+
+  optionKeys = optionKeys.filter(
+    key => {
+      const suboption = state.options[key];
+      return !(suboption.type === optionTypes.TEXT ||
+        suboption.hidden ||
+        suboption.hiddenInSummary ||
+        isDisabled(suboption) ||
+        (key.match('/') !== null && !isSelected(suboption, state.options)));
+    }
+  );
 
   return {
     optionKeys,

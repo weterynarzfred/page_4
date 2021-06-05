@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PathLink from '../../components/PathLink';
-import Currencies from '../Currencies';
 import { actions } from '../../include/constants';
 import { getUserValue } from '../../include/userValues';
+import PathLink from '../PathLink';
+import SummaryList from '../SummaryList';
+import Currencies from '../Currencies';
 
 function handleDelete() {
   this.dispatch({
@@ -15,10 +16,12 @@ function handleDelete() {
 
 function InstanceControl(props) {
   return <div className="InstanceControl">
-    <PathLink path={props.instanceKey}>
-      <div className="instance-link-title">{props.title}</div>
-      <Currencies optionKey={props.instanceKey} />
+    <PathLink path={props.instanceKey} className="instance-link-button">
+      <span className="instance-link-edit">edit</span>
+      <span className="instance-link-title">{props.title}</span>
     </PathLink>
+    <Currencies optionKey={props.instanceKey} />
+    <SummaryList optionKey={props.instanceKey} />
     <button
       className="delete-instance"
       onClick={handleDelete.bind(props)}

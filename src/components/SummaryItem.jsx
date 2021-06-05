@@ -2,8 +2,7 @@ import classNames from 'classnames';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import formatNumber from '../functions/formatNumber';
-import { getSelectedValue, isSelected } from '../functions/getSelectedValue';
-import isDisabled from '../functions/isDisabled';
+import { getSelectedValue } from '../functions/getSelectedValue';
 import { optionTypes } from '../include/constants';
 import { getUserValue } from '../include/userValues';
 import PathLink from './PathLink';
@@ -71,12 +70,6 @@ function SummaryItem(props) {
 
 export default connect((state, props) => {
   const option = state.options[props.optionKey];
-  if (
-    option.type === optionTypes.TEXT ||
-    option.hidden ||
-    isDisabled(option) ||
-    (props.optionKey.match('/') !== null && !isSelected(option, state.options))
-  ) return {};
 
   let value = '';
   if ([optionTypes.INTEGER, optionTypes.SLIDER, optionTypes.SELECT].includes(option.type)) {
