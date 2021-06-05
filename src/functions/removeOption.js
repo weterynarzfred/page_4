@@ -4,7 +4,7 @@ import { isSelected } from './getSelectedValue';
 
 /**
  * Removes an option and its suboptions from the state and cleans all user
- * values associated with those options.
+ * values associated with these options.
  */
 function removeOption(sourceKey, state, changes) {
   for (const optionKey in state.options) {

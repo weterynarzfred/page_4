@@ -91,3 +91,69 @@
     border-radius: 0 1em 1em 0;
   }
 }
+
+.pro-con-list {
+  padding: 1em 0 0 0;
+  max-width: 50em;
+  list-style-type: none;
+
+  > li {
+    padding-top: 1em;
+  }
+
+  .pro-con-title {
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    word-spacing: 0.2em;
+  }
+
+  .pro-con-flex {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1rem;
+
+    ul {
+      width: 50%;
+      list-style-type: none;
+
+      @media (max-width: 768px) {
+        width: 100%;
+      }
+
+      &.positive {
+        color: $positive;
+
+        li:before {
+          content: "+";
+        }
+      }
+
+      &.negative {
+        color: $negative;
+
+        li:before {
+          content: "–";
+        }
+      }
+
+      li {
+        position: relative;
+        padding-left: 1.5em;
+
+        &:before {
+          position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          top: 0.12rem;
+          left: 0;
+          width: 1rem;
+          height: 1rem;
+          color: $text;
+          font-size: 1.5em;
+        }
+      }
+    }
+  }
+}

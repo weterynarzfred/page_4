@@ -1,6 +1,6 @@
 $selected: #ffbc57;
-$positive: #a1ff49;
-$negative: #ff8142;
+$positive: #88da04;
+$negative: #ff8346;
 $text: #ffdea0;
 $background: #111;
 $borderColor: #555;
@@ -164,7 +164,6 @@ body {
 
 p {
   text-indent: 1.5em;
-  hyphens: auto;
 }
 
 p,
@@ -176,6 +175,7 @@ ol {
   line-height: 1.5;
   color: $text;
   transition: color 0.3s;
+  hyphens: auto;
   clear: both;
 
   strong {
@@ -185,6 +185,7 @@ ol {
 
 li {
   margin: 0.5em 0;
+  line-height: 1.3;
 }
 
 h2 {
