@@ -15,6 +15,7 @@ function SummaryList(props) {
       key={optionKey}
       optionKey={optionKey}
       onClick={props.onClick}
+      hideSelectable={props.hideSelectable}
     />);
   }
 
@@ -65,6 +66,7 @@ export default connect((state, props) => {
     key => {
       const suboption = state.options[key];
       return !(suboption.type === optionTypes.TEXT ||
+        (props.hideSelectable && [optionTypes.INTEGER, optionTypes.SLIDER, optionTypes.SELECT].includes(suboption.type)) ||
         suboption.hidden ||
         suboption.hiddenInSummary ||
         isDisabled(suboption) ||

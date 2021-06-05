@@ -51,6 +51,7 @@ function Navigation(props) {
           <div className="navigation-title">Table of Contents</div>
           <SummaryList
             onClick={() => setOpened(false)}
+            hideSelectable={true}
           />
         </div>
         <Settings />

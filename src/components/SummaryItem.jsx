@@ -56,6 +56,7 @@ function SummaryItem(props) {
       skipListWrap={props.title === ''}
       opened={opened}
       setOpened={() => setOpened(!opened)}
+      hideSelectable={props.hideSelectable}
     /> : null}
   </>;
 
