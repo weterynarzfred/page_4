@@ -107,4 +107,27 @@ function Unit(props) {
   return <>{value}&nbsp;{unit}{exponent === 1 ? null : <sup>{exponent}</sup>}</>;
 }
 
-export { userFunction, Mth, Unit };
+const Tags = props => <div className="tags">
+  {props.children.split('|').map(tag => <div className="tag" key={tag}>
+    {tag}
+  </div>)}
+</div>;
+
+const Icons = props => {
+  const iconElements = [];
+  for (const icon of props.children.replace(/\u00AD/g, '').split(' ')) {
+    iconElements.push(<div
+      className={`icon ${icon.split('.').map(c => `icon-${c}`).join(' ')}`}
+      key={icon}
+    ></div>);
+  }
+  return <div className="centered-icons">
+    {iconElements}
+  </div>;
+};
+
+const ManaCost = props => <div className="mana-cost negative">
+  <Mth>{props.children}</Mth>
+</div>;
+
+export { userFunction, Mth, Unit, Tags, Icons, ManaCost };
