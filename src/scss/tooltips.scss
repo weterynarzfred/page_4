@@ -1,0 +1,22 @@
+.tooltip {
+  position: fixed;
+  background-color: $background;
+  border: 1px solid $borderColor;
+  width: 400px;
+  max-width: 100vw;
+  font-size: 1rem;
+  padding: 1em;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 2;
+
+  .tooltip-title {
+    font-family: $titleFont;
+  }
+
+  &.active {
+    opacity: 1;
+  }
+}

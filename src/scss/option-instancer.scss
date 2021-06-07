@@ -116,6 +116,10 @@
           flex-direction: column;
           margin: 3em 0;
 
+          .Link.instance-link-button {
+            width: 100%;
+          }
+
           .delete-instance {
             order: -1;
           }

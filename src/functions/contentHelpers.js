@@ -117,8 +117,9 @@ const Icons = props => {
   const iconElements = [];
   for (const icon of props.children.replace(/\u00AD/g, '').split(' ')) {
     iconElements.push(<div
-      className={`icon ${icon.split('.').map(c => `icon-${c}`).join(' ')}`}
+      className={`icon tooltip-trigger ${icon.split('.').map(c => `icon-${c}`).join(' ')}`}
       key={icon}
+      data-tooltip-target={icon.split('.')[0]}
     ></div>);
   }
   return <div className="centered-icons">
