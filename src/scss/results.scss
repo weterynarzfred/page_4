@@ -1,0 +1,14 @@
+.result-option {
+  color: $text;
+  padding-top: 1em;
+
+  .result-option-key {
+    font-size: 0.8em;
+    font-family: monospace;
+    color: $selectableText;
+  }
+
+  .result-option-title {
+    font-family: $titleFont;
+  }
+}
