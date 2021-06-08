@@ -90,11 +90,6 @@ export default connect((state, props) => {
   subOptions = subOptions.filter(optionKey =>
     !state.options[optionKey].hidden
   );
-  if (state.toggles.NSFWDisplay === 'hide_option') {
-    subOptions = subOptions.filter(optionKey =>
-      !state.options[optionKey].imageNSFW
-    );
-  }
 
   if (subOptions.length === 0) return {};
 

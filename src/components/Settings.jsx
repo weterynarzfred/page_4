@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { actions } from '../include/constants';
 
 const NSFWDisplayOptions = [
-  { value: 'hide_option', text: 'hide option (problematic)' },
   { value: 'hide_image', text: 'hide image' },
   { value: 'blur', text: 'unblur image on hover' },
   { value: 'show', text: 'show' },
