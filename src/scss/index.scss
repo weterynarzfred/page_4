@@ -70,98 +70,6 @@ body {
   }
 }
 
-.Option {
-  position: relative;
-  transition: filter 0.3s, opacity 0.3s;
-
-  .option-title {
-    position: relative;
-    font-family: $titleFont;
-    display: flex;
-    align-items: baseline;
-  }
-
-  .OptionImage {
-    position: relative;
-    border: solid $text;
-    border-width: 1px 1px 6px 1px;
-    overflow: hidden;
-
-    .option-image-content {
-      position: relative;
-      background-position: center;
-      background-size: cover;
-      transition: filter 0.3s;
-
-      &:after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        box-shadow: 0 0 5em 1em rgba(255, 178, 34, 0.2) inset;
-      }
-
-      img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
-
-    &.option-image-nsfw {
-      .option-image-content {
-        filter: blur(10px);
-      }
-
-      @at-root body.has-hover &:hover {
-        .option-image-content {
-          filter: none;
-        }
-      }
-    }
-  }
-
-  .SelectControls {
-    display: flex;
-  }
-
-  &.option-disabled {
-    filter: grayscale(1);
-
-    &.selected {
-      filter: none;
-    }
-
-    .option-controls {
-      pointer-events: none;
-    }
-
-    .OptionCost {
-      opacity: 0.5;
-      filter: grayscale(1);
-    }
-
-    .OptionImage {
-      opacity: 0.5;
-      filter: grayscale(1);
-      transition: opacity 0.3s;
-    }
-
-    .button-container {
-      pointer-events: none;
-    }
-
-    @at-root body.has-hover &:hover {
-      filter: none;
-    }
-  }
-}
-
 p {
   text-indent: 1.5em;
 }
@@ -332,6 +240,7 @@ button.disabled,
 @import "summary-list";
 @import "results";
 @import "tooltips";
+@import "option";
 @import "option-cost";
 @import "option-requirements";
 @import "option-is-selectable";
