@@ -53,6 +53,7 @@ function calculateCosts({
   options = state.options,
   reset = false,
   calcChanges = false,
+  currencyRoot = '',
 }) {
   const previousValues = calcChanges ? deepClone(currencies) : null;
   if (reset) resetCurrencies(currencies, state.currencySettings);
@@ -76,9 +77,11 @@ function calculateCosts({
   }
 
   if (calcChanges) {
+    currencyRoot = currencyRoot === '' ? '' : currencyRoot + '.';
     for (const costSlug in currencies) {
       if (currencies[costSlug] === previousValues[costSlug]) continue;
-      changes.push('currency.' + costSlug);
+      changes.push(`${currencyRoot}currency.${costSlug}`);
+      changes.push(`currency.${costSlug}`);
     }
   }
 

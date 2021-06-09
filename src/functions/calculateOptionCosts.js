@@ -80,6 +80,7 @@ function calculateOptionCosts(option, state, changes, optionChanges) {
       optionChanges,
       reset: true,
       calcChanges: true,
+      currencyRoot: option.optionKey,
     });
     changes.push(...subChanges);
   }
