@@ -7,6 +7,15 @@ function parsePath(path, option) {
 
   path = path.replace('CURRENT_KEY', option.optionKey);
   path = path.replace('CURRENT_SLUG', option.slug);
+  path = path.replace('CURRENT_INSTANCE', () => {
+    const path = option.optionKey.split('/').reverse();
+    const result = [];
+    while (path.length > 0) {
+      result.push(path.pop());
+      if (new RegExp(/^[0-9]*$/).test(result[result.length - 1])) break;
+    }
+    return result.join('/');
+  });
   while (path.match(/\.\./) !== null)
     path = path.replaceAll(/\/?[^\/]+\/\.\./g, '');
   return path;
