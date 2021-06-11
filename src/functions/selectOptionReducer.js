@@ -135,7 +135,7 @@ function selectOptionReducer(newState, action, changes) {
     const pathArray = changeArray.shift().split('/');
     while (pathArray.length > 1) {
       pathArray.pop();
-      newChanges.push(pathArray.join('/') + '.selected');
+      newChanges.push([...pathArray, 'ANY'].join('/') + '.selected');
     }
   }
   changes.push(...new Set(newChanges));

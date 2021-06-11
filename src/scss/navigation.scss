@@ -51,6 +51,10 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
 
+    @media (max-width: 768px) {
+      font-size: 1.25rem;
+    }
+
     &::-webkit-scrollbar {
       display: none;
     }
@@ -67,7 +71,7 @@
       justify-content: center;
       min-height: 100%;
 
-      @media (max-width: 600px) {
+      @media (max-width: 768px) {
         flex-direction: column;
       }
 
@@ -85,9 +89,9 @@
 
       #summary-menu {
         padding: 2rem;
-        font-size: 0.9rem;
+        font-size: 0.9em;
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
           order: 2;
         }
       }
