@@ -72,7 +72,7 @@ function Unit(props) {
       case 'kilometer':
       case 'kilometers':
         value *= 0.6213712 ** exponent;
-        unit = 'miles';
+        unit = 'mi';
         break;
       case 'l':
       case 'liter':
@@ -104,7 +104,9 @@ function Unit(props) {
     showSignificant: true,
     useScientificHTML: true,
   });
-  return <>{value}&nbsp;{unit}{exponent === 1 ? null : <sup>{exponent}</sup>}</>;
+  if (exponent < 0) return <>{value}&nbsp;/&nbsp;{unit}<sup>{-exponent}</sup></>;
+  if (exponent === 1) return <>{value}&nbsp;{unit}</>;
+  return <>{value}&nbsp;{unit}<sup>{exponent}</sup></>;
 }
 
 const Tags = props => <div className="tags">
