@@ -16,8 +16,8 @@ function applyCost(cost, currencies, count) {
 /**
  * Resets all currency values to their initial state.
  */
-function resetCurrencies(currencies, currencySettings) {
-  for (const costSlug in currencies) {
+function resetCurrencies(currencies, currencySettings, reset) {
+  for (const costSlug of reset) {
     currencies[costSlug] = currencySettings[costSlug].start ?? 0;
   }
 }
@@ -44,24 +44,23 @@ function isLastCurrencyValueDefined(lastCurrencyValues, currencies) {
 /**
  * Calculates costs of all changed options and saves the result in the
  * currencies object and each option's object. Options that do not need
- * recalculation are read from option's object last value.
+ * recalculation are read from option's object lastCurrencyValues.
  */
 function calculateCosts({
-  optionChanges,
   state,
   currencies = state.currencies,
   options = state.options,
-  reset = false,
-  calcChanges = false,
-  currencyRoot = '',
+  optionChanges,
+  calcChanges = [],
+  currencyRoots = {},
 }) {
-  const previousValues = calcChanges ? deepClone(currencies) : null;
-  if (reset) resetCurrencies(currencies, state.currencySettings);
+  const previousValues = calcChanges.length > 0 ? deepClone(currencies) : null;
+  if (calcChanges.length > 0) resetCurrencies(currencies, state.currencySettings, calcChanges);
   const emptyCurrencies = deepClone(currencies);
-  if (!reset) resetCurrencies(emptyCurrencies, state.currencySettings);
 
   const changes = [];
   for (const optionKey in options) {
+
     const option = options[optionKey];
     if (isDisabled(option) || !isSelected(option, state.options)) continue;
     if (
@@ -70,17 +69,19 @@ function calculateCosts({
     ) {
       if (option.lastCurrencyValues === undefined) option.lastCurrencyValues = {};
       Object.assign(option.lastCurrencyValues, deepClone(emptyCurrencies));
-      calculateOptionCosts(option, state, changes, optionChanges);
+      calculateOptionCosts(option, state, changes, optionChanges, currencies);
     }
 
     applyCost(option.lastCurrencyValues, currencies, -1);
   }
 
-  if (calcChanges) {
-    currencyRoot = currencyRoot === '' ? '' : currencyRoot + '.';
-    for (const costSlug in currencies) {
+  if (calcChanges.length > 0) {
+    for (const costSlug of calcChanges) {
       if (currencies[costSlug] === previousValues[costSlug]) continue;
-      changes.push(`${currencyRoot}currency.${costSlug}`);
+      console.log(costSlug, currencyRoots);
+      if (currencyRoots[costSlug] !== undefined) {
+        changes.push(`${currencyRoots[costSlug]}.currency.${costSlug}`);
+      }
       changes.push(`currency.${costSlug}`);
     }
   }

@@ -1,6 +1,5 @@
 import { optionTypes } from '../include/constants';
 import calculateCosts, { applyCost } from './calculateCosts';
-import { deepEquals } from './deepFunctions';
 import { getSelectedValue } from './getSelectedValue';
 
 const subOptionContainers = {
@@ -34,7 +33,7 @@ function applyOptionCosts(option, state) {
 /**
  * Calculates the cost of a single option and its suboptions.
  */
-function calculateOptionCosts(option, state, changes, optionChanges) {
+function calculateOptionCosts(option, state, changes, optionChanges, currencies) {
   applyOptionCosts(option, state);
 
   for (const subOptionContainer in subOptionContainers) {
@@ -49,40 +48,29 @@ function calculateOptionCosts(option, state, changes, optionChanges) {
       subOptions[optionKey] = state.options[optionKey];
     }
 
-    // calculate root currencies
-    if (
-      deepEquals(
-        Object.keys(option.lastCurrencyValues),
-        Object.keys(state.currencies)
-      )
-    ) {
-      const subChanges = calculateCosts({
-        state,
-        currencies: option.lastCurrencyValues,
-        options: subOptions,
-        optionChanges,
-      });
-      changes.push(...subChanges);
+    const currencyRoots = {};
+    if (option.currencies !== undefined) {
+      Object.assign(option.lastCurrencyValues, option.currencies);
+      for (const key in option.currencies) {
+        currencyRoots[key] = option.optionKey;
+      }
     }
-  }
 
-  // calculate suboption currencies
-  if (option.currencies !== undefined) {
-    const subOptions = {};
-    for (const optionKey in state.options) {
-      if (!optionKey.startsWith(option.optionKey + '/')) continue;
-      subOptions[optionKey] = state.options[optionKey];
-    }
     const subChanges = calculateCosts({
       state,
-      currencies: option.currencies,
+      currencies: option.lastCurrencyValues,
       options: subOptions,
       optionChanges,
-      reset: true,
-      calcChanges: true,
-      currencyRoot: option.optionKey,
+      calcChanges: option.currencies === undefined ? [] : Object.keys(option.currencies),
+      currencyRoots,
     });
     changes.push(...subChanges);
+
+    if (option.currencies !== undefined) {
+      for (const key in option.currencies) {
+        option.currencies[key] = option.lastCurrencyValues[key];
+      }
+    }
   }
 }
 

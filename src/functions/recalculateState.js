@@ -17,8 +17,7 @@ function recalculateState(stateDraft, changes, forceRecalculate) {
     changes = calculateCosts({
       state: stateDraft,
       options: topLevelOptions,
-      reset: true,
-      calcChanges: true,
+      calcChanges: Object.keys(stateDraft.currencies),
       optionChanges: changes,
     });
     changes = [...new Set(changes)];
