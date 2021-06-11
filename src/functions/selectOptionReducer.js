@@ -126,8 +126,19 @@ const getOptionValue = {
  */
 function selectOptionReducer(newState, action, changes) {
   const option = newState.options[action.optionKey];
-  const newChanges = getOptionValue[option.type](action, newState);
-  changes.push(...newChanges);
+  const baseChanges = getOptionValue[option.type](action, newState);
+  const newChanges = [];
+  for (const change of baseChanges) {
+    newChanges.push(change);
+    const changeArray = change.split('.');
+    if (changeArray[1] !== 'selected') continue;
+    const pathArray = changeArray.shift().split('/');
+    while (pathArray.length > 1) {
+      pathArray.pop();
+      newChanges.push(pathArray.join('/') + '.selected');
+    }
+  }
+  changes.push(...new Set(newChanges));
 }
 
 export default selectOptionReducer;

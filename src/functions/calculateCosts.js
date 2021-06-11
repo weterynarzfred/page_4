@@ -78,7 +78,6 @@ function calculateCosts({
   if (calcChanges.length > 0) {
     for (const costSlug of calcChanges) {
       if (currencies[costSlug] === previousValues[costSlug]) continue;
-      console.log(costSlug, currencyRoots);
       if (currencyRoots[costSlug] !== undefined) {
         changes.push(`${currencyRoots[costSlug]}.currency.${costSlug}`);
       }
