@@ -68,6 +68,10 @@ body {
     background-size: 100% auto;
     pointer-events: none;
     opacity: 0.04;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 }
 
