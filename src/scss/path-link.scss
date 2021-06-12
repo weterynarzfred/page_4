@@ -20,6 +20,10 @@
   text-decoration: underline;
   color: inherit;
 
+  &.linkCurrent {
+    color: $selected;
+  }
+
   @at-root body.has-hover &:hover {
     color: $selected;
   }

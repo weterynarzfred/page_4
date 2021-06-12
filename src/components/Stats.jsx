@@ -6,11 +6,19 @@ import PathLink from './PathLink';
 import { deepClone, deepEquals } from '../functions/deepFunctions';
 import { getUserValue } from '../include/userValues';
 import Breadcrumbs from './Breadcrumbs';
+import classNames from 'classnames';
 
 function Stats(props) {
   const linkElements = props.topLevelOptionKeys.map(optionKey => (
     <div className="stats-link" key={optionKey}>
-      <PathLink path={optionKey}>{getUserValue(optionKey, 'title')}</PathLink>
+      <PathLink
+        path={optionKey}
+        className={classNames({
+          linkCurrent: optionKey === props.topLevelPath
+        })}
+      >
+        {getUserValue(optionKey, 'title')
+        }</PathLink>
     </div>
   ));
 
@@ -42,6 +50,7 @@ function mapStateToProps(state) {
   );
 
   return {
+    topLevelPath: state.path.length > 0 ? state.path[0] : '',
     topLevelOptionKeys,
     currencies,
   };

@@ -47,6 +47,7 @@ function SummaryItem(props) {
       <PathLink
         path={props.optionKey}
         onClick={props.onClick}
+        className={classNames({ linkCurrent: props.isCurrent })}
       >{props.title}</PathLink>
       <div className="summary-title-value">{value}</div>
     </div>
@@ -84,5 +85,6 @@ export default connect((state, props) => {
     title: getUserValue(props.optionKey, 'title'),
     type: option.type,
     value,
+    isCurrent: state.path.join('/').startsWith(props.optionKey),
   };
 })(SummaryItem);

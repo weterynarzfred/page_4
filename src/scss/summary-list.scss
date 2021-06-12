@@ -46,6 +46,7 @@
     .summary-item-title {
       display: flex;
       align-items: center;
+      color: $selectableText;
 
       .Link {
         text-decoration: none;
