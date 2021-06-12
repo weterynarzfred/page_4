@@ -6,6 +6,7 @@ import { isSelected } from '../functions/getSelectedValue';
 import isDisabled from '../functions/isDisabled';
 import ChoiceTable from './optionElements/ChoiceTable';
 import OptionContent from './optionElements/OptionContent';
+import { getUserValue } from '../include/userValues';
 
 function toggleOpened() {
   this.dispatch({
@@ -50,6 +51,7 @@ function Option(props) {
     { 'option-disabled': props.isDisabled },
     { 'option-collapsible': isCollapsible },
     { 'option-collapsed': isCollapsible && !props.opened },
+    { 'option-without-title': props.withoutTitle },
     { 'masonry-cell': props.isMasonryCell },
     props.userClasses
   );
@@ -88,5 +90,6 @@ export default connect((state, props) => {
     isSelectablesChild: option.isSelectablesChild,
     userClasses: option.classes,
     opened: option.opened ?? true,
+    withoutTitle: getUserValue(props.optionKey, 'title') === '',
   };
 })(Option);
