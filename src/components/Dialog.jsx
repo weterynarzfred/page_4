@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
+import classNames from 'classnames';
 
 function Dialog(props) {
   const dialogRef = useRef(null);
@@ -14,6 +14,7 @@ function Dialog(props) {
       setOpened(true);
       setContent(event.detail);
     };
+
     window.addEventListener('dialogOpen', handler);
 
     return () => {

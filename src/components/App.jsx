@@ -9,6 +9,7 @@ import Dialog from './Dialog';
 import Option from './Option';
 import { settings } from 'cyoa';
 import Results from './Results';
+import Lightbox from './Lightbox';
 
 function startHoverDetection() {
   let hasHover = false;
@@ -119,6 +120,7 @@ function App(props) {
     <Stats />
     {content}
     <Dialog />
+    <Lightbox />
     <div id="overlay"></div>
   </div>;
 }

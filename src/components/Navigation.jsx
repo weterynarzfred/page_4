@@ -58,7 +58,6 @@ function Navigation(props) {
       </div>
     </nav>
   </div>;
-
 }
 
 export default connect()(Navigation);

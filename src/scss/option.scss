@@ -39,6 +39,44 @@
         height: 100%;
         object-fit: cover;
       }
+
+      .image-open {
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        display: block;
+        width: 1.5em;
+        height: 1.5em;
+        border: 2px solid $selectableText;
+        background-color: $selectableBackground;
+        box-shadow: 0 0 0.3em $selectableBackground;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 1;
+        opacity: 0;
+        transition: 0.3s;
+
+        path {
+          stroke: $selectableText;
+          stroke-width: 15;
+          transition: 0.3s;
+        }
+
+        @at-root body.has-hover &:hover {
+          border-color: $selected;
+
+          path {
+            stroke: $selected;
+          }
+        }
+      }
+
+      @at-root body.has-hover &:hover,
+        body:not(.has-hover) & {
+        .image-open {
+          opacity: 1;
+        }
+      }
     }
 
     &.option-image-nsfw {

@@ -11,6 +11,25 @@ module.exports = function override(config) {
       1,
       {
         test: /\.(bmp|jpe?g|gif|png)$/i,
+        resourceQuery: /large/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: config.module.rules[1].oneOf[1].options,
+          },
+          {
+            loader: 'webpack-image-resize-loader',
+            options: {
+              width: 1600,
+              height: 1600,
+              fit: 'inside',
+              format: 'webp',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(bmp|jpe?g|gif|png)$/i,
         include: resolve(__dirname, './src/content/media/containers'),
         use: [
           {

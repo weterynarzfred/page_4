@@ -20,14 +20,14 @@ function TextControls(props) {
   let inputElement;
   if (props.displayAsTextarea) {
     inputElement = <textarea
-      placeholder="Type here."
+      placeholder="Type here"
       {...inputProps}
     ></textarea>;
   }
   else {
     inputElement = <input
       type="text"
-      placeholder="Type here."
+      placeholder="Type here"
       {...inputProps}
     />;
   }

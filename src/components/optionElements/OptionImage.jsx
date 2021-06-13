@@ -2,8 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-const requestImageFile = require.context('../../content/media', true, /.(jpe?g|png|svg)$/);
+const requestImageFile = require.context('../../content/media', true, /.(jpe?g|png|svg|webp)$/);
+const requestImageLarge = require.context('../../content/media?large', true, /.(jpe?g|png|svg|webp)$/);
 const images = name => requestImageFile(name).default;
+const largeImages = name => requestImageLarge(name).default;
 
 function OptionImage(props) {
   if (props.image === undefined) return (
@@ -14,6 +16,15 @@ function OptionImage(props) {
     <div className={classNames('OptionImage', { 'option-image-nsfw': props.nsfw })}>
       <div className="option-image-content">
         <img src={images(`./${props.image}`)} alt="" />
+        <svg className="image-open" viewBox="0 0 100 100" onClick={event => {
+          event.stopPropagation();
+          window.dispatchEvent(new CustomEvent(
+            'lightboxOpen',
+            { detail: largeImages(`./${props.image}`) }
+          ));
+        }}>
+          <path d="M10 50L90 50M50 10L50 90" />
+        </svg>
       </div>
     </div>
   );
