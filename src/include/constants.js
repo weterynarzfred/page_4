@@ -73,6 +73,8 @@ const optionProps = [
   'requirements',
   'image',
   'imageNSFW',
+  'imageSource',
+  'imageAuthor',
   'displayAsTextarea',
   'displayAsTable',
   'tableColumns',

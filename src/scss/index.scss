@@ -98,6 +98,18 @@ body {
     height: 90%;
     object-fit: contain;
   }
+
+  .lightbox-credits {
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+    font-size: 0.8em;
+    font-family: monospace;
+
+    a {
+      color: inherit;
+    }
+  }
 }
 
 p {

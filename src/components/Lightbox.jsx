@@ -17,6 +17,20 @@ function Lightbox(props) {
     };
   }, []);
 
+  let creditsElement = null;
+  if (content?.credits) {
+    creditsElement = <div className="lightbox-credits">
+      source: <a href={content.credits} target="_blank">
+        {content?.author ? content.author : content.credits}
+      </a>
+    </div>;
+  } else if (content?.author) {
+    creditsElement = <div className="lightbox-credits">
+      source: {content.author}
+    </div>;
+  }
+
+
   return <div
     id="Lightbox"
     className={classNames({ opened: content })}
@@ -24,8 +38,9 @@ function Lightbox(props) {
   >
     {content ? <img
       className="lightbox-image"
-      src={content}
+      src={content.src}
     /> : null}
+    {creditsElement}
   </div>;
 }
 

@@ -20,7 +20,13 @@ function OptionImage(props) {
           event.stopPropagation();
           window.dispatchEvent(new CustomEvent(
             'lightboxOpen',
-            { detail: largeImages(`./${props.image}`) }
+            {
+              detail: {
+                src: largeImages(`./${props.image}`),
+                credits: props.credits,
+                author: props.author,
+              }
+            }
           ));
         }}>
           <path d="M10 50L90 50M50 10L50 90" />
@@ -37,6 +43,8 @@ export default connect((state, props) => {
   }
   return {
     image: option.image,
+    credits: option.imageSource,
+    author: option.imageAuthor,
     nsfw: state.toggles.NSFWDisplay === 'blur' && option.imageNSFW,
   };
 })(OptionImage);
