@@ -98,6 +98,12 @@
     .option-text {
       padding: 0 1.5rem;
       min-height: 1rem;
+
+      &:after {
+        content: "";
+        display: block;
+        clear: both;
+      }
     }
 
     > .option-content {
