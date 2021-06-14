@@ -36,6 +36,37 @@ function SummaryList(props) {
   );
 }
 
+function shouldShowOption(option, hideSelectable, options) {
+  if (
+    option.type === optionTypes.TEXT ||
+    option.hidden ||
+    option.hiddenInSummary ||
+    isDisabled(option) ||
+    !(
+      option.optionKey.match('/') === null ||
+      isSelected(option, options)
+    )
+  ) return false;
+
+  if (hideSelectable) {
+    if ([
+      optionTypes.INTEGER,
+      optionTypes.SLIDER,
+      optionTypes.SELECT,
+      optionTypes.RATIO,
+    ].includes(option.type)) return false;
+
+    if (
+      option.type === optionTypes.GROUP &&
+      option.optionKey.match('/') !== null &&
+      !option.isInstance &&
+      !option.hiddenInParent
+    ) return false;
+  }
+
+  return true;
+}
+
 export default connect((state, props) => {
   let optionKeys;
 
@@ -65,12 +96,7 @@ export default connect((state, props) => {
   optionKeys = optionKeys.filter(
     key => {
       const suboption = state.options[key];
-      return !(suboption.type === optionTypes.TEXT ||
-        (props.hideSelectable && [optionTypes.INTEGER, optionTypes.SLIDER, optionTypes.SELECT].includes(suboption.type)) ||
-        suboption.hidden ||
-        suboption.hiddenInSummary ||
-        isDisabled(suboption) ||
-        (key.match('/') !== null && !isSelected(suboption, state.options)));
+      return shouldShowOption(suboption, props.hideSelectable, state.options);
     }
   );
 
