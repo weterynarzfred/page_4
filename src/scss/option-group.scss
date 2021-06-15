@@ -28,9 +28,13 @@
       > td {
         position: relative;
         border: 1px solid $borderColor;
-        padding: 0.25em 0.5em;
+        padding: 0.25em 1em;
         height: 3em;
         transition: 0.3s;
+
+        @media (max-width: 900px) {
+          padding: 0.25em 0.5em;
+        }
 
         &.choice-control-cell {
           width: 3em;
