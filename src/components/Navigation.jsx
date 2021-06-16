@@ -25,6 +25,18 @@ function Navigation(props) {
   const [opened, setOpened] = useState(false);
   const history = useHistory();
 
+  let credits = null;
+  if (settings.author !== undefined) {
+    credits = <div className="navigation-credits">
+      made by: {settings.author}
+    </div>;
+    if (settings.authorLink !== undefined) {
+      credits = <div className="navigation-credits">
+        made by: <a href={settings.authorLink}>{settings.author}</a>
+      </div>;
+    }
+  }
+
   return <div className={classNames('Navigation', { opened })}>
     <div id="burger" onClick={() => { setOpened(!opened); }}>
       <div></div>
@@ -56,6 +68,7 @@ function Navigation(props) {
         </div>
         <Settings />
       </div>
+      {credits}
     </nav>
   </div>;
 }
