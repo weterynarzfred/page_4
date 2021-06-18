@@ -6,11 +6,14 @@ import { connect } from 'react-redux';
 function OptionRequirements(props) {
   if (props.requirements === undefined) return null;
 
-  const requirementElements = props.requirements.map((test, index) =>
-    <div className={classNames('requirement', { met: test })} key={index}>
+  const requirementElements = props.requirements
+    .filter(test => !(test.value && test.hideWhenMet))
+    .map((test, index) => <div className={classNames('requirement', { met: test.value })} key={index}>
       {getUserValue(props.optionKey, 'requirements.' + index + '.text')}
     </div>
-  );
+    );
+
+  if (requirementElements.length === 0) return null;
 
   return (
     <div className="OptionRequirements">

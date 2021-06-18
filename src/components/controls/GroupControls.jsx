@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import Masonry from 'masonry-layout';
 import classNames from 'classnames';
 import Option from '../../components/Option';
 import { deepEquals } from '../../functions/deepFunctions';
@@ -8,33 +7,6 @@ import { optionTypes } from '../../include/constants';
 
 function GroupControls(props) {
   if (props.subOptions === undefined) return null;
-
-  const gridRef = useRef();
-  const masonryElement = useRef();
-
-  useEffect(() => {
-    if (props.useMasonry) {
-      if (masonryElement.current === undefined) {
-        masonryElement.current = new Masonry(gridRef.current, {
-          itemSelector: '.masonry-cell',
-          transitionDuration: 0,
-          initLayout: false,
-          percentPosition: true,
-        });
-        setTimeout(() => {
-          if (masonryElement.current !== undefined) {
-            masonryElement.current.layout();
-          }
-        }, 0);
-      } else {
-        masonryElement.current.reloadItems();
-        masonryElement.current.layout();
-      }
-    } else if (masonryElement.current !== undefined) {
-      masonryElement.current.destroy();
-      masonryElement.current = undefined;
-    }
-  }, [props.subOptions]);
 
   const optionElements = [];
   for (const optionKey of props.subOptions) {
@@ -67,7 +39,6 @@ function GroupControls(props) {
         { 'masonry-grid': props.useMasonry },
         { [`masonry-${props.subOptions.length}`]: props.useMasonry }
       )}
-      ref={gridRef}
     >
       {content}
     </div>

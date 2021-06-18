@@ -10,7 +10,7 @@ function isDisabled(option, options) {
   }
 
   if (option.requirements === undefined) return false;
-  for (const test of option.requirements) if (!test) return true;
+  for (const test of option.requirements) if (!test.value) return true;
   return false;
 }
 

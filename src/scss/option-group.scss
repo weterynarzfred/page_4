@@ -3,12 +3,16 @@
   margin-bottom: 3em;
   overflow: auto;
 
-  &.masonry-grid {
-    overflow: visible;
-  }
-
   &:not(.masonry-grid) .option-is-selectable {
     margin: 0 auto;
+  }
+
+  &.masonry-grid {
+    overflow: visible;
+
+    > .option-is-selectable {
+      margin: 0;
+    }
   }
 
   > table {

@@ -67,7 +67,7 @@ function recalculateUserFunctions(state, changes, force = false) {
         option.cost = result;
       } else if (userFunction.prop.match(/requirements\.[0-9]+$/)) {
         const index = userFunction.prop.split('.').pop();
-        option.requirements[index] = result;
+        option.requirements[index].value = result;
       } else if (userFunction.prop.match(/requirements\.[0-9]+\.text$/)) {
         addUserValue(result, userFunction.optionKey, userFunction.prop);
       } else {

@@ -1,5 +1,7 @@
 .masonry-grid {
   max-width: 100em;
+  display: flex;
+  flex-wrap: wrap;
 
   > .option-is-selectable {
     width: 25%;

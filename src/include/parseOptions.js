@@ -29,7 +29,7 @@ function parseRequirements(option) {
     parsePaths(requirement.value.subscribed, option);
     addUserFunction(requirement.value, option.optionKey, identifier);
 
-    option.requirements[index] = false;
+    option.requirements[index].value = false;
   }
 }
 
