@@ -1,5 +1,5 @@
 # page 4
-Still unfinished attempt in making an interactive CYOA. Uses react and redux. Preview pending.
+Still unfinished attempt in making an interactive CYOA. Uses react and redux.
 
 ## options
 All configuration is done through objects `settings` and `options` in `src/cyoa.jsx`.

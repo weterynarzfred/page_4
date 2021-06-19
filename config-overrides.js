@@ -12,6 +12,7 @@ module.exports = function override(config) {
       {
         test: /\.(bmp|jpe?g|gif|png)$/i,
         resourceQuery: /large/,
+        exclude: resolve(__dirname, './src/content/media/general'),
         use: [
           {
             loader: 'file-loader',

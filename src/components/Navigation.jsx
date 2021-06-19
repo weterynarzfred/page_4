@@ -32,7 +32,7 @@ function Navigation(props) {
     </div>;
     if (settings.authorLink !== undefined) {
       credits = <div className="navigation-credits">
-        made by: <a href={settings.authorLink}>{settings.author}</a>
+        made by: <a href={settings.authorLink} target="_blank">{settings.author}</a>
       </div>;
     }
   }
