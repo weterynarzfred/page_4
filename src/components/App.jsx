@@ -10,6 +10,7 @@ import Option from './Option';
 import { settings } from 'cyoa';
 import Results from './Results';
 import Lightbox from './Lightbox';
+import Changelog from './Changelog';
 
 function startHoverDetection() {
   let hasHover = false;
@@ -109,6 +110,9 @@ function App(props) {
   if (props.path.length > 0 && props.path[0] === '__results') {
     content = <Results />;
   }
+  else if (props.path.length > 0 && props.path[0] === '__changelog') {
+    content = <Changelog />;
+  }
   else {
     content = <div id="option-list">
       <Option optionKey={props.path.join('/')} topLevel={true} />
@@ -128,8 +132,10 @@ function App(props) {
 export default connect(state => {
   const pages = [
     '__results',
+    '__changelog',
   ];
-  const exists = state.path.length === 0 || pages.includes(state.path[0]) || state.options[state.path.join('/')] !== undefined;
+  const exists = state.path.length === 0 || pages.includes(state.path[0]) ||
+    state.options[state.path.join('/')] !== undefined;
   return {
     path: state.path,
     exists,

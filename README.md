@@ -53,3 +53,4 @@ if `type === optionTypes.INSTANCER`
 ### restricted keys
 - `currency`
 - `__results`
+- `__changelog`

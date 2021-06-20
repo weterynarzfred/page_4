@@ -6,6 +6,7 @@ import SummaryList from './SummaryList';
 import { actions } from '../include/constants';
 import { useHistory } from 'react-router';
 import Settings from './Settings';
+import PathLink from './PathLink';
 
 function handleRestart(history, setOpened) {
   if (settings.initialScreen === undefined) {
@@ -27,12 +28,18 @@ function Navigation(props) {
 
   let credits = null;
   if (settings.author !== undefined) {
-    credits = <div className="navigation-credits">
-      made by: {settings.author}
-    </div>;
+    const changelogLink = <PathLink
+      path="__changelog"
+      onClick={() => setOpened(false)}
+    >changelog</PathLink>;
     if (settings.authorLink !== undefined) {
       credits = <div className="navigation-credits">
-        made by: <a href={settings.authorLink} target="_blank">{settings.author}</a>
+        see {changelogLink}, CYOA made by:
+        <a href={settings.authorLink} target="_blank">{settings.author}</a>
+      </div>;
+    } else {
+      credits = <div className="navigation-credits">
+        see {changelogLink}, CYOA made by: {settings.author}
       </div>;
     }
   }
