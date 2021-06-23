@@ -1,7 +1,7 @@
 import removeOption from '../functions/removeOption';
 import { userValueProps } from './constants';
 import parseOptions from './parseOptions';
-import { addUserValue } from './userValues';
+import { addUserValue, getUserValue } from './userValues';
 
 window.userFunctions = {};
 
@@ -66,7 +66,8 @@ function recalculateUserFunctions(state, changes, force = false) {
         mergeChoices(state, option, result, newChanges, userFunction.prop);
       } else if (userFunction.prop.match(/requirements\.[0-9]+$/)) {
         const index = userFunction.prop.split('.').pop();
-        option.requirements[index].value = result;
+        const req = getUserValue(option.optionKey, 'requirements');
+        req[index].value = result;
       } else if (userFunction.prop.match(/requirements\.[0-9]+\.text$/)) {
         addUserValue(result, userFunction.optionKey, userFunction.prop);
       } else {

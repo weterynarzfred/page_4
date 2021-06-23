@@ -4,7 +4,7 @@ import { getUserValue } from '../../include/userValues';
 import { connect } from 'react-redux';
 
 function OptionRequirements(props) {
-  if (props.requirements === undefined) return null;
+  if (props.requirements === '') return null;
 
   const requirementElements = props.requirements
     .filter(test => !(test.value && test.hideWhenMet))
@@ -24,5 +24,5 @@ function OptionRequirements(props) {
 }
 
 export default connect((state, props) => ({
-  requirements: state.options[props.optionKey].requirements
+  requirements: getUserValue(props.optionKey, 'requirements')
 }))(OptionRequirements);

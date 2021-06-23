@@ -1,3 +1,5 @@
+import { getUserValue } from '../include/userValues';
+
 /**
  * Checks if option's requirements are met. If the secong parameter is provided
  * Also check options ancestors.
@@ -9,8 +11,9 @@ function isDisabled(option, options) {
     if (isDisabled(options[option.path.join('/')], options)) return true;
   }
 
-  if (option.requirements === undefined) return false;
-  for (const test of option.requirements) if (!test.value) return true;
+  const req = getUserValue(option.optionKey, 'requirements');
+  if (req === undefined) return false;
+  for (const test of req) if (!test.value) return true;
   return false;
 }
 

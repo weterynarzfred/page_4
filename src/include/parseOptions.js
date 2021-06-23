@@ -54,7 +54,7 @@ function assignProps(option, rawOption, assign) {
     if (option[prop] === undefined) continue;
     if (prop === 'requirements') {
       parseRequirements(option);
-      continue;
+      // continue;
     }
     addUserValue(option[prop], option.optionKey, prop);
     delete option[prop];
