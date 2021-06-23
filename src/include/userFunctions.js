@@ -64,8 +64,6 @@ function recalculateUserFunctions(state, changes, force = false) {
         addUserValue(result, userFunction.optionKey, userFunction.prop);
       } else if (['choices', 'options'].includes(userFunction.prop)) {
         mergeChoices(state, option, result, newChanges, userFunction.prop);
-      } else if (userFunction.prop === 'cost') {
-        option.cost = result;
       } else if (userFunction.prop.match(/requirements\.[0-9]+$/)) {
         const index = userFunction.prop.split('.').pop();
         option.requirements[index].value = result;

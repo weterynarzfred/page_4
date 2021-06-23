@@ -1,4 +1,5 @@
 import { optionTypes } from '../include/constants';
+import { getUserValue } from '../include/userValues';
 import calculateCosts, { applyCost } from './calculateCosts';
 import { getSelectedValue } from './getSelectedValue';
 
@@ -15,16 +16,16 @@ function applyOptionCosts(option, state) {
   switch (option.type) {
     case optionTypes.INTEGER:
     case optionTypes.SLIDER:
-      if (option.cost === undefined || option.isRatioChoice) break;
+      if (getUserValue(option.optionKey, 'cost') === undefined || option.isRatioChoice) break;
       const selected = getSelectedValue(option, state.options);
-      applyCost(option.cost, option.lastCurrencyValues, selected);
+      applyCost(getUserValue(option.optionKey, 'cost'), option.lastCurrencyValues, selected);
       break;
     case optionTypes.RATIO:
       let ratioValue = getSelectedValue(option, state.options);
       for (const item of ratioValue) {
         const ratioChoice = state.options[item.optionKey];
-        if (ratioChoice.cost === undefined) continue;
-        applyCost(ratioChoice.cost, option.lastCurrencyValues, item.percentage);
+        if (getUserValue(ratioChoice.optionKey, 'cost') === undefined) continue;
+        applyCost(getUserValue(ratioChoice.optionKey, 'cost'), option.lastCurrencyValues, item.percentage);
       }
       break;
   }

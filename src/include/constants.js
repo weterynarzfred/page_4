@@ -94,6 +94,7 @@ const userValueProps = [
   'displayTitle',
   'text',
   'instanceGroup',
+  'cost',
   'requirements',
   'detail',
   'image',

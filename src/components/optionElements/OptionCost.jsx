@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { deepEquals } from '../../functions/deepFunctions';
 import { getSelectedValue } from '../../functions/getSelectedValue';
 import formatNumber from '../../functions/formatNumber';
+import { getUserValue } from '../../include/userValues';
 
 function OptionCost(props) {
   if (props.costs === undefined) return null;
@@ -59,12 +60,13 @@ function OptionCost(props) {
 
 function mapStateToProps(state, props) {
   const option = state.options[props.optionKey];
-  if (option.cost === undefined) return {};
+  const optionCost = getUserValue(option.optionKey, 'cost');
+  if (optionCost === undefined) return {};
 
   const costs = {};
-  for (const costSlug in option.cost) {
+  for (const costSlug in getUserValue(option.optionKey, 'cost')) {
     costs[costSlug] = {
-      value: option.cost[costSlug],
+      value: optionCost[costSlug],
       title: state.currencySettings[costSlug].title,
       inverted: state.currencySettings[costSlug].inverted,
     };
