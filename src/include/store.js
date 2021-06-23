@@ -66,7 +66,8 @@ function rootReducer(state = initialState, action = '') {
         stateDraft.options = parseOptions(deepClone(rawOptions));
         break;
       case actions.LOAD_DATA:
-        const data = JSON.parse(action.payload);
+        const data = JSON.parse(process.env.NODE_ENV === 'development' ?
+          action.payload : atob(action.payload));
         if (data.cyoaId === stateDraft.cyoaId) {
           stateDraft.toggles = data.toggles;
           stateDraft.options = data.options;
@@ -96,7 +97,8 @@ function rootReducer(state = initialState, action = '') {
 }
 
 // skip redux-persist in development
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = process.env.NODE_ENV === 'development' ? rootReducer :
+  persistReducer(persistConfig, rootReducer);
 
 export default () => {
   const store = createStore(

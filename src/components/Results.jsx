@@ -12,6 +12,19 @@ function handleChange(event) {
   });
 }
 
+function onSaveLoaded(event) {
+  this.dispatch({
+    type: actions.LOAD_DATA,
+    payload: event.target.result,
+  });
+}
+
+function onFileChanged(event) {
+  const reader = new FileReader();
+  reader.onload = onSaveLoaded.bind(this);
+  reader.readAsText(event.currentTarget.files[0]);
+}
+
 function Results(props) {
   const optionElements = Object.keys(props.options).map(optionKey => {
     const option = props.options[optionKey];
@@ -29,7 +42,6 @@ function Results(props) {
     toggles: props.toggles,
   };
 
-  // saveData.options = props.options;
   for (const optionKey in props.options) {
     saveData.options[optionKey] = {};
     for (const prop in props.options[optionKey]) {
@@ -38,21 +50,29 @@ function Results(props) {
     }
   }
 
-  let indentLevel = 0;
-  const saveString = JSON.stringify(saveData)
-    .replaceAll(/([\{\[,])/g, "$1\n")
-    .replaceAll(/([\}\]])/g, "\n$1")
-    .replaceAll(/:/g, ': ')
-    .replaceAll(/^.*$/gm, (match) => {
-      if (match.match(/[\}\]],?$/)) indentLevel--;
-      let indent = '';
-      for (let i = 0; i < indentLevel; i++) indent += '  ';
-      if (match.match(/[\{\[]$/)) indentLevel++;
-      return indent + match;
-    });
+  let saveString = JSON.stringify(saveData);
+  if (process.env.NODE_ENV === 'development') {
+    let indentLevel = 0;
+    saveString = saveString.replaceAll(/([\{\[,])/g, "$1\n")
+      .replaceAll(/([\}\]])/g, "\n$1")
+      .replaceAll(/:/g, ': ')
+      .replaceAll(/^.*$/gm, (match) => {
+        if (match.match(/[\}\]],?$/)) indentLevel--;
+        let indent = '';
+        for (let i = 0; i < indentLevel; i++) indent += '  ';
+        if (match.match(/[\{\[]$/)) indentLevel++;
+        return indent + match;
+      });
+  } else {
+    saveString = btoa(saveString);
+  }
 
   return <div className="Results">
     <textarea value={saveString} spellCheck="false" onChange={handleChange.bind(props)} />
+    <a href={'data:text/json;charset=utf-8,' + encodeURIComponent(saveString)} download="guide-save.txt">
+      <button>download</button>
+    </a>
+    <input type="file" id="selectFiles" onChange={onFileChanged.bind(props)} />
     {optionElements}
   </div>;
 }

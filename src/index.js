@@ -22,7 +22,8 @@ const router = <Router>
 
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>{router}</PersistGate>
+    {process.env.NODE_ENV === 'development' ? router :
+      <PersistGate loading={null} persistor={persistor}>{router}</PersistGate>}
   </Provider>,
   document.getElementById('root')
 );
