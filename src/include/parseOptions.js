@@ -22,10 +22,10 @@ function parseRequirements(option) {
     if (requirement.text.isUserFunction) {
       parsePaths(requirement.text.subscribed, option);
       addUserFunction(requirement.text, option.optionKey, identifier + '.text');
-      delete requirement.text;
     } else {
       addUserValue(requirement.text, option.optionKey, identifier + '.text');
     }
+    delete requirement.text;
     parsePaths(requirement.value.subscribed, option);
     addUserFunction(requirement.value, option.optionKey, identifier);
 

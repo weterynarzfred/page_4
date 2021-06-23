@@ -15,6 +15,7 @@ const actions = {
   RECALCULATE: 'RECALCULATE',
   TOGGLE: 'TOGGLE',
   SET: 'SET',
+  LOAD_DATA: 'LOAD_DATA',
 };
 
 const dataTypes = {
@@ -95,6 +96,10 @@ const userValueProps = [
   'instanceGroup',
   'requirements',
   'detail',
+  'image',
+  'imageSource',
+  'imageAuthor',
+  'hiddenInSummary',
 ];
 
 const defaultProps = {

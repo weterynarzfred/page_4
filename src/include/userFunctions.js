@@ -1,4 +1,5 @@
 import removeOption from '../functions/removeOption';
+import { userValueProps } from './constants';
 import parseOptions from './parseOptions';
 import { addUserValue } from './userValues';
 
@@ -59,7 +60,7 @@ function recalculateUserFunctions(state, changes, force = false) {
       const option = state.options[userFunction.optionKey];
       const result = userFunction.callback(state, option);
 
-      if (['text', 'title', 'displayTitle'].includes(userFunction.prop)) {
+      if (userValueProps.includes(userFunction.prop)) {
         addUserValue(result, userFunction.optionKey, userFunction.prop);
       } else if (['choices', 'options'].includes(userFunction.prop)) {
         mergeChoices(state, option, result, newChanges, userFunction.prop);

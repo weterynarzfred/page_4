@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { getUserValue } from '../../include/userValues';
 
 const requestImageFile = require.context('../../content/media', true, /.(jpe?g|png|svg|webp)$/);
 const requestImageLarge = require.context('../../content/media?large', true, /.(jpe?g|png|svg|webp)$/);
@@ -8,7 +9,7 @@ const images = name => requestImageFile(name).default;
 const largeImages = name => requestImageLarge(name).default;
 
 function OptionImage(props) {
-  if (props.image === undefined) return (
+  if (props.image === '') return (
     <div className="option-image-placeholder"></div>
   );
 
@@ -23,8 +24,8 @@ function OptionImage(props) {
             {
               detail: {
                 src: largeImages(`./${props.image}`),
-                credits: props.credits,
-                author: props.author,
+                credits: getUserValue(props.optionKey, 'imageSource'),
+                author: getUserValue(props.optionKey, 'imageAuthor'),
               }
             }
           ));
@@ -42,9 +43,7 @@ export default connect((state, props) => {
     return {};
   }
   return {
-    image: option.image,
-    credits: option.imageSource,
-    author: option.imageAuthor,
+    image: getUserValue(props.optionKey, 'image'),
     nsfw: state.toggles.NSFWDisplay === 'blur' && option.imageNSFW,
   };
 })(OptionImage);

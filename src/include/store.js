@@ -65,6 +65,14 @@ function rootReducer(state = initialState, action = '') {
         window.userValues = {};
         stateDraft.options = parseOptions(deepClone(rawOptions));
         break;
+      case actions.LOAD_DATA:
+        const data = JSON.parse(action.payload);
+        if (data.cyoaId === stateDraft.cyoaId) {
+          stateDraft.toggles = data.toggles;
+          stateDraft.options = data.options;
+          rehydrateUserData(stateDraft);
+        }
+        break;
       default:
     }
 
@@ -73,6 +81,7 @@ function rootReducer(state = initialState, action = '') {
       actions.SELECT_OPTION,
       actions.RESTART,
       actions.RECALCULATE,
+      actions.LOAD_DATA,
     ].includes(action.type);
 
     if (stateNeedsRecalculation) {
@@ -87,8 +96,7 @@ function rootReducer(state = initialState, action = '') {
 }
 
 // skip redux-persist in development
-const persistedReducer = process.env.NODE_ENV === 'development' ? rootReducer :
-  persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export default () => {
   const store = createStore(
@@ -96,7 +104,10 @@ export default () => {
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
   const persistor = persistStore(store, undefined, () => {
-    rehydrateUserData(store);
+    rehydrateUserData(store.getState());
+    store.dispatch({
+      type: actions.RECALCULATE,
+    });
   });
   return { store, persistor };
 };

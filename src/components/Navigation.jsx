@@ -52,20 +52,25 @@ function Navigation(props) {
     </div>
     <nav id="navigation-menu">
       <div className="navigation-menu-content">
-        <button id="restart-button" onClick={() => {
-          window.dispatchEvent(new CustomEvent('dialogOpen', {
-            detail: {
-              title: 'Restart',
-              text: <p>Are you sure you want to start over?</p>,
-              buttons: [
-                {
-                  onClick: handleRestart.bind(props, history, setOpened),
-                  text: 'restart',
-                }
-              ],
-            }
-          }));
-        }}>restart</button>
+        <div id="navigation-buttons">
+          <button id="restart-button" onClick={() => {
+            window.dispatchEvent(new CustomEvent('dialogOpen', {
+              detail: {
+                title: 'Restart',
+                text: <p>Are you sure you want to start over?</p>,
+                buttons: [
+                  {
+                    onClick: handleRestart.bind(props, history, setOpened),
+                    text: 'restart',
+                  }
+                ],
+              }
+            }));
+          }}>restart</button>
+          <PathLink path="__results" onClick={() => { setOpened(false); }}>
+            <button>results</button>
+          </PathLink>
+        </div>
         <div id="summary-menu">
           <div className="navigation-title">Table of Contents</div>
           <SummaryList

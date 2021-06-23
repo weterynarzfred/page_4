@@ -76,15 +76,22 @@
         flex-direction: column;
       }
 
-      #restart-button {
+      #navigation-buttons {
         position: absolute;
         top: 1rem;
         left: 2rem;
         font-size: 0.75em;
+        display: flex;
 
-        @at-root body.has-hover &:hover {
-          border-color: $negative;
-          color: $negative;
+        a {
+          text-decoration: none;
+        }
+
+        button {
+          @at-root body.has-hover &:hover {
+            border-color: $negative;
+            color: $negative;
+          }
         }
       }
 

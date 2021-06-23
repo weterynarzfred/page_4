@@ -4,6 +4,7 @@ import { deepEquals } from '../functions/deepFunctions';
 import { getSelectedValue, isSelected } from '../functions/getSelectedValue';
 import isDisabled from '../functions/isDisabled';
 import { optionTypes } from '../include/constants';
+import { getUserValue } from '../include/userValues';
 import SummaryItem from './SummaryItem';
 
 function SummaryList(props) {
@@ -40,7 +41,7 @@ function shouldShowOption(option, hideSelectable, options) {
   if (
     option.type === optionTypes.TEXT ||
     option.hidden ||
-    option.hiddenInSummary ||
+    getUserValue(option.optionKey, 'hiddenInSummary') ||
     isDisabled(option) ||
     !(
       option.optionKey.match('/') === null ||
