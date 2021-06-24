@@ -87,11 +87,16 @@
           text-decoration: none;
         }
 
-        button {
+        button,
+        .button {
           @at-root body.has-hover &:hover {
             border-color: $negative;
             color: $negative;
           }
+        }
+
+        input[type="file"] {
+          display: none;
         }
       }
 

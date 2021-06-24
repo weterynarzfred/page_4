@@ -32,7 +32,8 @@
       font-weight: 700;
     }
 
-    button {
+    button,
+    .button {
       width: 1em;
       height: 1em;
       font-size: 2em;
@@ -95,7 +96,8 @@
 
   .SpinboxControl {
     .integer-spinbox-content,
-    button {
+    button,
+    .button {
       background-color: $disabledBackground;
       border-color: $disabledBorderColor;
       color: $disabledText;

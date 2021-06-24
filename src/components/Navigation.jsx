@@ -5,7 +5,8 @@ import { settings } from 'cyoa';
 import SummaryList from './SummaryList';
 import { actions } from '../include/constants';
 import { useHistory } from 'react-router';
-import Settings from './Settings';
+import Settings from './navigationElements/Settings';
+import SaveMenu from './navigationElements/SaveMenu';
 import PathLink from './PathLink';
 
 function handleRestart(history, setOpened) {
@@ -34,12 +35,12 @@ function Navigation(props) {
     >changelog</PathLink>;
     if (settings.authorLink !== undefined) {
       credits = <div className="navigation-credits">
-        see {changelogLink}, CYOA made by:
+        see {changelogLink}, CYOA made by:&nbsp;
         <a href={settings.authorLink} target="_blank">{settings.author}</a>
       </div>;
     } else {
       credits = <div className="navigation-credits">
-        see {changelogLink}, CYOA made by: {settings.author}
+        see {changelogLink}, CYOA made by:&nbsp;{settings.author}
       </div>;
     }
   }
@@ -67,9 +68,10 @@ function Navigation(props) {
               }
             }));
           }}>restart</button>
-          <PathLink path="__results" onClick={() => { setOpened(false); }}>
+          <SaveMenu />
+          {/* <PathLink path="__results" onClick={() => { setOpened(false); }}>
             <button>results</button>
-          </PathLink>
+          </PathLink> */}
         </div>
         <div id="summary-menu">
           <div className="navigation-title">Table of Contents</div>

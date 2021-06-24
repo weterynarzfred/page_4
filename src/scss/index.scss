@@ -147,7 +147,8 @@ h2 {
   text-align: center;
 }
 
-button {
+button,
+.button {
   background: none;
   border: none;
   background-color: $enabledBackground;
@@ -181,7 +182,9 @@ button {
 }
 
 button.disabled,
-.option-disabled button {
+.button.disabled,
+.option-disabled button,
+.option-disabled .button {
   border-color: $disabledBorderColor;
   background-color: $disabledBackground;
   color: $disabledText;

@@ -34,6 +34,13 @@ const initialState = {
   path: settings.initialScreen,
 };
 
+function reloadInitialData(stateDraft) {
+  stateDraft = deepClone(initialState);
+  window.userFunctions = {};
+  window.userValues = {};
+  stateDraft.options = parseOptions(deepClone(rawOptions));
+}
+
 function rootReducer(state = initialState, action = '') {
   if (action.type === REHYDRATE) {
     return state;
@@ -60,19 +67,14 @@ function rootReducer(state = initialState, action = '') {
         stateDraft.path = action.path;
         break;
       case actions.RESTART:
-        stateDraft = deepClone(initialState);
-        window.userFunctions = {};
-        window.userValues = {};
-        stateDraft.options = parseOptions(deepClone(rawOptions));
+        reloadInitialData(stateDraft);
         break;
       case actions.LOAD_DATA:
-        const data = JSON.parse(process.env.NODE_ENV === 'development' ?
-          action.payload : atob(action.payload));
-        if (data.cyoaId === stateDraft.cyoaId) {
-          stateDraft.toggles = data.toggles;
-          stateDraft.options = data.options;
-          rehydrateUserData(stateDraft);
-        }
+        reloadInitialData(stateDraft);
+        const data = action.payload;
+        stateDraft.toggles = data.toggles;
+        stateDraft.options = data.options;
+        rehydrateUserData(stateDraft);
         break;
       default:
     }

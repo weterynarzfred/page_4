@@ -42,7 +42,7 @@ function Dialog(props) {
           {content.buttons.map((button, index) => (
             <button onClick={() => {
               setOpened(false);
-              button.onClick();
+              if (button.onClick !== undefined) button.onClick();
             }} key={index}>{button.text}</button>
           ))}
         </div>

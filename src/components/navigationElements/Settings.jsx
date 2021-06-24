@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { actions } from '../include/constants';
+import { actions } from '../../include/constants';
 
 const NSFWDisplayOptions = [
   { value: 'hide_image', text: 'hide image' },
