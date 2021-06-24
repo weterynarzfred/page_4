@@ -4,57 +4,17 @@ import { useHistory } from 'react-router';
 import '../scss/index.scss';
 import { actions } from '../include/constants';
 import Navigation from './Navigation';
-import Stats from './Stats';
+import Stats from './navigationElements/Stats';
 import Dialog from './Dialog';
 import Option from './Option';
 import { settings } from 'cyoa';
 import Results from './Results';
 import Lightbox from './Lightbox';
 import Changelog from './Changelog';
-
-function startHoverDetection() {
-  let hasHover = false;
-  let lastTouchTime = 0;
-
-  document.addEventListener('touchstart', () => {
-    lastTouchTime = new Date();
-    if (!hasHover) return;
-    document.body.classList.remove('has-hover');
-    hasHover = false;
-  });
-
-  document.addEventListener('mousemove', () => {
-    if (hasHover) return;
-    if (new Date() - lastTouchTime < 500) return;
-    document.body.classList.add('has-hover');
-    hasHover = true;
-  });
-}
-
-function enableTooltips() {
-  const disableTooltip = (event) => {
-    event.target.removeEventListener('mouseleave', disableTooltip);
-    const active = document.querySelector('.tooltip.active');
-    if (active === null) return;
-    active.classList.remove('active');
-  };
-
-  document.querySelector('body').addEventListener('mouseover', event => {
-    if (event.target.matches('.tooltip-trigger')) {
-      const target = event.target.dataset.tooltipTarget;
-      const targetElement = document.getElementById(`tooltip-${target}`);
-      targetElement.classList.add('active');
-      event.target.addEventListener('mouseleave', disableTooltip);
-
-      const rect = event.target.getBoundingClientRect();
-      targetElement.style.bottom = window.innerHeight - rect.top - 10 + 'px';
-      targetElement.style.left = Math.max(
-        Math.min(rect.left + rect.width / 2 - 200, window.innerWidth - 400),
-        0
-      ) + 'px';
-    }
-  });
-}
+import startHoverDetection from './AppFunctions/startHoverDetaction';
+import enableTooltips from './AppFunctions/enableTooltips';
+import showDisclaimer from './AppFunctions/showDisclaimer';
+import GoUpButton from './GoUpButton';
 
 function App(props) {
   useEffect(() => {
@@ -69,28 +29,13 @@ function App(props) {
     });
   }, [props.location.pathname]);
 
-  // skip the disclaimer in development
   useEffect(() => {
-    if (process.env.NODE_ENV === 'development') return;
-    if (props.disclaimerClosed || settings.disclaimer === undefined) return;
-
-    const acceptButton = {
-      onClick: () => {
-        props.dispatch({
-          type: actions.TOGGLE,
-          key: 'disclaimerClosed',
-        });
-      },
-      text: 'ok',
-    };
-
-    window.dispatchEvent(new CustomEvent('dialogOpen', {
-      detail: {
-        title: 'Disclaimer',
-        text: settings.disclaimer,
-        buttons: [acceptButton],
-      }
-    }));
+    if
+      (process.env.NODE_ENV === 'development' ||
+      props.disclaimerClosed ||
+      settings.disclaimer === undefined
+    ) return;
+    showDisclaimer(props.dispatch);
   }, [props.disclaimerClosed]);
 
   useEffect(() => {
@@ -115,6 +60,7 @@ function App(props) {
   }
   else {
     content = <div id="option-list">
+      <GoUpButton path={props.path} />
       <Option optionKey={props.path.join('/')} topLevel={true} />
     </div>;
   }

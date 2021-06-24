@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getUserValue } from '../include/userValues';
-import PathLink from './PathLink';
+import { getUserValue } from '../../include/userValues';
+import PathLink from '../PathLink';
 
 function Breadcrumbs(props) {
   const pathElements = [];

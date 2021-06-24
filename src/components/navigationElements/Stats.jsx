@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Currencies from './Currencies';
+import Currencies from '../Currencies';
 import Warnings from './Warnings';
-import PathLink from './PathLink';
-import { deepClone, deepEquals } from '../functions/deepFunctions';
-import { getUserValue } from '../include/userValues';
+import PathLink from '../PathLink';
 import Breadcrumbs from './Breadcrumbs';
+import { deepClone, deepEquals } from '../../functions/deepFunctions';
+import { getUserValue } from '../../include/userValues';
 import classNames from 'classnames';
 
 function Stats(props) {

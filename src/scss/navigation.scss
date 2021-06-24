@@ -147,3 +147,36 @@
     }
   }
 }
+
+.GoUpButton {
+  position: absolute;
+  top: 3em;
+  left: 1em;
+
+  svg {
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
+    border: 2px solid $text;
+    padding: 0.5em;
+    transition: 0.3s;
+
+    path {
+      stroke: $text;
+      stroke-width: 10;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: 0.3s;
+    }
+
+    @at-root body.has-hover &:hover {
+      background-color: $background;
+      border-color: $enabledText;
+
+      path {
+        stroke: $enabledText;
+      }
+    }
+  }
+}
