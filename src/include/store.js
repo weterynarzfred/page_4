@@ -39,6 +39,8 @@ function reloadInitialData(stateDraft) {
   window.userFunctions = {};
   window.userValues = {};
   stateDraft.options = parseOptions(deepClone(rawOptions));
+  localStorage.clear('persist:root');
+  return stateDraft;
 }
 
 function rootReducer(state = initialState, action = '') {
@@ -67,10 +69,10 @@ function rootReducer(state = initialState, action = '') {
         stateDraft.path = action.path;
         break;
       case actions.RESTART:
-        reloadInitialData(stateDraft);
+        stateDraft = reloadInitialData(stateDraft);
         break;
       case actions.LOAD_DATA:
-        reloadInitialData(stateDraft);
+        stateDraft = reloadInitialData(stateDraft);
         const data = action.payload;
         stateDraft.toggles = data.toggles;
         stateDraft.options = data.options;
