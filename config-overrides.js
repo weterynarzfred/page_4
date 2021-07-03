@@ -24,7 +24,7 @@ module.exports = function override(config) {
               width: 1600,
               height: 1600,
               fit: 'inside',
-              format: 'webp',
+              format: 'jpeg',
             },
           },
         ],
@@ -42,7 +42,7 @@ module.exports = function override(config) {
             options: {
               width: 878,
               height: 290,
-              format: 'webp',
+              format: 'jpeg',
             },
           },
         ],
@@ -69,7 +69,7 @@ module.exports = function override(config) {
             options: {
               width: 190,
               height: 308,
-              format: 'webp',
+              format: 'jpeg',
             },
           },
         ],

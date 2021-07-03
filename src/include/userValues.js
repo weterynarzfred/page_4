@@ -1,3 +1,5 @@
+import { deepClone } from '../functions/deepFunctions';
+
 window.userValues = {};
 
 /**
@@ -5,7 +7,7 @@ window.userValues = {};
  */
 function addUserValue(content, optionKey, prop) {
   const key = optionKey + '.' + prop;
-  userValues[key] = content;
+  userValues[key] = deepClone(content);
 }
 
 /**

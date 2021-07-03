@@ -68,6 +68,7 @@ function recalculateUserFunctions(state, changes, force = false) {
         const index = userFunction.prop.split('.').pop();
         const req = getUserValue(option.optionKey, 'requirements');
         req[index].value = result;
+        addUserValue(req, userFunction.optionKey, 'requirements');
       } else if (userFunction.prop.match(/requirements\.[0-9]+\.text$/)) {
         addUserValue(result, userFunction.optionKey, userFunction.prop);
       } else {
