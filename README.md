@@ -38,6 +38,9 @@ Option object structure
 - `classes` {string}
 - `detail` {object}
 
+if `type === optionTypes.GROUP`
+- `displayAsButton` {bool}
+
 if `type === optionTypes.TEXT`
 - `displayAsTextarea` {bool}
 

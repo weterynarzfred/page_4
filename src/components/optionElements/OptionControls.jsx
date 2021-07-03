@@ -7,8 +7,12 @@ import IntegerControls from '../controls/IntegerControls';
 import TextControls from '../controls/TextControls';
 import SliderControls from '../controls/SliderControls';
 import RatioControls from '../controls/RatioControls';
+import { getUserValue } from '../../include/userValues';
 
 function OptionControls(props) {
+  if (!props.topLevel && getUserValue(props.optionKey, 'displayAsButton'))
+    return null;
+
   switch (props.type) {
     case optionTypes.INTEGER:
       return <>

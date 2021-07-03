@@ -5,6 +5,7 @@ import { handleIncrement, handleToggle } from '../../functions/handlers';
 import isDisabled from '../../functions/isDisabled';
 import { optionTypes } from '../../include/constants';
 import Currencies from '../Currencies';
+import OptionButton from './OptionButton';
 import OptionControls from './OptionControls';
 import OptionCost from './OptionCost';
 import OptionImage from './OptionImage';
@@ -62,6 +63,7 @@ function OptionContent(props) {
         {props.topLevel ? null : <Currencies optionKey={props.optionKey} />}
         <div className="option-text">
           <OptionText optionKey={props.optionKey} />
+          {props.topLevel ? null : <OptionButton optionKey={props.optionKey} />}
         </div>
         <OptionRequirements optionKey={props.optionKey} />
         <OptionControls optionKey={props.optionKey} topLevel={props.topLevel} />

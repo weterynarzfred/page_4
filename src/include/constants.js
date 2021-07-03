@@ -78,6 +78,7 @@ const optionProps = [
   'imageAuthor',
   'displayAsTextarea',
   'displayAsTable',
+  'displayAsButton',
   'tableColumns',
   'sliderAttributes',
   'logSlider',
@@ -102,6 +103,7 @@ const userValueProps = [
   'imageSource',
   'imageAuthor',
   'hiddenInSummary',
+  'displayAsButton',
 ];
 
 const defaultProps = {
