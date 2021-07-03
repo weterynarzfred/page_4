@@ -18,16 +18,24 @@ import GoUpButton from './GoUpButton';
 
 function App(props) {
   useEffect(() => {
-    const currentPath = props.location.pathname.split('/')
-      .filter(e => e !== '');
-    if (currentPath.join('/') === props.path.join('/')) return;
+    if (props.currentPath.join('/') === props.path.join('/')) return;
 
-    window.scrollTo(0, 0);
+    const currentScroll = window.scrollY;
+
     props.dispatch({
       type: actions.CHANGE_PATH,
-      path: currentPath,
+      path: props.currentPath,
+      lastScroll: currentScroll,
     });
-  }, [props.location.pathname]);
+  }, [props.currentPath]);
+
+  useEffect(() => {
+    if (props.lastScroll === undefined) {
+      window.scrollTo(0, 0);
+    } else {
+      window.scrollTo(0, props.lastScroll);
+    }
+  }, [props.path]);
 
   useEffect(() => {
     if
@@ -75,15 +83,19 @@ function App(props) {
   </div>;
 }
 
-export default connect(state => {
+export default connect((state, props) => {
   const pages = [
     '__results',
     '__changelog',
   ];
   const exists = state.path.length === 0 || pages.includes(state.path[0]) ||
     state.options[state.path.join('/')] !== undefined;
+  const currentPath = props.location.pathname.split('/')
+    .filter(e => e !== '');
   return {
+    currentPath,
     path: state.path,
+    lastScroll: state.options[currentPath.join('/')]?.lastScroll,
     exists,
     disclaimerClosed: state.toggles.disclaimerClosed,
   };

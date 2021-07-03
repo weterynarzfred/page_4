@@ -66,6 +66,12 @@ function rootReducer(state = initialState, action = '') {
         selectOptionReducer(stateDraft, action, changes);
         break;
       case actions.CHANGE_PATH:
+        if (
+          stateDraft.path.join('/') !== '' &&
+          stateDraft.options[stateDraft.path.join('/')] !== undefined
+        ) {
+          stateDraft.options[stateDraft.path.join('/')].lastScroll = action.lastScroll;
+        }
         stateDraft.path = action.path;
         break;
       case actions.RESTART:
