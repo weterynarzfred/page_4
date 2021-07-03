@@ -26,11 +26,17 @@ function resetCurrencies(currencies, currencySettings, reset) {
  * Checks if the option with optionKey was updated.
  */
 function wasOptionUpdated(optionKey, optionChanges) {
-  return optionChanges.some(changedKey => changedKey.startsWith(optionKey));
+  return optionChanges.some(changedKey => {
+    const changeArray = changedKey.split('.');
+    return changeArray[0].startsWith(optionKey) && [
+      'selected',
+      'cost'
+    ].includes(changeArray[1]);
+  });
 }
 
 /**
- * Checks if the lastCurrencyValue has a value for all currecies currently being
+ * Checks if the lastCurrencyValues has a value for all currecies currently being
  * checked
  */
 function isLastCurrencyValueDefined(lastCurrencyValues, currencies) {
@@ -70,6 +76,7 @@ function calculateCosts({
       if (option.lastCurrencyValues === undefined) option.lastCurrencyValues = {};
       Object.assign(option.lastCurrencyValues, deepClone(emptyCurrencies));
       calculateOptionCosts(option, state, changes, optionChanges, currencies);
+      changes.push(`${option.optionKey}.lastCurrencyValues`);
     }
 
     applyCost(option.lastCurrencyValues, currencies, -1);

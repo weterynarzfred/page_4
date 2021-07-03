@@ -28,7 +28,11 @@ Option object structure
 - `currencies` {object}
 - `options` {object}
 - `selected` {any}
-- `requirements` {array}
+- `requirements` {[object]}
+  - `text` {string|function}
+  - `value` {bool|function}
+  - `hiddenWhenMet` {bool}
+  - `optionHiddenWhenNotMet` {bool}
 - `hiddenInParent` {bool}
 - `hiddenInSummary` {bool}
 - `classes` {string}
