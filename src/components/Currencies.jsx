@@ -9,11 +9,14 @@ function Currencies(props) {
   for (const costSlug in props.currencies) {
     const title = props.currencySettings[costSlug].title;
     const value = props.currencies[costSlug] || 0;
+    if (props.skipZero && value === 0) continue;
     currencyElements.push(<div className="currency" key={costSlug}>
       <div className="currency-name">{title}</div>
       <div className="currency-value">{formatNumber(value, 2)}</div>
     </div>);
   }
+
+  if (currencyElements.length === 0) return null;
 
   return (
     <div className="Currencies">
