@@ -32,9 +32,9 @@ Option object structure
   - `text` {string|function}
   - `value` {bool|function}
   - `hiddenWhenMet` {bool}
-  - `optionHiddenWhenNotMet` {bool}
 - `hiddenInParent` {bool}
 - `hiddenInSummary` {bool}
+- `hiddenWhenDisabled` {bool}
 - `classes` {string}
 - `detail` {object}
 

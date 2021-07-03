@@ -84,6 +84,7 @@ const optionProps = [
   'displayAsPercent',
   'hiddenInParent',
   'hiddenInSummary',
+  'hiddenWhenDisabled',
   'classes',
   'detail',
   'opened',

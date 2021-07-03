@@ -83,10 +83,13 @@ export default connect((state, props) => {
     (!props.topLevel && option.hiddenInParent)
   ) return {};
 
+  const _isDisabled = isDisabled(option, state.options);
+  if (option.hiddenWhenDisabled && _isDisabled) return {};
+
   return {
     type: option.type,
     selected: isSelected(option, state.options),
-    isDisabled: isDisabled(option, state.options),
+    isDisabled: _isDisabled,
     isSelectablesChild: option.isSelectablesChild,
     userClasses: option.classes,
     opened: option.opened ?? true,
