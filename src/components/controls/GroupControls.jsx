@@ -4,9 +4,12 @@ import classNames from 'classnames';
 import Option from '../../components/Option';
 import { deepEquals } from '../../functions/deepFunctions';
 import { optionTypes } from '../../include/constants';
+import { getUserValue } from '../../include/userValues';
 
 function GroupControls(props) {
   if (props.subOptions === undefined) return null;
+  if (!props.topLevel && getUserValue(props.optionKey, 'displayAsButton'))
+    return null;
 
   const optionElements = [];
   for (const optionKey of props.subOptions) {

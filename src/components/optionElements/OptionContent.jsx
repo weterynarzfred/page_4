@@ -15,6 +15,7 @@ import OptionTitle from './OptionTitle';
 
 function handleClick(event) {
   if (this.isDisabled) return;
+  if (this.topLevel) return;
   event.stopPropagation();
 
   if (this.type === optionTypes.INTEGER) {

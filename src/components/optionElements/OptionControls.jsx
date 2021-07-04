@@ -7,23 +7,24 @@ import IntegerControls from '../controls/IntegerControls';
 import TextControls from '../controls/TextControls';
 import SliderControls from '../controls/SliderControls';
 import RatioControls from '../controls/RatioControls';
-import { getUserValue } from '../../include/userValues';
 
 function OptionControls(props) {
-  if (!props.topLevel && getUserValue(props.optionKey, 'displayAsButton'))
-    return null;
 
   switch (props.type) {
     case optionTypes.INTEGER:
       return <>
-        <IntegerControls optionKey={props.optionKey} />
-        <GroupControls optionKey={props.optionKey} />
+        <IntegerControls
+          optionKey={props.optionKey}
+          topLevel={props.topLevel}
+        />
+        <GroupControls optionKey={props.optionKey} topLevel={props.topLevel} />
       </>;
     case optionTypes.INSTANCER:
       return <>
         <InstancerControls optionKey={props.optionKey} />
         <GroupControls
           optionKey={props.optionKey}
+          topLevel={props.topLevel}
           useMasonry={props.useMasonry}
         />
       </>;
@@ -32,6 +33,7 @@ function OptionControls(props) {
         <RatioControls optionKey={props.optionKey} />
         <GroupControls
           optionKey={props.optionKey}
+          topLevel={props.topLevel}
           useMasonry={props.useMasonry}
         />
       </>;
@@ -39,6 +41,7 @@ function OptionControls(props) {
     case optionTypes.GROUP:
       return <GroupControls
         optionKey={props.optionKey}
+        topLevel={props.topLevel}
         useMasonry={props.useMasonry}
       />;
     case optionTypes.TEXT:
@@ -46,7 +49,7 @@ function OptionControls(props) {
     case optionTypes.SLIDER:
       return <>
         <SliderControls optionKey={props.optionKey} />
-        <GroupControls optionKey={props.optionKey} />
+        <GroupControls optionKey={props.optionKey} topLevel={props.topLevel} />
       </>;
     default:
       return null;

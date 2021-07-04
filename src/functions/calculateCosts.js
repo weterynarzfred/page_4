@@ -17,6 +17,9 @@ function applyCost(cost, currencies, count) {
  * Resets all currency values to their initial state.
  */
 function resetCurrencies(currencies, currencySettings, reset) {
+  if (reset === undefined) {
+    reset = Object.keys(currencies);
+  }
   for (const costSlug of reset) {
     currencies[costSlug] = currencySettings[costSlug].start ?? 0;
   }
@@ -36,8 +39,8 @@ function wasOptionUpdated(optionKey, optionChanges) {
 }
 
 /**
- * Checks if the lastCurrencyValues has a value for all currecies currently being
- * checked
+ * Checks if the lastCurrencyValues has a value for all currecies currently
+ * being checked
  */
 function isLastCurrencyValueDefined(lastCurrencyValues, currencies) {
   if (lastCurrencyValues === undefined) return false;
@@ -61,8 +64,10 @@ function calculateCosts({
   currencyRoots = {},
 }) {
   const previousValues = calcChanges.length > 0 ? deepClone(currencies) : null;
-  if (calcChanges.length > 0) resetCurrencies(currencies, state.currencySettings, calcChanges);
+  if (calcChanges.length > 0)
+    resetCurrencies(currencies, state.currencySettings, calcChanges);
   const emptyCurrencies = deepClone(currencies);
+  resetCurrencies(emptyCurrencies, state.currencySettings);
 
   const changes = [];
   for (const optionKey in options) {
@@ -73,7 +78,8 @@ function calculateCosts({
       !isLastCurrencyValueDefined(option.lastCurrencyValues, currencies) ||
       wasOptionUpdated(option.optionKey, optionChanges)
     ) {
-      if (option.lastCurrencyValues === undefined) option.lastCurrencyValues = {};
+      if (option.lastCurrencyValues === undefined)
+        option.lastCurrencyValues = {};
       Object.assign(option.lastCurrencyValues, deepClone(emptyCurrencies));
       calculateOptionCosts(option, state, changes, optionChanges, currencies);
       changes.push(`${option.optionKey}.lastCurrencyValues`);

@@ -16,16 +16,27 @@ function applyOptionCosts(option, state) {
   switch (option.type) {
     case optionTypes.INTEGER:
     case optionTypes.SLIDER:
-      if (getUserValue(option.optionKey, 'cost') === undefined || option.isRatioChoice) break;
+      if (
+        getUserValue(option.optionKey, 'cost') === undefined ||
+        option.isRatioChoice
+      ) break;
       const selected = getSelectedValue(option, state.options);
-      applyCost(getUserValue(option.optionKey, 'cost'), option.lastCurrencyValues, selected);
+      applyCost(
+        getUserValue(option.optionKey, 'cost'),
+        option.lastCurrencyValues,
+        selected
+      );
       break;
     case optionTypes.RATIO:
       let ratioValue = getSelectedValue(option, state.options);
       for (const item of ratioValue) {
         const ratioChoice = state.options[item.optionKey];
         if (getUserValue(ratioChoice.optionKey, 'cost') === undefined) continue;
-        applyCost(getUserValue(ratioChoice.optionKey, 'cost'), option.lastCurrencyValues, item.percentage);
+        applyCost(
+          getUserValue(ratioChoice.optionKey, 'cost'),
+          option.lastCurrencyValues,
+          item.percentage
+        );
       }
       break;
   }
@@ -34,7 +45,7 @@ function applyOptionCosts(option, state) {
 /**
  * Calculates the cost of a single option and its suboptions.
  */
-function calculateOptionCosts(option, state, changes, optionChanges, currencies) {
+function calculateOptionCosts(option, state, changes, optionChanges) {
   applyOptionCosts(option, state);
 
   for (const subOptionContainer in subOptionContainers) {
@@ -62,7 +73,8 @@ function calculateOptionCosts(option, state, changes, optionChanges, currencies)
       currencies: option.lastCurrencyValues,
       options: subOptions,
       optionChanges,
-      calcChanges: option.currencies === undefined ? [] : Object.keys(option.currencies),
+      calcChanges: option.currencies === undefined ? [] :
+        Object.keys(option.currencies),
       currencyRoots,
     });
     changes.push(...subChanges);

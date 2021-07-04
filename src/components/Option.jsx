@@ -20,13 +20,13 @@ function toggleOpened() {
 function Option(props) {
   if (props.type === undefined) return null;
 
-  const isSelectable = [
+  const isSelectable = !props.topLevel && [
     optionTypes.INTEGER,
     optionTypes.TEXT,
     optionTypes.SLIDER,
   ].includes(props.type);
 
-  const isContainer = [
+  const isContainer = props.topLevel || [
     optionTypes.GROUP,
     optionTypes.SELECT,
     optionTypes.RATIO,
