@@ -121,3 +121,18 @@
     }
   }
 }
+
+.Option.top-level > .option-content > .option-collapsible-content {
+  > .IntegerControls {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    max-width: 70em;
+
+    .CheckboxControl {
+      top: 2.5em;
+    }
+  }
+}

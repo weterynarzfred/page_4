@@ -108,3 +108,16 @@
   padding: 0.5em 1em;
   justify-content: flex-end;
 }
+
+.Option.option-is-container > .option-content > .option-collapsible-content {
+  > .Currencies {
+    position: relative;
+    max-width: 70em;
+    margin: 0 auto 0 auto;
+
+    .OptionCost {
+      top: -2em;
+      margin-top: 2px;
+    }
+  }
+}

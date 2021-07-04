@@ -33,3 +33,16 @@
 .option-is-selectable .OptionCost {
   top: 0;
 }
+
+.Option.option-is-container > .option-content > .option-collapsible-content {
+  > .option-cost-wrap {
+    position: relative;
+    max-width: 70em;
+    margin: 0 auto;
+
+    .OptionCost {
+      top: -2em;
+      margin-top: 2px;
+    }
+  }
+}
