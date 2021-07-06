@@ -62,7 +62,7 @@ function checkIfMasonry(option, options) {
     subOptions = option.options;
   }
   else if (option.type === optionTypes.SELECT) {
-    if (option.displayAsTable || option.isSelectablesChild) return false;
+    if (option.displayAsTable) return false;
     subOptions = option.choices;
   }
   else if (option.type === optionTypes.RATIO) {
