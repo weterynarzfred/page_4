@@ -4,6 +4,7 @@ import { getSelectedValue } from '../../functions/getSelectedValue';
 import { handleIncrement, handleToggle } from '../../functions/handlers';
 import isDisabled from '../../functions/isDisabled';
 import { optionTypes } from '../../include/constants';
+import { getUserValue } from '../../include/userValues';
 import Currencies from '../Currencies';
 import OptionButton from './OptionButton';
 import OptionControls from './OptionControls';
@@ -50,6 +51,9 @@ function OptionContent(props) {
     }
   }, [props.opened]);
 
+  const displayCurrencies = !props.topLevel &&
+    !getUserValue(props.optionKey, 'displayAsButton');
+
   return <div className={props.classes}>
     <div className="option-content" onClick={handleClick.bind(props)}>
       <OptionTitle
@@ -61,7 +65,7 @@ function OptionContent(props) {
           <OptionCost optionKey={props.optionKey} />
         </div>
         <OptionImage optionKey={props.optionKey} />
-        {props.topLevel ? null : <Currencies optionKey={props.optionKey} />}
+        {displayCurrencies ? <Currencies optionKey={props.optionKey} /> : null}
         <div className="option-text">
           <OptionText optionKey={props.optionKey} />
           {props.topLevel ? null : <OptionButton optionKey={props.optionKey} />}

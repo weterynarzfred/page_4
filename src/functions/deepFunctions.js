@@ -4,8 +4,8 @@ import { cloneElement } from 'react';
  * Deep clones a variable. Supports react elements.
  */
 function deepClone(source, repair = false) {
-  if (!source) return source;
-  if (typeof source === 'string') return source;
+  if (!source || ['string', 'boolean', 'number'].includes(typeof source))
+    return source;
   if (
     source.$$typeof !== undefined &&
     source.$$typeof.toString() === 'Symbol(react.element)'

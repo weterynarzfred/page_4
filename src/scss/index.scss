@@ -117,15 +117,23 @@ p {
 
 p,
 ul,
-ol {
+ol,
+h1,
+h2,
+h3 {
   max-width: 40rem;
   margin: 0.5em auto;
+  clear: both;
+  color: $text;
+}
+
+p,
+ul,
+ol {
   text-align: justify;
   line-height: 1.5;
-  color: $text;
   transition: color 0.3s;
   hyphens: auto;
-  clear: both;
 
   strong {
     color: $enabledText;
@@ -139,12 +147,23 @@ li {
 
 h2 {
   font-weight: 400;
-  color: $text;
-  text-transform: uppercase;
+  color: $selectableText;
   font-size: 1em;
+  text-transform: uppercase;
   letter-spacing: 0.1em;
   word-spacing: 0.2em;
   text-align: center;
+  margin-top: 2em;
+}
+
+h3 {
+  color: $selectableText;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  word-spacing: 0.2em;
+  font-size: 0.75em;
+  font-weight: 400;
+  margin-top: 1em;
 }
 
 .text-positive {
@@ -153,6 +172,12 @@ h2 {
 
 .text-negative {
   color: $negative;
+}
+
+.Changelog {
+  h2 {
+    font-size: 1.25em;
+  }
 }
 
 .masonry-grid {
