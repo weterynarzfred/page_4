@@ -9,7 +9,7 @@ const images = name => requestImageFile(name).default;
 const largeImages = name => requestImageLarge(name).default;
 
 function OptionImage(props) {
-  if (props.image === '') return (
+  if (props.image === '' || props.image === undefined) return (
     <div className="option-image-placeholder"></div>
   );
 
