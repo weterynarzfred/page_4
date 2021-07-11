@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { getUserValue } from '../../include/userValues';
+import { optionTypes } from '../../include/constants';
 
 const requestImageFile = require.context('../../content/media', true, /.(jpe?g|png|svg|webp)$/);
 const requestImageLarge = require.context('../../content/media?large', true, /.(jpe?g|png|svg|webp)$/);
@@ -42,8 +43,32 @@ export default connect((state, props) => {
   if (state.toggles.NSFWDisplay === 'hide_image' && option.imageNSFW) {
     return {};
   }
+
+  const isContainer = props.topLevel || [
+    optionTypes.GROUP,
+    optionTypes.SELECT,
+    optionTypes.RATIO,
+    optionTypes.INSTANCER,
+  ].includes(option.type);
+
+  let image = getUserValue(props.optionKey, 'image');
+  let imageSource = getUserValue(props.optionKey, 'imageSource');
+  let imageAuthor = getUserValue(props.optionKey, 'imageAuthor');
+  let imageNSFW = state.toggles.NSFWDisplay === 'blur' && option.imageNSFW;
+  if (isContainer) {
+    const containerImage = getUserValue(props.optionKey, 'containerImage');
+    if (containerImage !== '') {
+      image = containerImage;
+      imageSource = getUserValue(props.optionKey, 'containerImageSource');
+      imageAuthor = getUserValue(props.optionKey, 'containerImageAuthor');
+      imageNSFW = state.toggles.NSFWDisplay === 'blur' && option.containerImageNSFW;
+    }
+  }
+
   return {
-    image: getUserValue(props.optionKey, 'image'),
-    nsfw: state.toggles.NSFWDisplay === 'blur' && option.imageNSFW,
+    image,
+    imageSource,
+    imageAuthor,
+    nsfw: imageNSFW,
   };
 })(OptionImage);

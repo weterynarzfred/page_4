@@ -24,6 +24,14 @@ Option object structure
 - `cost` {object|function}
 - `min` {number|function}
 - `max` {number|function}
+- `image` {string|function}
+- `imageSource` {string|function}
+- `imageAuthor` {string|function}
+- `imageNSFW` {string|function}
+- `containerImage` {string|function}
+- `containerImageSource` {string|function}
+- `containerImageAuthor` {string|function}
+- `containerImageNSFW` {string|function}
 - `hidden` {bool}
 - `currencies` {object}
 - `options` {object}

@@ -64,7 +64,7 @@ function OptionContent(props) {
         <div className="option-cost-wrap">
           <OptionCost optionKey={props.optionKey} />
         </div>
-        <OptionImage optionKey={props.optionKey} />
+        <OptionImage optionKey={props.optionKey} topLevel={props.topLevel} />
         {displayCurrencies ? <Currencies optionKey={props.optionKey} /> : null}
         <div className="option-text">
           <OptionText optionKey={props.optionKey} />
