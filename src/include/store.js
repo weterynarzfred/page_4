@@ -84,6 +84,9 @@ function rootReducer(state = initialState, action = '') {
         stateDraft.options = data.options;
         rehydrateUserData(stateDraft);
         break;
+      case actions.RECALCULATE:
+        rehydrateUserData(stateDraft);
+        break;
       default:
     }
 
@@ -116,7 +119,6 @@ export default () => {
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
   const persistor = persistStore(store, undefined, () => {
-    rehydrateUserData(store.getState());
     store.dispatch({
       type: actions.RECALCULATE,
     });
