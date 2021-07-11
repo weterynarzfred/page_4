@@ -86,25 +86,33 @@ function assignDefaults(option) {
 }
 
 /**
+ * Create an object with additional flags for the option object based on its
+ * type
+ */
+function createSubAssign(currentAssign, parentType) {
+  const subAssign = deepClone(currentAssign);
+
+  if (parentType === optionTypes.SELECT) subAssign.isChoice = true;
+  else delete subAssign.isChoice;
+  if (parentType === optionTypes.RATIO) subAssign.isRatioChoice = true;
+  else delete subAssign.isRatioChoice;
+  if ([
+    optionTypes.INTEGER,
+    optionTypes.TEXT,
+    optionTypes.SLIDER,
+  ].includes(parentType)) subAssign.isSelectablesChild = true;
+  else delete subAssign.isSelectablesChild;
+
+  return subAssign;
+}
+
+/**
  * Parses suboptions and choices of the option
  */
 function parseSuboptions(option, options, rawOption, prop, currentAssign) {
   if (rawOption[prop] === undefined || rawOption[prop].isUserFunction) return;
 
-  const subAssign = deepClone(currentAssign);
-  switch (option.type) {
-    case optionTypes.INTEGER:
-    case optionTypes.TEXT:
-    case optionTypes.SLIDER:
-      subAssign.isSelectablesChild = true;
-      break;
-    case optionTypes.SELECT:
-      subAssign.isChoice = true;
-      break;
-    case optionTypes.RATIO:
-      subAssign.isRatioChoice = true;
-  }
-
+  const subAssign = createSubAssign(currentAssign, option.type);
   const parentPath = option.optionKey.split('/');
   const parsedOptions = parseOptions(rawOption[prop], parentPath, subAssign);
   Object.assign(options, parsedOptions);
