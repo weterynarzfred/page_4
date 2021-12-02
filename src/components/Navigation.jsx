@@ -4,17 +4,17 @@ import classNames from 'classnames';
 import { settings } from 'cyoa';
 import SummaryList from './SummaryList';
 import { actions } from '../include/constants';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import Settings from './navigationElements/Settings';
 import SaveMenu from './navigationElements/SaveMenu';
 import PathLink from './PathLink';
 
-function handleRestart(history, setOpened) {
+function handleRestart(navigate, setOpened) {
   if (settings.initialScreen === undefined) {
-    history.push('/');
+    navigate('/');
   }
   else {
-    history.push('/' + settings.initialScreen.join('/'));
+    navigate('/' + settings.initialScreen.join('/'));
   }
   setOpened(false);
 
@@ -25,7 +25,7 @@ function handleRestart(history, setOpened) {
 
 function Navigation(props) {
   const [opened, setOpened] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   let credits = null;
   if (settings.author !== undefined) {
@@ -61,7 +61,7 @@ function Navigation(props) {
                 text: <p>Are you sure you want to start over?</p>,
                 buttons: [
                   {
-                    onClick: handleRestart.bind(props, history, setOpened),
+                    onClick: handleRestart.bind(props, navigate, setOpened),
                     text: 'restart',
                   }
                 ],

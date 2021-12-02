@@ -24,21 +24,21 @@
   },
   "dependencies": {
     "classnames": "^2.3.1",
-    "immer": "^9.0.5",
-    "rc-slider": "^9.7.2",
+    "immer": "^9.0.7",
+    "rc-slider": "^9.7.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-latex": "^2.0.0",
-    "react-redux": "^7.2.4",
-    "react-router-dom": "^5.2.0",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^6.0.2",
     "react-scripts": "^4.0.3",
-    "recharts": "^2.0.10",
-    "redux": "^4.1.1",
+    "recharts": "^2.1.6",
+    "redux": "^4.1.2",
     "redux-persist": "^6.0.0",
-    "sass": "^1.37.5"
+    "sass": "^1.44.0"
   },
   "devDependencies": {
     "react-app-rewired": "^2.1.8",
-    "webpack-image-resize-loader": "^4.1.0"
+    "webpack-image-resize-loader": "^5.0.0"
   }
 }

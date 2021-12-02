@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { HashRouter as Router, Redirect, Route } from 'react-router-dom';
+import { HashRouter as Router, Navigate, Routes, Route } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import App from './components/App';
 import createStore from './include/store';
@@ -16,8 +16,10 @@ const { store, persistor } = createStore();
 
 const initialPath = '/' + settings.initialScreen.join('/');
 const router = <Router>
-  <Route exact path="/" render={() => <Redirect to={initialPath} />} />
-  <Route path="/" component={App} />
+  <Routes>
+    <Route exact path="/" element={<Navigate to={initialPath} />} />
+    <Route path="/*" element={<App />} />
+  </Routes>
 </Router>;
 
 ReactDOM.render(
