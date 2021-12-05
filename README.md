@@ -32,7 +32,7 @@ Option object structure
 - `containerImageSource` {string|function}
 - `containerImageAuthor` {string|function}
 - `containerImageNSFW` {string|function}
-- `hidden` {bool}
+- `hidden` {bool|function}
 - `currencies` {object}
 - `options` {object}
 - `selected` {any}

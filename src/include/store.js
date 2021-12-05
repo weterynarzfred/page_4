@@ -110,7 +110,7 @@ function rootReducer(state = initialState, action = '') {
 }
 
 // skip redux-persist in development
-const persistedReducer = process.env.NODE_ENV === 'development' ? rootReducer :
+const persistedReducer = process.env.NODE_ENV === 'development' && false ? rootReducer :
   persistReducer(persistConfig, rootReducer);
 
 export default () => {
