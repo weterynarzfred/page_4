@@ -27,7 +27,10 @@ function OptionCost(props) {
     if (props.costs[costSlug].inverted) color *= -1;
 
     let currentCost = null;
-    if (
+
+    if (props.costOverride[costSlug] !== undefined) {
+      currentCost = ' (' + formatNumber(-props.costOverride[costSlug], 2) + ')';
+    } else if (
       props.selected !== 0 &&
       props.selected !== 1 &&
       props.selected !== undefined &&
@@ -60,17 +63,19 @@ function OptionCost(props) {
 
 function mapStateToProps(state, props) {
   const option = state.options[props.optionKey];
-  const optionCost = getUserValue(option.optionKey, 'cost');
+  const optionCost = getUserValue(props.optionKey, 'cost');
   if (optionCost === undefined) return {};
 
   const costs = {};
-  for (const costSlug in getUserValue(option.optionKey, 'cost')) {
+  for (const costSlug in optionCost) {
     costs[costSlug] = {
       value: optionCost[costSlug],
       title: state.currencySettings[costSlug].title,
       inverted: state.currencySettings[costSlug].inverted,
     };
   }
+
+  const costOverride = getUserValue(props.optionKey, 'costOverride');
 
   let selected;
   if (option.isRatioChoice) {
@@ -89,6 +94,7 @@ function mapStateToProps(state, props) {
   }
   return {
     costs,
+    costOverride,
     selected,
   };
 }

@@ -9,6 +9,12 @@ const subOptionContainers = {
   selected: [optionTypes.INSTANCER],
 };
 
+function overridenCost(optionKey) {
+  const costOverride = getUserValue(optionKey, 'costOverride');
+  if (costOverride) return costOverride;
+  return getUserValue(optionKey, 'cost');
+}
+
 /**
  * Subtract the cost of the option from the currency value based on its type
  */
@@ -17,12 +23,12 @@ function applyOptionCosts(option, state) {
     case optionTypes.INTEGER:
     case optionTypes.SLIDER:
       if (
-        getUserValue(option.optionKey, 'cost') === undefined ||
+        overridenCost(option.optionKey) === undefined ||
         option.isRatioChoice
       ) break;
       const selected = getSelectedValue(option, state.options);
       applyCost(
-        getUserValue(option.optionKey, 'cost'),
+        overridenCost(option.optionKey),
         option.lastCurrencyValues,
         selected
       );
@@ -31,9 +37,9 @@ function applyOptionCosts(option, state) {
       let ratioValue = getSelectedValue(option, state.options);
       for (const item of ratioValue) {
         const ratioChoice = state.options[item.optionKey];
-        if (getUserValue(ratioChoice.optionKey, 'cost') === undefined) continue;
+        if (overridenCost(ratioChoice.optionKey) === undefined) continue;
         applyCost(
-          getUserValue(ratioChoice.optionKey, 'cost'),
+          overridenCost(ratioChoice.optionKey),
           option.lastCurrencyValues,
           item.percentage
         );

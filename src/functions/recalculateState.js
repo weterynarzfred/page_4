@@ -12,7 +12,7 @@ function recalculateState(stateDraft, changes, forceRecalculate) {
   }
 
   let i = 0;
-  while (i < 50 && (changes.length > 0 || (i === 0 && forceRecalculate))) {
+  while (i < 10 && (changes.length > 0 || (i === 0 && forceRecalculate))) {
     recalculateUserFunctions(stateDraft, changes, forceRecalculate);
     changes = calculateCosts({
       state: stateDraft,

@@ -17,6 +17,7 @@ function userFunction(callback, subscribed = []) {
       return callback({
         state,
         option,
+        parsePath: _parsePath.bind({ option }),
         isSelected: _isSelected.bind({ state, option }),
         getSelectedValue: _getSelectedValue.bind({ state, option }),
         getOption: _getOption.bind({ state, option }),
@@ -25,6 +26,10 @@ function userFunction(callback, subscribed = []) {
     subscribed,
   };
 }
+
+const _parsePath = function (path) {
+  return parsePath(path, this.option);
+};
 
 const _getOption = function (path) {
   const option = (typeof path === 'object') ?
