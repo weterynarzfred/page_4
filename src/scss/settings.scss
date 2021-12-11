@@ -15,6 +15,9 @@
 
   select {
     min-width: 12em;
+    background-color: $background;
+    color: $text;
+    border: none;
 
     &:focus {
       outline: none;

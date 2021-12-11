@@ -21,9 +21,9 @@
     .summary-item-close {
       display: block;
       position: absolute;
-      top: 0.2rem;
-      left: -1.4rem;
-      width: 1rem;
+      top: 0.2em;
+      left: -1.4em;
+      width: 0.8em;
       transform: rotate(-90deg);
       cursor: pointer;
       transition: 0.3s;
@@ -53,8 +53,8 @@
       }
 
       .summary-title-value {
-        font-size: 0.7rem;
-        margin: 0.3rem 0 0 0.3rem;
+        font-size: 0.7em;
+        margin: 0.3em 0 0 0.3em;
         color: $selected;
       }
     }
