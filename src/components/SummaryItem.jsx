@@ -33,6 +33,15 @@ function SummaryItem(props) {
           })}
         </span>
       ));
+    } else if (props.type === optionTypes.SELECT) {
+      value = value.map((item, index) => (
+        <span key={item.optionKey}>
+          {index === 0 ? '' : ', '}{getUserValue(item.optionKey, 'title')}
+          {item.selected === 1 ? '' : ' × ' + formatNumber(item.selected, 1, {
+            showSignificant: true
+          })}
+        </span>
+      ));
     } else {
       value = value.map((optionKey, index) => (
         <span key={optionKey}>
@@ -74,10 +83,16 @@ export default connect((state, props) => {
   const option = state.options[props.optionKey];
 
   let value = '';
-  if ([optionTypes.INTEGER, optionTypes.SLIDER, optionTypes.SELECT].includes(option.type)) {
+  if (optionTypes.SELECT === option.type) {
+    value = getSelectedValue(option, state.options).map(optionKey => ({
+      optionKey,
+      selected: getSelectedValue(state.options[optionKey], state.options),
+    }));
+  }
+  if ([optionTypes.INTEGER, optionTypes.SLIDER].includes(option.type)) {
     value = getSelectedValue(option, state.options);
   }
-  if ([optionTypes.RATIO].includes(option.type)) {
+  if (optionTypes.RATIO === option.type) {
     value = getSelectedValue(option, state.options);
   }
 

@@ -7,7 +7,7 @@ function OptionRequirements(props) {
   if (props.requirements === '') return null;
 
   const requirementElements = props.requirements
-    .filter(test => !(test.value && test.hideWhenMet))
+    .filter(test => !(test.value && test.hiddenWhenMet))
     .map((test, index) => <div className={classNames('requirement', { met: test.value })} key={index}>
       {getUserValue(props.optionKey, 'requirements.' + index + '.text')}
     </div>
