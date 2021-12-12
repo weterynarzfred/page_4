@@ -19,12 +19,32 @@
     }
 
     .instance-list {
+      position: relative;
       max-width: 60em;
       margin: 2rem auto;
       padding: 0.5rem 0.5rem;
-      background-color: #000;
-      border: 1px solid #999;
-      min-height: 12em;
+      background: $selectableBackground;
+      border: solid $text;
+      border-width: 1px 1px 6px 1px;
+      min-height: 8em;
+      box-shadow: 0 0 2em #ffb22233;
+
+      .instance-placeholder {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1em;
+        color: $text;
+        text-shadow: 0 0 0.1em $text;
+        font-weight: 700;
+        font-size: 0.8em;
+        letter-spacing: 0.1em;
+      }
 
       .InstanceControl {
         position: relative;
@@ -34,6 +54,10 @@
         flex-wrap: wrap;
         justify-content: space-between;
         transition: 0.2s;
+
+        &:nth-child(n + 2) {
+          border-top: 1px solid $borderColor;
+        }
 
         .Link.instance-link-button {
           padding: 0.25rem 1rem;

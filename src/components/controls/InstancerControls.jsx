@@ -15,11 +15,17 @@ function handleAdd() {
 
 function InstancerControls(props) {
   const instanceElements = [];
-  for (const instanceKey of props.instances) {
-    instanceElements.push(<InstanceControl
-      instanceKey={instanceKey}
-      key={instanceKey}
-    />);
+  if (props.instances.length === 0) {
+    instanceElements.push(<div className='instance-placeholder'>
+      There are no instances yet.
+    </div>);
+  } else {
+    for (const instanceKey of props.instances) {
+      instanceElements.push(<InstanceControl
+        instanceKey={instanceKey}
+        key={instanceKey}
+      />);
+    }
   }
 
   const isAddDisabled = props.instances.length >= props.max;

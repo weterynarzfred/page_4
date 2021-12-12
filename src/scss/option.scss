@@ -103,11 +103,11 @@
         text-align: center;
         padding: 0.5em;
         font-weight: 700;
+        text-shadow: 0 0 0.1em $text;
 
         span {
           font-size: 0.8em;
           letter-spacing: 0.1em;
-          text-shadow: 0 0 0.1em $text;
         }
 
         .icon {
@@ -117,7 +117,6 @@
           display: flex;
           align-items: center;
           font-size: 2em;
-          text-shadow: 0 0 0.1em $text;
 
           &:after {
             background-size: 80%;
