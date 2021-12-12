@@ -16,7 +16,7 @@ function handleAdd() {
 function InstancerControls(props) {
   const instanceElements = [];
   if (props.instances.length === 0) {
-    instanceElements.push(<div className='instance-placeholder'>
+    instanceElements.push(<div className='instance-placeholder' key="placeholder">
       There are no instances yet.
     </div>);
   } else {
