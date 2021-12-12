@@ -7,6 +7,7 @@
     font-family: $titleFont;
     display: flex;
     align-items: baseline;
+    text-shadow: 0 0 0.05em $text, 0 0 0.05em $text;
   }
 
   .OptionImage {
@@ -88,6 +89,40 @@
       &:hover {
         .option-image-content {
           filter: none;
+        }
+      }
+    }
+
+    &.option-image-nsfw-placeholder {
+      .option-image-message {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        transform: translate(0, -50%);
+        text-align: center;
+        padding: 0.5em;
+        font-weight: 700;
+
+        span {
+          font-size: 0.8em;
+          letter-spacing: 0.1em;
+          text-shadow: 0 0 0.1em $text;
+        }
+
+        .icon {
+          float: none;
+          text-transform: uppercase;
+          margin: 0 auto;
+          display: flex;
+          align-items: center;
+          font-size: 2em;
+          text-shadow: 0 0 0.1em $text;
+
+          &:after {
+            background-size: 80%;
+            background-repeat: no-repeat;
+          }
         }
       }
     }

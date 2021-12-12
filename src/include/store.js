@@ -26,7 +26,7 @@ const initialState = {
   options: parseOptions(deepClone(rawOptions)),
   toggles: {
     disclaimerClosed: false,
-    NSFWDisplay: 'blur',
+    NSFWDisplay: 'hide_image',
     units: 'metric',
   },
   currencies: settings.currencies,

@@ -10,9 +10,19 @@ const images = name => requestImageFile(name).default;
 const largeImages = name => requestImageLarge(name).default;
 
 function OptionImage(props) {
-  if (props.image === '' || props.image === undefined) return (
-    <div className="option-image-placeholder"></div>
-  );
+  if (props.image === '' || props.image === undefined) {
+    if (props.nsfw) {
+      return <div className="OptionImage option-image-nsfw-placeholder">
+        <div className="option-image-content">
+          <div className="option-image-message">
+            <div className="icon icon-negation">nsfw</div>
+            <span>you can enable nsfw content in the menu</span>
+          </div>
+        </div>
+      </div>;
+    }
+    return <div className="option-image-placeholder"></div>;
+  };
 
   return (
     <div className={classNames('OptionImage', { 'option-image-nsfw': props.nsfw })}>
@@ -41,7 +51,9 @@ function OptionImage(props) {
 export default connect((state, props) => {
   const option = state.options[props.optionKey];
   if (state.toggles.NSFWDisplay === 'hide_image' && option.imageNSFW) {
-    return {};
+    return {
+      nsfw: true,
+    };
   }
 
   const isContainer = props.topLevel || [

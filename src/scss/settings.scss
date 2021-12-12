@@ -18,6 +18,7 @@
     background-color: $background;
     color: $text;
     border: none;
+    padding: 0.25em 0.5em;
 
     &:focus {
       outline: none;
