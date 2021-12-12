@@ -83,6 +83,7 @@ const optionProps = [
   'displayAsTextarea',
   'displayAsTable',
   'displayAsButton',
+  'displayAsList',
   'tableColumns',
   'sliderAttributes',
   'logSlider',

@@ -62,7 +62,7 @@
   max-width: 100em;
   padding: 0.25em 0.25em 0.75em 0.25em;
 
-  &:not(.option-is-row) {
+  &:not(.option-is-row):not(.option-is-list) {
     > .option-content {
       position: relative;
       background: $selectableBackground;
@@ -148,16 +148,61 @@
     }
   }
 
+  &.option-is-list {
+    padding-top: 0;
+    margin-top: -0.25em !important;
+
+    > .option-content {
+      padding: 0.5em 1em;
+
+      .option-title {
+        margin-top: 0.25em;
+        margin-left: 2em;
+        font-size: 1.25em;
+      }
+
+      .option-collapsible-content {
+        .option-image-placeholder {
+          display: none;
+        }
+
+        .option-cost-wrap {
+          .OptionCost {
+            position: relative;
+            top: 0;
+            margin-top: -1.6em;
+            margin-left: auto;
+            border: none;
+          }
+        }
+
+        .option-text {
+          min-height: 0;
+        }
+
+        .IntegerControls {
+          .option-controls {
+            top: 0.75em;
+            left: 1em;
+          }
+        }
+      }
+    }
+  }
+
   &:not(.selected) p {
     color: $selectableText;
   }
 
-  &.selected > .option-content {
-    background-color: $enabledBackground;
-    filter: none;
+  &.selected:not(.option-is-list) > .option-content {
     border-color: $selected !important;
     box-shadow: 0.1rem 0.1rem 0.5rem #000, 0.1rem 0.1rem 0.2rem #fff1 inset,
       0 0 5px $selected;
+  }
+
+  &.selected > .option-content {
+    background-color: $enabledBackground !important;
+    filter: none !important;
 
     > .option-title {
       color: $selected;
