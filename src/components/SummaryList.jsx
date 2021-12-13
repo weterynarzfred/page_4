@@ -37,15 +37,19 @@ function SummaryList(props) {
   );
 }
 
+function isRootOption(option) {
+  return option.optionKey.match('/') === null;
+}
+
 function shouldShowOption(option, hideSelectable, options) {
   if (
     option.type === optionTypes.TEXT ||
     option.hidden ||
     getUserValue(option.optionKey, 'hiddenInSummary') ||
     isDisabled(option) ||
-    !(
-      option.optionKey.match('/') === null ||
-      isSelected(option, options)
+    (
+      !isRootOption(option) &&
+      !isSelected(option, options)
     )
   ) return false;
 
@@ -59,7 +63,7 @@ function shouldShowOption(option, hideSelectable, options) {
 
     if (
       option.type === optionTypes.GROUP &&
-      option.optionKey.match('/') !== null &&
+      !isRootOption(option) &&
       !option.isInstance &&
       !option.hiddenInParent
     ) return false;

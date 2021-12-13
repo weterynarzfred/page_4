@@ -54,6 +54,13 @@
         flex-wrap: wrap;
         justify-content: space-between;
         transition: 0.2s;
+        padding: 0.5em 0;
+
+        > .SummaryList {
+          margin-left: 1em;
+          margin-bottom: 0;
+          width: 100%;
+        }
 
         &:nth-child(n + 2) {
           border-top: 1px solid $borderColor;

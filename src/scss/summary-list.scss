@@ -1,7 +1,7 @@
 .SummaryList {
   position: relative;
   list-style-type: none;
-  padding: 0.5rem 0 0.5rem 1rem;
+  padding: 0 0 0 1rem;
   margin: 0 0 0.5rem 0;
 
   .SummaryList:before {
@@ -54,7 +54,7 @@
 
       .summary-title-value {
         font-size: 0.7em;
-        margin: 0.3em 0 0 0.3em;
+        margin: 0.4em 0 0 0.8em;
         color: $selected;
       }
     }
