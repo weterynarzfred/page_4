@@ -190,8 +190,14 @@
     }
   }
 
-  &:not(.selected) p {
-    color: $selectableText;
+  &:not(.selected) {
+    .option-title {
+      text-shadow: none;
+    }
+
+    p {
+      color: $selectableText;
+    }
   }
 
   &.selected:not(.option-is-list) > .option-content {
