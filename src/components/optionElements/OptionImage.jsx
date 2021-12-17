@@ -4,10 +4,8 @@ import classNames from 'classnames';
 import { getUserValue } from '../../include/userValues';
 import { optionTypes } from '../../include/constants';
 
-const requestImageFile = require.context('../../content/media', true, /.(jpe?g|png|svg|webp)$/);
-const requestImageLarge = require.context('../../content/media?large', true, /.(jpe?g|png|svg|webp)$/);
-const images = name => requestImageFile(name).default;
-const largeImages = name => requestImageLarge(name).default;
+const images = require.context('../../content/media', true, /.(jpe?g|png|svg|webp)$/);
+const largeImages = require.context('../../content/media?large', true, /.(jpe?g|png|svg|webp)$/);
 
 function OptionImage(props) {
   if (props.image === '' || props.image === undefined) {
