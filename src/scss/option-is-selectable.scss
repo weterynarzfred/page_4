@@ -149,16 +149,20 @@
   }
 
   &.option-is-list {
-    padding-top: 0;
-    margin-top: -0.25em !important;
+    padding: 0 0 0.5em 0;
+    margin-top: 0 !important;
+
+    &:last-child {
+      padding-bottom: 1em;
+    }
 
     > .option-content {
-      padding: 0.5em 1em;
+      padding: 0 1em;
 
       .option-title {
         margin-top: 0.25em;
-        margin-left: 2em;
-        font-size: 1.25em;
+        margin-left: 2.2em;
+        font-size: 1em;
       }
 
       .option-collapsible-content {
@@ -182,8 +186,9 @@
 
         .IntegerControls {
           .option-controls {
-            top: 0.75em;
-            left: 1em;
+            top: 0em;
+            left: 1.5em;
+            font-size: 0.75em;
           }
         }
       }

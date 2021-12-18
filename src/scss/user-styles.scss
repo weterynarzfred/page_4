@@ -148,3 +148,13 @@
     background-repeat: no-repeat;
   }
 }
+
+.disablabe-list {
+  li {
+    transition: 0.3s;
+
+    &.disabled {
+      opacity: 0.5;
+    }
+  }
+}

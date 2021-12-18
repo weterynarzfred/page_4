@@ -64,7 +64,13 @@ function Unit(props) {
       case 'mm':
       case 'milimeter':
       case 'milimeters':
-        value *= 0.03937008 ** exponent;
+        value *= 0.03937 ** exponent;
+        unit = 'inches';
+        break;
+      case 'cm':
+      case 'centimeter':
+      case 'centimeters':
+        value *= 0.3937 ** exponent;
         unit = 'inches';
         break;
       case 'm':
