@@ -15,6 +15,10 @@ function overridenCost(optionKey) {
   return getUserValue(optionKey, 'cost');
 }
 
+function isCostOverriden(optionKey) {
+  return !!getUserValue(optionKey, 'costOverride');
+}
+
 /**
  * Subtract the cost of the option from the currency value based on its type
  */
@@ -30,7 +34,7 @@ function applyOptionCosts(option, state) {
       applyCost(
         overridenCost(option.optionKey),
         option.lastCurrencyValues,
-        selected
+        isCostOverriden(option.optionKey) ? 1 : selected
       );
       break;
     case optionTypes.RATIO:
