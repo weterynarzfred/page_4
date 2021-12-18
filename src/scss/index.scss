@@ -15,12 +15,14 @@ $disabledBorderColor: #222;
 $titleFont: "Piazzolla", serif;
 
 html {
+  font-size: 14px;
+
   @media (max-width: 1600px) {
-    font-size: 14px;
+    font-size: 12.5px;
   }
 
   @media (max-width: 1200px) {
-    font-size: 12px;
+    font-size: 11px;
   }
 }
 
