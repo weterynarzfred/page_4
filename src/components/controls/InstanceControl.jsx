@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { actions } from '../../include/constants';
 import { getUserValue } from '../../include/userValues';
 import PathLink from '../PathLink';
-import SummaryList from '../SummaryList';
 import Currencies from '../Currencies';
+import { getSelectedValue } from '../../functions/getSelectedValue';
 
 function handleDelete() {
   this.dispatch({
@@ -17,11 +17,11 @@ function handleDelete() {
 function InstanceControl(props) {
   return <div className="InstanceControl">
     <PathLink path={props.instanceKey} className="instance-link-button">
-      <span className="instance-link-edit">edit</span>
       <span className="instance-link-title">{props.title}</span>
+      <span className="instance-link-edit">edit</span>
     </PathLink>
     <Currencies optionKey={props.instanceKey} />
-    <SummaryList optionKey={props.instanceKey} />
+    <div className="instance-link-text">{props.description}</div>
     <button
       className="delete-instance"
       onClick={handleDelete.bind(props)}
@@ -36,4 +36,5 @@ function InstanceControl(props) {
 
 export default connect((state, props) => ({
   title: getUserValue(props.instanceKey, 'title'),
+  description: getSelectedValue(state.options[props.instanceKey + '/description'], state.options),
 }))(InstanceControl);
