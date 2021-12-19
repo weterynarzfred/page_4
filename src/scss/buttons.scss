@@ -18,6 +18,7 @@ button,
   font-weight: 700;
   letter-spacing: 0.1em;
   word-spacing: 0.2em;
+  box-shadow: 0 0 1em #5553;
 
   &.large {
     font-size: 1.25em;
@@ -30,6 +31,7 @@ button,
   @at-root body.has-hover &:not(.disabled):hover {
     color: $selected;
     border-color: $selected;
+    box-shadow: 0 0 1em #ffb22233;
   }
 
   .Currencies {
