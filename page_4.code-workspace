@@ -1,11 +1,41 @@
 {
-	"folders": [
-		{
-			"path": "src\\content"
-		},
-		{
-			"path": "."
-		}
-	],
-  "settings": {}
+  "folders": [
+    {
+      "path": "src\\content"
+    },
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "cSpell.words": [
+      "chorts",
+      "CYOA",
+      "draugr",
+      "Elementalism",
+      "INSTANCER",
+      "interplanar",
+      "isekai",
+      "monsterboys",
+      "monstergirls",
+      "movesets",
+      "Omnilingualism",
+      "Planeswaker's",
+      "planeswalk",
+      "planeswalked",
+      "planeswalker",
+      "planeswalkers",
+      "Planeswalking",
+      "planeswalks",
+      "rusalkas",
+      "Spellcaster",
+      "suboption",
+      "subpages",
+      "teleporting",
+      "unsummoned",
+      "vilas",
+      "webp",
+      "Witcher"
+    ]
+  }
 }
