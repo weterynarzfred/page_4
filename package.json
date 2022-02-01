@@ -35,7 +35,7 @@
     "recharts": "^2.1.8",
     "redux": "^4.1.2",
     "redux-persist": "^6.0.0",
-    "sass": "^1.49.0"
+    "sass": "^1.49.4"
   },
   "devDependencies": {
     "react-app-rewired": "^2.1.11",
